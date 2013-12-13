@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{511C1EF6-F99A-42D5-8D3A-4F8E93A11C3E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyAssFramework</RootNamespace>
+    <AssemblyName>MyAssFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Chains\FutureTransactionChain.cs" />
+    <Compile Include="Chains\PriorityTransactionChain.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\Initial.cs" />
+    <Compile Include="Commands\Start.cs" />
+    <Compile Include="Commands\Stop.cs" />
+    <Compile Include="Commands\Storage.cs" />
+    <Compile Include="Distribution\Exponential.cs" />
+    <Compile Include="Distribution\IDistribution.cs" />
+    <Compile Include="Distribution\Normal.cs" />
+    <Compile Include="Distribution\Uniform.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\FacilityEntity.cs" />
+    <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Entities\LogicswitchEntity.cs" />
+    <Compile Include="Entities\QueueEntity.cs" />
+    <Compile Include="Entities\SavevalueEntity.cs" />
+    <Compile Include="Entities\StorageEntity.cs" />
+    <Compile Include="Blocks\IBlock.cs" />
+    <Compile Include="Misc.cs" />
+    <Compile Include="OperandTypes_Test\DirectSNA.cs" />
+    <Compile Include="OperandTypes_Test\ExpressionDelegate.cs" />
+    <Compile Include="OperandTypes_Test\Operand.cs" />
+    <Compile Include="OperandTypes_Test\Number.cs" />
+    <Compile Include="OperandTypes_Test\ParExpression.cs" />
+    <Compile Include="Resources\ExceptionMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExceptionMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ModelingException.cs" />
+    <Compile Include="Blocks\AbstractBlock.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelationalOp\EQ.cs" />
+    <Compile Include="RelationalOp\RelationalOperator.cs" />
+    <Compile Include="RelationalOp\LT.cs" />
+    <Compile Include="RelationalOp\NE.cs" />
+    <Compile Include="Blocks\Advance.cs" />
+    <Compile Include="Blocks\Depart.cs" />
+    <Compile Include="Blocks\Enter.cs" />
+    <Compile Include="Blocks\Generate.cs" />
+    <Compile Include="Blocks\Leave.cs" />
+    <Compile Include="Blocks\Queue.cs" />
+    <Compile Include="Blocks\Savevalue.cs" />
+    <Compile Include="Blocks\Terminate.cs" />
+    <Compile Include="Blocks\Test.cs" />
+    <Compile Include="SavevalueType.cs" />
+    <Compile Include="Simulation.cs" />
+    <Compile Include="SNA\FacilitySNA.cs" />
+    <Compile Include="SNA\LogicswitchSNA.cs" />
+    <Compile Include="SNA\OtherSNA.cs" />
+    <Compile Include="SNA\QueueSNA.cs" />
+    <Compile Include="SNA\SavevalueSNA.cs" />
+    <Compile Include="SNA\StorageSNA.cs" />
+    <Compile Include="Transaction.cs" />
+    <Compile Include="TransactionScheduler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ExceptionMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

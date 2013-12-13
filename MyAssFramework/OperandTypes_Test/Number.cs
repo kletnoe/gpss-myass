@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace MyAssFramework.OperandTypes_Test
+{
+    public class Number : Operand
+    {
+        public double value { get; private set; }
+
+        public Number(double value)
+        {
+            this.value = value;
+        }
+
+        public double GetValue()
+        {
+            return this.value;
+        }
+
+        //public static implicit operator Number(double val)
+        //{
+        //    return new Number(val);
+        //}
+    }
+}
