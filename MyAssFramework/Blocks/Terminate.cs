@@ -17,13 +17,13 @@ namespace MyAssFramework.Blocks
 
         public override void Action()
         {
-            Transaction transaction = Simulation.ActiveTransction;
+            Transaction transaction = Simulation.It.ActiveTransction;
             this.EntryCount++;
 
-            Console.WriteLine("Terminated\tTime: " + Simulation.Clock + transaction + " " + this.Id, ConsoleColor.DarkGray);
+            Console.WriteLine("Terminated\tTime: " + Simulation.It.Clock + transaction + " " + this.Id, ConsoleColor.DarkGray);
 
             int decriment = (int)this.A_TerminationCountDecriment.GetValue();
-            Simulation.TerminationsCount -= decriment;
+            Simulation.It.TerminationsCount -= decriment;
 
             transaction.Dispose();
         }

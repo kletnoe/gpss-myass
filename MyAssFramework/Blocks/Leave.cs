@@ -21,18 +21,18 @@ namespace MyAssFramework.Blocks
 
         public override void Action()
         {
-            Transaction transaction = Simulation.ActiveTransction;
+            Transaction transaction = Simulation.It.ActiveTransction;
             this.EntryCount++;
 
-            StorageEntity storage = (StorageEntity)Simulation.GetEntity((int)this.A_StorageEntityId.GetValue());
+            StorageEntity storage = (StorageEntity)Simulation.It.GetEntity((int)this.A_StorageEntityId.GetValue());
             int units = (int)this.B_NumberOfUnits.GetValue();
             storage.Leave(units);
 
-            Console.WriteLine("Leaved  \tTime: " + Simulation.Clock + transaction, ConsoleColor.Yellow);
+            Console.WriteLine("Leaved  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.Yellow);
             System.Console.WriteLine("\tStorageSize: " + storage.CurrentCount);
             this.RetryChain.RemoveFirst();
             this.NextSequentialBlock.PassTransaction(transaction);
-            Simulation.CurrentEventChain.AddAhead(transaction);
+            Simulation.It.CurrentEventChain.AddAhead(transaction);
         }
     }
 }

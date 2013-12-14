@@ -34,15 +34,15 @@ namespace MyAssFramework.Blocks
 
             double increment = new Distributions.Uniform(0, meanValue - halfRange, meanValue + halfRange).GetNext();
 
-            return Simulation.Clock + increment;
+            return Simulation.It.Clock + increment;
         }
 
         public override void Action()
         {
-            Transaction transaction = Simulation.ActiveTransction;
+            Transaction transaction = Simulation.It.ActiveTransction;
             this.EntryCount++;
 
-            Console.WriteLine("Advanced  \tTime: " + Simulation.Clock + transaction, ConsoleColor.DarkGreen);
+            Console.WriteLine("Advanced  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.DarkGreen);
             this.RetryChain.RemoveFirst();
 
             double nextTime = this.GetNextEventTime();
@@ -50,13 +50,13 @@ namespace MyAssFramework.Blocks
             if (transaction.NextEventTime == nextTime)
             {
                 NextSequentialBlock.PassTransaction(transaction);
-                Simulation.CurrentEventChain.AddAhead(transaction);
+                Simulation.It.CurrentEventChain.AddAhead(transaction);
             }
             else
             {
                 transaction.NextEventTime = nextTime;
                 NextSequentialBlock.PassTransaction(transaction);
-                Simulation.FutureEventChain.Add(transaction);
+                Simulation.It.FutureEventChain.Add(transaction);
             }
         }
     }

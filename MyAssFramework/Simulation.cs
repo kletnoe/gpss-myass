@@ -11,74 +11,91 @@ namespace MyAssFramework
 {
     public class Simulation
     {
-        private static int transactionNo = 1;
-        private static int entityNo = 10000;
-        private static int blockNo = 1;
+        private static Simulation instance;
 
-        public static double Clock { get; set; }
-        public static int TerminationsCount { get; set; }
+        private int transactionNo = 1;
+        private int entityNo = 10000;
+        private int blockNo = 1;
 
-        public static IList<IEntity> Entities { get; set; }
-        public static IList<IBlock> Blocks { get; set; }
+        public double Clock { get; set; }
+        public int TerminationsCount { get; set; }
 
-        public static Transaction ActiveTransction { get; set; }
+        public IList<IEntity> Entities { get; set; }
+        public IList<IBlock> Blocks { get; set; }
 
-        public static PriorityTransactionChain CurrentEventChain = new PriorityTransactionChain();
-        public static FutureTransactionChain FutureEventChain = new FutureTransactionChain();
-        public static Queue<ICommand> CommandQueue = new Queue<ICommand>();
+        public Transaction ActiveTransction { get; set; }
 
-        public static int NextTransactionNo()
+        public PriorityTransactionChain CurrentEventChain = new PriorityTransactionChain();
+        public FutureTransactionChain FutureEventChain = new FutureTransactionChain();
+        public Queue<ICommand> CommandQueue = new Queue<ICommand>();
+
+        private Simulation() {}
+
+        public static Simulation It
         {
-            int value = transactionNo;
-            Simulation.transactionNo++;
+            get
+            {
+                if (Simulation.instance == null)
+                {
+                    Simulation.instance = new Simulation();
+                }
+                return Simulation.instance;
+            }
+        }
+
+
+        public int NextTransactionNo()
+        {
+            int value = this.transactionNo;
+            this.transactionNo++;
             return value;
         }
 
-        public static void ResetTransactionCounter()
+        public void ResetTransactionCounter()
         {
-            Simulation.transactionNo = 1;
+            this.transactionNo = 1;
         }
 
-        public static int NextEntityNo()
+        public int NextEntityNo()
         {
-            int value = entityNo;
-            Simulation.entityNo++;
+            int value = this.entityNo;
+            this.entityNo++;
             return value;
         }
 
-        public static IEntity GetEntity(int id)
+        public IEntity GetEntity(int id)
         {
-            return Simulation.Entities.Where(x => x.Id == id).FirstOrDefault();
+            return this.Entities.Where(x => x.Id == id).FirstOrDefault();
         }
 
-        public static int NextBlockNo()
+        public int NextBlockNo()
         {
-            int value = blockNo;
-            Simulation.blockNo++;
+            int value = this.blockNo;
+            this.blockNo++;
             return value;
         }
 
-        public static IBlock GetBlock(int id)
+        public IBlock GetBlock(int id)
         {
-            return Simulation.Blocks.Where(x => x.Id == id).First();
+            return this.Blocks.Where(x => x.Id == id).First();
         }
 
-        public static void Start(int termonationsCount)
+        public void Start(int termonationsCount)
         {
-            Simulation.ResolveNSB();
-            Simulation.TerminationsCount = termonationsCount;
+            this.ResolveNSB();
+            this.TerminationsCount = termonationsCount;
             TransactionScheduler.MainLoop();
         }
 
-        private static void ResolveNSB()
+        private void ResolveNSB()
         {
-            for (int i = 0; i < Simulation.Blocks.Count; i++)
+            for (int i = 0; i < this.Blocks.Count; i++)
             {
-                IBlock block = Simulation.Blocks.ElementAt(i);
+                IBlock block = this.Blocks.ElementAt(i);
 
                 if (block.GetType() != typeof(Terminate))
                 {
-                    block.NextSequentialBlock = Simulation.Blocks.ElementAt(i + 1);
+                    block.NextSequentialBlock = this.Blocks.ElementAt(i + 1);
                 }
             }
         }

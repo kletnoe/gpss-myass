@@ -10,7 +10,7 @@ namespace MyAssFramework.SNA
     {
         public static int R(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is StorageEntity)
             {
@@ -24,7 +24,7 @@ namespace MyAssFramework.SNA
 
         public static int S(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is StorageEntity)
             {
@@ -38,7 +38,7 @@ namespace MyAssFramework.SNA
 
         public static double SA(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is StorageEntity)
             {
@@ -52,7 +52,7 @@ namespace MyAssFramework.SNA
 
         public static int SC(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is StorageEntity)
             {
@@ -66,7 +66,7 @@ namespace MyAssFramework.SNA
 
         public static int SM(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is StorageEntity)
             {
@@ -80,7 +80,7 @@ namespace MyAssFramework.SNA
 
         public static double SR(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is StorageEntity)
             {
@@ -94,7 +94,7 @@ namespace MyAssFramework.SNA
 
         public static double ST(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is StorageEntity)
             {
@@ -108,7 +108,7 @@ namespace MyAssFramework.SNA
 
         public static int SE(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is StorageEntity)
             {
@@ -122,7 +122,7 @@ namespace MyAssFramework.SNA
 
         public static int SF(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is StorageEntity)
             {
@@ -136,7 +136,7 @@ namespace MyAssFramework.SNA
 
         public static int SV(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is StorageEntity)
             {

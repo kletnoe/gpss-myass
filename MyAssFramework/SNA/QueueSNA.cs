@@ -10,7 +10,7 @@ namespace MyAssFramework.SNA
     {
         public static int Q(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is QueueEntity)
             {
@@ -24,7 +24,7 @@ namespace MyAssFramework.SNA
 
         public static double QA(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is QueueEntity)
             {
@@ -38,7 +38,7 @@ namespace MyAssFramework.SNA
 
         public static double QC(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is QueueEntity)
             {
@@ -52,7 +52,7 @@ namespace MyAssFramework.SNA
 
         public static double QM(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is QueueEntity)
             {
@@ -66,7 +66,7 @@ namespace MyAssFramework.SNA
 
         public static double QT(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is QueueEntity)
             {
@@ -80,7 +80,7 @@ namespace MyAssFramework.SNA
 
         public static double QX(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is QueueEntity)
             {
@@ -94,7 +94,7 @@ namespace MyAssFramework.SNA
 
         public static double QZ(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is QueueEntity)
             {

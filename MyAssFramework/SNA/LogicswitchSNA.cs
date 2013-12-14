@@ -11,7 +11,7 @@ namespace MyAssFramework.SNA
     {
         public static object LS(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is LogicswitchEntity)
             {

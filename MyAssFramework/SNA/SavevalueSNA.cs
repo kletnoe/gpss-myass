@@ -10,7 +10,7 @@ namespace MyAssFramework.SNA
     {
         public static SavevalueType X(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is SavevalueEntity)
             {

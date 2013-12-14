@@ -147,11 +147,11 @@ namespace MyAssFramework.Entities
                 Transaction transaction = this.DelayChain.First();
                 this.DelayChain.RemoveFirst();
 
-                transaction.NextEventTime = Simulation.Clock;
+                transaction.NextEventTime = Simulation.It.Clock;
 
                 Enter owner = (Enter)transaction.Owner;
                 owner.PassTransaction(transaction);
-                Simulation.CurrentEventChain.AddAhead(transaction); // anti "line-bucking"
+                Simulation.It.CurrentEventChain.AddAhead(transaction); // anti "line-bucking"
             }
 
             //int freeUnits = unitsCount;
@@ -162,7 +162,7 @@ namespace MyAssFramework.Entities
             //    this.DelayChain.Remove(transaction);
             //    Enter owner = (Enter)transaction.Owner;
             //    owner.NextSequentialBlock.PassTransaction(transaction);
-            //    Simulation.CurrentEventChain.AddBehind(transaction);
+            //    Simulation.It.CurrentEventChain.AddBehind(transaction);
             //}
 
 
@@ -175,7 +175,7 @@ namespace MyAssFramework.Entities
 
             //        Enter owner = (Enter)transaction.Owner;
             //        owner.NextSequentialBlock.PassTransaction(transaction);
-            //        Simulation.CurrentEventChain.AddBehind(transaction);
+            //        Simulation.It.CurrentEventChain.AddBehind(transaction);
             //    }
             //    else
             //    {

@@ -31,10 +31,10 @@ namespace MyAssFramework.Blocks
         {
             // TODO: Add Exception throwing
 
-            Transaction transaction = Simulation.ActiveTransction;
+            Transaction transaction = Simulation.It.ActiveTransction;
             this.EntryCount++;
 
-            SavevalueEntity savevalueEntity = (SavevalueEntity)Simulation.GetEntity((int)this.A_SavevalueEntityId.GetValue());
+            SavevalueEntity savevalueEntity = (SavevalueEntity)Simulation.It.GetEntity((int)this.A_SavevalueEntityId.GetValue());
             string value = this.B_Value.GetValue().ToString();
 
             switch (A_Operation)
@@ -50,10 +50,10 @@ namespace MyAssFramework.Blocks
                     break;
             }
 
-            Console.WriteLine("Savevalued\tTime: " + Simulation.Clock + transaction, ConsoleColor.White);
+            Console.WriteLine("Savevalued\tTime: " + Simulation.It.Clock + transaction, ConsoleColor.White);
             this.RetryChain.RemoveFirst();
             this.NextSequentialBlock.PassTransaction(transaction);
-            Simulation.CurrentEventChain.AddAhead(transaction);
+            Simulation.It.CurrentEventChain.AddAhead(transaction);
         }
     }
 }

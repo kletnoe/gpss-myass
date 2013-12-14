@@ -22,9 +22,9 @@ namespace MyAssFramework.Blocks
         {
             // TODO: Add Exception throwing
 
-            Transaction transaction = Simulation.ActiveTransction;
+            Transaction transaction = Simulation.It.ActiveTransction;
 
-            StorageEntity storage = (StorageEntity)Simulation.GetEntity((int)this.A_StorageEntityId.GetValue());
+            StorageEntity storage = (StorageEntity)Simulation.It.GetEntity((int)this.A_StorageEntityId.GetValue());
             int units = (int)this.B_NumberOfUnits.GetValue();
 
             if (storage.IsAvaliable && storage.RemainingCapacity >= units)
@@ -32,14 +32,14 @@ namespace MyAssFramework.Blocks
                 this.EntryCount++;
 
                 storage.Enter(units);
-                Console.WriteLine("Entered  \tTime: " + Simulation.Clock + transaction, ConsoleColor.Yellow);
+                Console.WriteLine("Entered  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.Yellow);
                 System.Console.WriteLine("\tStorageSize: " + storage.CurrentCount);
                 this.NextSequentialBlock.PassTransaction(transaction);
-                Simulation.CurrentEventChain.AddAhead(transaction);
+                Simulation.It.CurrentEventChain.AddAhead(transaction);
             }
             else
             {
-                Console.WriteLine("preEntered  \tTime: " + Simulation.Clock + transaction, ConsoleColor.Yellow);
+                Console.WriteLine("preEntered  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.Yellow);
                 transaction.NextEventTime = -1; //temp for tests
                 storage.DelayChain.AddLast(transaction);
             }

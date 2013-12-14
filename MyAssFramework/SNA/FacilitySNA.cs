@@ -11,7 +11,7 @@ namespace MyAssFramework.SNA
     {
         public static object F(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is FacilityEntity)
             {
@@ -25,7 +25,7 @@ namespace MyAssFramework.SNA
 
         public static object FC(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is FacilityEntity)
             {
@@ -39,7 +39,7 @@ namespace MyAssFramework.SNA
 
         public static object FI(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is FacilityEntity)
             {
@@ -53,7 +53,7 @@ namespace MyAssFramework.SNA
 
         public static object FR(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is FacilityEntity)
             {
@@ -67,7 +67,7 @@ namespace MyAssFramework.SNA
 
         public static object FT(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is FacilityEntity)
             {
@@ -81,7 +81,7 @@ namespace MyAssFramework.SNA
 
         public static object FV(int entityId)
         {
-            IEntity entity = Simulation.GetEntity(entityId);
+            IEntity entity = Simulation.It.GetEntity(entityId);
 
             if (entity is FacilityEntity)
             {

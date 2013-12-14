@@ -47,7 +47,7 @@ namespace MyAssFramework
         {
             this.Priority = 0;
             this.MarkTime = DateTime.Now;
-            this.AssemblySet = Simulation.NextTransactionNo();
+            this.AssemblySet = Simulation.It.NextTransactionNo();
             this.DelayIndicator = false;
             this.TraceIndicator = false;
             //this.CurrentBlock = 0;

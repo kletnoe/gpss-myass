@@ -9,6 +9,7 @@ using MyAssFramework.OperandTypes_Test;
 using MyAssFramework.Distributions;
 using MyAssFramework.SNA;
 using System.Linq.Expressions;
+using MyAssUtilities.Reports;
 
 namespace MyAssApplication
 {
@@ -24,7 +25,7 @@ namespace MyAssApplication
 
             
 
-            Simulation.Entities = new List<MyAssFramework.Entities.IEntity>()
+            Simulation.It.Entities = new List<MyAssFramework.Entities.IEntity>()
             {
                 new MyAssFramework.Entities.QueueEntity(0),
                 new MyAssFramework.Entities.SavevalueEntity(1, "0"),
@@ -33,7 +34,7 @@ namespace MyAssApplication
                 new MyAssFramework.Entities.StorageEntity(4, 3)
             };
                 
-            Simulation.Blocks = new List<IBlock>()
+            Simulation.It.Blocks = new List<IBlock>()
             {
                 new Generate(new ParExpression(GetGenerateOperand), null, null, null, null),
                 new Savevalue(new Number(2), Savevalue.Operation.Plus, new Number(1)),
@@ -50,7 +51,9 @@ namespace MyAssApplication
                 new Terminate(new Number(0))
             };
 
-            Simulation.Start(100);
+            Simulation.It.Start(100);
+
+            StandardReport.PrintReport(Simulation.It);
         }
 
 

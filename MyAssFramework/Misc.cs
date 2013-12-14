@@ -9,14 +9,14 @@ namespace MyAssFramework
     {
         public static void WriteLine(object o, ConsoleColor color)
         {
-            System.Console.ForegroundColor = color;
-            System.Console.WriteLine(o);
-            System.Console.ResetColor();
+            //System.Console.ForegroundColor = color;
+            //System.Console.WriteLine(o);
+            //System.Console.ResetColor();
         }
 
         public static void WriteLine(object o)
         {
-            System.Console.WriteLine(o);
+            //System.Console.WriteLine(o);
         }
     }
 }

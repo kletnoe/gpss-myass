@@ -53,7 +53,7 @@ namespace MyAssFramework.Blocks
                 increment += startDelay;
             }
 
-            return Simulation.Clock + increment;
+            return Simulation.It.Clock + increment;
         }
 
         private void GenerateNext()
@@ -65,18 +65,18 @@ namespace MyAssFramework.Blocks
                 NextEventTime = this.GetNextEventTime()
             };
             this.RetryChain.AddLast(transaction);
-            Simulation.FutureEventChain.Add(transaction);
+            Simulation.It.FutureEventChain.Add(transaction);
         }
 
         public override void Action()
         {
-            Transaction transaction = Simulation.ActiveTransction;
+            Transaction transaction = Simulation.It.ActiveTransction;
             this.EntryCount++;
 
-            Console.WriteLine("Generated\tTime: " + Simulation.Clock + transaction);
+            Console.WriteLine("Generated\tTime: " + Simulation.It.Clock + transaction);
             this.RetryChain.RemoveFirst();
             NextSequentialBlock.PassTransaction(transaction);
-            Simulation.CurrentEventChain.AddAhead(transaction);
+            Simulation.It.CurrentEventChain.AddAhead(transaction);
 
             if (this.D_CreationLimit == null || this.EntryCount < this.D_CreationLimit.GetValue())
             {

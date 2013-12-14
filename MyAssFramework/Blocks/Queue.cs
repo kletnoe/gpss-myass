@@ -22,18 +22,18 @@ namespace MyAssFramework.Blocks
         {
             // TODO: Add Exception throwing
 
-            Transaction transaction = Simulation.ActiveTransction;
+            Transaction transaction = Simulation.It.ActiveTransction;
             this.EntryCount++;
 
-            QueueEntity queue = (QueueEntity)Simulation.GetEntity((int)this.A_QueueEntityId.GetValue());
+            QueueEntity queue = (QueueEntity)Simulation.It.GetEntity((int)this.A_QueueEntityId.GetValue());
             int units = (int)this.B_NumberOfUnits.GetValue();
             queue.Queue(units);
 
-            Console.WriteLine("Queued  \tTime: " + Simulation.Clock + transaction, ConsoleColor.DarkYellow);
+            Console.WriteLine("Queued  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.DarkYellow);
             System.Console.WriteLine("\tQueueSize: " + queue.CurrentContent);
             this.RetryChain.RemoveFirst();
             this.NextSequentialBlock.PassTransaction(transaction);
-            Simulation.CurrentEventChain.AddAhead(transaction);
+            Simulation.It.CurrentEventChain.AddAhead(transaction);
         }
     }
 }

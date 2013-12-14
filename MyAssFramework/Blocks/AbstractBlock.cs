@@ -14,7 +14,7 @@ namespace MyAssFramework.Blocks
 
         protected AbstractBlock()
         {
-            this.Id = Simulation.NextBlockNo();
+            this.Id = Simulation.It.NextBlockNo();
             this.EntryCount = 0;
             this.RetryChain = new LinkedList<Transaction>();
         }

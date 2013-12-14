@@ -51,6 +51,10 @@
       <Project>{511C1EF6-F99A-42D5-8D3A-4F8E93A11C3E}</Project>
       <Name>MyAssFramework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyAssUtilities\MyAssUtilities.csproj">
+      <Project>{EE26563E-13CA-4A02-84BC-F9E6AEC8314A}</Project>
+      <Name>MyAssUtilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

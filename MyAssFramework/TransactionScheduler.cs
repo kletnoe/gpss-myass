@@ -12,11 +12,11 @@ namespace MyAssFramework
             do
             {
 
-                if (Simulation.CurrentEventChain.Count > 0)
+                if (Simulation.It.CurrentEventChain.Count > 0)
                 {
-                    Transaction transaction = Simulation.CurrentEventChain.First;
-                    Simulation.CurrentEventChain.RemoveFirst();
-                    Simulation.ActiveTransction = transaction;
+                    Transaction transaction = Simulation.It.CurrentEventChain.First;
+                    Simulation.It.CurrentEventChain.RemoveFirst();
+                    Simulation.It.ActiveTransction = transaction;
                     transaction.Owner.Action();
                 }
                 else
@@ -25,8 +25,8 @@ namespace MyAssFramework
                 }
 
 
-            } while (Simulation.TerminationsCount > 0 
-                //|| Simulation.CurrentEventChain.Count > 0 // temporary for compatibility test
+            } while (Simulation.It.TerminationsCount > 0 
+                //|| Simulation.It.CurrentEventChain.Count > 0 // temporary for compatibility test
                 );
 
             System.Console.WriteLine("End");
@@ -34,16 +34,16 @@ namespace MyAssFramework
 
         static public void UpdateTime()
         {
-            double nextTime = Simulation.FutureEventChain.First.NextEventTime;
+            double nextTime = Simulation.It.FutureEventChain.First.NextEventTime;
 
-            while (Simulation.FutureEventChain.Count != 0 && Simulation.FutureEventChain.First.NextEventTime == nextTime)
+            while (Simulation.It.FutureEventChain.Count != 0 && Simulation.It.FutureEventChain.First.NextEventTime == nextTime)
             {
-                Transaction transaction = Simulation.FutureEventChain.First;
-                Simulation.FutureEventChain.RemoveFirst();
-                Simulation.CurrentEventChain.AddBehind(transaction);
+                Transaction transaction = Simulation.It.FutureEventChain.First;
+                Simulation.It.FutureEventChain.RemoveFirst();
+                Simulation.It.CurrentEventChain.AddBehind(transaction);
             }
 
-            Simulation.Clock = nextTime;
+            Simulation.It.Clock = nextTime;
         }
     }
 }

@@ -29,14 +29,14 @@ namespace MyAssFramework.Blocks
             // TODO: Add Exception throwing
             // TODO: Implement Refuse Mode
 
-            Transaction transaction = Simulation.ActiveTransction;
+            Transaction transaction = Simulation.It.ActiveTransction;
             this.EntryCount++;
 
-            Console.WriteLine("Tested  \tTime: " + Simulation.Clock + transaction, ConsoleColor.DarkGreen);
+            Console.WriteLine("Tested  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.DarkGreen);
             Console.WriteLine("\ttrue");
             this.RetryChain.RemoveFirst();
 
-            IBlock consumerOnFalse = Simulation.GetBlock((int)C_DestBlockNo.GetValue());
+            IBlock consumerOnFalse = Simulation.It.GetBlock((int)C_DestBlockNo.GetValue());
 
             double lValue = this.A_LValue.GetValue();
             double rValue = this.B_RValue.GetValue();
@@ -50,7 +50,7 @@ namespace MyAssFramework.Blocks
                 consumerOnFalse.PassTransaction(transaction);
             }
 
-            Simulation.CurrentEventChain.AddAhead(transaction);
+            Simulation.It.CurrentEventChain.AddAhead(transaction);
         }
     }
 }
