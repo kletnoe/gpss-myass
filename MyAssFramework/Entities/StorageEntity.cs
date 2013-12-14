@@ -13,6 +13,7 @@ namespace MyAssFramework.Entities
         private bool avaliable;
         private int entriesCount;
         private int maxContent;
+        private int minContent;
 
         public LinkedList<Transaction> DelayChain { get; set; }
         public LinkedList<Transaction> RetryChain { get; set; }
@@ -49,6 +50,14 @@ namespace MyAssFramework.Entities
             get
             {
                 return this.maxContent;
+            }
+        }
+
+        public int MinContent
+        {
+            get
+            {
+                return this.minContent;
             }
         }
 
@@ -123,6 +132,7 @@ namespace MyAssFramework.Entities
             this.avaliable = true;
             this.entriesCount = 0;
             this.maxContent = 0;
+            this.minContent = 0;
 
             this.DelayChain = new LinkedList<Transaction>();
         }

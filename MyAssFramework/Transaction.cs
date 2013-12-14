@@ -27,7 +27,7 @@ namespace MyAssFramework
 
         public double Priority { get; set; }
 
-        public DateTime MarkTime { get; private set; }
+        public double MarkTime { get; private set; }
 
         public int AssemblySet { get; private set; }
 
@@ -46,7 +46,7 @@ namespace MyAssFramework
         public Transaction()
         {
             this.Priority = 0;
-            this.MarkTime = DateTime.Now;
+            this.MarkTime = Simulation.It.Clock;
             this.AssemblySet = Simulation.It.NextTransactionNo();
             this.DelayIndicator = false;
             this.TraceIndicator = false;

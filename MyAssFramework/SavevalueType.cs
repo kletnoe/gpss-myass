@@ -27,6 +27,11 @@ namespace MyAssFramework
             }
         }
 
+        override public String ToString()
+        {
+            return this.value;
+        }
+
         #region ConversionOperators
 
         public static explicit operator SavevalueType(string value)
