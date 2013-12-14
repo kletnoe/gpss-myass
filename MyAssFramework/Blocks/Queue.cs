@@ -30,7 +30,7 @@ namespace MyAssFramework.Blocks
             queue.Queue(units);
 
             Console.WriteLine("Queued  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.DarkYellow);
-            System.Console.WriteLine("\tQueueSize: " + queue.CurrentContent);
+            Console.WriteLine("\tQueueSize: " + queue.CurrentContent);
             this.RetryChain.RemoveFirst();
             this.NextSequentialBlock.PassTransaction(transaction);
             Simulation.It.CurrentEventChain.AddAhead(transaction);

@@ -33,7 +33,7 @@ namespace MyAssFramework.Blocks
 
                 storage.Enter(units);
                 Console.WriteLine("Entered  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.Yellow);
-                System.Console.WriteLine("\tStorageSize: " + storage.CurrentCount);
+                Console.WriteLine("\tStorageSize: " + storage.CurrentCount);
                 this.NextSequentialBlock.PassTransaction(transaction);
                 Simulation.It.CurrentEventChain.AddAhead(transaction);
             }

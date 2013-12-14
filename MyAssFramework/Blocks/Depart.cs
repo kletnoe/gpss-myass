@@ -32,7 +32,7 @@ namespace MyAssFramework.Blocks
             queue.Depart(units);
 
             Console.WriteLine("Departed  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.DarkYellow);
-            System.Console.WriteLine("\tQueueSize: " + queue.CurrentContent);
+            Console.WriteLine("\tQueueSize: " + queue.CurrentContent);
             this.RetryChain.RemoveFirst();
             this.NextSequentialBlock.PassTransaction(transaction);
             Simulation.It.CurrentEventChain.AddAhead(transaction);
