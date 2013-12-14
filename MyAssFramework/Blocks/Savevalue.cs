@@ -51,7 +51,6 @@ namespace MyAssFramework.Blocks
             }
 
             Console.WriteLine("Savevalued\tTime: " + Simulation.It.Clock + transaction, ConsoleColor.White);
-            this.RetryChain.RemoveFirst();
             this.NextSequentialBlock.PassTransaction(transaction);
             Simulation.It.CurrentEventChain.AddAhead(transaction);
         }

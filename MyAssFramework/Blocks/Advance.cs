@@ -43,7 +43,6 @@ namespace MyAssFramework.Blocks
             this.EntryCount++;
 
             Console.WriteLine("Advanced  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.DarkGreen);
-            this.RetryChain.RemoveFirst();
 
             double nextTime = this.GetNextEventTime();
 

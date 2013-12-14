@@ -30,7 +30,6 @@ namespace MyAssFramework.Blocks
 
             Console.WriteLine("Leaved  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.Yellow);
             Console.WriteLine("\tStorageSize: " + storage.CurrentCount);
-            this.RetryChain.RemoveFirst();
             this.NextSequentialBlock.PassTransaction(transaction);
             Simulation.It.CurrentEventChain.AddAhead(transaction);
         }

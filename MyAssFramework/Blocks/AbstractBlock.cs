@@ -10,7 +10,7 @@ namespace MyAssFramework.Blocks
         public int Id { get; protected set; }
         public int EntryCount { get; protected set; }
         public IBlock NextSequentialBlock { get; set; }
-        protected LinkedList<Transaction> RetryChain { get; set; }
+        public LinkedList<Transaction> RetryChain { get; protected set; }
 
         protected AbstractBlock()
         {
@@ -23,7 +23,6 @@ namespace MyAssFramework.Blocks
         public void PassTransaction(Transaction transaction)
         {
             transaction.Owner = this;
-            this.RetryChain.AddLast(transaction);
         }
     }
 }

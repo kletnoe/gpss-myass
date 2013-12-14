@@ -34,7 +34,6 @@ namespace MyAssFramework.Blocks
 
             Console.WriteLine("Tested  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.DarkGreen);
             Console.WriteLine("\ttrue");
-            this.RetryChain.RemoveFirst();
 
             IBlock consumerOnFalse = Simulation.It.GetBlock((int)C_DestBlockNo.GetValue());
 

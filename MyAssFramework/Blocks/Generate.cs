@@ -64,7 +64,6 @@ namespace MyAssFramework.Blocks
                 Priority = 0,
                 NextEventTime = this.GetNextEventTime()
             };
-            this.RetryChain.AddLast(transaction);
             Simulation.It.FutureEventChain.Add(transaction);
         }
 
@@ -74,7 +73,6 @@ namespace MyAssFramework.Blocks
             this.EntryCount++;
 
             Console.WriteLine("Generated\tTime: " + Simulation.It.Clock + transaction);
-            this.RetryChain.RemoveFirst();
             NextSequentialBlock.PassTransaction(transaction);
             Simulation.It.CurrentEventChain.AddAhead(transaction);
 

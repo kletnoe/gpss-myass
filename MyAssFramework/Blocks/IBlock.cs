@@ -10,7 +10,7 @@ namespace MyAssFramework.Blocks
         int Id { get; }
         int EntryCount { get; }
         IBlock NextSequentialBlock { get; set; }
-
+        LinkedList<Transaction> RetryChain { get; }
         void Action();
 
         void PassTransaction(Transaction transaction);
