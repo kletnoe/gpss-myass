@@ -27,7 +27,9 @@ namespace MyAssFramework
 
         public double Priority { get; set; }
 
-        public double MarkTime { get; private set; }
+        public double MarkTime { get; set; }
+
+        public int Number { get; private set; }
 
         public int AssemblySet { get; private set; }
 
@@ -45,9 +47,12 @@ namespace MyAssFramework
 
         public Transaction()
         {
+            int number = Simulation.It.NextTransactionNo();
+            this.AssemblySet = number;
+            this.Number = number;
+
             this.Priority = 0;
             this.MarkTime = Simulation.It.Clock;
-            this.AssemblySet = Simulation.It.NextTransactionNo();
             this.DelayIndicator = false;
             this.TraceIndicator = false;
             //this.CurrentBlock = 0;

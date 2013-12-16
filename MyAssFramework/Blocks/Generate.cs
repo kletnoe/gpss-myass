@@ -62,7 +62,8 @@ namespace MyAssFramework.Blocks
             {
                 Owner = this,
                 Priority = 0,
-                NextEventTime = this.GetNextEventTime()
+                NextEventTime = this.GetNextEventTime(),
+                MarkTime = this.GetNextEventTime()
             };
             Simulation.It.FutureEventChain.Add(transaction);
         }

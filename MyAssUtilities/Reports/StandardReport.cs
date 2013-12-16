@@ -57,6 +57,7 @@ namespace MyAssUtilities.Reports
         private static String NamesInfo(Simulation simulation)
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine().AppendLine();
             sb.AppendLine("// Identificators list should be there");
             return sb.ToString();
         }
@@ -125,12 +126,12 @@ namespace MyAssUtilities.Reports
             if (items.Count > 0)
             {
                 sb.AppendLine().AppendLine();
-                sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9} {8,6} {9,4} {10,4}",
+                sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9} {8,6} {9,5} {10,5}",
                     "STOTAGE", "CAP.", "REM.", "MIN.", "MAX.", "ENTRY", "AVL.", "AVE.C", "UTIL", "RETRY", "DELAY"));
 
                 foreach (var item in items)
                 {
-                    sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9} {8,6} {9,4} {10,4}",
+                    sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9} {8,6} {9,5} {10,5}",
                         item.Id,
                         item.Capacity,
                         item.RemainingCapacity,
@@ -218,7 +219,7 @@ namespace MyAssUtilities.Reports
             foreach (Transaction tr in simulation.CurrentEventChain)
             {
                 sb.AppendLine(String.Format("{0,6} {1,6} {2,10} {3,10} {4,10} {5,10}",
-                    tr.AssemblySet,
+                    tr.Number,
                     tr.Priority,
                     tr.MarkTime,
                     tr.AssemblySet,
@@ -237,10 +238,10 @@ namespace MyAssUtilities.Reports
             sb.AppendLine(String.Format("{0,-6} {1,6} {2,10} {3,10} {4,10} {5,10}",
                 "FEC XN", "PRI", "BDT", "ASSEM", "CURRENT", "NEXT"));
 
-            foreach (Transaction tr in simulation.CurrentEventChain)
+            foreach (Transaction tr in simulation.FutureEventChain)
             {
                 sb.AppendLine(String.Format("{0,6} {1,6} {2,10} {3,10} {4,10} {5,10}",
-                    tr.AssemblySet,
+                    tr.Number,
                     tr.Priority,
                     tr.NextEventTime,
                     tr.AssemblySet,
