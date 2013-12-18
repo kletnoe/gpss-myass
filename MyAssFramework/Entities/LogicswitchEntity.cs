@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MyAssFramework.Entities
 {
-    public class LogicswitchEntity : Entity
+    public class LogicswitchEntity : AbstractEntity
     {
         private bool set;
 

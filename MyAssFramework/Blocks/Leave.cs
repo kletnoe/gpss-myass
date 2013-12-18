@@ -30,6 +30,7 @@ namespace MyAssFramework.Blocks
 
             Console.WriteLine("Leaved  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.Yellow);
             Console.WriteLine("\tStorageSize: " + storage.CurrentCount);
+            transaction.Owner = this.Id;
             this.NextSequentialBlock.PassTransaction(transaction);
             Simulation.It.CurrentEventChain.AddAhead(transaction);
         }

@@ -48,11 +48,13 @@ namespace MyAssFramework.Blocks
 
             if (transaction.NextEventTime == nextTime)
             {
+                transaction.Owner = this.Id;
                 NextSequentialBlock.PassTransaction(transaction);
                 Simulation.It.CurrentEventChain.AddAhead(transaction);
             }
             else
             {
+                transaction.Owner = this.Id;
                 transaction.NextEventTime = nextTime;
                 NextSequentialBlock.PassTransaction(transaction);
                 Simulation.It.FutureEventChain.Add(transaction);

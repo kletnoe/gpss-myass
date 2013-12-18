@@ -51,6 +51,7 @@ namespace MyAssFramework.Blocks
             }
 
             Console.WriteLine("Savevalued\tTime: " + Simulation.It.Clock + transaction, ConsoleColor.White);
+            transaction.Owner = this.Id;
             this.NextSequentialBlock.PassTransaction(transaction);
             Simulation.It.CurrentEventChain.AddAhead(transaction);
         }

@@ -42,10 +42,12 @@ namespace MyAssFramework.Blocks
 
             if (O_RelationalOp.Compare(lValue, rValue))
             {
+                transaction.Owner = this.Id;
                 this.NextSequentialBlock.PassTransaction(transaction);
             }
             else
             {
+                transaction.Owner = this.Id;
                 consumerOnFalse.PassTransaction(transaction);
             }
 

@@ -9,21 +9,21 @@ namespace MyAssFramework
     {
         static public void MainLoop()
         {
+            int i = 0;
+
             do
             {
-
-                if (Simulation.It.CurrentEventChain.Count > 0)
-                {
-                    Transaction transaction = Simulation.It.CurrentEventChain.First;
-                    Simulation.It.CurrentEventChain.RemoveFirst();
-                    Simulation.It.ActiveTransction = transaction;
-                    transaction.Owner.Action();
-                }
-                else
+                if (Simulation.It.CurrentEventChain.Count == 0)
                 {
                     UpdateTime();
                 }
 
+                Transaction transaction = Simulation.It.CurrentEventChain.First;
+                Simulation.It.CurrentEventChain.RemoveFirst();
+                Simulation.It.ActiveTransction = transaction;
+                Simulation.It.GetBlock(transaction.NextOwner).Action();
+
+                i++;
 
             } while (Simulation.It.TerminationsCount > 0 
                 //|| Simulation.It.CurrentEventChain.Count > 0 // temporary for compatibility test
@@ -40,7 +40,7 @@ namespace MyAssFramework
             {
                 Transaction transaction = Simulation.It.FutureEventChain.First;
                 Simulation.It.FutureEventChain.RemoveFirst();
-                Simulation.It.CurrentEventChain.AddBehind(transaction);
+                Simulation.It.CurrentEventChain.AddAhead(transaction);
             }
 
             Simulation.It.Clock = nextTime;

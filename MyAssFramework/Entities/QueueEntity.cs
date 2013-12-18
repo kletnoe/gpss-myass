@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MyAssFramework.Entities
 {
-    public class QueueEntity : Entity
+    public class QueueEntity : AbstractEntity
     {
         private int currentContent;
         private int entriesCount;

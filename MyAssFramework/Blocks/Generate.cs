@@ -60,7 +60,7 @@ namespace MyAssFramework.Blocks
         {
             Transaction transaction = new Transaction()
             {
-                Owner = this,
+                NextOwner = this.Id,
                 Priority = 0,
                 NextEventTime = this.GetNextEventTime(),
                 MarkTime = this.GetNextEventTime()
@@ -74,6 +74,7 @@ namespace MyAssFramework.Blocks
             this.EntryCount++;
 
             Console.WriteLine("Generated\tTime: " + Simulation.It.Clock + transaction);
+            transaction.Owner = this.Id;
             NextSequentialBlock.PassTransaction(transaction);
             Simulation.It.CurrentEventChain.AddAhead(transaction);
 

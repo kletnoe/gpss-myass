@@ -22,7 +22,12 @@ namespace MyAssFramework.Blocks
 
         public void PassTransaction(Transaction transaction)
         {
-            transaction.Owner = this;
+            transaction.NextOwner = this.Id;
+        }
+
+        public string ToString()
+        {
+            return String.Format("Id: {0} Type: {1} Ent: {2}", this.Id, this.GetType().Name.Substring(0,3), this.EntryCount);
         }
     }
 }

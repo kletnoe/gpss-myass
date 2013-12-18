@@ -64,6 +64,15 @@ namespace MyAssUtilities.Reports
 
         private static String BlocksInfo(Simulation simulation)
         {
+            // TODO: Refactor this:
+            List<Transaction> allTransactions = new List<Transaction>();
+            allTransactions.AddRange(simulation.CurrentEventChain);
+            allTransactions.AddRange(simulation.FutureEventChain);
+            allTransactions.AddRange(simulation.Entities.OfType<StorageEntity>().SelectMany(x => x.DelayChain));
+            allTransactions.AddRange(simulation.Entities.OfType<FacilityEntity>().SelectMany(x => x.DelayChain));
+            allTransactions.AddRange(simulation.Entities.OfType<FacilityEntity>().SelectMany(x => x.PendingChain));
+            //
+
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine().AppendLine();
@@ -76,8 +85,7 @@ namespace MyAssUtilities.Reports
                     block.Id,
                     block.GetType().Name,
                     block.EntryCount,
-                    simulation.CurrentEventChain.Count(x => x.Owner == block)
-                        + simulation.FutureEventChain.Count(x => x.Owner == block),
+                    allTransactions.Count(x => x.Owner == block.Id),
                     block.RetryChain.Count));
             }
 
@@ -112,7 +120,7 @@ namespace MyAssUtilities.Reports
                         "ToDo",
                         "ToDo",
                         "ToDo",
-                        "ToDo"));
+                        item.RetryChain.Count));
                 }
             }
             return sb.ToString();
@@ -126,22 +134,22 @@ namespace MyAssUtilities.Reports
             if (items.Count > 0)
             {
                 sb.AppendLine().AppendLine();
-                sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9} {8,6} {9,5} {10,5}",
+                sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9} {8,9} {9,5} {10,5}",
                     "STOTAGE", "CAP.", "REM.", "MIN.", "MAX.", "ENTRY", "AVL.", "AVE.C", "UTIL", "RETRY", "DELAY"));
 
                 foreach (var item in items)
                 {
-                    sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9} {8,6} {9,5} {10,5}",
+                    sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9} {8,9} {9,5} {10,5}",
                         item.Id,
                         item.Capacity,
                         item.RemainingCapacity,
                         item.MinContent,
                         item.MaxContent,
                         item.EntriesCount,
+                        item.IsAvaliable,
                         "ToDo",
                         "ToDo",
-                        "ToDo",
-                        "ToDo",
+                        item.RetryChain.Count,
                         item.DelayChain.Count));
                 }
             }
@@ -194,7 +202,7 @@ namespace MyAssUtilities.Reports
                 {
                     sb.AppendLine(String.Format("{0,-24} {1,6} {2,10}",
                         item.Id,
-                        "ToDo",
+                        item.RetryChain.Count,
                         item.Value));
                 }
             }
@@ -223,8 +231,8 @@ namespace MyAssUtilities.Reports
                     tr.Priority,
                     tr.MarkTime,
                     tr.AssemblySet,
-                    tr.Owner.Id,
-                    "ToDo"));
+                    tr.Owner,
+                    tr.NextOwner));
             }
 
             return sb.ToString();
@@ -245,8 +253,8 @@ namespace MyAssUtilities.Reports
                     tr.Priority,
                     tr.NextEventTime,
                     tr.AssemblySet,
-                    tr.Owner.Id,
-                    "ToDo"));
+                    tr.Owner,
+                    tr.NextOwner));
             }
 
             return sb.ToString();

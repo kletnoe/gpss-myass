@@ -33,6 +33,7 @@ namespace MyAssFramework.Blocks
 
             Console.WriteLine("Departed  \tTime: " + Simulation.It.Clock + transaction, ConsoleColor.DarkYellow);
             Console.WriteLine("\tQueueSize: " + queue.CurrentContent);
+            transaction.Owner = this.Id;
             this.NextSequentialBlock.PassTransaction(transaction);
             Simulation.It.CurrentEventChain.AddAhead(transaction);
         }

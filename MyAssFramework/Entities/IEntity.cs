@@ -8,5 +8,6 @@ namespace MyAssFramework.Entities
     public interface IEntity
     {
         int Id { get; }
+        LinkedList<Transaction> RetryChain { get; }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MyAssFramework.Entities
 {
-    public class FacilityEntity : Entity
+    public class FacilityEntity : AbstractEntity
     {
         private bool busy;
         private bool avaliable;
@@ -15,7 +15,6 @@ namespace MyAssFramework.Entities
         public LinkedList<Transaction> PendingChain { get; set; }
         public LinkedList<Transaction> InterruptChain { get; set; }
         public LinkedList<Transaction> DelayChain { get; set; }
-        public LinkedList<Transaction> RetryChain { get; set; }
 
         //public Transaction Ownership { get; private set; }
 

@@ -47,11 +47,11 @@
     <Compile Include="Commands\Start.cs" />
     <Compile Include="Commands\Stop.cs" />
     <Compile Include="Commands\Storage.cs" />
-    <Compile Include="Distribution\Exponential.cs" />
-    <Compile Include="Distribution\IDistribution.cs" />
-    <Compile Include="Distribution\Normal.cs" />
-    <Compile Include="Distribution\Uniform.cs" />
-    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Distributions\Exponential.cs" />
+    <Compile Include="Distributions\Normal.cs" />
+    <Compile Include="Distributions\RandomGenerators.cs" />
+    <Compile Include="Distributions\Uniform.cs" />
+    <Compile Include="Entities\AbstractEntity.cs" />
     <Compile Include="Entities\FacilityEntity.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\LogicswitchEntity.cs" />

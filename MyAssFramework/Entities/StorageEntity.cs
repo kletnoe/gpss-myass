@@ -6,7 +6,7 @@ using MyAssFramework.Blocks;
 
 namespace MyAssFramework.Entities
 {
-    public class StorageEntity : Entity
+    public class StorageEntity : AbstractEntity
     {
         private int capacity;
         private int currentCount;
@@ -15,8 +15,9 @@ namespace MyAssFramework.Entities
         private int maxContent;
         private int minContent;
 
+        private double utilization;
+
         public LinkedList<Transaction> DelayChain { get; set; }
-        public LinkedList<Transaction> RetryChain { get; set; }
 
         public int Capacity
         {
@@ -84,7 +85,7 @@ namespace MyAssFramework.Entities
         {
             get
             {
-                throw new NotImplementedException();
+                return this.utilization;
             }
         }
 
@@ -133,6 +134,7 @@ namespace MyAssFramework.Entities
             this.entriesCount = 0;
             this.maxContent = 0;
             this.minContent = 0;
+            this.utilization = 0;
 
             this.DelayChain = new LinkedList<Transaction>();
         }
@@ -140,6 +142,8 @@ namespace MyAssFramework.Entities
         public void Enter(int unitsCount)
         {
             this.currentCount += unitsCount;
+
+            // Stats update:
             this.entriesCount++;
 
             if (this.maxContent < this.currentCount)
@@ -156,44 +160,9 @@ namespace MyAssFramework.Entities
             {
                 Transaction transaction = this.DelayChain.First();
                 this.DelayChain.RemoveFirst();
-
                 transaction.NextEventTime = Simulation.It.Clock;
-
-                Enter owner = (Enter)transaction.Owner;
-                owner.PassTransaction(transaction);
-                Simulation.It.CurrentEventChain.AddAhead(transaction); // anti "line-bucking"
+                ((Enter)Simulation.It.GetBlock(transaction.NextOwner)).PreEnter(transaction); // anti "line-bucking"
             }
-
-            //int freeUnits = unitsCount;
-            //int chainIndex = 0;
-            //while (freeUnits >= 0 && chainIndex <= this.DelayChain.Count)
-            //{
-            //    Transaction transaction = this.DelayChain.ElementAt(chainIndex);
-            //    this.DelayChain.Remove(transaction);
-            //    Enter owner = (Enter)transaction.Owner;
-            //    owner.NextSequentialBlock.PassTransaction(transaction);
-            //    Simulation.It.CurrentEventChain.AddBehind(transaction);
-            //}
-
-
-            //for (int i = this.DelayChain.Count - 1; i >= 0; i--)
-            //{
-            //    if (this.RemainingCapacity >= 1)
-            //    {
-            //        Transaction transaction = this.DelayChain.ElementAt(i);
-            //        this.DelayChain.Remove(transaction);
-
-            //        Enter owner = (Enter)transaction.Owner;
-            //        owner.NextSequentialBlock.PassTransaction(transaction);
-            //        Simulation.It.CurrentEventChain.AddBehind(transaction);
-            //    }
-            //    else
-            //    {
-            //        break;
-            //    }
-            //}
-
-            // TODO: Implement query from DelayChain
         }
 
         public void SAvail()

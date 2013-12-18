@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MyAssFramework.Distributions
 {
-    public class Normal : IDistribution
+    public class Normal
     {
         private Random random;
 

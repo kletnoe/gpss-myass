@@ -17,7 +17,8 @@ namespace MyAssFramework
             Terminated = 4
         }
 
-        public IBlock Owner { get; set; }
+        public int Owner { get; set; }
+        public int NextOwner { get; set; }
 
         public double NextEventTime { get; set; }
 
@@ -61,16 +62,16 @@ namespace MyAssFramework
             this.IsPreempted = false;
         }
 
-        public Transaction(double priority, IBlock owner) : this()
+        public Transaction(double priority, int ownerId) : this()
         {
             this.Priority = priority;
-            this.Owner = owner;
+            this.Owner = ownerId;
         }
 
         public override string ToString()
         {
             // return String.Format("Time: {0}, Prio: {1}, Clock: {2} ", CreationRealTime.ToString("HH:mm:ss.fff"), Priority, GenerationTime);
-            return String.Format("\t| Id: {1} net: {2} own: {3}|", this.Priority, this.AssemblySet, this.NextEventTime, this.Owner.GetType().Name);
+            return String.Format("\t| Xn: {0} NET: {1} Own: {2} Next: {3}|", this.Number, this.NextEventTime, this.Owner, this.NextOwner);
         }
 
         public void Dispose()

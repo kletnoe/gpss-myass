@@ -17,14 +17,6 @@ namespace MyAssApplication
     {
         static void Main(string[] args)
         {
-            //Entities.Storage storageBox = new Entities.Storage(3);
-            //Entities.Queue queueBox = new Entities.Queue();
-            //Entities.Savevalue rejectCounter = new Entities.Savevalue("0");
-            //Entities.Savevalue generateCounter = new Entities.Savevalue("0");
-            //Entities.Savevalue rejetionProb = new Entities.Savevalue("0");
-
-            
-
             Simulation.It.Entities = new List<MyAssFramework.Entities.IEntity>()
             {
                 new MyAssFramework.Entities.QueueEntity(0),
@@ -51,9 +43,13 @@ namespace MyAssApplication
                 new Terminate(new Number(0))
             };
 
-            Simulation.It.Start(100);
+            DateTime now = DateTime.Now;
+
+            Simulation.It.Start(1000);
 
             StandardReport.PrintReport(Simulation.It);
+
+            Console.WriteLine(DateTime.Now - now);
         }
 
 
@@ -78,12 +74,14 @@ namespace MyAssApplication
 
         public static double GetGenerateOperand()
         {
-            return 10;
+            //return 10;
+            return Exponential.GetNext(0, 0, 2);
         }
 
         public static double GetAdvanceOperand()
         {
-            return 60;
+            //return 60;
+            return Exponential.GetNext(0, 0, 10);
         }
     }
 }

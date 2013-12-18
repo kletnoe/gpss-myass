@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MyAssFramework.Entities
 {
-    public class SavevalueEntity : Entity
+    public class SavevalueEntity : AbstractEntity
     {
         private SavevalueType value;
 
