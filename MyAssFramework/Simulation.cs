@@ -20,6 +20,8 @@ namespace MyAssFramework
         public double Clock { get; set; }
         public int TerminationsCount { get; set; }
 
+
+        public IDictionary<string, int> Names { get; set; }
         public IList<IEntity> Entities { get; set; }
         public IList<IBlock> Blocks { get; set; }
 

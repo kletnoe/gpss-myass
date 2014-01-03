@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blocks\Mark.cs" />
     <Compile Include="Chains\FutureTransactionChain.cs" />
     <Compile Include="Chains\PriorityTransactionChain.cs" />
     <Compile Include="Commands\ICommand.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Entities\SavevalueEntity.cs" />
     <Compile Include="Entities\StorageEntity.cs" />
     <Compile Include="Blocks\IBlock.cs" />
+    <Compile Include="Entities\TableEntity.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="OperandTypes_Test\DirectSNA.cs" />
     <Compile Include="OperandTypes_Test\ExpressionDelegate.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="SNA\SavevalueSNA.cs" />
     <Compile Include="SNA\StorageSNA.cs" />
     <Compile Include="Transaction.cs" />
+    <Compile Include="TransactionParameters.cs" />
     <Compile Include="TransactionScheduler.cs" />
   </ItemGroup>
   <ItemGroup>

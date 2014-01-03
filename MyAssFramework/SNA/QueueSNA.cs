@@ -22,6 +22,11 @@ namespace MyAssFramework.SNA
             }
         }
 
+        public static int Q(string entityName)
+        {
+            return SNA.Q(Simulation.It.Names[entityName]);
+        }
+
         public static double QA(int entityId)
         {
             IEntity entity = Simulation.It.GetEntity(entityId);

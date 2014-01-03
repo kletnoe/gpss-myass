@@ -24,9 +24,22 @@ namespace MyAssFramework
 
         /**/
 
-        public OrderedDictionary Parameters;
+        private TransactionParameters parameters;
 
-        public double Priority { get; set; }
+        public TransactionParameters Parameters
+        {
+            get
+            {
+                if (this.parameters == null)
+                {
+                    this.parameters = new TransactionParameters();
+                }
+
+                return parameters;
+            }
+        }
+
+        public int Priority { get; set; }
 
         public double MarkTime { get; set; }
 
@@ -62,7 +75,7 @@ namespace MyAssFramework
             this.IsPreempted = false;
         }
 
-        public Transaction(double priority, int ownerId) : this()
+        public Transaction(int priority, int ownerId) : this()
         {
             this.Priority = priority;
             this.Owner = ownerId;

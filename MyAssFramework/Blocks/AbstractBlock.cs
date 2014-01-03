@@ -25,7 +25,7 @@ namespace MyAssFramework.Blocks
             transaction.NextOwner = this.Id;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             return String.Format("Id: {0} Type: {1} Ent: {2}", this.Id, this.GetType().Name.Substring(0,3), this.EntryCount);
         }

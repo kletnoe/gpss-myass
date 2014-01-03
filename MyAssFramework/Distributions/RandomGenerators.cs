@@ -13,14 +13,14 @@ namespace MyAssFramework.Distributions
         {
             Random rand;
 
-            if (generators.TryGetValue(stream, out rand))
+            if (RandomGenerators.generators.TryGetValue(stream, out rand))
             {
                 return rand;
             }
             else
             {
                 rand = stream == 0 ? new Random() : new Random(stream);
-                generators.Add(stream, rand);
+                RandomGenerators.generators.Add(stream, rand);
                 return rand;
             }
         }
