@@ -40,7 +40,7 @@ namespace MyAssFramework
             {
                 Transaction transaction = Simulation.It.FutureEventChain.First;
                 Simulation.It.FutureEventChain.RemoveFirst();
-                Simulation.It.CurrentEventChain.AddAhead(transaction);
+                Simulation.It.CurrentEventChain.AddBehind(transaction);
             }
 
             Simulation.It.Clock = nextTime;
