@@ -29,6 +29,11 @@ namespace MyAssFramework
                 //|| Simulation.It.CurrentEventChain.Count > 0 // temporary for compatibility test
                 );
 
+            foreach (var entity in Simulation.It.Entities)
+            {
+                entity.UpdateStats();
+            }
+
             System.Console.WriteLine("End");
         }
 

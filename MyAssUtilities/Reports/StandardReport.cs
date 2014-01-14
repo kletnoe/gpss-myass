@@ -95,6 +95,29 @@ namespace MyAssUtilities.Reports
         private static String FacilitiesInfo(Simulation simulation)
         {
             StringBuilder sb = new StringBuilder();
+            IList<FacilityEntity> items = simulation.Entities.OfType<FacilityEntity>().ToList();
+
+            if (items.Count > 0)
+            {
+                sb.AppendLine().AppendLine();
+                sb.AppendLine(String.Format("{0,-14} {1,6} {2,9} {3,9} {4,6} {5,6} {6,6} {7,6} {8,6} {9,6}",
+                    "FACILITY", "ENTRY", "UTIL.", "AVE.TIME", "AVAIL", "OWNER", "PEND", "INTER", "RETRY", "DELAY"));
+
+                foreach (var item in items)
+                {
+                    sb.AppendLine(String.Format("{0,-14} {1,6} {2,9:F3} {3,9:F3} {4,6} {5,6} {6,6} {7,6} {8,6} {9,6}",
+                        item.Id,
+                        item.CaptureCount,
+                        item.Utilization,
+                        item.AverageHoldingTime,
+                        item.IsAvaliable,
+                        item.Owner,
+                        item.PendingChain.Count,
+                        item.InterruptChain.Count,
+                        item.RetryChain.Count,
+                        item.DelayChain.Count));
+                }
+            }
             return sb.ToString();
         }
 
@@ -111,15 +134,15 @@ namespace MyAssUtilities.Reports
 
                 foreach (var item in items)
                 {
-                    sb.AppendLine(String.Format("{0,-14} {1,6} {2,6} {3,6} {4,6} {5,9} {6,9} {7,9} {8,6}",
+                    sb.AppendLine(String.Format("{0,-14} {1,6} {2,6} {3,6} {4,6} {5,9:F3} {6,9:F3} {7,9:F3} {8,6}",
                         item.Id,
                         item.MaxContent,
                         item.CurrentContent,
                         item.EntriesCount,
-                        "ToDo",
-                        "ToDo",
-                        "ToDo",
-                        "ToDo",
+                        item.ZeroEntriesCount,
+                        item.AverageContent,
+                        item.AverageResidenceTime,
+                        item.AverageResidenceTimeNonZero,
                         item.RetryChain.Count));
                 }
             }
@@ -139,7 +162,7 @@ namespace MyAssUtilities.Reports
 
                 foreach (var item in items)
                 {
-                    sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9} {8,9} {9,5} {10,5}",
+                    sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9:F3} {8,9:F3} {9,5} {10,5}",
                         item.Id,
                         item.Capacity,
                         item.RemainingCapacity,
@@ -147,8 +170,8 @@ namespace MyAssUtilities.Reports
                         item.MaxContent,
                         item.EntriesCount,
                         item.IsAvaliable,
-                        "ToDo",
-                        "ToDo",
+                        item.AverageContent,
+                        item.Utilization,
                         item.RetryChain.Count,
                         item.DelayChain.Count));
                 }

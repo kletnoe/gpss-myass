@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MyAssFramework.Entities
 {
-    public class AbstractEntity : IEntity
+    public abstract class AbstractEntity : IEntity
     {
         public int Id { get; protected set; }
         public LinkedList<Transaction> RetryChain { get; protected set; }
@@ -14,5 +14,7 @@ namespace MyAssFramework.Entities
         {
             this.RetryChain = new LinkedList<Transaction>();
         }
+
+        public abstract void UpdateStats();
     }
 }

@@ -22,5 +22,10 @@ namespace MyAssFramework.Entities
             this.Id = id;
             this.set = false;
         }
+
+        public override void UpdateStats()
+        {
+
+        }
     }
 }

@@ -7,10 +7,17 @@ namespace MyAssFramework.Entities
 {
     public class FacilityEntity : AbstractEntity
     {
-        private bool busy;
-        private bool avaliable;
-        private int captureCount;
-        private bool interrupted;
+        private int ownerId = 0;
+
+        private bool busy = false;
+        private bool avaliable = true;
+        private int captureCount = 0;
+        private bool interrupted = false;
+        private double utilization = 0.0;
+        private double averageTime = 0.0;
+
+        private double latestChangeClock = 0.0;
+        private double contentTimeArea = 0.0;
 
         public LinkedList<Transaction> PendingChain { get; set; }
         public LinkedList<Transaction> InterruptChain { get; set; }
@@ -55,11 +62,19 @@ namespace MyAssFramework.Entities
         }
 
         // FR
-        public int Utilization
+        public double FractionalUtilization
         {
             get
             {
-                throw new NotImplementedException();
+                return Math.Floor(this.utilization * 1000);
+            }
+        }
+
+        public double Utilization
+        {
+            get
+            {
+                return this.utilization;
             }
         }
 
@@ -68,17 +83,30 @@ namespace MyAssFramework.Entities
         {
             get
             {
-                throw new NotImplementedException();
+                return this.averageTime;
+            }
+        }
+
+        public int Owner
+        {
+            get
+            {
+                return this.ownerId;
             }
         }
 
         public FacilityEntity(int id)
         {
             this.Id = id;
-            this.busy = false;
-            this.avaliable = true;
-            this.captureCount = 0;
-            this.interrupted = false;
+        }
+
+        public override void UpdateStats()
+        {
+            this.contentTimeArea += (this.busy ? 1 : 0) * (Simulation.It.Clock - this.latestChangeClock);
+            this.utilization = this.contentTimeArea / Simulation.It.Clock;
+            this.averageTime = this.contentTimeArea / this.captureCount;
+
+            this.latestChangeClock = Simulation.It.Clock;
         }
     }
 }

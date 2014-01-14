@@ -59,5 +59,10 @@ namespace MyAssFramework.Entities
 
         //    return number;
         //}
+
+        public override void UpdateStats()
+        {
+
+        }
     }
 }

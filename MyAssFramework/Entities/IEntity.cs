@@ -9,5 +9,7 @@ namespace MyAssFramework.Entities
     {
         int Id { get; }
         LinkedList<Transaction> RetryChain { get; }
+
+        void UpdateStats();
     }
 }

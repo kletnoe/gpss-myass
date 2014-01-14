@@ -9,13 +9,17 @@ namespace MyAssFramework.Entities
     public class StorageEntity : AbstractEntity
     {
         private int capacity;
-        private int currentCount;
-        private bool avaliable;
-        private int entriesCount;
-        private int maxContent;
-        private int minContent;
+        private int currentCount = 0;
+        private bool avaliable = true;
+        private int entriesCount = 0;
+        private int maxContent = 0;
+        private int minContent = 0;
+        private double averageContent = 0.0;
+        private double utilization = 0.0;
+        private double averageTime = 0.0;
 
-        private double utilization;
+        private double latestChangeClock = 0.0;
+        private double contentTimeArea = 0.0;
 
         public LinkedList<Transaction> DelayChain { get; set; }
 
@@ -76,11 +80,19 @@ namespace MyAssFramework.Entities
         {
             get
             {
-                throw new NotImplementedException();
+                return this.averageContent;
             }
         }
 
         // SR
+        public double FractionalUtilization
+        {
+            get
+            {
+                return Math.Floor(this.utilization * 1000);
+            }
+        }
+
         public double Utilization
         {
             get
@@ -94,7 +106,7 @@ namespace MyAssFramework.Entities
         {
             get
             {
-                throw new NotImplementedException();
+                return this.averageTime;
             }
         }
 
@@ -129,32 +141,29 @@ namespace MyAssFramework.Entities
         {
             this.Id = id;
             this.capacity = capacity;
-            this.currentCount = 0;
-            this.avaliable = true;
-            this.entriesCount = 0;
-            this.maxContent = 0;
-            this.minContent = 0;
-            this.utilization = 0;
 
             this.DelayChain = new LinkedList<Transaction>();
         }
 
-        public void Enter(int unitsCount)
+        public void Enter(int units)
         {
-            this.currentCount += unitsCount;
-
-            // Stats update:
-            this.entriesCount++;
+            this.entriesCount += units;
 
             if (this.maxContent < this.currentCount)
             {
                 this.maxContent = this.currentCount;
             }
+
+            this.UpdateStats();
+
+            this.currentCount += units;
         }
 
-        public void Leave(int unitsCount)
+        public void Leave(int units)
         {
-            this.currentCount -= unitsCount;
+            this.UpdateStats();
+
+            this.currentCount -= units;
 
             if (this.DelayChain.Count > 0)
             {
@@ -173,6 +182,16 @@ namespace MyAssFramework.Entities
         public void SUnavail()
         {
             this.avaliable = false;
+        }
+
+        public override void UpdateStats()
+        {
+            this.contentTimeArea += this.currentCount * (Simulation.It.Clock - this.latestChangeClock);
+            this.averageContent = this.contentTimeArea / Simulation.It.Clock;
+            this.utilization = this.contentTimeArea / (this.capacity * Simulation.It.Clock);
+            this.averageTime = this.contentTimeArea / this.entriesCount;
+
+            this.latestChangeClock = Simulation.It.Clock;
         }
     }
 }

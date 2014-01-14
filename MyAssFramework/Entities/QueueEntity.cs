@@ -7,9 +7,17 @@ namespace MyAssFramework.Entities
 {
     public class QueueEntity : AbstractEntity
     {
-        private int currentContent;
-        private int entriesCount;
-        private int maxContent;
+        private int currentContent = 0;
+
+        private int entriesCount = 0;
+        private int zeroEntriesCount = 0;
+        private int maxContent = 0;
+        private double averageContent = 0.0;
+        private double averageTime = 0.0;
+        private double averageTimeNonZero = 0.0;
+
+        private double latestChangeClock = 0.0;
+        private double contentTimeArea = 0.0;
 
         // Q
         public int CurrentContent
@@ -43,7 +51,7 @@ namespace MyAssFramework.Entities
         {
             get
             {
-                throw new NotImplementedException();
+                return this.averageContent;
             }
         }
 
@@ -52,7 +60,7 @@ namespace MyAssFramework.Entities
         {
             get
             {
-                throw new NotImplementedException();
+                return this.averageTime;
             }
         }
 
@@ -61,7 +69,7 @@ namespace MyAssFramework.Entities
         {
             get
             {
-                throw new NotImplementedException();
+                return this.averageTimeNonZero;
             }
         }
 
@@ -70,7 +78,7 @@ namespace MyAssFramework.Entities
         {
             get
             {
-                throw new NotImplementedException();
+                return this.zeroEntriesCount;
             }
         }
 
@@ -78,25 +86,47 @@ namespace MyAssFramework.Entities
         public QueueEntity(int id)
         {
             this.Id = id;
-            this.currentContent = 0;
-            this.entriesCount = 0;
-            this.maxContent = 0;
         }
 
         public void Queue(int units)
         {
-            this.currentContent += units;
-            this.entriesCount++;
+            this.entriesCount += units;
 
             if (this.maxContent < this.currentContent)
             {
                 this.maxContent = this.currentContent;
             }
+
+            this.UpdateStats();
+
+            this.currentContent += units;
         }
 
         public void Depart(int units)
         {
+            this.UpdateStats();
+
+            if (currentContent == units && this.latestChangeClock == Simulation.It.Clock)
+            {
+                this.zeroEntriesCount += units;
+            }
+
             this.currentContent -= units;
+        }
+
+        public override void UpdateStats()
+        {
+            
+
+            this.contentTimeArea += this.currentContent * (Simulation.It.Clock - this.latestChangeClock);
+            this.averageContent = this.contentTimeArea / Simulation.It.Clock;
+            this.averageTime = this.contentTimeArea / this.entriesCount;
+            this.averageTimeNonZero = this.contentTimeArea / (this.entriesCount - this.zeroEntriesCount);
+
+            //double timeDelta = Simulation.It.Clock - this.previousChangeClock;
+            //this.averageContent = ( (this.averageContent * this.previousChangeClock) + (this.currentContent * timeDelta) ) / Simulation.It.Clock;
+
+            this.latestChangeClock = Simulation.It.Clock;
         }
     }
 }

@@ -11,5 +11,10 @@ namespace MyAssFramework.Entities
         {
             this.Id = id;
         }
+
+        public override void UpdateStats()
+        {
+
+        }
     }
 }
