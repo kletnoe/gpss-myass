@@ -31,7 +31,7 @@ namespace MyAssFramework
         public FutureTransactionChain FutureEventChain = new FutureTransactionChain();
         public Queue<ICommand> CommandQueue = new Queue<ICommand>();
 
-        private Simulation() {}
+        /*private*/ public Simulation() {}
 
         public static Simulation It
         {

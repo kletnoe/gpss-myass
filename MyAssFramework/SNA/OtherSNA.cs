@@ -12,10 +12,5 @@ namespace MyAssFramework.SNA
         {
             throw new NotImplementedException();
         }
-
-        public static double ToDel()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
