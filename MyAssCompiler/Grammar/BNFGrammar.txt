@@ -1,0 +1,47 @@
+﻿
+Rules of Thumb:
+1. If block has one operand - its always operand, not operator;
+2. [id] id [id] issue with label-verb-operand will be postponed to linker *
+
+MODEL ::= { VERB }+
+
+VERB ::= BLOCK | COMMAND
+
+	BLOCK ::= [ id ] id [ OPERATOR ] [ OPERANDS ]
+
+		OPERATOR ::= id
+
+		OPERANDS ::= OPERAND {"," OPERAND}
+
+		OPERAND :== "" | E
+
+		E ::= BINE | PREE | POSTE | LVAL | LITERAL
+
+			BINE ::= E ("+" | "-" | "*"|...) E
+
+			PREE ::= ("+" | "-") E
+
+			POSTE ::= E ("+" | "-")
+
+			LVAL ::= id [ ACCESSOR ]
+
+				ACCESSOR ::= CALL | DIRECTSNA
+
+				CALL ::= "(" ACTUALS ")"
+
+					ACTUALS ::= "" | E {"," E}
+
+				DIRECTSNA ::= "$" id
+
+			LITERAL ::= int | double | string
+
+
+* There are cases for this issue:
+1. Label Block Operator Operand1
+2. Label Block Operand1
+3. Label Block
+4. Block Operator Operand1
+5. Block Operand1
+6. Block
+
+
