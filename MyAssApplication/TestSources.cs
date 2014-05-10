@@ -22,7 +22,7 @@ namespace MyAssApplication
 	INITIAL X$GenerateCounter,0
 	INITIAL X$RejetionProb,0
 
-	GENERATE Exponential(1,0,1)
+	GENERATE (Exponential(1,0,1/2))
 ;		MARK InSystemTime
 ;		MARK OnQueueTime
 	SAVEVALUE GenerateCounter,1
@@ -33,7 +33,7 @@ namespace MyAssApplication
 	DEPART Tail
 ;		TABULATE OnQueue
 ;		MARK OnServTime
-	ADVANCE Exponential(2,0,1)
+	ADVANCE (Exponential(2,0,1/0.2))
 	LEAVE Server
 ;		TABULATE OnServer		
 ;		TABULATE InSystem

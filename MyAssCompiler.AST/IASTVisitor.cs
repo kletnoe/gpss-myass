@@ -15,6 +15,7 @@ namespace MyAssCompiler.AST
         void Visit(ASTOperator node);
         void Visit(ASTCall node);
         void Visit(ASTDirectSNA node);
+        void Visit(ASTSuffixOperator node);
         void Visit(ASTLiteral node);
         void Visit(ASTLValue node);
         void Visit(ASTModel node);

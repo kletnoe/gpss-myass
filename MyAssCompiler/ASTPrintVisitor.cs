@@ -192,5 +192,18 @@ namespace MyAssCompiler
 
             factor.Value.Accept(this);
         }
+
+        public void Visit(ASTSuffixOperator op)
+        {
+            switch (op.Operator)
+            {
+                case AddOperatorType.ADD:
+                    result.Append("+");
+                    break;
+                case AddOperatorType.SUBSTRACT:
+                    result.Append("-");
+                    break;
+            }
+        }
     }
 }

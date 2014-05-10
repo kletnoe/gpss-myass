@@ -36,6 +36,7 @@ namespace MyAssCompiler
             return id;
         }
 
+        // Single token
         public object Expect(TokenType expected)
         {
             if (expected == this.Scanner.CurrentToken)
@@ -54,7 +55,7 @@ namespace MyAssCompiler
         }
 
 
-        // MODEL ::= { BLOCK }+
+        // <model> ::= { <verb> }+
         public ASTModel ExpectModel()
         {
             ASTModel model = new ASTModel();
@@ -90,7 +91,7 @@ namespace MyAssCompiler
             return model;
         }
 
-        // BLOCK ::= [ id ] id [ OPERATOR ] [ OPERANDS ]
+        // <block> ::= [ ID ] ID [ <operator> ] [ <operands> ]
         public ASTBlock ExpectBlock()
         {
             ASTBlock block = new ASTBlock();
@@ -178,7 +179,7 @@ namespace MyAssCompiler
             return block;
         }
 
-        // OPERATOR ::= id
+        // <operator> ::= ID
         public ASTOperator ExpectOperator(int id)
         {
             return new ASTOperator()
@@ -187,7 +188,7 @@ namespace MyAssCompiler
             };
         }
 
-        // OPERANDS ::= OPERAND {"," OPERAND}
+        // <operands> ::= <operand> { "," <operand> }
         public ASTOperands ExpectOperands(int? initialId = null)
         {
             ASTOperands operands = new ASTOperands();
@@ -215,7 +216,7 @@ namespace MyAssCompiler
             return operands;
         }
 
-        // OPERAND :== "" | E
+        // <operand> ::= "" | <expr> [ <suffixoperator> ]
         public ASTOperand ExpectOperand(int? initialId = null)
         {
             ASTOperand operand = null;
@@ -234,131 +235,6 @@ namespace MyAssCompiler
                 }
             }
             return operand;
-        }
-
-        //// E ::= T {("+"|"-") T}
-        //public ASTExpression ExpectExpression(int? initialId = null)
-        //{
-        //    ASTExpression expression = null;
-
-        //    if (initialId.HasValue)
-        //    {
-        //        expression = this.ExpectLValue(initialId);
-        //    }
-        //    else
-        //    {
-        //        switch (this.Scanner.CurrentToken)
-        //        {
-        //            case TokenType.ID:
-        //                expression = this.ExpectLValue();
-        //                break;
-        //            case TokenType.NUMERIC:
-        //                expression = this.ExpectLiteral();
-        //                break;
-        //        }
-        //    }
-
-        //    return expression;
-        //}
-
-        // LITERAL ::= int | double | string
-        public ASTLiteral ExpectLiteral()
-        {
-            object value = this.Expect(TokenType.NUMERIC);
-            LiteralType type;
-
-            if (value is Int32)
-            {
-                type = LiteralType.Int32;
-            }
-            else if (value is Double)
-            {
-                type = LiteralType.Double;
-            }
-            else
-            {
-                type = LiteralType.String;
-            }
-
-            return new ASTLiteral()
-            {
-                LiteralType = type,
-                Value = value
-            };
-        }
-
-        // LVAL ::= id [ ACCESSOR ]
-        public ASTLValue ExpectLValue(int? initialId = null)
-        {
-            ASTLValue lvalue = new ASTLValue();
-
-            if (initialId.HasValue)
-            {
-                lvalue.Id = initialId.Value;
-            }
-            else
-            {
-                lvalue.Id = this.ExpectID();
-            }
-
-            if (this.Scanner.CurrentToken == TokenType.LPAR
-                || this.Scanner.CurrentToken == TokenType.DOLLAR)
-            {
-                switch (this.Scanner.CurrentToken)
-                {
-                    case TokenType.LPAR:
-                        lvalue.Accessor = this.ExpectCall();
-                        break;
-                    case TokenType.DOLLAR:
-                        lvalue.Accessor = this.ExpectDirectSNA();
-                        break;
-                }
-            }
-
-            return lvalue;
-        }
-
-        // CALL ::= "(" ACTUALS ")"
-        public ASTCall ExpectCall()
-        {
-            ASTCall call = new ASTCall();
-
-            this.Expect(TokenType.LPAR);
-            call.Actuals = this.ExpectActuals();
-            this.Expect(TokenType.RPAR);
-
-            return call;
-        }
-
-        // ACTUALS ::= "" | E {"," E}
-        public ASTActuals ExpectActuals()
-        {
-            ASTActuals actuals = new ASTActuals();
-
-            if (this.Scanner.CurrentToken == TokenType.ID
-                || this.Scanner.CurrentToken == TokenType.NUMERIC)
-            {
-                actuals.Expressions.Add(this.ExpectExpression());
-
-                while (this.Scanner.CurrentToken == TokenType.COMMA)
-                {
-                    this.Expect(TokenType.COMMA);
-                    actuals.Expressions.Add(this.ExpectExpression());
-                }
-            }
-
-            return actuals;
-        }
-
-        // DIRECTSNA ::= "$" id
-        public ASTDirectSNA ExpectDirectSNA()
-        {
-
-            this.Expect(TokenType.DOLLAR);
-            return new ASTDirectSNA()
-            {
-                Id = ExpectID()
-            };
         }
 
         // <expr> ::= <term> { <addop> <term> }
@@ -414,24 +290,23 @@ namespace MyAssCompiler
         // <signedfactor> ::= [ <addop> ] <factor>
         public ASTSignedFactor ExpectSignedFactor(int? initialId = null)
         {
-            ASTSignedFactor sFactor = new ASTSignedFactor();
-
-            if (this.Scanner.CurrentToken == TokenType.PLUS
-                || this.Scanner.CurrentToken == TokenType.MINUS)
-            {
-                sFactor.Operator = this.ExpectAddOperator();
-            }
+            ASTSignedFactor factor = new ASTSignedFactor();
 
             if (initialId.HasValue)
             {
-                sFactor.Value = this.ExpectFactor(initialId);
+                factor.Value = this.ExpectFactor(initialId);
             }
             else
             {
-                sFactor.Value = ExpectFactor();
+                if (this.Scanner.CurrentToken == TokenType.PLUS
+                    || this.Scanner.CurrentToken == TokenType.MINUS)
+                {
+                    factor.Operator = this.ExpectAddOperator();
+                }
+                factor.Value = ExpectFactor();
             }
 
-            return sFactor;
+            return factor;
         }
 
         // <factor> ::= <literal> | <lval> | "(" <expression> ")"
@@ -463,6 +338,114 @@ namespace MyAssCompiler
             return factor;
         }
 
+
+        // <literal> ::= INT | DOUBLE | STRING
+        public ASTLiteral ExpectLiteral()
+        {
+            object value = this.Expect(TokenType.NUMERIC);
+            LiteralType type;
+
+            if (value is Int32)
+            {
+                type = LiteralType.Int32;
+            }
+            else if (value is Double)
+            {
+                type = LiteralType.Double;
+            }
+            else
+            {
+                type = LiteralType.String;
+            }
+
+            return new ASTLiteral()
+            {
+                LiteralType = type,
+                Value = value
+            };
+        }
+
+        // <lval> ::= ID [ <accessor> ]
+        public ASTLValue ExpectLValue(int? initialId = null)
+        {
+            ASTLValue lvalue = new ASTLValue();
+
+            if (initialId.HasValue)
+            {
+                lvalue.Id = initialId.Value;
+            }
+            else
+            {
+                lvalue.Id = this.ExpectID();
+            }
+
+            if (this.Scanner.CurrentToken == TokenType.LPAR
+                || this.Scanner.CurrentToken == TokenType.DOLLAR)
+            {
+                lvalue.Accessor = this.ExpectAccessor();
+            }
+
+            return lvalue;
+        }
+
+        // <accessor> ::= <call> | <directsna>
+        public IASTAccessor ExpectAccessor()
+        {
+            switch (this.Scanner.CurrentToken)
+            {
+                case TokenType.LPAR:
+                    return this.ExpectCall();
+                case TokenType.DOLLAR:
+                    return this.ExpectDirectSNA();
+                default:
+                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
+                        @"( or $ or + or -", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+            }
+        }
+
+        // <call> ::= "(" <actuals> ")"
+        public ASTCall ExpectCall()
+        {
+            ASTCall call = new ASTCall();
+
+            this.Expect(TokenType.LPAR);
+            call.Actuals = this.ExpectActuals();
+            this.Expect(TokenType.RPAR);
+
+            return call;
+        }
+
+        // <actuals> ::= "" | <expr> { "," <expr> }
+        public ASTActuals ExpectActuals()
+        {
+            ASTActuals actuals = new ASTActuals();
+
+            if (this.Scanner.CurrentToken == TokenType.ID
+                || this.Scanner.CurrentToken == TokenType.NUMERIC)
+            {
+                actuals.Expressions.Add(this.ExpectExpression());
+
+                while (this.Scanner.CurrentToken == TokenType.COMMA)
+                {
+                    this.Expect(TokenType.COMMA);
+                    actuals.Expressions.Add(this.ExpectExpression());
+                }
+            }
+
+            return actuals;
+        }
+
+        // <directsna> ::= "$" ID
+        public ASTDirectSNA ExpectDirectSNA()
+        {
+
+            this.Expect(TokenType.DOLLAR);
+            return new ASTDirectSNA()
+            {
+                Id = ExpectID()
+            };
+        }
+
         // <addop> ::= "+" | "-"
         public AddOperatorType ExpectAddOperator()
         {
@@ -471,7 +454,7 @@ namespace MyAssCompiler
                 case TokenType.PLUS:
                     this.Expect(TokenType.PLUS);
                     return AddOperatorType.ADD;
-                case TokenType.FWDSLASH:
+                case TokenType.MINUS:
                     this.Expect(TokenType.MINUS);
                     return AddOperatorType.SUBSTRACT;
                 default:
@@ -503,5 +486,29 @@ namespace MyAssCompiler
             }
         }
 
+
+        // Not in use, not supported
+        // <suffixoperator> ::= "+" | "-"
+        private ASTSuffixOperator ExpectSuffixOperator()
+        {
+            switch (this.Scanner.CurrentToken)
+            {
+                case TokenType.PLUS:
+                    this.Expect(TokenType.PLUS);
+                    return new ASTSuffixOperator()
+                    {
+                        Operator = AddOperatorType.ADD
+                    };
+                case TokenType.MINUS:
+                    this.Expect(TokenType.MINUS);
+                    return new ASTSuffixOperator()
+                    {
+                        Operator = AddOperatorType.SUBSTRACT
+                    };
+                default:
+                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
+                        @"+ or -", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+            }
+        }
     }
 }

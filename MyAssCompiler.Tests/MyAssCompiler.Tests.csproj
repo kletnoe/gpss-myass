@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ParserTests\AccessorsTest.cs" />
     <Compile Include="ParserTests\ExpressionTests.cs" />
     <Compile Include="ParserTests\ExpressionTests_Old.cs" />
     <Compile Include="ParserTests\LiteralTests.cs" />

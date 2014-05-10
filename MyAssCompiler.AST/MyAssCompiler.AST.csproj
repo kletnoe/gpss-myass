@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddOperatorType.cs" />
+    <Compile Include="ASTSuffixOperator.cs" />
     <Compile Include="IASTAccessor.cs" />
     <Compile Include="ASTActuals.cs" />
     <Compile Include="ASTBlock.cs" />
