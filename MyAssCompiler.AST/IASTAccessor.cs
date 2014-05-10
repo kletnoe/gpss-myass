@@ -5,8 +5,7 @@ using System.Text;
 
 namespace MyAssCompiler.AST
 {
-    public abstract class ASTAccessor : IASTNode
+    public interface IASTAccessor : IASTNode
     {
-        public abstract void Accept(IASTVisitor visitor);
     }
 }

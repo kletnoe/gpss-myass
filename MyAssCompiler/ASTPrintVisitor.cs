@@ -85,65 +85,6 @@ namespace MyAssCompiler
             result.Append(literal.Value);
         }
 
-        public void Visit(ASTBinaryExpression expr)
-        {
-            expr.LValue.Accept(this);
-
-            switch (expr.Operator)
-            {
-                case BinaryOperatorType.ADD:
-                    result.Append("+");
-                    break;
-                case BinaryOperatorType.SUBSTRACT:
-                    result.Append("-");
-                    break;
-                case BinaryOperatorType.MULTIPLY:
-                    result.Append("#");
-                    break;
-                case BinaryOperatorType.DIVIDE:
-                    result.Append("/");
-                    break;
-                case BinaryOperatorType.MODULO:
-                    result.Append("\\");
-                    break;
-                case BinaryOperatorType.EXPONENT:
-                    result.Append("^");
-                    break;
-            }
-
-            expr.RValue.Accept(this);
-        }
-
-        public void Visit(ASTPostfixUnaryExpression expr)
-        {
-            expr.Value.Accept(this);
-
-            switch (expr.Operator)
-            {
-                case PostfixUnaryOperatorType.PLUS:
-                    result.Append("+");
-                    break;
-                case PostfixUnaryOperatorType.MINUS:
-                    result.Append("-");
-                    break;
-            }
-        }
-
-        public void Visit(ASTPrefixUnaryExpression expr)
-        {
-            switch (expr.Operator)
-            {
-                case PrefixUnaryOperatorType.PLUS:
-                    result.Append("+");
-                    break;
-                case PrefixUnaryOperatorType.MINUS:
-                    result.Append("-");
-                    break;
-            }
-
-            expr.Value.Accept(this);
-        }
-
         public void Visit(ASTLValue lval)
         {
             result.Append(this.Parser.IdsList[lval.Id]);
@@ -184,7 +125,7 @@ namespace MyAssCompiler
             }
         }
 
-        public void Visit(ASTExpr expr)
+        public void Visit(ASTExpression expr)
         {
             //result.Append("(");
             expr.LValue.Accept(this);
@@ -250,11 +191,6 @@ namespace MyAssCompiler
             }
 
             factor.Value.Accept(this);
-        }
-
-        public void Visit(ASTExpression node)
-        {
-            throw new NotImplementedException();
         }
     }
 }

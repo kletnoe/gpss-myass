@@ -5,10 +5,10 @@ using System.Text;
 
 namespace MyAssCompiler.AST
 {
-    public class ASTLValue : ASTExpression, IASTFactor
+    public class ASTLValue : IASTFactor
     {
         public int Id { get; set; }
-        public ASTAccessor Accessor { get; set; }
+        public IASTAccessor Accessor { get; set; }
 
         public void Accept(IASTVisitor visitor)
         {

@@ -7,6 +7,5 @@ namespace MyAssCompiler.AST
 {
     public interface ASTOperand : IASTNode
     {
-    //    public abstract void Accept(IASTVisitor visitor);
     }
 }

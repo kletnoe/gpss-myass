@@ -9,7 +9,6 @@ namespace MyAssCompiler.AST
     {
         void Visit(ASTActuals node);
         void Visit(ASTExpression node);
-        void Visit(ASTExpr node);
         void Visit(ASTTerm node);
         void Visit(ASTSignedFactor node);
         void Visit(ASTBlock node);
@@ -20,7 +19,5 @@ namespace MyAssCompiler.AST
         void Visit(ASTLValue node);
         void Visit(ASTModel node);
         void Visit(ASTOperands node);
-        void Visit(ASTPostfixUnaryExpression node);
-        void Visit(ASTPrefixUnaryExpression node);
     }
 }

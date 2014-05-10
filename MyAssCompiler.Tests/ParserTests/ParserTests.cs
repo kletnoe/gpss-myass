@@ -11,25 +11,6 @@ namespace MyAssCompiler.Tests
     public class IdConflictTests
     {
         [Test]
-        public void Block()
-        {
-            string input = @"Some 3";
-
-            Parser parser = new Parser(new Scanner(new StringCharSource(input)));
-            var model = parser.Parse();
-
-            Assert.IsTrue(model.Verbs.Count == 1);
-            Assert.IsTrue(model.Verbs.First() is AST.ASTBlock);
-            Assert.IsTrue((model.Verbs.First() as AST.ASTBlock).Operands.Operands.Count == 1);
-            Assert.IsTrue((model.Verbs.First() as AST.ASTBlock).Operands.Operands.First() is AST.ASTLiteral);
-            Assert.IsTrue(((model.Verbs.First() as AST.ASTBlock).Operands.Operands.First() as AST.ASTLiteral).LiteralType == AST.LiteralType.Int32);
-
-
-
-            Assert.Pass(model.ToString());
-        }
-
-        [Test]
         public void DirectSna()
         {
             string input = @"Init x$SomeId";

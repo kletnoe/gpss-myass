@@ -9,8 +9,8 @@ namespace MyAssApplication
 {
     public class SimpleASTExample
     {
-        public ASTModel GetAst()
-        {
+        //public ASTModel GetAst()
+        //{
             //IdsList.It.Ids.Add(-1, "STORAGE");
             //IdsList.It.Ids.Add(-2, "INITIAL");
             //IdsList.It.Ids.Add(-3, "GENERATE");
@@ -33,181 +33,181 @@ namespace MyAssApplication
 
 
 
-            ASTModel model = new ASTModel();
+        //    ASTModel model = new ASTModel();
 
-            // STORAGE
-            model.Verbs.Add(new ASTBlock()
-            {
-                LabelId = 10000,
-                VerbId = -1,
-                Operands = new ASTOperands()
-                {
-                    Operands = new List<ASTOperand>()
-                    {
-                        new ASTLiteral()
-                        {
-                            LiteralType = LiteralType.Int32,
-                            Value = 3
-                        }
-                    }
-                }
-            });
+        //    // STORAGE
+        //    model.Verbs.Add(new ASTBlock()
+        //    {
+        //        LabelId = 10000,
+        //        VerbId = -1,
+        //        Operands = new ASTOperands()
+        //        {
+        //            Operands = new List<ASTOperand>()
+        //            {
+        //                new ASTLiteral()
+        //                {
+        //                    LiteralType = LiteralType.Int32,
+        //                    Value = 3
+        //                }
+        //            }
+        //        }
+        //    });
                     
-             // INITIAL 1
-            model.Verbs.Add(new ASTBlock()
-            {
-                LabelId = int.MinValue,
-                VerbId = -2,
-                Operands = new ASTOperands()
-                {
-                    Operands = new List<ASTOperand>()
-                    {
-                        new ASTLValue()
-                        {
-                            Id = -12,
-                            Accessor = new ASTDirectSNA()
-                            {
-                                Id = 10001
-                            }
-                        },
-                        new ASTLiteral()
-                        {
-                            LiteralType = LiteralType.Int32,
-                            Value = 0
-                        }
-                    }
-                }
-            });
+        //     // INITIAL 1
+        //    model.Verbs.Add(new ASTBlock()
+        //    {
+        //        LabelId = int.MinValue,
+        //        VerbId = -2,
+        //        Operands = new ASTOperands()
+        //        {
+        //            Operands = new List<ASTOperand>()
+        //            {
+        //                new ASTLValue()
+        //                {
+        //                    Id = -12,
+        //                    Accessor = new ASTDirectSNA()
+        //                    {
+        //                        Id = 10001
+        //                    }
+        //                },
+        //                new ASTLiteral()
+        //                {
+        //                    LiteralType = LiteralType.Int32,
+        //                    Value = 0
+        //                }
+        //            }
+        //        }
+        //    });
 
-            // INITIAL 2
-            model.Verbs.Add(new ASTBlock()
-            {
-                LabelId = int.MinValue,
-                VerbId = -2,
-                Operands = new ASTOperands()
-                {
-                    Operands = new List<ASTOperand>()
-                    {
-                        new ASTLValue()
-                        {
-                            Id = -12,
-                            Accessor = new ASTDirectSNA()
-                            {
-                                Id = 10002
-                            }
-                        },
-                        new ASTLiteral()
-                        {
-                            LiteralType = LiteralType.Int32,
-                            Value = 0
-                        }
-                    }
-                }
-            });
+        //    // INITIAL 2
+        //    model.Verbs.Add(new ASTBlock()
+        //    {
+        //        LabelId = int.MinValue,
+        //        VerbId = -2,
+        //        Operands = new ASTOperands()
+        //        {
+        //            Operands = new List<ASTOperand>()
+        //            {
+        //                new ASTLValue()
+        //                {
+        //                    Id = -12,
+        //                    Accessor = new ASTDirectSNA()
+        //                    {
+        //                        Id = 10002
+        //                    }
+        //                },
+        //                new ASTLiteral()
+        //                {
+        //                    LiteralType = LiteralType.Int32,
+        //                    Value = 0
+        //                }
+        //            }
+        //        }
+        //    });
 
-            // INITIAL 3
-            model.Verbs.Add(new ASTBlock()
-            {
-                LabelId = int.MinValue,
-                VerbId = -2,
-                Operands = new ASTOperands()
-                {
-                    Operands = new List<ASTOperand>()
-                    {
-                        new ASTLValue()
-                        {
-                            Id = -12,
-                            Accessor = new ASTDirectSNA()
-                            {
-                                Id = 10003
-                            }
-                        },
-                        new ASTLiteral()
-                        {
-                            LiteralType = LiteralType.Int32,
-                            Value = 0
-                        }
-                    }
-                }
-            });
+        //    // INITIAL 3
+        //    model.Verbs.Add(new ASTBlock()
+        //    {
+        //        LabelId = int.MinValue,
+        //        VerbId = -2,
+        //        Operands = new ASTOperands()
+        //        {
+        //            Operands = new List<ASTOperand>()
+        //            {
+        //                new ASTLValue()
+        //                {
+        //                    Id = -12,
+        //                    Accessor = new ASTDirectSNA()
+        //                    {
+        //                        Id = 10003
+        //                    }
+        //                },
+        //                new ASTLiteral()
+        //                {
+        //                    LiteralType = LiteralType.Int32,
+        //                    Value = 0
+        //                }
+        //            }
+        //        }
+        //    });
 
-            // INITIAL 3
-            model.Verbs.Add(new ASTBlock()
-            {
-                LabelId = int.MinValue,
-                VerbId = -2,
-                Operands = new ASTOperands()
-                {
-                    Operands = new List<ASTOperand>()
-                    {
-                        new ASTLValue()
-                        {
-                            Id = -12,
-                            Accessor = new ASTDirectSNA()
-                            {
-                                Id = 10003
-                            }
-                        },
-                        new ASTLiteral()
-                        {
-                            LiteralType = LiteralType.Int32,
-                            Value = 0
-                        }
-                    }
-                }
-            });
+        //    // INITIAL 3
+        //    model.Verbs.Add(new ASTBlock()
+        //    {
+        //        LabelId = int.MinValue,
+        //        VerbId = -2,
+        //        Operands = new ASTOperands()
+        //        {
+        //            Operands = new List<ASTOperand>()
+        //            {
+        //                new ASTLValue()
+        //                {
+        //                    Id = -12,
+        //                    Accessor = new ASTDirectSNA()
+        //                    {
+        //                        Id = 10003
+        //                    }
+        //                },
+        //                new ASTLiteral()
+        //                {
+        //                    LiteralType = LiteralType.Int32,
+        //                    Value = 0
+        //                }
+        //            }
+        //        }
+        //    });
 
-            // GENERATE
-            model.Verbs.Add(new ASTBlock()
-            {
-                LabelId = int.MinValue,
-                VerbId = -3,
-                Operands = new ASTOperands()
-                {
-                    Operands = new List<ASTOperand>()
-                    {
-                        new ASTLValue()
-                        {
-                            Id = 20000,
-                            Accessor = new ASTCall()
-                            {
-                                Actuals = new ASTActuals()
-                                {
-                                    //Expressions = new List<ASTExpr>()
-                                    //{
-                                    //    new ASTLiteral()
-                                    //    {
-                                    //        LiteralType = LiteralType.Int32,
-                                    //        Value = 1
-                                    //    },
-                                    //    new ASTLiteral()
-                                    //    {
-                                    //        LiteralType = LiteralType.Int32,
-                                    //        Value = 0
-                                    //    },
-                                    //    new ASTBinaryExpr()
-                                    //    {
-                                    //        LValue = new ASTLiteral()
-                                    //        {
-                                    //            LiteralType = LiteralType.Int32,
-                                    //            Value = 1
-                                    //        },
-                                    //        RValue = new ASTLiteral()
-                                    //        {
-                                    //            LiteralType = LiteralType.Int32,
-                                    //            Value = 2
-                                    //        },
-                                    //        Operator = BinaryOperatorType.DIVIDE
-                                    //    }
-                                    //}
-                                }
-                            }
-                        }
-                    }
-                }
-            });
+        //    // GENERATE
+        //    model.Verbs.Add(new ASTBlock()
+        //    {
+        //        LabelId = int.MinValue,
+        //        VerbId = -3,
+        //        Operands = new ASTOperands()
+        //        {
+        //            Operands = new List<ASTOperand>()
+        //            {
+        //                new ASTLValue()
+        //                {
+        //                    Id = 20000,
+        //                    Accessor = new ASTCall()
+        //                    {
+        //                        Actuals = new ASTActuals()
+        //                        {
+        //                            //Expressions = new List<ASTExpr>()
+        //                            //{
+        //                            //    new ASTLiteral()
+        //                            //    {
+        //                            //        LiteralType = LiteralType.Int32,
+        //                            //        Value = 1
+        //                            //    },
+        //                            //    new ASTLiteral()
+        //                            //    {
+        //                            //        LiteralType = LiteralType.Int32,
+        //                            //        Value = 0
+        //                            //    },
+        //                            //    new ASTBinaryExpr()
+        //                            //    {
+        //                            //        LValue = new ASTLiteral()
+        //                            //        {
+        //                            //            LiteralType = LiteralType.Int32,
+        //                            //            Value = 1
+        //                            //        },
+        //                            //        RValue = new ASTLiteral()
+        //                            //        {
+        //                            //            LiteralType = LiteralType.Int32,
+        //                            //            Value = 2
+        //                            //        },
+        //                            //        Operator = BinaryOperatorType.DIVIDE
+        //                            //    }
+        //                            //}
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    });
 
-            return model;
-        }
+        //    return model;
+        //}
     }
 }

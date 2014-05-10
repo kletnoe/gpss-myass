@@ -5,11 +5,11 @@ using System.Text;
 
 namespace MyAssCompiler.AST
 {
-    public class ASTDirectSNA : ASTAccessor
+    public class ASTDirectSNA : IASTAccessor
     {
         public int Id { get; set; }
 
-        public override void Accept(IASTVisitor visitor)
+        public void Accept(IASTVisitor visitor)
         {
             visitor.Visit(this);
         }

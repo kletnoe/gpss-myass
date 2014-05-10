@@ -5,11 +5,11 @@ using System.Text;
 
 namespace MyAssCompiler.AST
 {
-    public class ASTCall : ASTAccessor
+    public class ASTCall : IASTAccessor
     {
         public ASTActuals Actuals { get; set; }
 
-        public override void Accept(IASTVisitor visitor)
+        public void Accept(IASTVisitor visitor)
         {
             visitor.Visit(this);
         }

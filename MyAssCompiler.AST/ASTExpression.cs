@@ -5,8 +5,24 @@ using System.Text;
 
 namespace MyAssCompiler.AST
 {
-    public interface ASTExpression : ASTOperand
+    public class ASTExpression : ASTOperand, IASTFactor
     {
-    //    public abstract void Accept(IASTVisitor visitor);
+        public ASTTerm LValue { get; set; }
+        public AddOperatorType? Operator { get; set; }
+        public ASTTerm RValue { get; set; }
+
+        public void Accept(IASTVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
+        public override string ToString()
+        {
+            return  "("
+                + this.LValue.ToString()
+                + (this.Operator.HasValue ? " " + this.Operator.ToString() : "")
+                + (this.RValue != null ? " " + this.RValue.ToString() : "")
+                + ")";
+        }
     }
 }

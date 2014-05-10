@@ -362,9 +362,9 @@ namespace MyAssCompiler
         }
 
         // <expr> ::= <term> { <addop> <term> }
-        public ASTExpr ExpectExpression(int? initialId = null)
+        public ASTExpression ExpectExpression(int? initialId = null)
         {
-            ASTExpr expression = new ASTExpr();
+            ASTExpression expression = new ASTExpression();
 
             if (initialId.HasValue)
             {

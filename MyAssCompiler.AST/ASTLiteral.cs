@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MyAssCompiler.AST
 {
-    public class ASTLiteral : ASTExpression, IASTFactor
+    public class ASTLiteral : IASTFactor
     {
         public LiteralType LiteralType { get; set; }
         public object Value { get; set; }
