@@ -5,8 +5,7 @@ using System.Text;
 
 namespace MyAssCompiler.AST
 {
-    public interface ASTExpression : ASTOperand
+    public interface IASTFactor : IASTNode
     {
-    //    public abstract void Accept(IASTVisitor visitor);
     }
 }

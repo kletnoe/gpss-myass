@@ -173,33 +173,33 @@ namespace MyAssApplication
                             {
                                 Actuals = new ASTActuals()
                                 {
-                                    Expressions = new List<ASTExpression>()
-                                    {
-                                        new ASTLiteral()
-                                        {
-                                            LiteralType = LiteralType.Int32,
-                                            Value = 1
-                                        },
-                                        new ASTLiteral()
-                                        {
-                                            LiteralType = LiteralType.Int32,
-                                            Value = 0
-                                        },
-                                        new ASTBinaryExpression()
-                                        {
-                                            LValue = new ASTLiteral()
-                                            {
-                                                LiteralType = LiteralType.Int32,
-                                                Value = 1
-                                            },
-                                            RValue = new ASTLiteral()
-                                            {
-                                                LiteralType = LiteralType.Int32,
-                                                Value = 2
-                                            },
-                                            Operator = BinaryOperatorType.DIVIDE
-                                        }
-                                    }
+                                    //Expressions = new List<ASTExpr>()
+                                    //{
+                                    //    new ASTLiteral()
+                                    //    {
+                                    //        LiteralType = LiteralType.Int32,
+                                    //        Value = 1
+                                    //    },
+                                    //    new ASTLiteral()
+                                    //    {
+                                    //        LiteralType = LiteralType.Int32,
+                                    //        Value = 0
+                                    //    },
+                                    //    new ASTBinaryExpr()
+                                    //    {
+                                    //        LValue = new ASTLiteral()
+                                    //        {
+                                    //            LiteralType = LiteralType.Int32,
+                                    //            Value = 1
+                                    //        },
+                                    //        RValue = new ASTLiteral()
+                                    //        {
+                                    //            LiteralType = LiteralType.Int32,
+                                    //            Value = 2
+                                    //        },
+                                    //        Operator = BinaryOperatorType.DIVIDE
+                                    //    }
+                                    //}
                                 }
                             }
                         }

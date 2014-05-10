@@ -11,7 +11,7 @@ namespace MyAssCompiler.AST
         public ASTExpression RValue { get; set; }
         public BinaryOperatorType Operator { get; set; }
 
-        public override void Accept(IASTVisitor visitor)
+        public void Accept(IASTVisitor visitor)
         {
             visitor.Visit(this);
         }

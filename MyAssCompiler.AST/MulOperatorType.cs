@@ -5,8 +5,11 @@ using System.Text;
 
 namespace MyAssCompiler.AST
 {
-    public interface ASTExpression : ASTOperand
+    public enum MulOperatorType
     {
-    //    public abstract void Accept(IASTVisitor visitor);
+        MULTIPLY,
+        DIVIDE,
+        MODULO,
+        EXPONENT
     }
 }

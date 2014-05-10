@@ -7,11 +7,11 @@ namespace MyAssCompiler.AST
 {
     public class ASTActuals : IASTNode
     {
-        public IList<ASTExpression> Expressions { get; set; }
+        public IList<ASTExpr> Expressions { get; set; }
 
         public ASTActuals()
         {
-            this.Expressions = new List<ASTExpression>();
+            this.Expressions = new List<ASTExpr>();
         }
 
         public void Accept(IASTVisitor visitor)

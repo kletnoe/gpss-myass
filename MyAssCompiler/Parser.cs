@@ -116,6 +116,7 @@ namespace MyAssCompiler
                 fourthId = this.ExpectID();
             }
 
+            // id id id id 
             if (secondId.HasValue && thirdId.HasValue && fourthId.HasValue)
             {
                 block.LabelId = firstId;
@@ -124,6 +125,7 @@ namespace MyAssCompiler
                 block.Operands = this.ExpectOperands(fourthId.Value);
                 block.IsResolved = true;
             }
+            // id id id non-id
             else if (secondId.HasValue && thirdId.HasValue)
             {
                 // There are two cases for this:
@@ -164,7 +166,7 @@ namespace MyAssCompiler
             }
             else
             {
-                block.LabelId = 0;
+                block.LabelId = null;
                 block.VerbId = firstId;
                 block.Operator = null;
                 block.Operands = this.ExpectOperands();
@@ -197,7 +199,8 @@ namespace MyAssCompiler
             else
             {
                 if (this.Scanner.CurrentToken == TokenType.ID
-                    || this.Scanner.CurrentToken == TokenType.NUMERIC)
+                    || this.Scanner.CurrentToken == TokenType.NUMERIC
+                    || this.Scanner.CurrentToken == TokenType.LPAR)
                 {
                     operands.Operands.Add(this.ExpectOperand());
                 }
@@ -224,7 +227,8 @@ namespace MyAssCompiler
             else
             {
                 if (this.Scanner.CurrentToken == TokenType.ID
-                    || this.Scanner.CurrentToken == TokenType.NUMERIC)
+                    || this.Scanner.CurrentToken == TokenType.NUMERIC
+                    || this.Scanner.CurrentToken == TokenType.LPAR)
                 {
                     operand = this.ExpectExpression();
                 }
@@ -232,30 +236,30 @@ namespace MyAssCompiler
             return operand;
         }
 
-        // E ::= T {("+"|"-") T}
-        public ASTExpression ExpectExpression(int? initialId = null)
-        {
-            ASTExpression expression = null;
+        //// E ::= T {("+"|"-") T}
+        //public ASTExpression ExpectExpression(int? initialId = null)
+        //{
+        //    ASTExpression expression = null;
 
-            if (initialId.HasValue)
-            {
-                expression = this.ExpectLValue(initialId);
-            }
-            else
-            {
-                switch (this.Scanner.CurrentToken)
-                {
-                    case TokenType.ID:
-                        expression = this.ExpectLValue();
-                        break;
-                    case TokenType.NUMERIC:
-                        expression = this.ExpectLiteral();
-                        break;
-                }
-            }
+        //    if (initialId.HasValue)
+        //    {
+        //        expression = this.ExpectLValue(initialId);
+        //    }
+        //    else
+        //    {
+        //        switch (this.Scanner.CurrentToken)
+        //        {
+        //            case TokenType.ID:
+        //                expression = this.ExpectLValue();
+        //                break;
+        //            case TokenType.NUMERIC:
+        //                expression = this.ExpectLiteral();
+        //                break;
+        //        }
+        //    }
 
-            return expression;
-        }
+        //    return expression;
+        //}
 
         // LITERAL ::= int | double | string
         public ASTLiteral ExpectLiteral()
@@ -356,5 +360,148 @@ namespace MyAssCompiler
                 Id = ExpectID()
             };
         }
+
+        // <expr> ::= <term> { <addop> <term> }
+        public ASTExpr ExpectExpression(int? initialId = null)
+        {
+            ASTExpr expression = new ASTExpr();
+
+            if (initialId.HasValue)
+            {
+                expression.LValue = this.ExpectTerm(initialId);
+            }
+            else
+            {
+                expression.LValue = this.ExpectTerm();
+            }
+
+            if (this.Scanner.CurrentToken == TokenType.PLUS
+                || this.Scanner.CurrentToken == TokenType.MINUS)
+            {
+                expression.Operator = this.ExpectAddOperator();
+                expression.RValue = this.ExpectTerm();
+            }
+
+            return expression;
+        }
+
+        // <term> ::= <signedfactor> { <mulop> <factor> }
+        public ASTTerm ExpectTerm(int? initialId = null)
+        {
+            ASTTerm term = new ASTTerm();
+
+            if (initialId.HasValue)
+            {
+                term.LValue = this.ExpectSignedFactor(initialId);
+            }
+            else
+            {
+                term.LValue = this.ExpectSignedFactor();
+            }
+
+            if (this.Scanner.CurrentToken == TokenType.OCTOTROPE
+                || this.Scanner.CurrentToken == TokenType.FWDSLASH
+                || this.Scanner.CurrentToken == TokenType.BCKSLASH
+                || this.Scanner.CurrentToken == TokenType.CARRET)
+            {
+                term.Operator = this.ExpectMulOperator();
+                term.RValue = this.ExpectFactor();
+            }
+
+            return term;
+        }
+
+        // <signedfactor> ::= [ <addop> ] <factor>
+        public ASTSignedFactor ExpectSignedFactor(int? initialId = null)
+        {
+            ASTSignedFactor sFactor = new ASTSignedFactor();
+
+            if (this.Scanner.CurrentToken == TokenType.PLUS
+                || this.Scanner.CurrentToken == TokenType.MINUS)
+            {
+                sFactor.Operator = this.ExpectAddOperator();
+            }
+
+            if (initialId.HasValue)
+            {
+                sFactor.Value = this.ExpectFactor(initialId);
+            }
+            else
+            {
+                sFactor.Value = ExpectFactor();
+            }
+
+            return sFactor;
+        }
+
+        // <factor> ::= <literal> | <lval> | "(" <expression> ")"
+        public IASTFactor ExpectFactor(int? initialId = null)
+        {
+            IASTFactor factor = null;
+
+            if (initialId.HasValue)
+            {
+                factor = this.ExpectLValue(initialId);
+            }
+            else
+            {
+                switch (this.Scanner.CurrentToken)
+                {
+                    case TokenType.ID:
+                        factor = this.ExpectLValue();
+                        break;
+                    case TokenType.NUMERIC:
+                        factor = this.ExpectLiteral();
+                        break;
+                    case TokenType.LPAR:
+                        this.Expect(TokenType.LPAR);
+                        factor = ExpectExpression();
+                        this.Expect(TokenType.RPAR);
+                        break;
+                }
+            }
+            return factor;
+        }
+
+        // <addop> ::= "+" | "-"
+        public AddOperatorType ExpectAddOperator()
+        {
+            switch (this.Scanner.CurrentToken)
+            {
+                case TokenType.PLUS:
+                    this.Expect(TokenType.PLUS);
+                    return AddOperatorType.ADD;
+                case TokenType.FWDSLASH:
+                    this.Expect(TokenType.MINUS);
+                    return AddOperatorType.SUBSTRACT;
+                default:
+                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
+                        @"+ or -", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+            }
+        }
+
+        // <mulop> ::= "#" | "/" | "%" | "^"
+        public MulOperatorType ExpectMulOperator()
+        {
+            switch (this.Scanner.CurrentToken)
+            {
+                case TokenType.OCTOTROPE:
+                    this.Expect(TokenType.OCTOTROPE);
+                    return MulOperatorType.MULTIPLY;
+                case TokenType.FWDSLASH:
+                    this.Expect(TokenType.FWDSLASH);
+                    return MulOperatorType.DIVIDE;
+                case TokenType.BCKSLASH:
+                    this.Expect(TokenType.BCKSLASH);
+                    return MulOperatorType.MODULO;
+                case TokenType.CARRET:
+                    this.Expect(TokenType.CARRET);
+                    return MulOperatorType.EXPONENT;
+                default:
+                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
+                        @"# or / or \ or ^", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+            }
+        }
+
     }
 }

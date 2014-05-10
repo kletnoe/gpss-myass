@@ -10,7 +10,7 @@ namespace MyAssCompiler.AST
         public ASTExpression Value { get; set; }
         public PostfixUnaryOperatorType Operator { get; set; }
 
-        public override void Accept(IASTVisitor visitor)
+        public void Accept(IASTVisitor visitor)
         {
             visitor.Visit(this);
         }

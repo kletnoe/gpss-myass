@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddOperatorType.cs" />
     <Compile Include="ASTAccessor.cs" />
     <Compile Include="ASTActuals.cs" />
     <Compile Include="ASTBinaryExpression.cs" />
@@ -47,7 +48,10 @@
     <Compile Include="ASTCall.cs" />
     <Compile Include="ASTCommand.cs" />
     <Compile Include="ASTDirectSNA.cs" />
+    <Compile Include="ASTExpr.cs" />
     <Compile Include="ASTExpression.cs" />
+    <Compile Include="BinaryOperatorType.cs" />
+    <Compile Include="IASTFactor.cs" />
     <Compile Include="ASTLiteral.cs" />
     <Compile Include="ASTLValue.cs" />
     <Compile Include="ASTModel.cs" />
@@ -56,14 +60,16 @@
     <Compile Include="ASTOperator.cs" />
     <Compile Include="ASTPostfixUnaryExpression.cs" />
     <Compile Include="ASTPrefixUnaryExpression.cs" />
+    <Compile Include="ASTSignedFactor.cs" />
+    <Compile Include="ASTTerm.cs" />
     <Compile Include="ASTVerb.cs" />
-    <Compile Include="BinaryOperatorType.cs" />
     <Compile Include="ConditionalOperatorType.cs" />
     <Compile Include="ExtremumOperatorType.cs" />
     <Compile Include="IASTNode.cs" />
     <Compile Include="IASTVisitor.cs" />
     <Compile Include="IdsList.cs" />
     <Compile Include="LiteralType.cs" />
+    <Compile Include="MulOperatorType.cs" />
     <Compile Include="PostfixUnaryOperatorType.cs" />
     <Compile Include="PrefixUnaryOperatorType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

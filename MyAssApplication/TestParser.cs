@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MyAssCompiler;
+using MyAssCompiler.AST;
 
 namespace MyAssApplication
 {
@@ -11,7 +12,11 @@ namespace MyAssApplication
         public static void Run()
         {
             string source = TestSources.Source1();
-            Console.WriteLine(new ASTPrintVisitor(new Parser(new Scanner(new StringCharSource(source)))).Print());
+            ICharSource charSource = new StringCharSource(source);
+            IScanner scanner = new Scanner(charSource);
+            IParser parser = new Parser(scanner);
+            ASTPrintVisitor visitor = new ASTPrintVisitor(parser);
+            Console.WriteLine(visitor.Print());
         }
     }
 }

@@ -5,10 +5,10 @@ using System.Text;
 
 namespace MyAssCompiler.AST
 {
-    public class ASTLiteral : ASTExpression, IASTFactor
+    public class ASTSignedFactor : IASTNode
     {
-        public LiteralType LiteralType { get; set; }
-        public object Value { get; set; }
+        public AddOperatorType? Operator { get; set; }
+        public IASTFactor Value { get; set; }
 
         public void Accept(IASTVisitor visitor)
         {
@@ -17,7 +17,8 @@ namespace MyAssCompiler.AST
 
         public override string ToString()
         {
-            return this.Value.ToString();
+            return (this.Operator.HasValue ? this.Operator.ToString() : "")
+                + this.Value;
         }
     }
 }

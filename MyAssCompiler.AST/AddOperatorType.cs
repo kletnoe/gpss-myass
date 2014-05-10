@@ -5,8 +5,9 @@ using System.Text;
 
 namespace MyAssCompiler.AST
 {
-    public interface ASTExpression : ASTOperand
+    public enum AddOperatorType
     {
-    //    public abstract void Accept(IASTVisitor visitor);
+        ADD,
+        SUBSTRACT
     }
 }

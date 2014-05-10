@@ -8,7 +8,10 @@ namespace MyAssCompiler.AST
     public interface IASTVisitor
     {
         void Visit(ASTActuals node);
-        void Visit(ASTBinaryExpression node);
+        void Visit(ASTExpression node);
+        void Visit(ASTExpr node);
+        void Visit(ASTTerm node);
+        void Visit(ASTSignedFactor node);
         void Visit(ASTBlock node);
         void Visit(ASTOperator node);
         void Visit(ASTCall node);

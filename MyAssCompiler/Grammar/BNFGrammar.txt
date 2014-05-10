@@ -1,40 +1,51 @@
 ﻿
 Rules of Thumb:
 1. If block has one operand - its always operand, not operator;
-2. [id] id [id] issue with label-verb-operand will be postponed to linker *
+2. [ID] ID [ID] issue with label-verb-operand will be postponed to linker *
 
-MODEL ::= { VERB }+
+<model> ::= { <verb> }+
 
-VERB ::= BLOCK | COMMAND
+<verb> ::= <block> | <command>
 
-	BLOCK ::= [ id ] id [ OPERATOR ] [ OPERANDS ]
+	<block> ::= [ ID ] ID [ <operator> ] [ <operands> ]
 
-		OPERATOR ::= id
+		<operator> ::= ID
 
-		OPERANDS ::= OPERAND {"," OPERAND}
+		<operands> ::= <operand> { "," <operand> }
 
-		OPERAND :== "" | E
+		<operand> ::= "" | <expr>
 
-		E ::= BINE | PREE | POSTE | LVAL | LITERAL
+		<expr> ::= <term> { <addop> <term> }
 
-			BINE ::= E ("+" | "-" | "*"|...) E
+			<term> ::= <signedfactor> { <mulop> <factor> }
 
-			PREE ::= ("+" | "-") E
+			<addop> ::= "+" | "-"
 
-			POSTE ::= E ("+" | "-")
+				<signedfactor> ::= [ <addop> ] <factor>
 
-			LVAL ::= id [ ACCESSOR ]
+				<mulop> ::= "#" | "/" | "\" | "^"
+ 
+					<factor> ::= <literal> | <lval> | "(" <expression> ")"
 
-				ACCESSOR ::= CALL | DIRECTSNA
+						<lval> ::= ID [ <accessor> ]
 
-				CALL ::= "(" ACTUALS ")"
+							<accessor> ::= <call> | <directsna> | <postfixoperator>
 
-					ACTUALS ::= "" | E {"," E}
+							<call> ::= "(" <actuals> ")"
 
-				DIRECTSNA ::= "$" id
+								<actuals> ::= "" | <expr> { "," <expr> }
 
-			LITERAL ::= int | double | string
+							<directsna> ::= "$" ID
 
+							<postfixoperator> ::= "+" | "-"
+
+						<literal> ::= INT | DOUBLE | STRING
+
+
+  <expression>    ::= <term> [<addop> <term>]*
+  <term>          ::= <signed factor> [<mulop> factor]*
+  <signed factor> ::= [<addop>] <factor>
+  <factor>        ::= <integer> | <variable> | "(" <expression> ")"
 
 * There are cases for this issue:
 1. Label Block Operator Operand1
