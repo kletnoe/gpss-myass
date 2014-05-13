@@ -7,9 +7,9 @@ namespace MyAssCompiler.AST
 {
     public class ASTExpression : ASTOperand, IASTFactor
     {
-        public ASTTerm LValue { get; set; }
+        public ASTTerm LTerm { get; set; }
         public AddOperatorType? Operator { get; set; }
-        public ASTTerm RValue { get; set; }
+        public ASTTerm RTerm { get; set; }
 
         public void Accept(IASTVisitor visitor)
         {
@@ -19,9 +19,9 @@ namespace MyAssCompiler.AST
         public override string ToString()
         {
             return  "("
-                + this.LValue.ToString()
+                + this.LTerm.ToString()
                 + (this.Operator.HasValue ? " " + this.Operator.ToString() : "")
-                + (this.RValue != null ? " " + this.RValue.ToString() : "")
+                + (this.RTerm != null ? " " + this.RTerm.ToString() : "")
                 + ")";
         }
     }

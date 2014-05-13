@@ -128,7 +128,7 @@ namespace MyAssCompiler
         public void Visit(ASTExpression expr)
         {
             //result.Append("(");
-            expr.LValue.Accept(this);
+            expr.LTerm.Accept(this);
 
             if (expr.Operator.HasValue)
             {
@@ -143,14 +143,14 @@ namespace MyAssCompiler
                         break;
                 }
 
-                expr.RValue.Accept(this);
+                expr.RTerm.Accept(this);
             }
             //result.Append(")");
         }
 
         public void Visit(ASTTerm term)
         {
-            term.LValue.Accept(this);
+            term.LFactor.Accept(this);
 
             if (term.Operator.HasValue)
             {
@@ -171,7 +171,7 @@ namespace MyAssCompiler
                         break;
                 }
 
-                term.RValue.Accept(this);
+                term.RFactor.Accept(this);
             }
         }
 

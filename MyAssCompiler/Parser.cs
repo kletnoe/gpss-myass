@@ -244,18 +244,18 @@ namespace MyAssCompiler
 
             if (initialId.HasValue)
             {
-                expression.LValue = this.ExpectTerm(initialId);
+                expression.LTerm = this.ExpectTerm(initialId);
             }
             else
             {
-                expression.LValue = this.ExpectTerm();
+                expression.LTerm = this.ExpectTerm();
             }
 
             if (this.Scanner.CurrentToken == TokenType.PLUS
                 || this.Scanner.CurrentToken == TokenType.MINUS)
             {
                 expression.Operator = this.ExpectAddOperator();
-                expression.RValue = this.ExpectTerm();
+                expression.RTerm = this.ExpectTerm();
             }
 
             return expression;
@@ -268,11 +268,11 @@ namespace MyAssCompiler
 
             if (initialId.HasValue)
             {
-                term.LValue = this.ExpectSignedFactor(initialId);
+                term.LFactor = this.ExpectSignedFactor(initialId);
             }
             else
             {
-                term.LValue = this.ExpectSignedFactor();
+                term.LFactor = this.ExpectSignedFactor();
             }
 
             if (this.Scanner.CurrentToken == TokenType.OCTOTROPE
@@ -281,7 +281,7 @@ namespace MyAssCompiler
                 || this.Scanner.CurrentToken == TokenType.CARRET)
             {
                 term.Operator = this.ExpectMulOperator();
-                term.RValue = this.ExpectFactor();
+                term.RFactor = this.ExpectFactor();
             }
 
             return term;
