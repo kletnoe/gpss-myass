@@ -147,7 +147,9 @@ namespace MyAssCompiler
                     block.Operands = this.ExpectOperands(secondId.Value);
                     block.IsResolved = true;
                 }
-                else if (this.Scanner.CurrentToken == TokenType.NUMERIC)
+                else if (this.Scanner.CurrentToken == TokenType.NUMERIC
+                    || this.Scanner.CurrentToken == TokenType.MINUS
+                    || this.Scanner.CurrentToken == TokenType.PLUS)
                 {
                     block.LabelId = firstId;
                     block.VerbId = secondId.Value;
@@ -201,7 +203,9 @@ namespace MyAssCompiler
             {
                 if (this.Scanner.CurrentToken == TokenType.ID
                     || this.Scanner.CurrentToken == TokenType.NUMERIC
-                    || this.Scanner.CurrentToken == TokenType.LPAR)
+                    || this.Scanner.CurrentToken == TokenType.LPAR
+                    || this.Scanner.CurrentToken == TokenType.MINUS
+                    || this.Scanner.CurrentToken == TokenType.PLUS)
                 {
                     operands.Operands.Add(this.ExpectOperand());
                 }
@@ -229,7 +233,9 @@ namespace MyAssCompiler
             {
                 if (this.Scanner.CurrentToken == TokenType.ID
                     || this.Scanner.CurrentToken == TokenType.NUMERIC
-                    || this.Scanner.CurrentToken == TokenType.LPAR)
+                    || this.Scanner.CurrentToken == TokenType.LPAR
+                    || this.Scanner.CurrentToken == TokenType.MINUS
+                    || this.Scanner.CurrentToken == TokenType.PLUS)
                 {
                     operand = this.ExpectExpression();
                 }

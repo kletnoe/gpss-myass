@@ -40,12 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGenerationsExample.cs" />
+    <Compile Include="CodeGenerationVisitor.cs" />
     <Compile Include="CodeGenerator.cs" />
     <Compile Include="MetadataRetriever.cs" />
     <Compile Include="SimpleGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyAssCompiler.AST\MyAssCompiler.AST.csproj">
+      <Project>{8e3b820c-140b-45a9-8c39-8803f0d9b1ea}</Project>
+      <Name>MyAssCompiler.AST</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyAssCompiler\MyAssCompiler.csproj">
+      <Project>{71dcfda0-ddf5-4494-a055-afd90aa09241}</Project>
+      <Name>MyAssCompiler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyAssFramework\MyAssFramework.csproj">
       <Project>{511C1EF6-F99A-42D5-8D3A-4F8E93A11C3E}</Project>
       <Name>MyAssFramework</Name>

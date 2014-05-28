@@ -56,3 +56,5 @@ Rules of Thumb:
 6. Block
 
 
+Found grammar issues:
+- "Some Some (Fun(1,2,3))" vs "Some Some(Fun(1,2,3))"

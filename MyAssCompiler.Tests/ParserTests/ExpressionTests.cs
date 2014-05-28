@@ -13,42 +13,57 @@ namespace MyAssCompiler.Tests.ParserTests
         [Test]
         public void Expression_Literal()
         {
-            string input = @"3";
+            string input = @"Some 3";
+            Assert.Pass(this.Run(input).ToString());
+        }
+
+        [Test]
+        public void Expression_SignedLiteral1()
+        {
+            string input = @"Some -3";
+            Assert.Pass(this.Run(input).ToString());
+        }
+
+        [Test]
+        public void Expression_SignedLiteral2()
+        {
+            string input = @"Some +3";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Id()
         {
-            string input = @"someId";
+            string input = @"Some someId";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_ParExpression()
         {
-            string input = @"(someId)";
+            string input = @"Some (someId)";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Complex1()
         {
-            string input = @"(someId + 3)/25";
+            string input = @"Some (someId + 3)/25";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Complex2()
         {
-            string input = @"(someId + 3)/25 + (1 + (id2 # (2 / 7)))";
+            string input = @"Some (someId + 3)/25 + (1 + (id2 # (2 / 7)))";
             Assert.Pass(this.Run(input).ToString());
         }
 
         private IASTNode Run(string input)
         {
             Parser parser = new Parser(new Scanner(new StringCharSource(input)));
-            return  parser.ExpectExpression();
+            ASTModel model = parser.Parse();
+            return model;
         }
     }
 }
