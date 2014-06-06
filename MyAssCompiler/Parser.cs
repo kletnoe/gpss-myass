@@ -55,7 +55,7 @@ namespace MyAssCompiler
         }
 
 
-        // <model> ::= { <verb> }+
+        // <model> ::= { <verb> [ COMMENT ] "\r\n" }+
         public ASTModel ExpectModel()
         {
             ASTModel model = new ASTModel();
@@ -77,7 +77,7 @@ namespace MyAssCompiler
                     }
                 }
 
-                model.Verbs.Add(ExpectBlock());
+                model.Verbs.Add(ExpectVerb());
 
                 // Eat comment
                 if (this.Scanner.CurrentToken == TokenType.COMMENT)
@@ -91,10 +91,10 @@ namespace MyAssCompiler
             return model;
         }
 
-        // <block> ::= [ ID ] ID [ <operator> ] [ <operands> ]
-        public ASTBlock ExpectBlock()
+        // <verb> ::= [ ID ] ID [ <operator> ] [ <operands> ]
+        public ASTVerb ExpectVerb()
         {
-            ASTBlock block = new ASTBlock();
+            ASTVerb verb = new ASTVerb();
 
             int firstId;
             int? secondId = null;
@@ -120,11 +120,11 @@ namespace MyAssCompiler
             // id id id id 
             if (secondId.HasValue && thirdId.HasValue && fourthId.HasValue)
             {
-                block.LabelId = firstId;
-                block.VerbId = secondId.Value;
-                block.Operator = this.ExpectOperator(thirdId.Value);
-                block.Operands = this.ExpectOperands(fourthId.Value);
-                block.IsResolved = true;
+                verb.LabelId = firstId;
+                verb.VerbId = secondId.Value;
+                verb.OperatorId = thirdId.Value;
+                verb.Operands = this.ExpectOperands(fourthId.Value);
+                verb.IsResolved = true;
             }
             // id id id non-id
             else if (secondId.HasValue && thirdId.HasValue)
@@ -132,62 +132,53 @@ namespace MyAssCompiler
                 // There are two cases for this:
                 // Label Block Operand1
                 // Block Operator Operand1
-                block.UnresolvedId1 = firstId;
-                block.UnresolvedId2 = secondId.Value;
-                block.Operands = this.ExpectOperands(thirdId.Value);
-                block.IsResolved = false;
+                verb.UnresolvedId1 = firstId;
+                verb.UnresolvedId2 = secondId.Value;
+                verb.Operands = this.ExpectOperands(thirdId.Value);
+                verb.IsResolved = false;
             }
             else if (secondId.HasValue)
             {
                 if (this.Scanner.CurrentToken == TokenType.DOLLAR
                     || this.Scanner.CurrentToken == TokenType.LPAR)
                 {
-                    block.LabelId = null;
-                    block.VerbId = firstId;
-                    block.Operands = this.ExpectOperands(secondId.Value);
-                    block.IsResolved = true;
+                    verb.LabelId = null;
+                    verb.VerbId = firstId;
+                    verb.Operands = this.ExpectOperands(secondId.Value);
+                    verb.IsResolved = true;
                 }
                 else if (this.Scanner.CurrentToken == TokenType.NUMERIC
                     || this.Scanner.CurrentToken == TokenType.MINUS
                     || this.Scanner.CurrentToken == TokenType.PLUS)
                 {
-                    block.LabelId = firstId;
-                    block.VerbId = secondId.Value;
-                    block.Operands = this.ExpectOperands();
-                    block.IsResolved = true;
+                    verb.LabelId = firstId;
+                    verb.VerbId = secondId.Value;
+                    verb.Operands = this.ExpectOperands();
+                    verb.IsResolved = true;
                 }
                 else
                 {
                     // There are two cases for this:
                     // Label Block
                     // Block Operand1
-                    block.UnresolvedId1 = firstId;
-                    block.UnresolvedId2 = secondId.Value;
-                    block.Operands = this.ExpectOperands();
-                    block.IsResolved = false;
+                    verb.UnresolvedId1 = firstId;
+                    verb.UnresolvedId2 = secondId.Value;
+                    verb.Operands = this.ExpectOperands();
+                    verb.IsResolved = false;
                 }
             }
             else
             {
-                block.LabelId = null;
-                block.VerbId = firstId;
-                block.Operator = null;
-                block.Operands = this.ExpectOperands();
-                block.IsResolved = true;
+                verb.LabelId = null;
+                verb.VerbId = firstId;
+                verb.OperatorId = null;
+                verb.Operands = this.ExpectOperands();
+                verb.IsResolved = true;
             }
 
 
-            Console.WriteLine(block);
-            return block;
-        }
-
-        // <operator> ::= ID
-        public ASTOperator ExpectOperator(int id)
-        {
-            return new ASTOperator()
-            {
-                Id = id
-            };
+            Console.WriteLine(verb);
+            return verb;
         }
 
         // <operands> ::= <operand> { "," <operand> }
@@ -220,7 +211,7 @@ namespace MyAssCompiler
             return operands;
         }
 
-        // <operand> ::= "" | <expr> [ <suffixoperator> ]
+        // <operand> ::= "" | <expr>
         public ASTOperand ExpectOperand(int? initialId = null)
         {
             ASTOperand operand = null;
@@ -243,55 +234,75 @@ namespace MyAssCompiler
             return operand;
         }
 
-        // <expr> ::= <term> { <addop> <term> }
+        // <expression> ::= <term> { <additive> }
         public ASTExpression ExpectExpression(int? initialId = null)
         {
             ASTExpression expression = new ASTExpression();
 
             if (initialId.HasValue)
             {
-                expression.LTerm = this.ExpectTerm(initialId);
+                expression.Term = this.ExpectTerm(initialId);
             }
             else
             {
-                expression.LTerm = this.ExpectTerm();
+                expression.Term = this.ExpectTerm();
             }
 
-            if (this.Scanner.CurrentToken == TokenType.PLUS
+            while (this.Scanner.CurrentToken == TokenType.PLUS
                 || this.Scanner.CurrentToken == TokenType.MINUS)
             {
-                expression.Operator = this.ExpectAddOperator();
-                expression.RTerm = this.ExpectTerm();
+                expression.Additives.Add(this.ExpectAdditive());
             }
 
             return expression;
         }
 
-        // <term> ::= <signedfactor> { <mulop> <factor> }
+        // <additive> ::= <addop> <term>
+        public ASTAdditive ExpectAdditive()
+        {
+            ASTAdditive additive = new ASTAdditive();
+
+            additive.Operator = this.ExpectAddOperator();
+            additive.Term = this.ExpectTerm();
+
+            return additive;
+        }
+
+        // <term> ::= ( <factor> | <signedfactor> ) { <multiplicative> }
         public ASTTerm ExpectTerm(int? initialId = null)
         {
             ASTTerm term = new ASTTerm();
 
             if (initialId.HasValue)
             {
-                term.LFactor = this.ExpectSignedFactor(initialId);
+                term.Factor = this.ExpectSignedFactor(initialId);
             }
             else
             {
-                term.LFactor = this.ExpectSignedFactor();
+                term.Factor = this.ExpectSignedFactor();
             }
 
-            if (this.Scanner.CurrentToken == TokenType.OCTOTROPE
+            while (this.Scanner.CurrentToken == TokenType.OCTOTROPE
                 || this.Scanner.CurrentToken == TokenType.FWDSLASH
                 || this.Scanner.CurrentToken == TokenType.BCKSLASH
                 || this.Scanner.CurrentToken == TokenType.CARRET)
             {
-                term.Operator = this.ExpectMulOperator();
-                term.RFactor = this.ExpectFactor();
+                term.Multiplicatives.Add(this.ExpectMultiplicative());
             }
 
             return term;
         }
+
+        public ASTMultiplicative ExpectMultiplicative()
+        {
+            ASTMultiplicative mult = new ASTMultiplicative();
+
+            mult.Operator = this.ExpectMulOperator();
+            mult.Factor = this.ExpectFactor();
+
+            return mult;
+        }
+
 
         // <signedfactor> ::= [ <addop> ] <factor>
         public ASTSignedFactor ExpectSignedFactor(int? initialId = null)
@@ -482,7 +493,7 @@ namespace MyAssCompiler
                     return MulOperatorType.DIVIDE;
                 case TokenType.BCKSLASH:
                     this.Expect(TokenType.BCKSLASH);
-                    return MulOperatorType.MODULO;
+                    return MulOperatorType.MODULUS;
                 case TokenType.CARRET:
                     this.Expect(TokenType.CARRET);
                     return MulOperatorType.EXPONENT;

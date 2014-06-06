@@ -41,12 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddOperatorType.cs" />
+    <Compile Include="ASTAdditive.cs" />
+    <Compile Include="ASTMultiplicative.cs" />
     <Compile Include="ASTSuffixOperator.cs" />
     <Compile Include="IASTAccessor.cs" />
     <Compile Include="ASTActuals.cs" />
-    <Compile Include="ASTBlock.cs" />
+    <Compile Include="ASTVerb.cs" />
     <Compile Include="ASTCall.cs" />
-    <Compile Include="ASTCommand.cs" />
     <Compile Include="ASTDirectSNA.cs" />
     <Compile Include="ASTExpression.cs" />
     <Compile Include="IASTFactor.cs" />
@@ -55,10 +56,8 @@
     <Compile Include="ASTModel.cs" />
     <Compile Include="ASTOperand.cs" />
     <Compile Include="ASTOperands.cs" />
-    <Compile Include="ASTOperator.cs" />
     <Compile Include="ASTSignedFactor.cs" />
     <Compile Include="ASTTerm.cs" />
-    <Compile Include="ASTVerb.cs" />
     <Compile Include="ConditionalOperatorType.cs" />
     <Compile Include="ExtremumOperatorType.cs" />
     <Compile Include="IASTNode.cs" />

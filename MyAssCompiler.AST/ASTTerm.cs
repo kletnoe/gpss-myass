@@ -7,9 +7,13 @@ namespace MyAssCompiler.AST
 {
     public class ASTTerm : IASTNode
     {
-        public ASTSignedFactor LFactor { get; set; }
-        public MulOperatorType? Operator { get; set; }
-        public IASTFactor RFactor { get; set; }
+        public ASTSignedFactor Factor { get; set; }
+        public IList<ASTMultiplicative> Multiplicatives { get; private set; }
+
+        public ASTTerm()
+        {
+            this.Multiplicatives = new List<ASTMultiplicative>();
+        }
 
         public void Accept(IASTVisitor visitor)
         {
@@ -18,9 +22,8 @@ namespace MyAssCompiler.AST
 
         public override string ToString()
         {
-            return this.LFactor.ToString()
-                + (this.Operator.HasValue ? " " + this.Operator.ToString() : "")
-                + (this.RFactor != null ? " " + this.RFactor.ToString() : "");
+            return this.Factor.ToString()
+                + (this.Multiplicatives.Count != 0 ? " " + String.Join(" ", this.Multiplicatives) : "");
         }
     }
 }

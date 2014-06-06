@@ -6,31 +6,28 @@ Rules of Thumb:
 3. Operands can be separated only by comma, space separator is not supported;
 4. Suffix logic (Assign/Savevalue) fubars current grammatics, is not supported;
 
-<model> ::= { <verb> }+
+<model> ::= { <verb> [ COMMENT ] "\r\n" }+
 
-<verb> ::= <block> | <command>
-
-	<block> ::= [ ID ] ID [ <operator> ] [ <operands> ]
-
-		<operator> ::= ID
+	<verb> ::= [ ID ] ID [ ID ] [ <operands> ]
 
 		<operands> ::= <operand> { "," <operand> }
 
-		<operand> ::= "" | <expr> [ <suffixoperator> ]
+		<operand> ::= "" | <expression>
 
-		// is not supported
-		<suffixoperator> ::= "+" | "-"
+		<expression> ::= <term> { <additive> }
 
-		<expr> ::= <term> { <addop> <term> }
-
-			<term> ::= <signedfactor> { <mulop> <factor> }
+			<additive> ::= <addop> <term>
 
 			<addop> ::= "+" | "-"
 
-				<signedfactor> ::= [ <addop> ] <factor>
+			<term> ::= <signedfactor> { <multiplicative> }
+
+				<multiplicative> ::= <mulop> <factor>
 
 				<mulop> ::= "#" | "/" | "\" | "^"
  
+				<signedfactor> ::= [ <addop> ] <factor>
+
 					<factor> ::= <literal> | <lval> | "(" <expression> ")"
 
 						<lval> ::= ID [ <accessor> ]
@@ -39,7 +36,7 @@ Rules of Thumb:
 
 							<call> ::= "(" <actuals> ")"
 
-								<actuals> ::= "" | <expr> { "," <expr> }
+								<actuals> ::= "" | <expression> { "," <expression> }
 
 							<directsna> ::= "$" ID
 

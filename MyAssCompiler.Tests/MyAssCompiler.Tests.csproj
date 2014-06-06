@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeGenerationTests\CodeGenTests.cs" />
+    <Compile Include="CodeGenerationTests\CodeDomHelper.cs" />
+    <Compile Include="CodeGenerationTests\CodeGenTests_Expressions.cs" />
     <Compile Include="ParserTests\AccessorsTest.cs" />
     <Compile Include="ParserTests\ExpressionTests.cs" />
     <Compile Include="ParserTests\ExpressionTests_Old.cs" />

@@ -7,7 +7,7 @@ namespace MyAssCompiler.AST
 {
     public class ASTOperands : IASTNode
     {
-        public IList<ASTOperand> Operands { get; set; }
+        public IList<ASTOperand> Operands { get; private set; }
 
         public ASTOperands()
         {

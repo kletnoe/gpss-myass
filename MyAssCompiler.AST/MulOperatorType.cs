@@ -9,7 +9,7 @@ namespace MyAssCompiler.AST
     {
         MULTIPLY,
         DIVIDE,
-        MODULO,
+        MODULUS,
         EXPONENT
     }
 }

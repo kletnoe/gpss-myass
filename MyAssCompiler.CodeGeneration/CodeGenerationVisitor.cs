@@ -47,14 +47,24 @@ namespace MyAssCompiler.CodeGeneration
             this.parser = parser;
         }
 
-        public void Run()
+        public void VisitAll()
         {
+            this.rootnamespace = new CodeNamespace(namespaceName);
             var model = parser.Parse();
+            model.Accept(this);
 
-            rootnamespace = new CodeNamespace(namespaceName);
+            CodeCompiler.ValidateIdentifiers(this.rootnamespace);
+        }
+
+        public CodeCompileUnit CreateAssembly()
+        {
             CodeCompileUnit theAssembly = new CodeCompileUnit();
             theAssembly.Namespaces.Add(rootnamespace);
+            return theAssembly;
+        }
 
+        public void CompileAssembly(CodeCompileUnit theAssembly)
+        {
             //Add the following compiler parameters. (The references to the //standard .net dll(s) and framework library).
             CompilerParameters compilerParams = new CompilerParameters(new string[] { "mscorlib.dll" });
             compilerParams.ReferencedAssemblies.Add("System.dll");
@@ -68,8 +78,6 @@ namespace MyAssCompiler.CodeGeneration
             //compilerParams.MainClass = mainClassName;
             //provide the path where the generated assembly would be placed 
             compilerParams.OutputAssembly = outputPath;
-
-            model.Accept(this);
 
             //Create an instance of the c# compiler and pass the assembly to //compile
             Microsoft.CSharp.CSharpCodeProvider codeProvider = new Microsoft.CSharp.CSharpCodeProvider();
@@ -87,6 +95,53 @@ namespace MyAssCompiler.CodeGeneration
                 }
             }
         }
+
+        public void Run()
+        {
+            this.VisitAll();
+            this.CreateAssembly();
+        }
+
+        //public void Run()
+        //{
+        //    var model = parser.Parse();
+
+        //    rootnamespace = new CodeNamespace(namespaceName);
+        //    CodeCompileUnit theAssembly = new CodeCompileUnit();
+        //    theAssembly.Namespaces.Add(rootnamespace);
+
+        //    //Add the following compiler parameters. (The references to the //standard .net dll(s) and framework library).
+        //    CompilerParameters compilerParams = new CompilerParameters(new string[] { "mscorlib.dll" });
+        //    compilerParams.ReferencedAssemblies.Add("System.dll");
+
+        //    //Indicates Whether the compiler has to generate the output in //memory
+        //    compilerParams.GenerateInMemory = false;
+        //    //Indicates whether the output is an executable.
+        //    compilerParams.GenerateExecutable = false;
+
+        //    //provide the name of the class which contains the Main Entry //point method
+        //    //compilerParams.MainClass = mainClassName;
+        //    //provide the path where the generated assembly would be placed 
+        //    compilerParams.OutputAssembly = outputPath;
+
+        //    model.Accept(this);
+
+        //    //Create an instance of the c# compiler and pass the assembly to //compile
+        //    Microsoft.CSharp.CSharpCodeProvider codeProvider = new Microsoft.CSharp.CSharpCodeProvider();
+        //    ICodeCompiler icc = codeProvider.CreateCompiler();
+
+        //    //The CompileAssemblyFromDom would either return the list of 
+        //    //compile time errors (if any), or would create the 
+        //    //assembly in the respective path in case of successful //compilation
+        //    CompilerResults compres = icc.CompileAssemblyFromDom(compilerParams, theAssembly);
+        //    if (compres == null || compres.Errors.Count > 0)
+        //    {
+        //        for (int i = 0; i < compres.Errors.Count; i++)
+        //        {
+        //            Console.WriteLine(compres.Errors[i]);
+        //        }
+        //    }
+        //}
 
         public void Visit(ASTModel node)
         {
@@ -108,7 +163,7 @@ namespace MyAssCompiler.CodeGeneration
             this.currentModelNo++;
         }
 
-        public void Visit(ASTBlock node)
+        public void Visit(ASTVerb node)
         {
             this.currentOperandNo = 1;
             node.Operands.Accept(this);
@@ -128,29 +183,21 @@ namespace MyAssCompiler.CodeGeneration
                         Name = this.CurrentMethodName,
                     };
 
-                    CodeVariableDeclarationStatement varDeclaration = new CodeVariableDeclarationStatement()
-                    {
-                        Type = new CodeTypeReference(typeof(Double)),
-                        Name = "result"
-                    };
+                    CodeVariableDeclarationStatement declareVarStatement
+                        = new CodeVariableDeclarationStatement(typeof(Double), "result");
 
-                    CodeAssignStatement assignStatement = new CodeAssignStatement()
-                    {
-                        Left = new CodeVariableReferenceExpression("result")
-                    };
-
-                    ///////
+                    CodeAssignStatement assignStatement = new CodeAssignStatement();
+                    assignStatement.Left = new CodeVariableReferenceExpression(declareVarStatement.Name);
+                    
+                    // Accept operand
                     operand.Accept(this);
-
 
                     assignStatement.Right = this.currentExpression;
 
-                    CodeMethodReturnStatement returnStatement = new CodeMethodReturnStatement()
-                    {
-                        Expression = new CodeVariableReferenceExpression("result")
-                    };
+                    CodeMethodReturnStatement returnStatement = 
+                        new CodeMethodReturnStatement(new CodeVariableReferenceExpression(declareVarStatement.Name));
 
-                    this.currentMethod.Statements.Add(varDeclaration);
+                    this.currentMethod.Statements.Add(declareVarStatement);
                     this.currentMethod.Statements.Add(assignStatement);
                     this.currentMethod.Statements.Add(returnStatement);
 
@@ -163,34 +210,101 @@ namespace MyAssCompiler.CodeGeneration
 
         public void Visit(ASTExpression astExpr)
         {
-
-            /* Main logic */
-
-
-            if (astExpr.Operator == null)
+            if (astExpr.Additives.Count == 0)
             {
-                astExpr.LTerm.Accept(this);
+                astExpr.Term.Accept(this);
             }
             else
             {
+                astExpr.Term.Accept(this);
+                CodeExpression left = this.currentExpression;
 
+                CodeBinaryOperatorExpression expr;
+                foreach (var add in astExpr.Additives)
+                {
+                    expr = new CodeBinaryOperatorExpression();
+                    expr.Left = left;
+                    this.currentExpression = expr;
+                    add.Accept(this);
+                    left = this.currentExpression;
+                }
+            }
+        }
+
+        public void Visit(ASTAdditive additive)
+        {
+            CodeBinaryOperatorExpression expr = (CodeBinaryOperatorExpression)this.currentExpression;
+
+            switch (additive.Operator)
+            {
+                case AddOperatorType.ADD:
+                    expr.Operator = CodeBinaryOperatorType.Add;
+                    break;
+                case AddOperatorType.SUBSTRACT:
+                    expr.Operator = CodeBinaryOperatorType.Subtract;
+                    break;
+                default:
+                    expr.Operator = CodeBinaryOperatorType.Add;
+                    break;
             }
 
-            /**/
+            additive.Term.Accept(this);
+            expr.Right = this.currentExpression;
 
+            this.currentExpression = expr;
+        }
+
+        public void Visit(ASTTerm term)
+        {
+            if (term.Multiplicatives.Count == 0)
+            {
+                term.Factor.Accept(this);
+            }
+            else
+            {
+                term.Factor.Accept(this);
+                CodeExpression left = this.currentExpression;
+
+                CodeBinaryOperatorExpression expr;
+                foreach (var mult in term.Multiplicatives)
+                {
+                    expr = new CodeBinaryOperatorExpression();
+                    expr.Left = left;
+                    this.currentExpression = expr;
+                    mult.Accept(this);
+                    left = this.currentExpression;
+                }
+            }
 
         }
 
-        public void Visit(ASTTerm astTerm)
+        public void Visit(ASTMultiplicative mult)
         {
-            if (astTerm.Operator == null)
-            {
-                astTerm.LFactor.Accept(this);
-            }
-            else
-            {
+            CodeBinaryOperatorExpression expr = (CodeBinaryOperatorExpression)this.currentExpression;
 
+            switch (mult.Operator)
+            {
+                case MulOperatorType.MULTIPLY:
+                    expr.Operator = CodeBinaryOperatorType.Multiply;
+                    break;
+                case MulOperatorType.DIVIDE:
+                    expr.Operator = CodeBinaryOperatorType.Divide;
+                    break;
+                case MulOperatorType.MODULUS:
+                    expr.Operator = CodeBinaryOperatorType.Modulus;
+                    break;
+                case MulOperatorType.EXPONENT:
+                    throw new NotImplementedException("Exponentiation operator not implemented!");
+                    break;
+                default:
+                    expr.Operator = CodeBinaryOperatorType.Add;
+                    break;
             }
+
+            mult.Factor.Accept(this);
+            expr.Right = this.currentExpression;
+
+            this.currentExpression = expr;
         }
 
         public void Visit(ASTSignedFactor astFactor)
@@ -202,7 +316,7 @@ namespace MyAssCompiler.CodeGeneration
             else
             {
                 CodeBinaryOperatorExpression signedFactor = new CodeBinaryOperatorExpression();
-                signedFactor.Left = new CodeSnippetExpression("1");
+                signedFactor.Left = new CodePrimitiveExpression(0);
 
                 switch (astFactor.Operator)
                 {
@@ -239,15 +353,10 @@ namespace MyAssCompiler.CodeGeneration
 
         public void Visit(ASTLiteral astLiteral)
         {
-            currentExpression = new CodeSnippetExpression(astLiteral.Value.ToString());
+            currentExpression = new CodePrimitiveExpression(astLiteral.Value);
         }
 
         public void Visit(ASTDirectSNA node)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Visit(ASTOperator node)
         {
             throw new NotImplementedException();
         }

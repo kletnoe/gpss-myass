@@ -5,9 +5,10 @@ using System.Text;
 
 namespace MyAssCompiler.AST
 {
-    public /*abstract*/ class ASTOperator : IASTNode
+    public class ASTAdditive : IASTNode
     {
-        public int Id { get; set; }
+        public AddOperatorType Operator { get; set; }
+        public ASTTerm Term { get; set; }
 
         public void Accept(IASTVisitor visitor)
         {
@@ -16,7 +17,8 @@ namespace MyAssCompiler.AST
 
         public override string ToString()
         {
-            return String.Format("id({0})", this.Id);
+            return this.Operator.ToString() + " "
+                + this.Term.ToString();
         }
     }
 }

@@ -34,37 +34,32 @@ namespace MyAssCompiler
             }
         }
 
-        public void Visit(ASTBlock block)
+        public void Visit(ASTVerb verb)
         {
-            if (block.LabelId.HasValue)
+            if (verb.LabelId.HasValue)
             {
-                result.Append(this.Parser.IdsList[block.LabelId.Value]);
+                result.Append(this.Parser.IdsList[verb.LabelId.Value]);
                 result.Append(" ");
             }
 
-            result.Append(this.Parser.IdsList[block.VerbId]);
+            result.Append(this.Parser.IdsList[verb.VerbId]);
             result.Append(" ");
 
-            if (block.Operator != null)
+            if (verb.OperatorId != null)
             {
-                block.Operator.Accept(this);
+                result.Append(this.Parser.IdsList[verb.OperatorId.Value]);
                 result.Append(" ");
             }
 
-            if (block.Operands != null)
+            if (verb.Operands != null)
             {
-                block.Operands.Accept(this);
+                verb.Operands.Accept(this);
             }
 
-            if (!block.IsResolved)
+            if (!verb.IsResolved)
             {
                 result.Append(" :: Unresolved");
             }
-        }
-
-        public void Visit(ASTOperator op)
-        {
-            result.Append(this.Parser.IdsList[op.Id]);
         }
 
         public void Visit(ASTOperands operands)
@@ -77,6 +72,74 @@ namespace MyAssCompiler
                     result.Append(",");
                     actual.Accept(this);
                 }
+            }
+        }
+
+        public void Visit(ASTExpression expr)
+        {
+            //result.Append("(");
+            expr.Term.Accept(this);
+
+            foreach (var additive in expr.Additives)
+            {
+                additive.Accept(this);
+            }
+            //result.Append(")");
+        }
+
+        public void Visit(ASTAdditive additive)
+        {
+            switch (additive.Operator)
+            {
+                case AddOperatorType.ADD:
+                    result.Append("+");
+                    break;
+                case AddOperatorType.SUBSTRACT:
+                    result.Append("-");
+                    break;
+            }
+
+            additive.Term.Accept(this);
+        }
+
+        public void Visit(ASTTerm term)
+        {
+            term.Factor.Accept(this);
+
+            foreach (var mult in term.Multiplicatives)
+            {
+                mult.Accept(this);
+            }
+        }
+
+        public void Visit(ASTMultiplicative mult)
+        {
+            switch (mult.Operator)
+            {
+                case MulOperatorType.MULTIPLY:
+                    result.Append("#");
+                    break;
+                case MulOperatorType.DIVIDE:
+                    result.Append("/");
+                    break;
+                case MulOperatorType.MODULUS:
+                    result.Append("\\");
+                    break;
+                case MulOperatorType.EXPONENT:
+                    result.Append("^");
+                    break;
+            }
+
+            if (mult.Factor is ASTExpression)
+            {
+                result.Append("(");
+            }
+
+            mult.Factor.Accept(this);
+
+            if (mult.Factor is ASTExpression)
+            {
+                result.Append(")");
             }
         }
 
@@ -125,56 +188,6 @@ namespace MyAssCompiler
             }
         }
 
-        public void Visit(ASTExpression expr)
-        {
-            //result.Append("(");
-            expr.LTerm.Accept(this);
-
-            if (expr.Operator.HasValue)
-            {
-
-                switch (expr.Operator)
-                {
-                    case AddOperatorType.ADD:
-                        result.Append("+");
-                        break;
-                    case AddOperatorType.SUBSTRACT:
-                        result.Append("-");
-                        break;
-                }
-
-                expr.RTerm.Accept(this);
-            }
-            //result.Append(")");
-        }
-
-        public void Visit(ASTTerm term)
-        {
-            term.LFactor.Accept(this);
-
-            if (term.Operator.HasValue)
-            {
-
-                switch (term.Operator)
-                {
-                    case MulOperatorType.MULTIPLY:
-                        result.Append("#");
-                        break;
-                    case MulOperatorType.DIVIDE:
-                        result.Append("/");
-                        break;
-                    case MulOperatorType.MODULO:
-                        result.Append("\\");
-                        break;
-                    case MulOperatorType.EXPONENT:
-                        result.Append("^");
-                        break;
-                }
-
-                term.RFactor.Accept(this);
-            }
-        }
-
         public void Visit(ASTSignedFactor factor)
         {
             if (factor.Operator.HasValue)
@@ -190,7 +203,17 @@ namespace MyAssCompiler
                 }
             }
 
+            if (factor.Value is ASTExpression)
+            {
+                result.Append("(");
+            }
+
             factor.Value.Accept(this);
+
+            if (factor.Value is ASTExpression)
+            {
+                result.Append(")");
+            }
         }
 
         public void Visit(ASTSuffixOperator op)

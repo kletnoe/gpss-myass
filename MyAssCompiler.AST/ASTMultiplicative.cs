@@ -5,14 +5,10 @@ using System.Text;
 
 namespace MyAssCompiler.AST
 {
-    public class ASTActuals : IASTNode
+    public class ASTMultiplicative : IASTNode
     {
-        public IList<ASTExpression> Expressions { get; private set; }
-
-        public ASTActuals()
-        {
-            this.Expressions = new List<ASTExpression>();
-        }
+        public MulOperatorType Operator { get; set; }
+        public IASTFactor Factor { get; set; }
 
         public void Accept(IASTVisitor visitor)
         {
@@ -21,7 +17,8 @@ namespace MyAssCompiler.AST
 
         public override string ToString()
         {
-            return String.Join(",", this.Expressions);
+            return this.Operator.ToString() + " "
+                + this.Factor.ToString();
         }
     }
 }

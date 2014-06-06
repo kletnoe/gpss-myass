@@ -46,6 +46,13 @@ namespace MyAssCompiler.Tests.ParserTests
         }
 
         [Test]
+        public void Expression_Addition()
+        {
+            string input = @"Some 3+4+5/25";
+            Assert.Pass(this.Run(input).ToString());
+        }
+
+        [Test]
         public void Expression_Complex1()
         {
             string input = @"Some (someId + 3)/25";
