@@ -282,7 +282,7 @@ namespace MyAssCompiler
                 term.Factor = this.ExpectSignedFactor();
             }
 
-            while (this.Scanner.CurrentToken == TokenType.OCTOTROPE
+            while (this.Scanner.CurrentToken == TokenType.OCTOTHORPE
                 || this.Scanner.CurrentToken == TokenType.FWDSLASH
                 || this.Scanner.CurrentToken == TokenType.BCKSLASH
                 || this.Scanner.CurrentToken == TokenType.CARRET)
@@ -396,6 +396,9 @@ namespace MyAssCompiler
                 lvalue.Id = this.ExpectID();
             }
 
+            // Temp workaround
+            lvalue.Name = this.IdsList[lvalue.Id];
+
             if (this.Scanner.CurrentToken == TokenType.LPAR
                 || this.Scanner.CurrentToken == TokenType.DOLLAR)
             {
@@ -485,8 +488,8 @@ namespace MyAssCompiler
         {
             switch (this.Scanner.CurrentToken)
             {
-                case TokenType.OCTOTROPE:
-                    this.Expect(TokenType.OCTOTROPE);
+                case TokenType.OCTOTHORPE:
+                    this.Expect(TokenType.OCTOTHORPE);
                     return MulOperatorType.MULTIPLY;
                 case TokenType.FWDSLASH:
                     this.Expect(TokenType.FWDSLASH);

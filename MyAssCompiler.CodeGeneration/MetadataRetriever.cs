@@ -40,5 +40,27 @@ namespace MyAssCompiler.CodeGeneration
                 .Concat(this.GetMyAssFrameworkSNAMethods().Select(x => x.Name))
                 ;
         }
+
+
+        /////
+
+        private const string builtinTypesAssemblyName = "MyAssFramework.dll";
+        private const string builtinSnaTypeName = "MyAssFramework.SNA.SNA";
+
+        public static MethodInfo GetSnaMethod(string name)
+        {
+            return GetBuiltinSnaMethod(name);
+        }
+
+        // Always builtin for now
+        private static MethodInfo GetBuiltinSnaMethod(string name)
+        {
+            return GetBuiltinSnaType().GetMethod(name);
+        }
+
+        public static Type GetBuiltinSnaType()
+        {
+            return Assembly.LoadFrom(builtinTypesAssemblyName).GetType(builtinSnaTypeName);
+        }
     }
 }

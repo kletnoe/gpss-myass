@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ASTPrintVisitor.cs" />
+    <Compile Include="ASTPrintVisitor[T].cs" />
     <Compile Include="ASTResolver.cs" />
     <Compile Include="IASTResolver.cs" />
     <Compile Include="IParser.cs" />

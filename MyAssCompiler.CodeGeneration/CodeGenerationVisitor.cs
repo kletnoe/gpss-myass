@@ -12,8 +12,7 @@ namespace MyAssCompiler.CodeGeneration
     {
         private IParser parser;
 
-        const string namespaceName = "Modeling";
-        const string outputPath = @"c:\temp\HelloWorld.dll";
+        private const string namespaceName = "Modeling";
 
         private int currentModelNo = 1;
         private int currentBlockNo = 1;
@@ -52,48 +51,17 @@ namespace MyAssCompiler.CodeGeneration
             this.rootnamespace = new CodeNamespace(namespaceName);
             var model = parser.Parse();
             model.Accept(this);
-
-            CodeCompiler.ValidateIdentifiers(this.rootnamespace);
         }
 
         public CodeCompileUnit CreateAssembly()
         {
             CodeCompileUnit theAssembly = new CodeCompileUnit();
+
+            //Referenced assemblies
+            theAssembly.ReferencedAssemblies.Add("MyAssFramework.dll");
+
             theAssembly.Namespaces.Add(rootnamespace);
             return theAssembly;
-        }
-
-        public void CompileAssembly(CodeCompileUnit theAssembly)
-        {
-            //Add the following compiler parameters. (The references to the //standard .net dll(s) and framework library).
-            CompilerParameters compilerParams = new CompilerParameters(new string[] { "mscorlib.dll" });
-            compilerParams.ReferencedAssemblies.Add("System.dll");
-
-            //Indicates Whether the compiler has to generate the output in //memory
-            compilerParams.GenerateInMemory = false;
-            //Indicates whether the output is an executable.
-            compilerParams.GenerateExecutable = false;
-
-            //provide the name of the class which contains the Main Entry //point method
-            //compilerParams.MainClass = mainClassName;
-            //provide the path where the generated assembly would be placed 
-            compilerParams.OutputAssembly = outputPath;
-
-            //Create an instance of the c# compiler and pass the assembly to //compile
-            Microsoft.CSharp.CSharpCodeProvider codeProvider = new Microsoft.CSharp.CSharpCodeProvider();
-            ICodeCompiler icc = codeProvider.CreateCompiler();
-
-            //The CompileAssemblyFromDom would either return the list of 
-            //compile time errors (if any), or would create the 
-            //assembly in the respective path in case of successful //compilation
-            CompilerResults compres = icc.CompileAssemblyFromDom(compilerParams, theAssembly);
-            if (compres == null || compres.Errors.Count > 0)
-            {
-                for (int i = 0; i < compres.Errors.Count; i++)
-                {
-                    Console.WriteLine(compres.Errors[i]);
-                }
-            }
         }
 
         public void Run()
@@ -101,47 +69,6 @@ namespace MyAssCompiler.CodeGeneration
             this.VisitAll();
             this.CreateAssembly();
         }
-
-        //public void Run()
-        //{
-        //    var model = parser.Parse();
-
-        //    rootnamespace = new CodeNamespace(namespaceName);
-        //    CodeCompileUnit theAssembly = new CodeCompileUnit();
-        //    theAssembly.Namespaces.Add(rootnamespace);
-
-        //    //Add the following compiler parameters. (The references to the //standard .net dll(s) and framework library).
-        //    CompilerParameters compilerParams = new CompilerParameters(new string[] { "mscorlib.dll" });
-        //    compilerParams.ReferencedAssemblies.Add("System.dll");
-
-        //    //Indicates Whether the compiler has to generate the output in //memory
-        //    compilerParams.GenerateInMemory = false;
-        //    //Indicates whether the output is an executable.
-        //    compilerParams.GenerateExecutable = false;
-
-        //    //provide the name of the class which contains the Main Entry //point method
-        //    //compilerParams.MainClass = mainClassName;
-        //    //provide the path where the generated assembly would be placed 
-        //    compilerParams.OutputAssembly = outputPath;
-
-        //    model.Accept(this);
-
-        //    //Create an instance of the c# compiler and pass the assembly to //compile
-        //    Microsoft.CSharp.CSharpCodeProvider codeProvider = new Microsoft.CSharp.CSharpCodeProvider();
-        //    ICodeCompiler icc = codeProvider.CreateCompiler();
-
-        //    //The CompileAssemblyFromDom would either return the list of 
-        //    //compile time errors (if any), or would create the 
-        //    //assembly in the respective path in case of successful //compilation
-        //    CompilerResults compres = icc.CompileAssemblyFromDom(compilerParams, theAssembly);
-        //    if (compres == null || compres.Errors.Count > 0)
-        //    {
-        //        for (int i = 0; i < compres.Errors.Count; i++)
-        //        {
-        //            Console.WriteLine(compres.Errors[i]);
-        //        }
-        //    }
-        //}
 
         public void Visit(ASTModel node)
         {
@@ -243,9 +170,6 @@ namespace MyAssCompiler.CodeGeneration
                 case AddOperatorType.SUBSTRACT:
                     expr.Operator = CodeBinaryOperatorType.Subtract;
                     break;
-                default:
-                    expr.Operator = CodeBinaryOperatorType.Add;
-                    break;
             }
 
             additive.Term.Accept(this);
@@ -295,10 +219,6 @@ namespace MyAssCompiler.CodeGeneration
                     break;
                 case MulOperatorType.EXPONENT:
                     throw new NotImplementedException("Exponentiation operator not implemented!");
-                    break;
-                default:
-                    expr.Operator = CodeBinaryOperatorType.Add;
-                    break;
             }
 
             mult.Factor.Accept(this);
@@ -336,6 +256,25 @@ namespace MyAssCompiler.CodeGeneration
             }
         }
 
+        public void Visit(ASTLValue lval)
+        {
+            if (lval.Accessor != null)
+            {
+                lval.Accessor.Accept(this);
+
+                if (lval.Accessor is ASTDirectSNA)
+                {
+                    CodeMethodInvokeExpression expr = new CodeMethodInvokeExpression(
+                        new CodeMethodReferenceExpression(
+                            new CodeTypeReferenceExpression(MetadataRetriever.GetBuiltinSnaType()),
+                            this.parser.IdsList[lval.Id]),
+                        this.currentExpression);
+
+                    this.currentExpression = expr;
+                }
+            }
+        }
+
         public void Visit(ASTCall node)
         {
             throw new NotImplementedException();
@@ -345,20 +284,14 @@ namespace MyAssCompiler.CodeGeneration
         {
             throw new NotImplementedException();
         }
-
-        public void Visit(ASTLValue node)
+        public void Visit(ASTLiteral literal)
         {
-            throw new NotImplementedException();
+            this.currentExpression = new CodePrimitiveExpression(literal.Value);
         }
 
-        public void Visit(ASTLiteral astLiteral)
+        public void Visit(ASTDirectSNA sna)
         {
-            currentExpression = new CodePrimitiveExpression(astLiteral.Value);
-        }
-
-        public void Visit(ASTDirectSNA node)
-        {
-            throw new NotImplementedException();
+            this.currentExpression = new CodePrimitiveExpression(sna.Id);
         }
 
         public void Visit(ASTActuals node)

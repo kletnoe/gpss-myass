@@ -64,7 +64,7 @@ namespace MyAssCompiler
                     this.Ret(TokenType.MINUS);
                     break;
                 case '#':
-                    this.Ret(TokenType.OCTOTROPE);
+                    this.Ret(TokenType.OCTOTHORPE);
                     break;
                 case '/':
                     this.Ret(TokenType.FWDSLASH);

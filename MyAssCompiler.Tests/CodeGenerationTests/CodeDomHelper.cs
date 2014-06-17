@@ -18,10 +18,41 @@ namespace MyAssCompiler.Tests.CodeGenerationTests
             {
                 return Print(expr as CodePrimitiveExpression);
             }
+            else if (expr is CodeMethodInvokeExpression)
+            {
+                return Print(expr as CodeMethodInvokeExpression);
+            }
+            else if (expr is CodeMethodReferenceExpression)
+            {
+                return Print(expr as CodeMethodReferenceExpression);
+            }
+
             else
             {
                 return "! Wrong expression type !";
             }
+        }
+
+        public static string Print(CodeMethodReferenceExpression expr)
+        {
+            return expr.MethodName;
+        }
+
+        public static string Print(CodeMethodInvokeExpression expr)
+        {
+            StringBuilder result = new StringBuilder();
+            result.Append(Print(expr.Method));
+            result.Append("(");
+
+            foreach (CodeExpression par in expr.Parameters)
+            {
+                result.Append(Print(par));
+                result.Append(", ");
+            }
+            result.Remove(result.Length - 2, 2);
+
+            result.Append(")");
+            return result.ToString();
         }
 
         public static string Print(CodeBinaryOperatorExpression expr)

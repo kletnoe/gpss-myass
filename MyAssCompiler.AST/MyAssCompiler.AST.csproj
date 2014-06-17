@@ -62,6 +62,7 @@
     <Compile Include="ExtremumOperatorType.cs" />
     <Compile Include="IASTNode.cs" />
     <Compile Include="IASTVisitor.cs" />
+    <Compile Include="IASTVisitor[T].cs" />
     <Compile Include="IdsList.cs" />
     <Compile Include="LiteralType.cs" />
     <Compile Include="MulOperatorType.cs" />

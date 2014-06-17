@@ -8,5 +8,6 @@ namespace MyAssCompiler.AST
     public interface IASTNode
     {
         void Accept(IASTVisitor visitor);
+        T Accept<T>(IASTVisitor<T> visitor);
     }
 }

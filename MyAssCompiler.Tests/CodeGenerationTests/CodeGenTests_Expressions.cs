@@ -175,7 +175,17 @@ namespace MyAssCompiler.Tests.CodeGenerationTests
             CommonCode(input, expected);
         }
 
+        [Test]
+        public void DirectSna()
+        {
+            string input = @"Some X$Tail";
+            string expected = @"(1.3+2.4)";
 
+            Parser parser = new Parser(new Scanner(new StringCharSource(input)));
+            CodeGenerationVisitor vis = new CodeGenerationVisitor(parser);
+
+            CommonCode(input, expected);
+        }
 
         public static void CommonCode(string input, string expected)
         {

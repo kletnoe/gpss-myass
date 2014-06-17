@@ -21,6 +21,11 @@ namespace MyAssCompiler.AST
             visitor.Visit(this);
         }
 
+        public T Accept<T>(IASTVisitor<T> visitor)
+        {
+            return visitor.Visit(this);
+        }
+
         public override string ToString()
         {
             return (this.LabelId.HasValue ? String.Format("id({0})", this.LabelId.Value) : "")

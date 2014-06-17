@@ -40,11 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeGenerationsExample.cs" />
+    <Compile Include="CodeDomGenerationVisitor.cs" />
     <Compile Include="CodeGenerationVisitor.cs" />
     <Compile Include="CodeGenerator.cs" />
+    <Compile Include="Compilation.cs" />
+    <Compile Include="CompilerException.cs" />
     <Compile Include="MetadataRetriever.cs" />
-    <Compile Include="SimpleGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeGenerationTests\CodeDomHelper.cs" />
+    <Compile Include="CodeGenerationTests\CodeGenTests_Build.cs" />
     <Compile Include="CodeGenerationTests\CodeGenTests_Expressions.cs" />
     <Compile Include="ParserTests\AccessorsTest.cs" />
     <Compile Include="ParserTests\ExpressionTests.cs" />
@@ -65,6 +66,10 @@
     <ProjectReference Include="..\MyAssCompiler\MyAssCompiler.csproj">
       <Project>{71DCFDA0-DDF5-4494-A055-AFD90AA09241}</Project>
       <Name>MyAssCompiler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyAssFramework\MyAssFramework.csproj">
+      <Project>{511c1ef6-f99a-42d5-8d3a-4f8e93a11c3e}</Project>
+      <Name>MyAssFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

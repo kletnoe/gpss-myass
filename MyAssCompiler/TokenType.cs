@@ -16,7 +16,7 @@ namespace MyAssCompiler
         // BinaryOperator
         PLUS,               // '+'
         MINUS,              // '-'
-        OCTOTROPE,          // '#'
+        OCTOTHORPE,          // '#'
         FWDSLASH,           // '/'
         BCKSLASH,           // '\'
         CARRET,             // '^'
