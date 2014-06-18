@@ -103,9 +103,18 @@ namespace MyAssCompiler.CodeGeneration
 
         public void Visit(ASTVerb verb)
         {
+            // TODO: Max Operands count validation
+
             if (!verb.IsResolved)
             {
-                // Resolve
+                // Label Verb				vs.		Verb Operand1
+                // Label Verb Operand1		vs.		Verb Operator Operand1
+
+                if (MetadataRetriever.IsBuiltinVerb(this.parser.IdsList[verb.UnresolvedId1.Value]))
+                {
+                    // Verb Operand1 OR Verb Operator Operand1
+
+                }
             }
 
 
@@ -113,7 +122,7 @@ namespace MyAssCompiler.CodeGeneration
             verb.Operands.Accept(this);
 
 
-            Type verbType = MetadataRetriever.GetBuiltinBlock(this.parser.IdsList[verb.VerbId]);
+            Type verbType = MetadataRetriever.GetBuiltinVerb(this.parser.IdsList[verb.VerbId]);
             ConstructorInfo verbConstructor = verbType.GetConstructors().First();
             int verbConstructorArgsCount = verbConstructor.GetParameters().Length;
 

@@ -1,6 +1,6 @@
 ﻿
 Rules of Thumb:
-0. There is no difference between command and block right now, all verbs are blocks;
+0. There is no difference between command and block right now, all are verbs;
 1. If block has one operand - its always operand, not operator;
 2. [ID] ID [ID] issue with label-verb-operand will be postponed to linker; *
 3. Operands can be separated only by comma, space separator is not supported;
@@ -45,13 +45,18 @@ Rules of Thumb:
 
 
 * There are cases for this issue:
-1. Label Block Operator Operand1
-2. Label Block Operand1
-3. Label Block
-4. Block Operator Operand1
-5. Block Operand1
-6. Block
+1. Label Verb Operator Operand1
+2. Label Verb Operand1
+3. Label Verb
+4. Verb Operator Operand1
+5. Verb Operand1
+6. Verb
+
+Unresolved:
+Label Verb				vs.		Verb Operand1
+Label Verb Operand1		vs.		Verb Operator Operand1
 
 
+=======
 Found grammar issues:
 - "Some Some (Fun(1,2,3))" vs "Some Some(Fun(1,2,3))"

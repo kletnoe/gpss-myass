@@ -48,45 +48,28 @@ namespace MyAssCompiler.CodeGeneration
 
         private const string builtinSnaTypeName = @"MyAssFramework.SNA.SNA";
         private const string builtinBlocksNamespace = @"MyAssFramework.Blocks";
-        private const string builtinEntitiesNamespace = @"MyAssFramework.Entities";
-
-        //public static MethodInfo GetSnaMethod(string name)
-        //{
-        //    return GetBuiltinSnaMethod(name);
-        //}
-
-        //// Always builtin for now
-        //private static MethodInfo GetBuiltinSnaMethod(string name)
-        //{
-        //    return GetBuiltinSnaType().GetMethod(name);
-        //}
+        private const string builtinCommandsNamespace = @"MyAssFramework.Commands";
 
         public static Type GetBuiltinSnaType()
         {
             return Assembly.LoadFrom(builtinTypesAssemblyName).GetType(builtinSnaTypeName);
         }
 
-        public static Type GetBuiltinBlock(string name)
+        public static bool IsBuiltinVerb(string name)
         {
-            //return Assembly.LoadFrom(builtinTypesAssemblyName).GetType(builtinBlocksNamespace + "." + name);
-
             return Assembly.LoadFrom(builtinTypesAssemblyName)
                 .GetTypes()
-                .Where(x => x.Namespace == builtinBlocksNamespace
+                .Any(x => x.Namespace == builtinBlocksNamespace || x.Namespace == builtinCommandsNamespace
+                    && string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public static Type GetBuiltinVerb(string name)
+        {
+            return Assembly.LoadFrom(builtinTypesAssemblyName)
+                .GetTypes()
+                .Where(x => x.Namespace == builtinBlocksNamespace || x.Namespace == builtinCommandsNamespace
                     && string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase))
                 .First();
         }
-
-        public static Type GetBuiltinEntity(string name)
-        {
-            //return Assembly.LoadFrom(builtinTypesAssemblyName).GetType(builtinEntitiesNamespace + "." + name + "Entity");
-
-            return Assembly.LoadFrom(builtinTypesAssemblyName)
-                .GetTypes()
-                .Where(x => x.Namespace == builtinEntitiesNamespace
-                    && string.Equals(x.Name, name + "Entity", StringComparison.OrdinalIgnoreCase))
-                .First();
-        }
-
     }
 }

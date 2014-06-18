@@ -91,7 +91,7 @@ namespace MyAssCompiler
             return model;
         }
 
-        // <verb> ::= [ ID ] ID [ <operator> ] [ <operands> ]
+        // <verb> ::= [ ID ] ID [ ID ] [ <operands> ]
         public ASTVerb ExpectVerb()
         {
             ASTVerb verb = new ASTVerb();
@@ -130,8 +130,8 @@ namespace MyAssCompiler
             else if (secondId.HasValue && thirdId.HasValue)
             {
                 // There are two cases for this:
-                // Label Block Operand1
-                // Block Operator Operand1
+                // Label Verb Operand1
+                // Verb Operator Operand1
                 verb.UnresolvedId1 = firstId;
                 verb.UnresolvedId2 = secondId.Value;
                 verb.Operands = this.ExpectOperands(thirdId.Value);
@@ -159,8 +159,8 @@ namespace MyAssCompiler
                 else
                 {
                     // There are two cases for this:
-                    // Label Block
-                    // Block Operand1
+                    // Label Verb
+                    // Verb Operand1
                     verb.UnresolvedId1 = firstId;
                     verb.UnresolvedId2 = secondId.Value;
                     verb.Operands = this.ExpectOperands();
