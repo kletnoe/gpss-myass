@@ -17,7 +17,7 @@ namespace MyAssApplication
 
         private void DefineBlocks()
         {
-            Operand block1_operand1 = new ParExpression(Expressions.Block1_Operand1);
+            Operand block1_operand1 = new ParExpression(new ExpressionDelegate(Expressions.Block1_Operand1));
             Operand block1_operand2 = null;
             Operand block1_operand3 = null;
             Operand block1_operand4 = null;

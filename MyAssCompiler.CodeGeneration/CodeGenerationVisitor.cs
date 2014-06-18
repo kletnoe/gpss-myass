@@ -3,6 +3,7 @@ using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using MyAssCompiler.AST;
 
@@ -34,12 +35,14 @@ namespace MyAssCompiler.CodeGeneration
             }
         }
 
+        private CodeMemberMethod mainMethod;
+        private List<string> currentConstructorArgs;
 
-        CodeNamespace rootnamespace;
-        CodeTypeDeclaration currentClass;
-        CodeMemberMethod currentMethod;
+        private CodeNamespace rootnamespace;
+        private CodeTypeDeclaration currentClass;
+        private CodeMemberMethod currentMethod;
         //statement not used?
-        CodeExpression currentExpression;
+        private CodeExpression currentExpression;
 
         public CodeGenerationVisitor(IParser parser)
         {
@@ -80,6 +83,14 @@ namespace MyAssCompiler.CodeGeneration
                 Name = this.CurrentClassName
             };
 
+            this.mainMethod = new CodeMemberMethod()
+            {
+                Attributes = MemberAttributes.Public | MemberAttributes.Static,
+                ReturnType = new CodeTypeReference(typeof(void)),
+                Name = "Test",
+            };
+            this.currentClass.Members.Add(this.mainMethod);
+
             foreach (var verb in node.Verbs)
             {
                 verb.Accept(this);
@@ -90,15 +101,63 @@ namespace MyAssCompiler.CodeGeneration
             this.currentModelNo++;
         }
 
-        public void Visit(ASTVerb node)
+        public void Visit(ASTVerb verb)
         {
+            if (!verb.IsResolved)
+            {
+                // Resolve
+            }
+
+
             this.currentOperandNo = 1;
-            node.Operands.Accept(this);
+            verb.Operands.Accept(this);
+
+
+            Type verbType = MetadataRetriever.GetBuiltinBlock(this.parser.IdsList[verb.VerbId]);
+            ConstructorInfo verbConstructor = verbType.GetConstructors().First();
+            int verbConstructorArgsCount = verbConstructor.GetParameters().Length;
+
+            List<CodeExpression> constructorArgs = new List<CodeExpression>();
+
+            for (int i = 0; i < verbConstructorArgsCount; i++)
+            {
+                if (this.currentConstructorArgs.Count > i)
+                {
+                    if (this.currentConstructorArgs[i] != null)
+                    {
+                        CodeObjectCreateExpression parExpr = new CodeObjectCreateExpression(
+                            typeof(MyAssFramework.OperandTypes_Test.ParExpression),
+                            new CodeDelegateCreateExpression(
+                                new CodeTypeReference(
+                                    typeof(MyAssFramework.OperandTypes_Test.ExpressionDelegate)),
+                                new CodeTypeReferenceExpression(this.CurrentClassName),
+                                "Block" + this.currentBlockNo + "_Operand" + (i+1)));
+
+                        constructorArgs.Add(parExpr);
+                    }
+                    else
+                    {
+                        constructorArgs.Add(new CodePrimitiveExpression(null));
+                    }
+                }
+                else
+                {
+                    constructorArgs.Add(new CodePrimitiveExpression(null));
+                }
+            }
+
+            CodeObjectCreateExpression callNew = new CodeObjectCreateExpression(verbType, constructorArgs.ToArray());
+            this.mainMethod.Statements.Add(callNew);
+
+
+
             this.currentBlockNo++;
         }
 
         public void Visit(ASTOperands node)
         {
+            this.currentConstructorArgs = new List<string>();
+
             foreach (var operand in node.Operands)
             {
                 if (operand != null)
@@ -128,7 +187,13 @@ namespace MyAssCompiler.CodeGeneration
                     this.currentMethod.Statements.Add(assignStatement);
                     this.currentMethod.Statements.Add(returnStatement);
 
-                    this.currentClass.Members.Add(currentMethod);
+                    this.currentClass.Members.Add(this.currentMethod);
+
+                    this.currentConstructorArgs.Add(this.currentMethod.Name);
+                }
+                else
+                {
+                    this.currentConstructorArgs.Add(null);
                 }
 
                 this.currentOperandNo++;

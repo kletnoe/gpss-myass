@@ -19,7 +19,7 @@ namespace MyAssCompiler.CodeGeneration
             {
                 GenerateInMemory = InMemory,
                 GenerateExecutable = false,
-                OutputAssembly = outputPath
+                OutputAssembly = InMemory ? null : outputPath
             };
 
 

@@ -44,23 +44,49 @@ namespace MyAssCompiler.CodeGeneration
 
         /////
 
-        private const string builtinTypesAssemblyName = "MyAssFramework.dll";
-        private const string builtinSnaTypeName = "MyAssFramework.SNA.SNA";
+        private const string builtinTypesAssemblyName = @"MyAssFramework.dll";
 
-        public static MethodInfo GetSnaMethod(string name)
-        {
-            return GetBuiltinSnaMethod(name);
-        }
+        private const string builtinSnaTypeName = @"MyAssFramework.SNA.SNA";
+        private const string builtinBlocksNamespace = @"MyAssFramework.Blocks";
+        private const string builtinEntitiesNamespace = @"MyAssFramework.Entities";
 
-        // Always builtin for now
-        private static MethodInfo GetBuiltinSnaMethod(string name)
-        {
-            return GetBuiltinSnaType().GetMethod(name);
-        }
+        //public static MethodInfo GetSnaMethod(string name)
+        //{
+        //    return GetBuiltinSnaMethod(name);
+        //}
+
+        //// Always builtin for now
+        //private static MethodInfo GetBuiltinSnaMethod(string name)
+        //{
+        //    return GetBuiltinSnaType().GetMethod(name);
+        //}
 
         public static Type GetBuiltinSnaType()
         {
             return Assembly.LoadFrom(builtinTypesAssemblyName).GetType(builtinSnaTypeName);
         }
+
+        public static Type GetBuiltinBlock(string name)
+        {
+            //return Assembly.LoadFrom(builtinTypesAssemblyName).GetType(builtinBlocksNamespace + "." + name);
+
+            return Assembly.LoadFrom(builtinTypesAssemblyName)
+                .GetTypes()
+                .Where(x => x.Namespace == builtinBlocksNamespace
+                    && string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase))
+                .First();
+        }
+
+        public static Type GetBuiltinEntity(string name)
+        {
+            //return Assembly.LoadFrom(builtinTypesAssemblyName).GetType(builtinEntitiesNamespace + "." + name + "Entity");
+
+            return Assembly.LoadFrom(builtinTypesAssemblyName)
+                .GetTypes()
+                .Where(x => x.Namespace == builtinEntitiesNamespace
+                    && string.Equals(x.Name, name + "Entity", StringComparison.OrdinalIgnoreCase))
+                .First();
+        }
+
     }
 }
