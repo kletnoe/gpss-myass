@@ -202,7 +202,7 @@ namespace MyAssCompiler.Tests.CodeGenerationTests
 
         public static CodeExpression GetResultExpression(CodeCompileUnit assembly)
         {
-            var result = ((assembly.Namespaces[0].Types[0].Members[0] as CodeMemberMethod)
+            var result = ((assembly.Namespaces[0].Types[0].Members[1] as CodeMemberMethod)
                 .Statements[1] as CodeAssignStatement).Right;
             return result;
         }
