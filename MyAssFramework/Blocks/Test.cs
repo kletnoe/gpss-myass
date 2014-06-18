@@ -12,11 +12,11 @@ namespace MyAssFramework.Blocks
     {
         public RelationalOperator O_RelationalOp { get; private set; }
 
-        public Operand A_LValue { get; private set; }
-        public Operand B_RValue { get; private set; }
-        public Operand C_DestBlockNo { get; private set; }
+        public IDoubleOperand A_LValue { get; private set; }
+        public IDoubleOperand B_RValue { get; private set; }
+        public IDoubleOperand C_DestBlockNo { get; private set; }
 
-        public Test(RelationalOperator relationalOp, Operand lValue, Operand rValue, Operand destBlockNo)
+        public Test(RelationalOperator relationalOp, IDoubleOperand lValue, IDoubleOperand rValue, IDoubleOperand destBlockNo)
         {
             this.O_RelationalOp = relationalOp;
             this.A_LValue = lValue;

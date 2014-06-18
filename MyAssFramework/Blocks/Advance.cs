@@ -10,10 +10,10 @@ namespace MyAssFramework.Blocks
     {
         // TODO: Implement special "function modifier" case.
 
-        public Operand A_MeanValue { get; private set; }
-        public Operand B_HalfRange { get; private set; }
+        public IDoubleOperand A_MeanValue { get; private set; }
+        public IDoubleOperand B_HalfRange { get; private set; }
 
-        public Advance(Operand meanValue, Operand halfRange)
+        public Advance(IDoubleOperand meanValue, IDoubleOperand halfRange)
         {
             this.A_MeanValue = meanValue;
             this.B_HalfRange = halfRange;

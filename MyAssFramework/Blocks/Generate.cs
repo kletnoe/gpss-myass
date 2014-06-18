@@ -10,14 +10,14 @@ namespace MyAssFramework.Blocks
     {
         // TODO: Implement special "function modifier" case.
 
-        public Operand A_MeanValue { get; private set; }
-        public Operand B_HalfRange { get; private set; }
-        public Operand C_StartDelay { get; private set; }
-        public Operand D_CreationLimit { get; private set; }
-        public Operand E_PriorityLevel { get; private set; }
+        public IDoubleOperand A_MeanValue { get; private set; }
+        public IDoubleOperand B_HalfRange { get; private set; }
+        public IDoubleOperand C_StartDelay { get; private set; }
+        public IDoubleOperand D_CreationLimit { get; private set; }
+        public IDoubleOperand E_PriorityLevel { get; private set; }
 
-        public Generate(Operand meanValue, Operand halfRange, Operand startDelay,
-            Operand creationLimit, Operand priorityLevel)
+        public Generate(IDoubleOperand meanValue, IDoubleOperand halfRange, IDoubleOperand startDelay,
+            IDoubleOperand creationLimit, IDoubleOperand priorityLevel)
         {
             this.A_MeanValue = meanValue;
             this.B_HalfRange = halfRange;

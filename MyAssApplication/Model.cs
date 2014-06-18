@@ -50,7 +50,7 @@ namespace MyAssApplication
         }
 
 
-        public static void Test(Operand op)
+        public static void Test(IDoubleOperand op)
         {
             Console.WriteLine(op);
         }

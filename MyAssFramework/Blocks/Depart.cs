@@ -11,10 +11,10 @@ namespace MyAssFramework.Blocks
     {
         //private Transact transact;
 
-        public Operand A_QueueEntityId { get; private set; }
-        public Operand B_NumberOfUnits { get; private set; }
+        public IDoubleOperand A_QueueEntityId { get; private set; }
+        public IDoubleOperand B_NumberOfUnits { get; private set; }
 
-        public Depart(Operand queueEntityId, Operand numberOfUnits)
+        public Depart(IDoubleOperand queueEntityId, IDoubleOperand numberOfUnits)
         {
             this.A_QueueEntityId = queueEntityId;
             this.B_NumberOfUnits = numberOfUnits;

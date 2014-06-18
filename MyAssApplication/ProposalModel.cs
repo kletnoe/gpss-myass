@@ -17,11 +17,11 @@ namespace MyAssApplication
 
         private void DefineBlocks()
         {
-            Operand block1_operand1 = new ParExpression(new ExpressionDelegate(Expressions.Block1_Operand1));
-            Operand block1_operand2 = null;
-            Operand block1_operand3 = null;
-            Operand block1_operand4 = null;
-            Operand block1_operand5 = null;
+            IDoubleOperand block1_operand1 = new ParExpression(new ExpressionDelegate(Expressions.Block1_Operand1));
+            IDoubleOperand block1_operand2 = null;
+            IDoubleOperand block1_operand3 = null;
+            IDoubleOperand block1_operand4 = null;
+            IDoubleOperand block1_operand5 = null;
 
             IBlock block1 = new Generate(block1_operand1, block1_operand2, block1_operand3, block1_operand4, block1_operand5);
             IBlock block2 = new Savevalue(new Number(2), Savevalue.Operation.Plus, new Number(1));

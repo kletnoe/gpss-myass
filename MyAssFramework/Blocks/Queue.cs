@@ -9,10 +9,10 @@ namespace MyAssFramework.Blocks
 {
     public class Queue : AbstractBlock
     {
-        public Operand A_QueueEntityId { get; private set; }
-        public Operand B_NumberOfUnits { get; private set; }
+        public IDoubleOperand A_QueueEntityId { get; private set; }
+        public IDoubleOperand B_NumberOfUnits { get; private set; }
         
-        public Queue(Operand queueEntityId, Operand numberOfUnits)
+        public Queue(IDoubleOperand queueEntityId, IDoubleOperand numberOfUnits)
         {
             this.A_QueueEntityId = queueEntityId;
             this.B_NumberOfUnits = numberOfUnits;

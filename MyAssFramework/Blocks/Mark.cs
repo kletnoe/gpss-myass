@@ -8,9 +8,9 @@ namespace MyAssFramework.Blocks
 {
     public class Mark : AbstractBlock
     {
-        public Operand A_ParameterId { get; private set; }
+        public IDoubleOperand A_ParameterId { get; private set; }
 
-        public Mark(Operand parameterId)
+        public Mark(IDoubleOperand parameterId)
         {
             this.A_ParameterId = parameterId;
         }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MyAssFramework.OperandTypes_Test
 {
-    public abstract class DirectSNA : Operand
+    public abstract class DirectSNA : IDoubleOperand
     {
         public int EntitiyId { get; protected set; }
 

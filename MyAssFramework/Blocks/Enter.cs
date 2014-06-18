@@ -9,10 +9,10 @@ namespace MyAssFramework.Blocks
 {
     public class Enter : AbstractBlock
     {
-        public Operand A_StorageEntityId { get; private set; }
-        public Operand B_NumberOfUnits { get; private set; }
+        public IDoubleOperand A_StorageEntityId { get; private set; }
+        public IDoubleOperand B_NumberOfUnits { get; private set; }
 
-        public Enter(Operand storageEntityId, Operand numberOfUnits)
+        public Enter(IDoubleOperand storageEntityId, IDoubleOperand numberOfUnits)
         {
             this.A_StorageEntityId = storageEntityId;
             this.B_NumberOfUnits = numberOfUnits;

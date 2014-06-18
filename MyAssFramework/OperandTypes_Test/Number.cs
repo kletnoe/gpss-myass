@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MyAssFramework.OperandTypes_Test
 {
-    public class Number : Operand
+    public class Number : IDoubleOperand
     {
         public double value { get; private set; }
 

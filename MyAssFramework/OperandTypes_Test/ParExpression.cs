@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MyAssFramework.OperandTypes_Test
 {
-    public class ParExpression : Operand
+    public class ParExpression : IDoubleOperand
     {
         public ExpressionDelegate value { get; private set; }
 

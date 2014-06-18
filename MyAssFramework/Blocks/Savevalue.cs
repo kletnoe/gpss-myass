@@ -16,11 +16,11 @@ namespace MyAssFramework.Blocks
             Set
         }
 
-        public Operand A_SavevalueEntityId { get; private set; }
+        public IDoubleOperand A_SavevalueEntityId { get; private set; }
         public Savevalue.Operation A_Operation { get; private set; }
-        public Operand B_Value { get; private set; }
+        public IDoubleOperand B_Value { get; private set; }
 
-        public Savevalue(Operand savevalueEntityId, Savevalue.Operation operation, Operand value)
+        public Savevalue(IDoubleOperand savevalueEntityId, Savevalue.Operation operation, IDoubleOperand value)
         {
             this.A_SavevalueEntityId = savevalueEntityId;
             this.A_Operation = operation;

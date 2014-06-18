@@ -8,9 +8,9 @@ namespace MyAssFramework.Blocks
 {
     public class Terminate : AbstractBlock
     {
-        public Operand A_TerminationCountDecriment { get; private set; }
+        public IDoubleOperand A_TerminationCountDecriment { get; private set; }
 
-        public Terminate(Operand terminationCountDecriment)
+        public Terminate(IDoubleOperand terminationCountDecriment)
         {
             this.A_TerminationCountDecriment = terminationCountDecriment;
         }

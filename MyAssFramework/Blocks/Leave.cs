@@ -9,10 +9,10 @@ namespace MyAssFramework.Blocks
 {
     public class Leave : AbstractBlock
     {
-        public Operand A_StorageEntityId { get; private set; }
-        public Operand B_NumberOfUnits { get; private set; }
+        public IDoubleOperand A_StorageEntityId { get; private set; }
+        public IDoubleOperand B_NumberOfUnits { get; private set; }
 
-        public Leave(Operand storageEntityId, Operand numberOfUnits)
+        public Leave(IDoubleOperand storageEntityId, IDoubleOperand numberOfUnits)
         {
             //this.Consumer = consumer;
             this.A_StorageEntityId = storageEntityId;

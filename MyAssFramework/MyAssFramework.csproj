@@ -64,9 +64,11 @@
     <Compile Include="Misc.cs" />
     <Compile Include="OperandTypes_Test\DirectSNA.cs" />
     <Compile Include="OperandTypes_Test\ExpressionDelegate.cs" />
-    <Compile Include="OperandTypes_Test\Operand.cs" />
+    <Compile Include="OperandTypes_Test\IOperand.cs" />
+    <Compile Include="OperandTypes_Test\IDoubleOperand.cs" />
     <Compile Include="OperandTypes_Test\Number.cs" />
     <Compile Include="OperandTypes_Test\ParExpression.cs" />
+    <Compile Include="OperandTypes_Test\StringLiteralOperand.cs" />
     <Compile Include="Resources\ExceptionMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
