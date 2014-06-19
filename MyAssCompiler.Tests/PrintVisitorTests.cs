@@ -19,7 +19,7 @@ namespace MyAssCompiler.Tests
         [Test]
         public void Test2()
         {
-            string source = @"SAVEVALUE GenerateCounter ,1";
+            string source = @"SAVEVALUE GenerateCounter,1";
             Assert.Pass(new ASTPrintVisitor(new Parser(new Scanner(new StringCharSource(source)))).Print());
         }
     }

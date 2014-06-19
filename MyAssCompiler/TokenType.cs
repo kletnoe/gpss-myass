@@ -10,6 +10,7 @@ namespace MyAssCompiler
         NUMERIC,
         ID,
         COMMENT,
+        WHITE,
 
         LF,
 

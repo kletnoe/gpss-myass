@@ -1,18 +1,22 @@
 ﻿
 Rules of Thumb:
-0. There is no difference between command and block right now, all are verbs;
-1. If block has one operand - its always operand, not operator;
-2. [ID] ID [ID] issue with label-verb-operand will be postponed to linker; *
-3. Operands can be separated only by comma, space separator is not supported;
+1. There is no difference between command and block right now, all are verbs;
+2. Verb operator (if exits) is first operand;
+3. Operands separated by Comma or Whitespace char;
+	3.1 Despite of it spaces can be used inside parenthesized expressions, 
+		'cos whitespaces are ignored inside parexpressions;
 4. Suffix logic (Assign/Savevalue) fubars current grammatics, is not supported;
+5. Issue with optional label solved with verb name lookup in Framework metadata;
 
 <model> ::= { <verb> [ COMMENT ] "\r\n" }+
 
-	<verb> ::= [ ID ] ID [ ID ] [ <operands> ]
+	<verb> ::= [ ID ] ID [ <operands> ]
 
 		<operands> ::= <operand> { "," <operand> }
 
-		<operand> ::= "" | <expression>
+		<operand> ::= "" | <expression> | <parexpression>
+
+		<parexpression> ::= "(" <expression> ")"
 
 		<expression> ::= <term> { <additive> }
 
@@ -43,20 +47,3 @@ Rules of Thumb:
 						<literal> ::= INT | DOUBLE | STRING
 
 
-
-* There are cases for this issue:
-1. Label Verb Operator Operand1
-2. Label Verb Operand1
-3. Label Verb
-4. Verb Operator Operand1
-5. Verb Operand1
-6. Verb
-
-Unresolved:
-Label Verb				vs.		Verb Operand1
-Label Verb Operand1		vs.		Verb Operator Operand1
-
-
-=======
-Found grammar issues:
-- "Some Some (Fun(1,2,3))" vs "Some Some(Fun(1,2,3))"

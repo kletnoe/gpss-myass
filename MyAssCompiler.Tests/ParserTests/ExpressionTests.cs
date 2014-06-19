@@ -13,56 +13,56 @@ namespace MyAssCompiler.Tests.ParserTests
         [Test]
         public void Expression_Literal()
         {
-            string input = @"Some 3";
+            string input = @"Mark 3";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_SignedLiteral1()
         {
-            string input = @"Some -3";
+            string input = @"Mark -3";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_SignedLiteral2()
         {
-            string input = @"Some +3";
+            string input = @"Mark +3";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Id()
         {
-            string input = @"Some someId";
+            string input = @"Mark MarkId";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_ParExpression()
         {
-            string input = @"Some (someId)";
+            string input = @"Mark (MarkId)";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Addition()
         {
-            string input = @"Some 3+4+5/25";
+            string input = @"Mark 3+4+5/25";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Complex1()
         {
-            string input = @"Some (someId + 3)/25";
+            string input = @"Mark ((MarkId + 3)/25)";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Complex2()
         {
-            string input = @"Some (someId + 3)/25 + (1 + (id2 # (2 / 7)))";
+            string input = @"Mark ((MarkId + 3)/25 + (1 + (id2 # (2 / 7))))";
             Assert.Pass(this.Run(input).ToString());
         }
 

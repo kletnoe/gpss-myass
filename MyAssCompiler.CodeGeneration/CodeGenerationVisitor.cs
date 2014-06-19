@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using MyAssCompiler.AST;
+using MyAssCompiler.Metadata;
 
 namespace MyAssCompiler.CodeGeneration
 {
@@ -103,24 +104,8 @@ namespace MyAssCompiler.CodeGeneration
 
         public void Visit(ASTVerb verb)
         {
-            // TODO: Max Operands count validation
-
-            if (!verb.IsResolved)
-            {
-                // Label Verb				vs.		Verb Operand1
-                // Label Verb Operand1		vs.		Verb Operator Operand1
-
-                if (MetadataRetriever.IsBuiltinVerb(this.parser.IdsList[verb.UnresolvedId1.Value]))
-                {
-                    // Verb Operand1 OR Verb Operator Operand1
-
-                }
-            }
-
-
             this.currentOperandNo = 1;
             verb.Operands.Accept(this);
-
 
             Type verbType = MetadataRetriever.GetBuiltinVerb(this.parser.IdsList[verb.VerbId]);
             ConstructorInfo verbConstructor = verbType.GetConstructors().First();

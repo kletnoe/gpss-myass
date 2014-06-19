@@ -14,12 +14,14 @@ namespace MyAssCompiler
         private int currentTokenLine;
         private int currentTokenColumn;
         private IList<string> identifiers = new List<string>();
+        public bool ignoreWhitespace;
 
         public TokenType CurrentToken { get { return this.currentToken; } }
         public object CurrentTokenVal { get { return this.currentTokenVal; } }
         public int CurrentTokenLine { get { return this.currentTokenLine; } }
         public int CurrentTokenColumn { get { return this.currentTokenColumn; } }
         public IList<string> Identifiers { get { return this.identifiers; } }
+        public bool IgnoreWhitespace { get { return this.ignoreWhitespace; } set { this.ignoreWhitespace = value; } }
 
 
         public Scanner(ICharSource charSource)
@@ -44,9 +46,12 @@ namespace MyAssCompiler
 
         public void Next()
         {
-            while (Char.IsWhiteSpace(this.CharSource.CurrentChar) && this.CharSource.CurrentChar != '\n')
+            if (this.IgnoreWhitespace)
             {
-                this.CharSource.Next();
+                while (Char.IsWhiteSpace(this.CharSource.CurrentChar) && this.CharSource.CurrentChar != '\n')
+                {
+                    this.CharSource.Next();
+                }
             }
             this.currentTokenLine = this.CharSource.Line;
             this.currentTokenColumn = this.CharSource.Column;
@@ -109,6 +114,10 @@ namespace MyAssCompiler
                     else if (this.CharSource.CurrentChar == ';')
                     {
                         this.RetComment();
+                    }
+                    else if (Char.IsWhiteSpace(this.CharSource.CurrentChar) && this.CharSource.CurrentChar != '\n')
+                    {
+                        this.Ret(TokenType.WHITE);
                     }
                     else
                     {

@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MyAssCompiler.CodeGeneration
+namespace MyAssCompiler.Metadata
 {
     public class MetadataRetriever
     {
         public string AssemblyName { get { return "MyAssFramework"; } }
         public string AssemblyDllName { get { return this.AssemblyName + ".dll"; } }
-        
+
         public IEnumerable<Type> GetMyAssFrameworkBlockTypes()
         {
             return Assembly.LoadFrom(this.AssemblyDllName).GetTypes().Where(x => !x.IsInterface && !x.IsAbstract)
@@ -55,11 +56,16 @@ namespace MyAssCompiler.CodeGeneration
             return Assembly.LoadFrom(builtinTypesAssemblyName).GetType(builtinSnaTypeName);
         }
 
+        public static bool IsVerb(string name)
+        {
+            return IsBuiltinVerb(name);
+        }
+
         public static bool IsBuiltinVerb(string name)
         {
             return Assembly.LoadFrom(builtinTypesAssemblyName)
                 .GetTypes()
-                .Any(x => x.Namespace == builtinBlocksNamespace || x.Namespace == builtinCommandsNamespace
+                .Any(x => (x.Namespace == builtinBlocksNamespace || x.Namespace == builtinCommandsNamespace)
                     && string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase));
         }
 
@@ -67,7 +73,7 @@ namespace MyAssCompiler.CodeGeneration
         {
             return Assembly.LoadFrom(builtinTypesAssemblyName)
                 .GetTypes()
-                .Where(x => x.Namespace == builtinBlocksNamespace || x.Namespace == builtinCommandsNamespace
+                .Where(x => (x.Namespace == builtinBlocksNamespace || x.Namespace == builtinCommandsNamespace)
                     && string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase))
                 .First();
         }

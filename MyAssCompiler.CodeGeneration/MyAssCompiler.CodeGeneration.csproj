@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MyAssCompiler.CodeGeneration</RootNamespace>
     <AssemblyName>MyAssCompiler.CodeGeneration</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -45,13 +48,16 @@
     <Compile Include="CodeGenerator.cs" />
     <Compile Include="Compilation.cs" />
     <Compile Include="CompilerException.cs" />
-    <Compile Include="MetadataRetriever.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyAssCompiler.AST\MyAssCompiler.AST.csproj">
       <Project>{8e3b820c-140b-45a9-8c39-8803f0d9b1ea}</Project>
       <Name>MyAssCompiler.AST</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyAssCompiler.Metadata\MyAssCompiler.Metadata.csproj">
+      <Project>{c7d9fd2e-57e5-43cb-96d9-61218837e1c1}</Project>
+      <Name>MyAssCompiler.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyAssCompiler\MyAssCompiler.csproj">
       <Project>{71dcfda0-ddf5-4494-a055-afd90aa09241}</Project>

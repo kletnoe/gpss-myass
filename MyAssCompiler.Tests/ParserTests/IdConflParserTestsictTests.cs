@@ -8,12 +8,12 @@ using NUnit.Framework;
 namespace MyAssCompiler.Tests
 {
     [TestFixture]
-    public class IdConflictTests
+    public class IdConflParserTestsictTests
     {
         [Test]
         public void DirectSna()
         {
-            string input = @"Init x$SomeId";
+            string input = @"Mark x$SomeId";
 
             Parser parser = new Parser(new Scanner(new StringCharSource(input)));
             var result = parser.Parse();
@@ -44,6 +44,26 @@ namespace MyAssCompiler.Tests
         public void Block_Literal()
         {
             string input = @"TERMINATE 1";
+
+            Parser parser = new Parser(new Scanner(new StringCharSource(input)));
+            var model = parser.Parse();
+            Assert.Pass(model.ToString());
+        }
+
+        [Test]
+        public void Block_Literal2()
+        {
+            string input = @"TERMINATE 1 2 3 4 5";
+
+            Parser parser = new Parser(new Scanner(new StringCharSource(input)));
+            var model = parser.Parse();
+            Assert.Pass(model.ToString());
+        }
+
+        [Test]
+        public void Block_Literal3()
+        {
+            string input = @"TERMINATE 1,2,3,54";
 
             Parser parser = new Parser(new Scanner(new StringCharSource(input)));
             var model = parser.Parse();
