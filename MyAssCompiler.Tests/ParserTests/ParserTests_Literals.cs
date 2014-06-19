@@ -7,7 +7,8 @@ using NUnit.Framework;
 namespace MyAssCompiler.Tests.ParserTests
 {
     [TestFixture]
-    public class LiteralTests
+    [Category("ParserTests_Literals")]
+    public class ParserTests_Literals
     {
         [Test]
         public void Literal_Int()

@@ -10,6 +10,7 @@ using NUnit.Framework;
 namespace MyAssCompiler.Tests.CodeGenerationTests
 {
     [TestFixture]
+    [Category("CodeGenTests_Verbs")]
     class CodeGenTests_Verbs
     {
         [Test]

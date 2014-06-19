@@ -8,7 +8,8 @@ using NUnit.Framework;
 namespace MyAssCompiler.Tests
 {
     [TestFixture]
-    public class IdConflParserTestsictTests
+    [Category("ParserTests_IdConflsicts")]
+    public class ParserTests_IdConflsicts
     {
         [Test]
         public void DirectSna()
@@ -69,8 +70,5 @@ namespace MyAssCompiler.Tests
             var model = parser.Parse();
             Assert.Pass(model.ToString());
         }
-
-        //[Test]
-        //public void T
     }
 }

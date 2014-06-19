@@ -10,6 +10,7 @@ using MyAssFramework;
 namespace MyAssCompiler.Tests.CodeGenerationTests
 {
     [TestFixture]
+    [Category("CodeGenTests_Build")]
     public class CodeGenTests_Build
     {
         [Test]

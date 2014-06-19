@@ -50,14 +50,12 @@
     <Compile Include="CodeGenerationTests\CodeGenTests_Build.cs" />
     <Compile Include="CodeGenerationTests\CodeGenTests_Expressions.cs" />
     <Compile Include="CodeGenerationTests\CodeGenTests_Verbs.cs" />
-    <Compile Include="ParserTests\AccessorsTest.cs" />
-    <Compile Include="ParserTests\ExpressionTests.cs" />
-    <Compile Include="ParserTests\ExpressionTests_Old.cs" />
-    <Compile Include="ParserTests\LiteralTests.cs" />
-    <Compile Include="ParserTests\IdConflParserTestsictTests.cs" />
-    <Compile Include="PrintVisitorTests.cs" />
+    <Compile Include="ParserTests\ParserTests_Accessors.cs" />
+    <Compile Include="ParserTests\ParserTests_Expressions.cs" />
+    <Compile Include="ParserTests\ParserTests_Literals.cs" />
+    <Compile Include="ParserTests\ParserTests_IdConflsicts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScannerTests\Tokens.cs" />
+    <Compile Include="ScannerTests\ScannerTests_Tokens.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyAssCompiler.AST\MyAssCompiler.AST.csproj">

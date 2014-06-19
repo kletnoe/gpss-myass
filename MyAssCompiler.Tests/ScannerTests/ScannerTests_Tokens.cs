@@ -8,7 +8,8 @@ using NUnit.Framework;
 namespace MyAssCompiler.Tests.ScannerTests
 {
     [TestFixture]
-    public class Tokens
+    [Category("ScannerTests_Tokens")]
+    public class ScannerTests_Tokens
     {
         [Test]
         public void Id_Literal_Literal()

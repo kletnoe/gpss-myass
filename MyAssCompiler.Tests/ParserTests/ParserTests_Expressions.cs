@@ -8,7 +8,8 @@ using NUnit.Framework;
 namespace MyAssCompiler.Tests.ParserTests
 {
     [TestFixture]
-    public class ExpressionTests
+    [Category("ParserTests_Expressions")]
+    public class ParserTests_Expressions
     {
         [Test]
         public void Expression_Literal()

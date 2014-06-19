@@ -10,6 +10,7 @@ using System.CodeDom;
 namespace MyAssCompiler.Tests.CodeGenerationTests
 {
     [TestFixture]
+    [Category("CodeGenTests_Expressions")]
     public class CodeGenTests_Expressions
     {
         [Test]

@@ -8,7 +8,8 @@ using NUnit.Framework;
 namespace MyAssCompiler.Tests.ParserTests
 {
     [TestFixture]
-    public class AccessorsTest
+    [Category("ParserTests_Accessors")]
+    public class ParserTests_Accessors
     {
         [Test]
         public void Expr_Call()
