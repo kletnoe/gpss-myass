@@ -11,7 +11,6 @@ namespace MyAssCompiler
         object CurrentTokenVal { get; }
         int CurrentTokenLine { get; }
         int CurrentTokenColumn { get; }
-        IList<string> Identifiers { get; }
         bool IgnoreWhitespace { get; set; }
 
         void Next();

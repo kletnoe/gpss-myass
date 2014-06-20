@@ -37,29 +37,18 @@ namespace MyAssCompiler
         {
             StringBuilder result = new StringBuilder();
 
-            if (verb.LabelId.HasValue)
+            if (verb != null)
             {
-                result.Append(this.Parser.IdsList[verb.LabelId.Value]);
+                result.Append(verb.LabelId);
                 result.Append(" ");
             }
 
-            result.Append(this.Parser.IdsList[verb.VerbId]);
+            result.Append(verb.VerbId);
             result.Append(" ");
-
-            if (verb.OperatorId != null)
-            {
-                result.Append(this.Parser.IdsList[verb.OperatorId.Value]);
-                result.Append(" ");
-            }
 
             if (verb.Operands != null)
             {
                 result.Append(verb.Operands.Accept(this));
-            }
-
-            if (!verb.IsResolved)
-            {
-                result.Append(" :: Unresolved");
             }
 
             return result.ToString();
@@ -175,7 +164,7 @@ namespace MyAssCompiler
         {
             StringBuilder result = new StringBuilder();
 
-            result.Append(this.Parser.IdsList[lval.Id]);
+            result.Append(lval.Id);
             if (lval.Accessor != null)
             {
                 result.Append(lval.Accessor.Accept(this));
@@ -189,7 +178,7 @@ namespace MyAssCompiler
             StringBuilder result = new StringBuilder();
 
             result.Append("$");
-            result.Append(this.Parser.IdsList[sna.Id]);
+            result.Append(sna.Id);
 
             return result.ToString();
         }

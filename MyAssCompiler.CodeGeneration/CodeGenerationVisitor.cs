@@ -107,7 +107,7 @@ namespace MyAssCompiler.CodeGeneration
             this.currentOperandNo = 1;
             verb.Operands.Accept(this);
 
-            Type verbType = MetadataRetriever.GetBuiltinVerb(this.parser.IdsList[verb.VerbId]);
+            Type verbType = MetadataRetriever.GetBuiltinVerb(verb.VerbId);
             ConstructorInfo verbConstructor = verbType.GetConstructors().First();
             int verbConstructorArgsCount = verbConstructor.GetParameters().Length;
 
@@ -326,7 +326,7 @@ namespace MyAssCompiler.CodeGeneration
                     CodeMethodInvokeExpression expr = new CodeMethodInvokeExpression(
                         new CodeMethodReferenceExpression(
                             new CodeTypeReferenceExpression(MetadataRetriever.GetBuiltinSnaType()),
-                            this.parser.IdsList[lval.Id]),
+                            lval.Id),
                         this.currentExpression);
 
                     this.currentExpression = expr;

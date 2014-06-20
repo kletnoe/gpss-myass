@@ -8,7 +8,7 @@ namespace MyAssCompiler
 {
     public interface IParser
     {
-        Dictionary<int,string> IdsList { get; }
+        //Dictionary<int,string> IdsList { get; }
         ASTModel Parse();
     }
 }

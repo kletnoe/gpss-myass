@@ -13,14 +13,12 @@ namespace MyAssCompiler
         private object currentTokenVal;
         private int currentTokenLine;
         private int currentTokenColumn;
-        private IList<string> identifiers = new List<string>();
         public bool ignoreWhitespace;
 
         public TokenType CurrentToken { get { return this.currentToken; } }
         public object CurrentTokenVal { get { return this.currentTokenVal; } }
         public int CurrentTokenLine { get { return this.currentTokenLine; } }
         public int CurrentTokenColumn { get { return this.currentTokenColumn; } }
-        public IList<string> Identifiers { get { return this.identifiers; } }
         public bool IgnoreWhitespace { get { return this.ignoreWhitespace; } set { this.ignoreWhitespace = value; } }
 
 
@@ -148,18 +146,7 @@ namespace MyAssCompiler
                 this.CharSource.Next();
             } while (char.IsLetterOrDigit(this.CharSource.CurrentChar));
 
-            int index;
-            if (this.identifiers.Contains(buffer))
-            {
-                index = this.identifiers.IndexOf(buffer);
-            }
-            else
-            {
-                this.identifiers.Add(buffer);
-                index = this.identifiers.Count - 1;
-            }
-
-            this.Ret(TokenType.ID, index);
+            this.Ret(TokenType.ID, buffer);
         }
 
         private void RetNumber()

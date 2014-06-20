@@ -7,8 +7,7 @@ namespace MyAssCompiler.AST
 {
     public class ASTLValue : IASTFactor
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public string Id { get; set; }
         public IASTAccessor Accessor { get; set; }
 
         public void Accept(IASTVisitor visitor)
@@ -23,7 +22,7 @@ namespace MyAssCompiler.AST
 
         public override string ToString()
         {
-            return String.Format("id[{0}]", this.Id) + this.Accessor;
+            return this.Id + this.Accessor;
         }
     }
 }

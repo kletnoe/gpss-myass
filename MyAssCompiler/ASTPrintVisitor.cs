@@ -36,29 +36,18 @@ namespace MyAssCompiler
 
         public void Visit(ASTVerb verb)
         {
-            if (verb.LabelId.HasValue)
+            if (verb != null)
             {
-                result.Append(this.Parser.IdsList[verb.LabelId.Value]);
+                result.Append(verb.LabelId);
                 result.Append(" ");
             }
 
-            result.Append(this.Parser.IdsList[verb.VerbId]);
+            result.Append(verb.VerbId);
             result.Append(" ");
-
-            if (verb.OperatorId != null)
-            {
-                result.Append(this.Parser.IdsList[verb.OperatorId.Value]);
-                result.Append(" ");
-            }
 
             if (verb.Operands != null)
             {
                 verb.Operands.Accept(this);
-            }
-
-            if (!verb.IsResolved)
-            {
-                result.Append(" :: Unresolved");
             }
         }
 
@@ -150,7 +139,7 @@ namespace MyAssCompiler
 
         public void Visit(ASTLValue lval)
         {
-            result.Append(this.Parser.IdsList[lval.Id]);
+            result.Append(lval.Id);
             if (lval.Accessor != null)
             {
                 lval.Accessor.Accept(this);
@@ -160,7 +149,7 @@ namespace MyAssCompiler
         public void Visit(ASTDirectSNA sna)
         {
             result.Append("$");
-            result.Append(this.Parser.IdsList[sna.Id]);
+            result.Append(sna.Id);
         }
 
         public void Visit(ASTCall call)

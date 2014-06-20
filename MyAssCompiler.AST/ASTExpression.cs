@@ -27,10 +27,8 @@ namespace MyAssCompiler.AST
 
         public override string ToString()
         {
-            return "("
-                + this.Term.ToString()
-                + (this.Additives.Count != 0 ? " " + String.Join(" ", this.Additives) : "")
-                + ")";
+            return this.Term.ToString()
+                + (this.Additives.Count != 0 ? " " + String.Join(" ", this.Additives) : "");
         }
     }
 }

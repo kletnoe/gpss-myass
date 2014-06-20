@@ -7,14 +7,9 @@ namespace MyAssCompiler.AST
 {
     public class ASTVerb : IASTNode
     {
-        public int? LabelId { get; set; }
-        public int VerbId { get; set; }
-        public int? OperatorId { get; set; }
+        public string LabelId { get; set; }
+        public string VerbId { get; set; }
         public ASTOperands Operands { get; set; }
-
-        public bool IsResolved { get; set; }
-        public int? UnresolvedId1 { get; set; }
-        public int? UnresolvedId2 { get; set; }
 
         public void Accept(IASTVisitor visitor)
         {
@@ -28,12 +23,9 @@ namespace MyAssCompiler.AST
 
         public override string ToString()
         {
-            return (this.LabelId.HasValue ? String.Format("id({0})", this.LabelId.Value) : "")
-                + (this.LabelId.HasValue ? " " : "")
-                + String.Format("id({0})", this.VerbId)
-                + " "
-                + String.Join(",", this.Operands)
-                + (this.IsResolved ? "" : "  :: Unresolved");
+            return (this.LabelId != null ? this.LabelId + " " : "")
+                + this.VerbId + " "
+                + String.Join(",", this.Operands);
         }
     }
 }

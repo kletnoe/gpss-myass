@@ -11,14 +11,9 @@ namespace MyAssCompiler
     {
         public IScanner Scanner { get; private set; }
 
-        private Dictionary<int, string> idsList;
-
-        public Dictionary<int, string> IdsList { get { return this.idsList; } }
-
         public Parser(IScanner scanner)
         {
             this.Scanner = scanner;
-            this.idsList = new Dictionary<int, string>();
         }
 
         public ASTModel Parse()
@@ -26,14 +21,9 @@ namespace MyAssCompiler
             return this.ExpectModel();
         }
 
-        public int ExpectID()
+        public string ExpectID()
         {
-            int id = (int)this.Expect(TokenType.ID);
-            if (!IdsList.ContainsKey(id))
-            {
-                IdsList.Add(id, this.Scanner.Identifiers.ElementAt(id));
-            }
-
+            string id = (string)this.Expect(TokenType.ID);
             return id;
         }
 
@@ -100,8 +90,8 @@ namespace MyAssCompiler
         {
             ASTVerb verb = new ASTVerb();
 
-            int firstId = this.ExpectID();
-            if (MetadataRetriever.IsBuiltinVerb(this.idsList[firstId]))
+            string firstId = this.ExpectID();
+            if (MetadataRetriever.IsBuiltinVerb(firstId))
             {
                 // Id is verb 
                 verb.VerbId = firstId;
@@ -112,7 +102,6 @@ namespace MyAssCompiler
                 } while (this.Scanner.CurrentToken == TokenType.WHITE);
 
                 verb.Operands = this.ExpectOperands();
-                verb.IsResolved = true;
             }
             else
             {
@@ -124,7 +113,7 @@ namespace MyAssCompiler
                     this.Expect(TokenType.WHITE);
                 } while (this.Scanner.CurrentToken == TokenType.WHITE);
 
-                int secondId = this.ExpectID();
+                string secondId = this.ExpectID();
 
                 verb.VerbId = secondId;
 
@@ -134,7 +123,6 @@ namespace MyAssCompiler
                 } while (this.Scanner.CurrentToken == TokenType.WHITE);
 
                 verb.Operands = this.ExpectOperands();
-                verb.IsResolved = true;
             }
             
 
@@ -337,9 +325,6 @@ namespace MyAssCompiler
 
             lvalue.Id = this.ExpectID();
 
-            // Temp workaround
-            lvalue.Name = this.IdsList[lvalue.Id];
-
             if (this.Scanner.CurrentToken == TokenType.LPAR
                 || this.Scanner.CurrentToken == TokenType.DOLLAR)
             {
@@ -399,7 +384,6 @@ namespace MyAssCompiler
         // <directsna> ::= "$" ID
         public ASTDirectSNA ExpectDirectSNA()
         {
-
             this.Expect(TokenType.DOLLAR);
             return new ASTDirectSNA()
             {

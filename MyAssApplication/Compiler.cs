@@ -20,11 +20,6 @@ namespace MyAssApplication
             }
 
             Console.WriteLine();
-
-            foreach (var item in s.Identifiers)
-            {
-                Console.WriteLine(s.Identifiers.IndexOf(item) + "\t" + item);
-            }
         }
 
         public static void TestCodeGen()

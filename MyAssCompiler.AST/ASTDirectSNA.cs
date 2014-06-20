@@ -7,7 +7,7 @@ namespace MyAssCompiler.AST
 {
     public class ASTDirectSNA : IASTAccessor
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public void Accept(IASTVisitor visitor)
         {
@@ -21,7 +21,7 @@ namespace MyAssCompiler.AST
 
         public override string ToString()
         {
-            return "$" + String.Format("id({0})", this.Id);
+            return "$" + this.Id;
         }
     }
 }
