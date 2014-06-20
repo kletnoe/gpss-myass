@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyAssFramework.Blocks
+namespace MyAss.Framework.Blocks
 {
     public abstract class AbstractBlock : IBlock
     {

@@ -7,8 +7,8 @@
     <ProjectGuid>{C7D9FD2E-57E5-43CB-96D9-61218837E1C1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyAssCompiler.Metadata</RootNamespace>
-    <AssemblyName>MyAssCompiler.Metadata</AssemblyName>
+    <RootNamespace>MyAss.Compiler.Metadata</RootNamespace>
+    <AssemblyName>MyAss.Compiler.Metadata</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

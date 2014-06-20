@@ -6,7 +6,7 @@ using System.Reflection;
 using System.IO;
 using System.Reflection.Emit;
 
-namespace MyAssCompiler
+namespace MyAss.Compiler
 {
     public class CodeGenerator
     {
@@ -22,7 +22,7 @@ namespace MyAssCompiler
             AssemblyName assemblyName = new AssemblyName(Path.GetFileNameWithoutExtension(moduleName));
             AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Save);
             ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule(moduleName, true);
-            TypeBuilder typeBuilder = moduleBuilder.DefineType("MyAssGenerated.Model", TypeAttributes.Public);
+            TypeBuilder typeBuilder = moduleBuilder.DefineType("MyAss.Generated.Model", TypeAttributes.Public);
 
             typeBuilder.DefineField("simulationObject", typeof(String), FieldAttributes.Private);
 
@@ -44,7 +44,7 @@ namespace MyAssCompiler
             MethodBuilder createBlocksMethod = typeBuilder.DefineMethod(
                 "DefineBlocks", MethodAttributes.Private | MethodAttributes.Static, typeof(double), new Type[0]);
             il = createBlocksMethod.GetILGenerator();
-            LocalBuilder block = il.DeclareLocal(typeof(MyAssFramework.Blocks.Generate));
+            LocalBuilder block = il.DeclareLocal(typeof(MyAss.Framework.Blocks.Generate));
             block.SetLocalSymInfo("block1");
             il.Emit(OpCodes.Ldc_I4, 5);
             il.Emit(OpCodes.Stloc, block);

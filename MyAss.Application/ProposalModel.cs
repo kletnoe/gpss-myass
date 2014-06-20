@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssFramework;
-using MyAssFramework.Blocks;
-using MyAssFramework.OperandTypes_Test;
-using MyAssFramework.RelationalOp;
-using MyAssUtilities.Reports;
-using MyAssFramework.Entities;
+using MyAss.Framework;
+using MyAss.Framework.Blocks;
+using MyAss.Framework.OperandTypes_Test;
+using MyAss.Framework.RelationalOp;
+using MyAss.Utilities.Reports;
+using MyAss.Framework.Entities;
 
-namespace MyAssApplication
+namespace MyAss.Application
 {
     class ProposalModel
     {

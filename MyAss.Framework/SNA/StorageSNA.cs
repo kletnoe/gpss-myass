@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssFramework.Entities;
+using MyAss.Framework.Entities;
 
-namespace MyAssFramework.SNA
+namespace MyAss.Framework.SNA
 {
     public static partial class SNA
     {

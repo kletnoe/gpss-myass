@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssCompiler.AST;
+using MyAss.Compiler.AST;
 
-namespace MyAssCompiler
+namespace MyAss.Compiler
 {
     public class ASTPrintVisitor : IASTVisitor
     {

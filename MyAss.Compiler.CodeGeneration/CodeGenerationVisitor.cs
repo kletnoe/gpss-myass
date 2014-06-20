@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using MyAssCompiler.AST;
-using MyAssCompiler.Metadata;
+using MyAss.Compiler.AST;
+using MyAss.Compiler.Metadata;
 
-namespace MyAssCompiler.CodeGeneration
+namespace MyAss.Compiler.CodeGeneration
 {
     public class CodeGenerationVisitor : IASTVisitor
     {
@@ -62,7 +62,7 @@ namespace MyAssCompiler.CodeGeneration
             CodeCompileUnit theAssembly = new CodeCompileUnit();
 
             //Referenced assemblies
-            theAssembly.ReferencedAssemblies.Add("MyAssFramework.dll");
+            theAssembly.ReferencedAssemblies.Add("MyAss.Framework.dll");
 
             theAssembly.Namespaces.Add(rootnamespace);
             return theAssembly;
@@ -120,10 +120,10 @@ namespace MyAssCompiler.CodeGeneration
                     if (this.currentConstructorArgs[i] != null)
                     {
                         CodeObjectCreateExpression parExpr = new CodeObjectCreateExpression(
-                            typeof(MyAssFramework.OperandTypes_Test.ParExpression),
+                            typeof(MyAss.Framework.OperandTypes_Test.ParExpression),
                             new CodeDelegateCreateExpression(
                                 new CodeTypeReference(
-                                    typeof(MyAssFramework.OperandTypes_Test.ExpressionDelegate)),
+                                    typeof(MyAss.Framework.OperandTypes_Test.ExpressionDelegate)),
                                 new CodeTypeReferenceExpression(this.CurrentClassName),
                                 "Block" + this.currentBlockNo + "_Operand" + (i+1)));
 

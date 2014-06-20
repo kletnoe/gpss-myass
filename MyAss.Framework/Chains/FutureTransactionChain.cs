@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 
-namespace MyAssFramework.Chains
+namespace MyAss.Framework.Chains
 {
     public class FutureTransactionChain : IEnumerable<Transaction>
     {

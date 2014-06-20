@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssFramework.Commands;
-using MyAssFramework.Entities;
-using MyAssFramework.Blocks;
-using MyAssFramework.Chains;
+using MyAss.Framework.Commands;
+using MyAss.Framework.Entities;
+using MyAss.Framework.Blocks;
+using MyAss.Framework.Chains;
 
-namespace MyAssFramework
+namespace MyAss.Framework
 {
     public class Simulation
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyAssFramework.OperandTypes_Test
+namespace MyAss.Framework.OperandTypes_Test
 {
     public class ParExpression : IDoubleOperand
     {

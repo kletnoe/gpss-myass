@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssCompiler.AST;
+using MyAss.Compiler.AST;
 using NUnit.Framework;
 
-namespace MyAssCompiler.Tests.ParserTests
+namespace MyAss.Compiler.Tests.ParserTests
 {
     [TestFixture]
     [Category("ParserTests_Accessors")]

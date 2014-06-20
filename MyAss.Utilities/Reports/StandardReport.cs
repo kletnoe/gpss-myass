@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssFramework;
-using MyAssFramework.Entities;
-using MyAssFramework.Blocks;
+using MyAss.Framework;
+using MyAss.Framework.Entities;
+using MyAss.Framework.Blocks;
 
-namespace MyAssUtilities.Reports
+namespace MyAss.Utilities.Reports
 {
     public static class StandardReport
     {

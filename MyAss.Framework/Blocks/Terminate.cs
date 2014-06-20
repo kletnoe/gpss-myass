@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssFramework.OperandTypes_Test;
+using MyAss.Framework.OperandTypes_Test;
 
-namespace MyAssFramework.Blocks
+namespace MyAss.Framework.Blocks
 {
     public class Terminate : AbstractBlock
     {

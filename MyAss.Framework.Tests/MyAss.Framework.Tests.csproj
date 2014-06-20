@@ -8,8 +8,8 @@
     <ProjectGuid>{70F1ECF1-5EBA-4CA7-B2D4-7D2E7345EDF9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyAssFramework.Tests</RootNamespace>
-    <AssemblyName>MyAssFramework.Tests</AssemblyName>
+    <RootNamespace>MyAss.Framework.Tests</RootNamespace>
+    <AssemblyName>MyAss.Framework.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

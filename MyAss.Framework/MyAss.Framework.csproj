@@ -8,8 +8,8 @@
     <ProjectGuid>{511C1EF6-F99A-42D5-8D3A-4F8E93A11C3E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyAssFramework</RootNamespace>
-    <AssemblyName>MyAssFramework</AssemblyName>
+    <RootNamespace>MyAss.Framework</RootNamespace>
+    <AssemblyName>MyAss.Framework</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

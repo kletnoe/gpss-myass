@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyAssApplication
+namespace MyAss.Application
 {
     public static class TestSources
     {

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssCompiler;
-using MyAssCompiler.AST;
+using MyAss.Compiler;
+using MyAss.Compiler.AST;
 
-namespace MyAssApplication
+namespace MyAss.Application
 {
     public static class TestParser
     {

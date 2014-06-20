@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssFramework.Blocks;
+using MyAss.Framework.Blocks;
 
-namespace MyAssFramework.Entities
+namespace MyAss.Framework.Entities
 {
     public class StorageEntity : AbstractEntity
     {

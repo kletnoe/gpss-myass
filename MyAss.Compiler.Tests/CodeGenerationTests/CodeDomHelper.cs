@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.CodeDom;
 
-namespace MyAssCompiler.Tests.CodeGenerationTests
+namespace MyAss.Compiler.Tests.CodeGenerationTests
 {
     public static class CodeDomHelper
     {

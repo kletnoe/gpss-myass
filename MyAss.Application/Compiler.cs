@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssCompiler;
+using MyAss.Compiler;
 
-namespace MyAssApplication
+namespace MyAss.Application
 {
     public static class Compiler
     {

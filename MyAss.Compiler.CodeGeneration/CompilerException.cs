@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyAssCompiler.CodeGeneration
+namespace MyAss.Compiler.CodeGeneration
 {
     public class CompilerException : Exception
     {

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssCompiler.AST;
-using MyAssCompiler.Metadata;
+using MyAss.Compiler.AST;
+using MyAss.Compiler.Metadata;
 
-namespace MyAssCompiler
+namespace MyAss.Compiler
 {
     public class Parser : IParser
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyAssFramework.Distributions
+namespace MyAss.Framework.Distributions
 {
     public static class Exponential
     {

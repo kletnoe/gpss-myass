@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.Specialized;
-using MyAssFramework.Blocks;
+using MyAss.Framework.Blocks;
 
-namespace MyAssFramework
+namespace MyAss.Framework
 {
     public class Transaction
     {

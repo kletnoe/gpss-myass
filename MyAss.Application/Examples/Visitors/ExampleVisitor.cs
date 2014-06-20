@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyAssApplication.Examples.Visitors
+namespace MyAss.Application.Examples.Visitors
 {
     public class ExampleVisitor
     {

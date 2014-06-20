@@ -8,8 +8,8 @@
     <ProjectGuid>{71DCFDA0-DDF5-4494-A055-AFD90AA09241}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyAssCompiler</RootNamespace>
-    <AssemblyName>MyAssCompiler</AssemblyName>
+    <RootNamespace>MyAss.Compiler</RootNamespace>
+    <AssemblyName>MyAss.Compiler</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

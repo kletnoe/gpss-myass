@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssFramework;
-using MyAssFramework.Blocks;
-using MyAssFramework.OperandTypes_Test;
-using MyAssFramework.RelationalOp;
-using MyAssUtilities.Reports;
+using MyAss.Framework;
+using MyAss.Framework.Blocks;
+using MyAss.Framework.OperandTypes_Test;
+using MyAss.Framework.RelationalOp;
+using MyAss.Utilities.Reports;
 
-namespace MyAssApplication
+namespace MyAss.Application
 {
     public static class Model
     {
         public static void RunDefaultModel()
         {
-            Simulation.It.Entities = new List<MyAssFramework.Entities.IEntity>()
+            Simulation.It.Entities = new List<MyAss.Framework.Entities.IEntity>()
             {
-                new MyAssFramework.Entities.QueueEntity(0),
-                new MyAssFramework.Entities.SavevalueEntity(1, "0"),
-                new MyAssFramework.Entities.SavevalueEntity(2, "0"),
-                new MyAssFramework.Entities.SavevalueEntity(3, "0"),
-                new MyAssFramework.Entities.StorageEntity(4, 1)
+                new MyAss.Framework.Entities.QueueEntity(0),
+                new MyAss.Framework.Entities.SavevalueEntity(1, "0"),
+                new MyAss.Framework.Entities.SavevalueEntity(2, "0"),
+                new MyAss.Framework.Entities.SavevalueEntity(3, "0"),
+                new MyAss.Framework.Entities.StorageEntity(4, 1)
             };
 
             Simulation.It.Blocks = new List<IBlock>()

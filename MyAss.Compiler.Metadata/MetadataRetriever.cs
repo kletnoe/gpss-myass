@@ -5,11 +5,11 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyAssCompiler.Metadata
+namespace MyAss.Compiler.Metadata
 {
     public class MetadataRetriever
     {
-        public string AssemblyName { get { return "MyAssFramework"; } }
+        public string AssemblyName { get { return "MyAss.Framework"; } }
         public string AssemblyDllName { get { return this.AssemblyName + ".dll"; } }
 
         public IEnumerable<Type> GetMyAssFrameworkBlockTypes()
@@ -45,11 +45,11 @@ namespace MyAssCompiler.Metadata
 
         /////
 
-        private const string builtinTypesAssemblyName = @"MyAssFramework.dll";
+        private const string builtinTypesAssemblyName = @"MyAss.Framework.dll";
 
-        private const string builtinSnaTypeName = @"MyAssFramework.SNA.SNA";
-        private const string builtinBlocksNamespace = @"MyAssFramework.Blocks";
-        private const string builtinCommandsNamespace = @"MyAssFramework.Commands";
+        private const string builtinSnaTypeName = @"MyAss.Framework.SNA.SNA";
+        private const string builtinBlocksNamespace = @"MyAss.Framework.Blocks";
+        private const string builtinCommandsNamespace = @"MyAss.Framework.Commands";
 
         public static Type GetBuiltinSnaType()
         {

@@ -8,8 +8,8 @@
     <ProjectGuid>{EE26563E-13CA-4A02-84BC-F9E6AEC8314A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyAssUtilities</RootNamespace>
-    <AssemblyName>MyAssUtilities</AssemblyName>
+    <RootNamespace>MyAss.Utilities</RootNamespace>
+    <AssemblyName>MyAss.Utilities</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

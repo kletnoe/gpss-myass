@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyAssCompiler.CodeGeneration;
+using MyAss.Compiler.CodeGeneration;
 using NUnit.Framework;
 
-namespace MyAssCompiler.Tests.CodeGenerationTests
+namespace MyAss.Compiler.Tests.CodeGenerationTests
 {
     [TestFixture]
     [Category("CodeGenTests_Verbs")]

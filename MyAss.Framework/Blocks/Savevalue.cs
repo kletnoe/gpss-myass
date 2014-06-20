@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssFramework.OperandTypes_Test;
-using MyAssFramework.Entities;
+using MyAss.Framework.OperandTypes_Test;
+using MyAss.Framework.Entities;
 
-namespace MyAssFramework.Blocks
+namespace MyAss.Framework.Blocks
 {
     public class Savevalue : AbstractBlock
     {

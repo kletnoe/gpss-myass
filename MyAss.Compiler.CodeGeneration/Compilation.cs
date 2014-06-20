@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.CSharp;
 
-namespace MyAssCompiler.CodeGeneration
+namespace MyAss.Compiler.CodeGeneration
 {
     public static class Compilation
     {

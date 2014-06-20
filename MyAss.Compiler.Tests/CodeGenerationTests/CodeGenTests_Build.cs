@@ -3,11 +3,11 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssCompiler.CodeGeneration;
+using MyAss.Compiler.CodeGeneration;
 using NUnit.Framework;
-using MyAssFramework;
+using MyAss.Framework;
 
-namespace MyAssCompiler.Tests.CodeGenerationTests
+namespace MyAss.Compiler.Tests.CodeGenerationTests
 {
     [TestFixture]
     [Category("CodeGenTests_Build")]

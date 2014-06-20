@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 //using System.Linq;
 using System.Text;
-using MyAssCompiler.AST;
-using MyAssCompiler;
-using MyAssCompiler.CodeGeneration;
+using MyAss.Compiler.AST;
+using MyAss.Compiler;
+using MyAss.Compiler.CodeGeneration;
 using System.CodeDom;
 
-namespace MyAssApplication
+namespace MyAss.Application
 {
     class Program
     {

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssCompiler.AST;
-using MyAssCompiler;
+using MyAss.Compiler.AST;
+using MyAss.Compiler;
 
-namespace MyAssApplication
+namespace MyAss.Application
 {
     public class SimpleASTExample
     {

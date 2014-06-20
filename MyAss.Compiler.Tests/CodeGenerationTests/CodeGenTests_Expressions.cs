@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssCompiler.AST;
-using MyAssCompiler.CodeGeneration;
+using MyAss.Compiler.AST;
+using MyAss.Compiler.CodeGeneration;
 using NUnit.Framework;
 using System.CodeDom;
 
-namespace MyAssCompiler.Tests.CodeGenerationTests
+namespace MyAss.Compiler.Tests.CodeGenerationTests
 {
     [TestFixture]
     [Category("CodeGenTests_Expressions")]

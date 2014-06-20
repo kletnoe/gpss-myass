@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAssFramework.OperandTypes_Test;
+using MyAss.Framework.OperandTypes_Test;
 
-namespace MyAssFramework.Commands
+namespace MyAss.Framework.Commands
 {
     class Storage : ICommand
     {
