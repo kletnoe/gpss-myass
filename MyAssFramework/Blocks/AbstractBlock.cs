@@ -12,6 +12,22 @@ namespace MyAssFramework.Blocks
         public IBlock NextSequentialBlock { get; set; }
         public LinkedList<Transaction> RetryChain { get; protected set; }
 
+        private string label;
+
+        public string Label
+        {
+            get
+            {
+                return this.label;
+            }
+
+            set
+            {
+                // Logic to add label in simulation
+                this.label = value;
+            }
+        }
+
         protected AbstractBlock()
         {
             this.Id = Simulation.It.NextBlockNo();

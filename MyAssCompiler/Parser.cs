@@ -142,111 +142,13 @@ namespace MyAssCompiler
             return verb;
         }
 
-        // <verb> ::= [ ID ] ID [ <operands> ]
-        //public ASTVerb ExpectVerbOld()
-        //{
-        //    ASTVerb verb = new ASTVerb();
-
-        //    int firstId;
-        //    int? secondId = null;
-        //    int? thirdId = null;
-        //    int? fourthId = null;
-
-        //    firstId = this.ExpectID();
-
-        //    if (this.Scanner.CurrentToken == TokenType.ID)
-        //    {
-        //        secondId = this.ExpectID();
-        //    }
-        //    if (this.Scanner.CurrentToken == TokenType.ID)
-        //    {
-        //        thirdId = this.ExpectID();
-        //    }
-
-        //    if (this.Scanner.CurrentToken == TokenType.ID)
-        //    {
-        //        fourthId = this.ExpectID();
-        //    }
-
-        //    // id id id id 
-        //    if (secondId.HasValue && thirdId.HasValue && fourthId.HasValue)
-        //    {
-        //        verb.LabelId = firstId;
-        //        verb.VerbId = secondId.Value;
-        //        verb.OperatorId = thirdId.Value;
-        //        verb.Operands = this.ExpectOperands(fourthId.Value);
-        //        verb.IsResolved = true;
-        //    }
-        //    // id id id non-id
-        //    else if (secondId.HasValue && thirdId.HasValue)
-        //    {
-        //        // There are two cases for this:
-        //        // Label Verb Operand1
-        //        // Verb Operator Operand1
-        //        verb.UnresolvedId1 = firstId;
-        //        verb.UnresolvedId2 = secondId.Value;
-        //        verb.Operands = this.ExpectOperands(thirdId.Value);
-        //        verb.IsResolved = false;
-        //    }
-        //    else if (secondId.HasValue)
-        //    {
-        //        if (this.Scanner.CurrentToken == TokenType.DOLLAR
-        //            || this.Scanner.CurrentToken == TokenType.LPAR)
-        //        {
-        //            verb.LabelId = null;
-        //            verb.VerbId = firstId;
-        //            verb.Operands = this.ExpectOperands(secondId.Value);
-        //            verb.IsResolved = true;
-        //        }
-        //        else if (this.Scanner.CurrentToken == TokenType.NUMERIC
-        //            || this.Scanner.CurrentToken == TokenType.MINUS
-        //            || this.Scanner.CurrentToken == TokenType.PLUS)
-        //        {
-        //            verb.LabelId = firstId;
-        //            verb.VerbId = secondId.Value;
-        //            verb.Operands = this.ExpectOperands();
-        //            verb.IsResolved = true;
-        //        }
-        //        else
-        //        {
-        //            // There are two cases for this:
-        //            // Label Verb
-        //            // Verb Operand1
-        //            verb.UnresolvedId1 = firstId;
-        //            verb.UnresolvedId2 = secondId.Value;
-        //            verb.Operands = this.ExpectOperands();
-        //            verb.IsResolved = false;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        verb.LabelId = null;
-        //        verb.VerbId = firstId;
-        //        verb.OperatorId = null;
-        //        verb.Operands = this.ExpectOperands();
-        //        verb.IsResolved = true;
-        //    }
-
-
-        //    Console.WriteLine(verb);
-        //    return verb;
-        //}
-
-        // <operands> ::= <operand> { "," <operand> }
         public ASTOperands ExpectOperands()
         {
             ASTOperands operands = new ASTOperands();
 
             operands.Operands.Add(this.ExpectOperand());
 
-            while (//this.Scanner.CurrentToken == TokenType.ID
-                    //|| this.Scanner.CurrentToken == TokenType.NUMERIC
-                    //|| this.Scanner.CurrentToken == TokenType.LPAR
-                    //|| this.Scanner.CurrentToken == TokenType.MINUS
-                    //|| this.Scanner.CurrentToken == TokenType.PLUS
-                    // If operand is null
-                    //|| 
-                    this.Scanner.CurrentToken == TokenType.COMMA
+            while (this.Scanner.CurrentToken == TokenType.COMMA
                     || this.Scanner.CurrentToken == TokenType.WHITE)
             {
                 switch (this.Scanner.CurrentToken)
@@ -279,7 +181,6 @@ namespace MyAssCompiler
             }
             else if (this.Scanner.CurrentToken == TokenType.ID
                 || this.Scanner.CurrentToken == TokenType.NUMERIC
-                //|| this.Scanner.CurrentToken == TokenType.LPAR
                 || this.Scanner.CurrentToken == TokenType.MINUS
                 || this.Scanner.CurrentToken == TokenType.PLUS)
             {
@@ -394,6 +295,9 @@ namespace MyAssCompiler
                     factor = ExpectExpression();
                     this.Expect(TokenType.RPAR);
                     break;
+                default:
+                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
+                        @"ID or NUMERIC or '(' ", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
             }
 
             return factor;

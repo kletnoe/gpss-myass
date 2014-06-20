@@ -47,3 +47,8 @@ Rules of Thumb:
 						<literal> ::= INT | DOUBLE | STRING
 
 
+ID Types:
+- Label
+- VerbName
+- Entity Instance Name
+- Method (or SNA)
