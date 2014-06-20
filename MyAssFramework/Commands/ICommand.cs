@@ -7,5 +7,6 @@ namespace MyAssFramework.Commands
 {
     public interface ICommand
     {
+        string Label { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace MyAssFramework.Blocks
     public interface IBlock
     {
         int Id { get; }
+        string Label { get; set; }
         int EntryCount { get; }
         IBlock NextSequentialBlock { get; set; }
         LinkedList<Transaction> RetryChain { get; }
