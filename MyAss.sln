@@ -3,28 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAssFramework", "MyAss.Framework\MyAssFramework.csproj", "{511C1EF6-F99A-42D5-8D3A-4F8E93A11C3E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework", "MyAss.Framework\MyAss.Framework.csproj", "{511C1EF6-F99A-42D5-8D3A-4F8E93A11C3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAssApplication", "MyAss.Application\MyAssApplication.csproj", "{E611493F-C9A8-4D93-95A6-D7D0165A88A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Application", "MyAss.Application\MyAss.Application.csproj", "{E611493F-C9A8-4D93-95A6-D7D0165A88A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAssUtilities", "MyAss.Utilities\MyAssUtilities.csproj", "{EE26563E-13CA-4A02-84BC-F9E6AEC8314A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Utilities", "MyAss.Utilities\MyAss.Utilities.csproj", "{EE26563E-13CA-4A02-84BC-F9E6AEC8314A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B6536402-9024-4165-959F-8E8E163F6B54}"
 	ProjectSection(SolutionItems) = preProject
 		Model.txt = Model.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAssCompiler", "MyAss.Compiler\MyAssCompiler.csproj", "{71DCFDA0-DDF5-4494-A055-AFD90AA09241}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler", "MyAss.Compiler\MyAss.Compiler.csproj", "{71DCFDA0-DDF5-4494-A055-AFD90AA09241}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAssCompiler.AST", "MyAss.Compiler.AST\MyAssCompiler.AST.csproj", "{8E3B820C-140B-45A9-8C39-8803F0D9B1EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.AST", "MyAss.Compiler.AST\MyAss.Compiler.AST.csproj", "{8E3B820C-140B-45A9-8C39-8803F0D9B1EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAssCompiler.CodeGeneration", "MyAss.Compiler.CodeGeneration\MyAssCompiler.CodeGeneration.csproj", "{29DE190E-0ED5-4E22-8553-3397115A595B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.CodeGeneration", "MyAss.Compiler.CodeGeneration\MyAss.Compiler.CodeGeneration.csproj", "{29DE190E-0ED5-4E22-8553-3397115A595B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAssCompiler.Tests", "MyAss.Compiler.Tests\MyAssCompiler.Tests.csproj", "{D1E1C285-49AB-4382-81C6-B5EFA7726579}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.Tests", "MyAss.Compiler.Tests\MyAss.Compiler.Tests.csproj", "{D1E1C285-49AB-4382-81C6-B5EFA7726579}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAssFramework.Tests", "MyAss.Framework.Tests\MyAssFramework.Tests.csproj", "{70F1ECF1-5EBA-4CA7-B2D4-7D2E7345EDF9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework.Tests", "MyAss.Framework.Tests\MyAss.Framework.Tests.csproj", "{70F1ECF1-5EBA-4CA7-B2D4-7D2E7345EDF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAssCompiler.Metadata", "MyAss.Compiler.Metadata\MyAssCompiler.Metadata.csproj", "{C7D9FD2E-57E5-43CB-96D9-61218837E1C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.Metadata", "MyAss.Compiler.Metadata\MyAss.Compiler.Metadata.csproj", "{C7D9FD2E-57E5-43CB-96D9-61218837E1C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

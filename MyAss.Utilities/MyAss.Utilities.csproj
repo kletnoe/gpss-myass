@@ -47,9 +47,9 @@
     <Compile Include="Reports\StandardReport.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyAss.Framework\MyAssFramework.csproj">
+    <ProjectReference Include="..\MyAss.Framework\MyAss.Framework.csproj">
       <Project>{511C1EF6-F99A-42D5-8D3A-4F8E93A11C3E}</Project>
-      <Name>MyAssFramework</Name>
+      <Name>MyAss.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
