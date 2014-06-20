@@ -47,7 +47,7 @@ namespace MyAss.Framework.Blocks
                 throw new ModelingException("GENERATE: Negative time increment.");
             }
 
-            double increment = new Distributions.Uniform(0, meanValue - halfRange, meanValue + halfRange).GetNext();
+            double increment = new Procedures.Distributions.Uniform(0, meanValue - halfRange, meanValue + halfRange).GetNext();
             if (this.EntryCount == 0)
             {
                 increment += startDelay;

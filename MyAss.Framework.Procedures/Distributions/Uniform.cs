@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyAss.Framework.Distributions
+namespace MyAss.Framework.Procedures.Distributions
 {
     public class Uniform
     {

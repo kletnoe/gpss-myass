@@ -51,10 +51,6 @@
     <Compile Include="Commands\Start.cs" />
     <Compile Include="Commands\Stop.cs" />
     <Compile Include="Commands\Storage.cs" />
-    <Compile Include="Distributions\Exponential.cs" />
-    <Compile Include="Distributions\Normal.cs" />
-    <Compile Include="Distributions\RandomGenerators.cs" />
-    <Compile Include="Distributions\Uniform.cs" />
     <Compile Include="Entities\AbstractEntity.cs" />
     <Compile Include="Entities\FacilityEntity.cs" />
     <Compile Include="Entities\IEntity.cs" />
@@ -111,7 +107,12 @@
       <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MyAss.Framework.Procedures\MyAss.Framework.Procedures.csproj">
+      <Project>{bffed46e-1470-4af5-b28b-87463b458cd0}</Project>
+      <Name>MyAss.Framework.Procedures</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

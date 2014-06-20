@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework.Tests", "My
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.Metadata", "MyAss.Compiler.Metadata\MyAss.Compiler.Metadata.csproj", "{C7D9FD2E-57E5-43CB-96D9-61218837E1C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework.Procedures", "MyAss.Framework.Procedures\MyAss.Framework.Procedures.csproj", "{BFFED46E-1470-4AF5-B28B-87463B458CD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,6 +128,16 @@ Global
 		{C7D9FD2E-57E5-43CB-96D9-61218837E1C1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C7D9FD2E-57E5-43CB-96D9-61218837E1C1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C7D9FD2E-57E5-43CB-96D9-61218837E1C1}.Release|x86.ActiveCfg = Release|Any CPU
+		{BFFED46E-1470-4AF5-B28B-87463B458CD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFFED46E-1470-4AF5-B28B-87463B458CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFFED46E-1470-4AF5-B28B-87463B458CD0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BFFED46E-1470-4AF5-B28B-87463B458CD0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BFFED46E-1470-4AF5-B28B-87463B458CD0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BFFED46E-1470-4AF5-B28B-87463B458CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFFED46E-1470-4AF5-B28B-87463B458CD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFFED46E-1470-4AF5-B28B-87463B458CD0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BFFED46E-1470-4AF5-B28B-87463B458CD0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BFFED46E-1470-4AF5-B28B-87463B458CD0}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
