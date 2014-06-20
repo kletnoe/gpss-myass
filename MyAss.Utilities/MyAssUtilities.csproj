@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{71DCFDA0-DDF5-4494-A055-AFD90AA09241}</ProjectGuid>
+    <ProjectGuid>{EE26563E-13CA-4A02-84BC-F9E6AEC8314A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyAssCompiler</RootNamespace>
-    <AssemblyName>MyAssCompiler</AssemblyName>
+    <RootNamespace>MyAssUtilities</RootNamespace>
+    <AssemblyName>MyAssUtilities</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -43,35 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ASTPrintVisitor.cs" />
-    <Compile Include="ASTPrintVisitor[T].cs" />
-    <Compile Include="ASTResolver.cs" />
-    <Compile Include="IASTResolver.cs" />
-    <Compile Include="IParser.cs" />
-    <Compile Include="Parser.cs" />
-    <Compile Include="ICharSource.cs" />
-    <Compile Include="IScanner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scanner.cs" />
-    <Compile Include="StringCharSource.cs" />
-    <Compile Include="TokenType.cs" />
+    <Compile Include="Reports\StandardReport.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyAssCompiler.AST\MyAssCompiler.AST.csproj">
-      <Project>{8E3B820C-140B-45A9-8C39-8803F0D9B1EA}</Project>
-      <Name>MyAssCompiler.AST</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyAssCompiler.Metadata\MyAssCompiler.Metadata.csproj">
-      <Project>{c7d9fd2e-57e5-43cb-96d9-61218837e1c1}</Project>
-      <Name>MyAssCompiler.Metadata</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyAssFramework\MyAssFramework.csproj">
+    <ProjectReference Include="..\MyAss.Framework\MyAssFramework.csproj">
       <Project>{511C1EF6-F99A-42D5-8D3A-4F8E93A11C3E}</Project>
       <Name>MyAssFramework</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Grammar\BNFGrammar.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
