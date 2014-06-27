@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MyAss.Framework.Commands
 {
-    class Start : ICommand
+    public class Start : ICommand
     {
         public string Label
         {

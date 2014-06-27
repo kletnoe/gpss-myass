@@ -61,13 +61,14 @@
     <Compile Include="Blocks\IBlock.cs" />
     <Compile Include="Entities\TableEntity.cs" />
     <Compile Include="Misc.cs" />
-    <Compile Include="OperandTypes_Test\DirectSNA.cs" />
-    <Compile Include="OperandTypes_Test\ExpressionDelegate.cs" />
-    <Compile Include="OperandTypes_Test\IOperand.cs" />
-    <Compile Include="OperandTypes_Test\IDoubleOperand.cs" />
-    <Compile Include="OperandTypes_Test\Number.cs" />
-    <Compile Include="OperandTypes_Test\ParExpression.cs" />
-    <Compile Include="OperandTypes_Test\StringLiteralOperand.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="OperandTypes\DirectSNA.cs" />
+    <Compile Include="OperandTypes\ExpressionDelegate.cs" />
+    <Compile Include="OperandTypes\IOperand.cs" />
+    <Compile Include="OperandTypes\IDoubleOperand.cs" />
+    <Compile Include="OperandTypes\Number.cs" />
+    <Compile Include="OperandTypes\ParExpression.cs" />
+    <Compile Include="OperandTypes\StringLiteralOperand.cs" />
     <Compile Include="Resources\ExceptionMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -20,12 +20,6 @@ namespace MyAss.Framework.Blocks
             {
                 return this.label;
             }
-
-            set
-            {
-                // Logic to add label in simulation
-                this.label = value;
-            }
         }
 
         protected AbstractBlock()
@@ -34,6 +28,12 @@ namespace MyAss.Framework.Blocks
             this.EntryCount = 0;
             this.RetryChain = new LinkedList<Transaction>();
         }
+
+        public void SetLabel(string label)
+        {
+            this.label = label;
+        }
+
         public abstract void Action();
 
         public void PassTransaction(Transaction transaction)

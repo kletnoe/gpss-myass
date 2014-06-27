@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyAss.Framework.OperandTypes_Test
+namespace MyAss.Framework.OperandTypes
 {
     public abstract class DirectSNA : IDoubleOperand
     {

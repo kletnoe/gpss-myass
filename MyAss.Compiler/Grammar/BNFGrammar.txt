@@ -52,3 +52,14 @@ ID Types:
 - VerbName
 - Entity Instance Name
 - Method (or SNA)
+
+
+Thoughts:
+1. External libraries imports
+	1.1 Possibility to use qualified types like ThirdParty.Verbs.MyGenerate
+	1.2 Add language directives like @using ThirdParty.Verbs
+		1.2.1 This should be for Namespaces and Types also (for procedures)
+
+2. SNA may not be wrapped in static methods, but just methods on the Entity;
+
+3. Simulation object should not be singleton

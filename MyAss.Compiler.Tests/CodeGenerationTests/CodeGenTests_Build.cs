@@ -37,7 +37,7 @@ namespace MyAss.Compiler.Tests.CodeGenerationTests
 
             vis.VisitAll();
             CodeCompileUnit assembly = vis.CreateAssembly();
-            Compilation.CompileAssembly(assembly, true);
+            Compilation.CompileAssembly(assembly, false);
 
             Assert.Pass(Compilation.PrintCodeObject(assembly));
         }

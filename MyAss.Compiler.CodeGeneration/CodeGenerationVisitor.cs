@@ -7,6 +7,9 @@ using System.Reflection;
 using System.Text;
 using MyAss.Compiler.AST;
 using MyAss.Compiler.Metadata;
+using MyAss.Framework;
+using MyAss.Framework.Blocks;
+using MyAss.Framework.Commands;
 
 namespace MyAss.Compiler.CodeGeneration
 {
@@ -14,7 +17,11 @@ namespace MyAss.Compiler.CodeGeneration
     {
         private IParser parser;
 
+        private const string setLabelMethodName = "SetLabel";
         private const string namespaceName = "Modeling";
+        private const string getModelMethodName = "GetModel";
+        private const string resultModelVarName = "resultModel";
+
 
         private int currentModelNo = 1;
         private int currentBlockNo = 1;
@@ -36,7 +43,7 @@ namespace MyAss.Compiler.CodeGeneration
             }
         }
 
-        private CodeMemberMethod mainMethod;
+        private CodeMemberMethod getModelMethod;
         private List<string> currentConstructorArgs;
 
         private CodeNamespace rootnamespace;
@@ -84,17 +91,71 @@ namespace MyAss.Compiler.CodeGeneration
                 Name = this.CurrentClassName
             };
 
-            this.mainMethod = new CodeMemberMethod()
+            /*
+            Following scope constructs:
+            public static Model GetModel()
             {
-                Attributes = MemberAttributes.Public | MemberAttributes.Static,
-                ReturnType = new CodeTypeReference(typeof(void)),
-                Name = "Test",
-            };
-            this.currentClass.Members.Add(this.mainMethod);
+                Model resultModel = new Model();
+                IBlock block;
+                ICommand command;
+            }
+            */
+            {
+                CodeMemberMethod method = new CodeMemberMethod()
+                {
+                    Attributes = MemberAttributes.Public | MemberAttributes.Static,
+                    ReturnType = new CodeTypeReference(typeof(Model)),
+                    Name = getModelMethodName,
+                };
+
+                method.Statements.Add(
+                    new CodeVariableDeclarationStatement(
+                        typeof(Model),
+                        resultModelVarName,
+                        new CodeObjectCreateExpression(typeof(Model))
+                    )
+                );
+
+                method.Statements.Add(
+                    new CodeVariableDeclarationStatement(
+                        typeof(IBlock),
+                        "block"
+                    )
+                );
+
+                method.Statements.Add(
+                    new CodeVariableDeclarationStatement(
+                        typeof(ICommand),
+                        "command"
+                    )
+                );
+
+                this.getModelMethod = method;
+            }
+
+            this.currentClass.Members.Add(this.getModelMethod);
 
             foreach (var verb in node.Verbs)
             {
+                this.getModelMethod.Statements.Add(new CodeCommentStatement(" Verb declaration start."));
                 verb.Accept(this);
+                this.getModelMethod.Statements.Add(new CodeCommentStatement(" Verb declaration end."));
+            }
+
+            /*
+            Following scope constructs:
+                ...
+                return resultModel;
+                ...
+            */
+            {
+                this.getModelMethod.Statements.Add(
+                    new CodeMethodReturnStatement(
+                        new CodeVariableReferenceExpression(
+                            resultModelVarName
+                        )
+                    )
+                );
             }
 
             this.rootnamespace.Types.Add(this.currentClass);
@@ -109,21 +170,20 @@ namespace MyAss.Compiler.CodeGeneration
 
             Type verbType = MetadataRetriever.GetBuiltinVerb(verb.VerbId);
             ConstructorInfo verbConstructor = verbType.GetConstructors().First();
-            int verbConstructorArgsCount = verbConstructor.GetParameters().Length;
 
             List<CodeExpression> constructorArgs = new List<CodeExpression>();
 
-            for (int i = 0; i < verbConstructorArgsCount; i++)
+            for (int i = 0; i < verbConstructor.GetParameters().Length; i++)
             {
                 if (this.currentConstructorArgs.Count > i)
                 {
                     if (this.currentConstructorArgs[i] != null)
                     {
                         CodeObjectCreateExpression parExpr = new CodeObjectCreateExpression(
-                            typeof(MyAss.Framework.OperandTypes_Test.ParExpression),
+                            typeof(MyAss.Framework.OperandTypes.ParExpression),
                             new CodeDelegateCreateExpression(
                                 new CodeTypeReference(
-                                    typeof(MyAss.Framework.OperandTypes_Test.ExpressionDelegate)),
+                                    typeof(MyAss.Framework.OperandTypes.ExpressionDelegate)),
                                 new CodeTypeReferenceExpression(this.CurrentClassName),
                                 "Block" + this.currentBlockNo + "_Operand" + (i+1)));
 
@@ -140,10 +200,65 @@ namespace MyAss.Compiler.CodeGeneration
                 }
             }
 
-            CodeObjectCreateExpression callNew = new CodeObjectCreateExpression(verbType, constructorArgs.ToArray());
-            this.mainMethod.Statements.Add(callNew);
 
+            /*
+            Following scope constructs:
+                ...
+                block = new BlockType();
+                block.SetLabel(label);
+                resultModel.Add(block);
+                ...
+            */
+            if (typeof(IBlock).IsAssignableFrom(verbType))
+            {
+                this.getModelMethod.Statements.Add(
+                    new CodeAssignStatement(
+                        new CodeVariableReferenceExpression("block"),
+                        new CodeObjectCreateExpression(verbType, constructorArgs.ToArray())
+                    )
+                );
 
+                this.getModelMethod.Statements.Add(
+                    new CodeMethodInvokeExpression(
+                        new CodeVariableReferenceExpression("block"),
+                        setLabelMethodName,
+                        new CodePrimitiveExpression(verb.LabelId)
+                    )
+                );
+
+                this.getModelMethod.Statements.Add(
+                    new CodeMethodInvokeExpression(
+                        new CodeVariableReferenceExpression(resultModelVarName),
+                        "Add",
+                        new CodeVariableReferenceExpression("block")
+                    )
+                );
+            }
+
+            /*
+            Following scope constructs:
+                ...
+                command = new CommandType(params);
+                resultModel.Commands.Add(command);
+                ...
+            */
+            if (typeof(ICommand).IsAssignableFrom(verbType))
+            {
+                this.getModelMethod.Statements.Add(
+                    new CodeAssignStatement(
+                        new CodeVariableReferenceExpression("command"),
+                        new CodeObjectCreateExpression(verbType, constructorArgs.ToArray())
+                    )
+                );
+
+                this.getModelMethod.Statements.Add(
+                    new CodeMethodInvokeExpression(
+                        new CodeVariableReferenceExpression(resultModelVarName),
+                        "Add",
+                        new CodeVariableReferenceExpression("command")
+                    )
+                );
+            }
 
             this.currentBlockNo++;
         }

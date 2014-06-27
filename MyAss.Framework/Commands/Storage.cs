@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAss.Framework.OperandTypes_Test;
+using MyAss.Framework.OperandTypes;
 
 namespace MyAss.Framework.Commands
 {
-    class Storage : ICommand
+    public class Storage : ICommand
     {
         public IDoubleOperand A_StorageCapacity { get; private set; }
 

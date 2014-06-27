@@ -23,7 +23,7 @@ namespace MyAss.Compiler.AST
         public override string ToString()
         {
             return (this.Operator.HasValue ? this.Operator.ToString() : "")
-                + this.Value;
+                + (this.Value is ASTExpression ? "(" + this.Value.ToString() + ")" : this.Value.ToString());
         }
     }
 }
