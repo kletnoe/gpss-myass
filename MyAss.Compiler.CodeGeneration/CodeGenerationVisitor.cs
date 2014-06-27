@@ -204,7 +204,7 @@ namespace MyAss.Compiler.CodeGeneration
             /*
             Following scope constructs:
                 ...
-                block = new BlockType();
+                block = new BlockType(params);
                 block.SetLabel(label);
                 resultModel.Add(block);
                 ...
@@ -239,6 +239,7 @@ namespace MyAss.Compiler.CodeGeneration
             Following scope constructs:
                 ...
                 command = new CommandType(params);
+                command.SetLabel(label);
                 resultModel.Commands.Add(command);
                 ...
             */
@@ -248,6 +249,14 @@ namespace MyAss.Compiler.CodeGeneration
                     new CodeAssignStatement(
                         new CodeVariableReferenceExpression("command"),
                         new CodeObjectCreateExpression(verbType, constructorArgs.ToArray())
+                    )
+                );
+
+                this.getModelMethod.Statements.Add(
+                    new CodeMethodInvokeExpression(
+                        new CodeVariableReferenceExpression("command"),
+                        setLabelMethodName,
+                        new CodePrimitiveExpression(verb.LabelId)
                     )
                 );
 

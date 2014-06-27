@@ -13,11 +13,11 @@ namespace MyAss.Framework.Commands
             {
                 throw new NotImplementedException();
             }
+        }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+        public void SetLabel(string label)
+        {
+            throw new NotImplementedException();
         }
     }
 }

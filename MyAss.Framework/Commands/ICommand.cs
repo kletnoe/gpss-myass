@@ -7,6 +7,8 @@ namespace MyAss.Framework.Commands
 {
     public interface ICommand
     {
-        string Label { get; set; }
+        string Label { get; }
+
+        void SetLabel(string label);
     }
 }

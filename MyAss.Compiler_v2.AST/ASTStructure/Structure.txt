@@ -1,0 +1,19 @@
+﻿
+
+<model> ::= { <verb> [ COMMENT ] "\r\n" }+
+
+	<verb> ::= [ ID ] ID { <expression> }
+
+		<expression> ::= <binaryexpression> | <literal> | <lval>
+
+			<binaryexpression> ::= <expression> BINARY_OPERATOR <expression>
+
+				<lval> ::= ID <accessor> 
+
+					<accessor> ::= <call> | <directsna>
+
+					<call> ::= { <expression> }
+
+					<directsna> ::= ID
+
+				<literal> ::= INT | DOUBLE | STRING

@@ -16,16 +16,16 @@ namespace MyAss.Framework.Commands
             {
                 throw new NotImplementedException();
             }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
         }
 
         public Storage(IDoubleOperand storageCapacity)
         {
             this.A_StorageCapacity = storageCapacity;
+        }
+
+        public void SetLabel(string label)
+        {
+            throw new NotImplementedException();
         }
     }
 }

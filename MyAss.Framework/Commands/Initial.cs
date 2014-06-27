@@ -17,17 +17,17 @@ namespace MyAss.Framework.Commands
             {
                 throw new NotImplementedException();
             }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
         }
 
         public Initial(IDoubleOperand targetEntity, IDoubleOperand value)
         {
             this.A_TargetEntity = targetEntity;
             this.B_Value = value;
+        }
+
+        public void SetLabel(string label)
+        {
+            throw new NotImplementedException();
         }
     }
 }
