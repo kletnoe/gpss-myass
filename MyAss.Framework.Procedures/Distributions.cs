@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyAss.Framework.Procedures.Distributions
+namespace MyAss.Framework.Procedures
 {
-    public static class Exponential
+    public static class Distributions
     {
         // TODO: locate
 
@@ -29,7 +29,7 @@ namespace MyAss.Framework.Procedures.Distributions
         //    return Math.Log(1 - rand) / (-this.lambda);
         //}
 
-        public static double GetNext(int stream, double locate, double scale)
+        public static double Exponential(int stream, double locate, double scale)
         {
             double rand = RandomGenerators.GetRandom(stream).NextDouble();
             return -scale * Math.Log(1 - rand);

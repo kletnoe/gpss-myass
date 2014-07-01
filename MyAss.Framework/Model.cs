@@ -19,12 +19,12 @@ namespace MyAss.Framework
             this.commands = new List<ICommand>();
         }
 
-        public void Add(IBlock block)
+        public void AddVerb(IBlock block)
         {
             this.blocks.Add(block);
         }
 
-        public void Add(ICommand command)
+        public void AddVerb(ICommand command)
         {
             this.commands.Add(command);
         }

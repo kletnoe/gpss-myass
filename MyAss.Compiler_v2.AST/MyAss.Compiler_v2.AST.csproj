@@ -40,14 +40,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ASTBinaryExpression.cs" />
-    <Compile Include="ASTCall.cs" />
-    <Compile Include="ASTDirectSNA.cs" />
+    <Compile Include="ASTProcedureCall.cs" />
+    <Compile Include="ASTDirectSNACall.cs" />
     <Compile Include="ASTLiteral.cs" />
     <Compile Include="ASTLValue.cs" />
     <Compile Include="ASTModel.cs" />
     <Compile Include="ASTVerb.cs" />
     <Compile Include="BinaryOperatorType.cs" />
-    <Compile Include="IASTAccessor.cs" />
+    <Compile Include="IASTCall.cs" />
     <Compile Include="IASTExpression.cs" />
     <Compile Include="IASTNode.cs" />
     <Compile Include="IASTVisitor[T].cs" />

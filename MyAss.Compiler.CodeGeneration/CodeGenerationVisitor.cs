@@ -21,6 +21,7 @@ namespace MyAss.Compiler.CodeGeneration
         private const string namespaceName = "Modeling";
         private const string getModelMethodName = "GetModel";
         private const string resultModelVarName = "resultModel";
+        private const string addVerbMethodName = "AddVerb";
 
 
         private int currentModelNo = 1;
@@ -229,7 +230,7 @@ namespace MyAss.Compiler.CodeGeneration
                 this.getModelMethod.Statements.Add(
                     new CodeMethodInvokeExpression(
                         new CodeVariableReferenceExpression(resultModelVarName),
-                        "Add",
+                        addVerbMethodName,
                         new CodeVariableReferenceExpression("block")
                     )
                 );
@@ -263,7 +264,7 @@ namespace MyAss.Compiler.CodeGeneration
                 this.getModelMethod.Statements.Add(
                     new CodeMethodInvokeExpression(
                         new CodeVariableReferenceExpression(resultModelVarName),
-                        "Add",
+                        addVerbMethodName,
                         new CodeVariableReferenceExpression("command")
                     )
                 );

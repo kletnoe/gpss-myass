@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MyAss.Compiler.AST;
-using MyAss.Compiler.CodeGeneration;
+using MyAss.Compiler_v2.AST;
+using MyAss.Compiler_v2.CodeGeneration;
 using NUnit.Framework;
 using System.CodeDom;
+using MyAss.Compiler;
 
-namespace MyAss.Compiler.Tests.CodeGenerationTests
+namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
 {
     [TestFixture]
-    [Category("CodeGenTests_Expressions")]
+    [Category("CodeGenTests_v2_Expressions")]
     public class CodeGenTests_Expressions
     {
         [Test]
@@ -195,22 +196,29 @@ namespace MyAss.Compiler.Tests.CodeGenerationTests
         }
 
         [Test]
-        [Ignore]
         public void DirectSna()
         {
             string input = @"Mark X$Tail";
-            string expected = @"(1.3+2.4)";
+            string expected = @"X(Tail)";
+
+            CommonCode(input, expected);
+        }
+
+        [Test]
+        public void Procedure()
+        {
+            string input = @"Mark Exponential(1,2,3)";
+            string expected = @"Exponential(1, 2, 3)";
 
             CommonCode(input, expected);
         }
 
         public static void CommonCode(string input, string expected)
         {
-            Parser parser = new Parser(new Scanner(new StringCharSource(input)));
-            CodeGenerationVisitor vis = new CodeGenerationVisitor(parser);
+            Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
+            CodeDomGenerationVisitor vis = new CodeDomGenerationVisitor(parser);
 
-            vis.VisitAll();
-            CodeCompileUnit assembly = vis.CreateAssembly();
+            CodeCompileUnit assembly = vis.VisitAll();
             string result = CodeDomHelper.Print(GetResultExpression(assembly));
 
             Assert.AreEqual(expected, result);
@@ -219,8 +227,18 @@ namespace MyAss.Compiler.Tests.CodeGenerationTests
 
         public static CodeExpression GetResultExpression(CodeCompileUnit assembly)
         {
-            var result = ((assembly.Namespaces[0].Types[0].Members[1] as CodeMemberMethod)
-                .Statements[1] as CodeAssignStatement).Right;
+            var members = assembly.Namespaces[0].Types[0].Members;
+            CodeMemberMethod operandMethod = new CodeMemberMethod();
+
+            for (int i = 0; i < members.Count; i++)
+            {
+                if (members[i].Name == "Verb1_Operand1")
+                {
+                    operandMethod = (CodeMemberMethod)members[i];
+                }
+            }
+
+            var result = (operandMethod.Statements[1] as CodeAssignStatement).Right;
             return result;
         }
     }

@@ -15,8 +15,19 @@ namespace MyAss.Application.Examples.CodeGen.ExpectedClass
         {
             Model resultModel = new Model();
 
-            resultModel.Add(new Generate(null, null, null, null, null));
-            resultModel.Add(new Storage(null));
+            if (true)
+            {
+                var verb = new Generate(null, null, null, null, null);
+                verb.SetLabel("label1");
+                resultModel.AddVerb(verb);
+            }
+
+            if (true)
+            {
+                var verb = new Storage(null);
+                verb.SetLabel("Server");
+                resultModel.AddVerb(verb);
+            }
 
             return resultModel;
         }

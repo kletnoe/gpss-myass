@@ -46,14 +46,23 @@ namespace MyAss.Compiler.Metadata
         /////
 
         private const string builtinTypesAssemblyName = @"MyAss.Framework.dll";
+        private const string builtinProceduresAssemblyName = @"MyAss.Framework.Procedures.dll";
 
         private const string builtinSnaTypeName = @"MyAss.Framework.SNA.SNA";
+        private const string builtinProceduresTypeName = @"MyAss.Framework.Procedures.Distributions";
         private const string builtinBlocksNamespace = @"MyAss.Framework.Blocks";
         private const string builtinCommandsNamespace = @"MyAss.Framework.Commands";
+
+
 
         public static Type GetBuiltinSnaType()
         {
             return Assembly.LoadFrom(builtinTypesAssemblyName).GetType(builtinSnaTypeName);
+        }
+
+        public static Type GetBuiltinProceduresType()
+        {
+            return Assembly.LoadFrom(builtinProceduresAssemblyName).GetType(builtinProceduresTypeName);
         }
 
         public static bool IsVerb(string name)

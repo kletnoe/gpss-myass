@@ -12,8 +12,8 @@ namespace MyAss.Compiler_v2.AST
         T Visit(ASTVerb aSTVerb);
         T Visit(ASTBinaryExpression aSTExpression);
         T Visit(ASTLiteral aSTLiteral);
-        T Visit(ASTCall aSTCall);
-        T Visit(ASTDirectSNA aSTDirectSNA);
+        T Visit(ASTProcedureCall aSTCall);
+        T Visit(ASTDirectSNACall aSTDirectSNA);
         T Visit(ASTLValue aSTLValue);
     }
 }

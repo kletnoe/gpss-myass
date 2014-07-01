@@ -37,14 +37,14 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
         [Test]
         public void Expression_Id()
         {
-            string input = @"Mark MarkId";
+            string input = @"Mark GetSomething()";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_ParExpression()
         {
-            string input = @"Mark (MarkId)";
+            string input = @"Mark (GetSomething())";
             Assert.Pass(this.Run(input).ToString());
         }
 
@@ -58,14 +58,14 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
         [Test]
         public void Expression_Complex1()
         {
-            string input = @"Mark ((MarkId + 3)/25)";
+            string input = @"Mark ((GetSomething() + 3)/25)";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Complex2()
         {
-            string input = @"Mark ((MarkId + 3)/25 + (1 + (id2 # (2 / 7))))";
+            string input = @"Mark ((GetSomething() + 3)/25 + (1 + (id2 # (2 / 7))))";
             Assert.Pass(this.Run(input).ToString());
         }
 

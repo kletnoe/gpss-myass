@@ -49,6 +49,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CodeGenerationTests\CodeDomHelper.cs" />
+    <Compile Include="CodeGenerationTests\CodeGenTests_Build.cs" />
+    <Compile Include="CodeGenerationTests\CodeGenTests_Expressions.cs" />
+    <Compile Include="CodeGenerationTests\CodeGenTests_Verbs.cs" />
     <Compile Include="ParserTests\ParserTests_Accessors.cs" />
     <Compile Include="ParserTests\ParserTests_Expressions.cs" />
     <Compile Include="ParserTests\ParserTests_IdConflsicts.cs" />
@@ -64,6 +68,14 @@
     <ProjectReference Include="..\MyAss.Compiler_v2.AST\MyAss.Compiler_v2.AST.csproj">
       <Project>{65edceec-6974-4ed0-aca6-115a0812628f}</Project>
       <Name>MyAss.Compiler_v2.AST</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyAss.Compiler_v2.CodeGeneration\MyAss.Compiler_v2.CodeGeneration.csproj">
+      <Project>{2a319cac-280a-4685-abcb-d4875f49fda8}</Project>
+      <Name>MyAss.Compiler_v2.CodeGeneration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyAss.Framework.Procedures\MyAss.Framework.Procedures.csproj">
+      <Project>{bffed46e-1470-4af5-b28b-87463b458cd0}</Project>
+      <Name>MyAss.Framework.Procedures</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyAss.Framework\MyAss.Framework.csproj">
       <Project>{511c1ef6-f99a-42d5-8d3a-4f8e93a11c3e}</Project>

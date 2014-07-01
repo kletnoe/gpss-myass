@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyAss.Compiler_v2.AST
 {
-    public interface IASTAccessor : IASTNode
+    public interface IASTCall : IASTExpression
     {
     }
 }

@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace MyAss.Compiler_v2.AST
 {
-    public class ASTDirectSNA : IASTAccessor
+    public class ASTProcedureCall : IASTCall
     {
-        public string Id { get; set; }
+        public string ProcedureId { get; set; }
+        public IList<IASTExpression> Actuals { get; private set; }
+
+        public ASTProcedureCall()
+        {
+            this.Actuals = new List<IASTExpression>();
+        }
 
         public T Accept<T>(IASTVisitor<T> visitor)
         {
@@ -17,7 +23,7 @@ namespace MyAss.Compiler_v2.AST
 
         public override string ToString()
         {
-            return "$" + this.Id;
+            return this.ProcedureId + "(" + String.Join(", ", this.Actuals) + ")";
         }
     }
 }

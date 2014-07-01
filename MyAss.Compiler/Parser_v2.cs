@@ -257,7 +257,7 @@ namespace MyAss.Compiler_v2
             switch (this.Scanner.CurrentToken)
             {
                 case TokenType.ID:
-                    expression = this.ExpectLValue();
+                    expression = this.ExpectCall();
                     break;
                 case TokenType.NUMERIC:
                     expression = this.ExpectLiteral();
@@ -303,69 +303,118 @@ namespace MyAss.Compiler_v2
         }
 
         // <lval> ::= ID [ <accessor> ]
-        public ASTLValue ExpectLValue()
-        {
-            ASTLValue lvalue = new ASTLValue();
-
-            lvalue.Id = this.ExpectID();
-
-            if (this.Scanner.CurrentToken == TokenType.LPAR
-                || this.Scanner.CurrentToken == TokenType.DOLLAR)
-            {
-                lvalue.Accessor = this.ExpectAccessor();
-            }
-
-            return lvalue;
-        }
-
         // <accessor> ::= <call> | <directsna>
-        public IASTAccessor ExpectAccessor()
-        {
-            switch (this.Scanner.CurrentToken)
-            {
-                case TokenType.LPAR:
-                    return this.ExpectCall();
-                case TokenType.DOLLAR:
-                    return this.ExpectDirectSNA();
-                default:
-                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
-                        @"( or $ or + or -", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
-            }
-        }
-
         // <call> ::= "(" ( "" | <expr> { "," <expr> } ) ")"
-        public ASTCall ExpectCall()
-        {
-            ASTCall call = new ASTCall();
-
-            this.Expect(TokenType.LPAR);
-
-            if (this.Scanner.CurrentToken == TokenType.ID
-                || this.Scanner.CurrentToken == TokenType.NUMERIC)
-            {
-                call.Actuals.Add(this.ExpectExpression());
-
-                while (this.Scanner.CurrentToken == TokenType.COMMA)
-                {
-                    this.Expect(TokenType.COMMA);
-                    call.Actuals.Add(this.ExpectExpression());
-                }
-            }
-
-            this.Expect(TokenType.RPAR);
-
-            return call;
-        }
-
         // <directsna> ::= "$" ID
-        public ASTDirectSNA ExpectDirectSNA()
+        public IASTCall ExpectCall()
         {
-            this.Expect(TokenType.DOLLAR);
-            return new ASTDirectSNA()
+            string id = this.ExpectID();
+
+            if(this.Scanner.CurrentToken == TokenType.LPAR)
             {
-                Id = ExpectID()
-            };
+                ASTProcedureCall call = new ASTProcedureCall();
+                call.ProcedureId = id;
+
+                this.Expect(TokenType.LPAR);
+
+                if (this.Scanner.CurrentToken == TokenType.ID
+                    || this.Scanner.CurrentToken == TokenType.NUMERIC)
+                {
+                    call.Actuals.Add(this.ExpectExpression());
+
+                    while (this.Scanner.CurrentToken == TokenType.COMMA)
+                    {
+                        this.Expect(TokenType.COMMA);
+                        call.Actuals.Add(this.ExpectExpression());
+                    }
+                }
+
+                this.Expect(TokenType.RPAR);
+
+                return call;
+            }
+            else if(this.Scanner.CurrentToken == TokenType.DOLLAR)
+            {
+                this.Expect(TokenType.DOLLAR);
+                return new ASTDirectSNACall()
+                {
+                    SnaId = id,
+                    ActualId = ExpectID()
+                };
+            }
+            else
+            {
+                return new ASTLValue()
+                {
+                    Id = id
+                };
+            }
         }
+
+        //// <lval> ::= ID [ <accessor> ]
+        //public ASTLValue ExpectLValue()
+        //{
+        //    ASTLValue lvalue = new ASTLValue();
+
+        //    lvalue.Id = this.ExpectID();
+
+        //    if (this.Scanner.CurrentToken == TokenType.LPAR
+        //        || this.Scanner.CurrentToken == TokenType.DOLLAR)
+        //    {
+        //        lvalue.Accessor = this.ExpectAccessor();
+        //    }
+
+        //    return lvalue;
+        //}
+
+        //// <accessor> ::= <call> | <directsna>
+        //public IASTAccessor ExpectAccessor()
+        //{
+        //    switch (this.Scanner.CurrentToken)
+        //    {
+        //        case TokenType.LPAR:
+        //            return this.ExpectCall();
+        //        case TokenType.DOLLAR:
+        //            return this.ExpectDirectSNA();
+        //        default:
+        //            throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
+        //                @"( or $ or + or -", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+        //    }
+        //}
+
+        //// <call> ::= "(" ( "" | <expr> { "," <expr> } ) ")"
+        //public ASTProcedureCall ExpectCall_old()
+        //{
+        //    ASTProcedureCall call = new ASTProcedureCall();
+
+        //    this.Expect(TokenType.LPAR);
+
+        //    if (this.Scanner.CurrentToken == TokenType.ID
+        //        || this.Scanner.CurrentToken == TokenType.NUMERIC)
+        //    {
+        //        call.Actuals.Add(this.ExpectExpression());
+
+        //        while (this.Scanner.CurrentToken == TokenType.COMMA)
+        //        {
+        //            this.Expect(TokenType.COMMA);
+        //            call.Actuals.Add(this.ExpectExpression());
+        //        }
+        //    }
+
+        //    this.Expect(TokenType.RPAR);
+
+        //    return call;
+        //}
+
+        //// <directsna> ::= "$" ID
+        //public ASTDirectSNACall ExpectDirectSNA()
+        //{
+        //    this.Expect(TokenType.DOLLAR);
+        //    return new ASTDirectSNACall()
+        //    {
+        //        ActualId = ExpectID()
+        //    };
+        //}
 
         // <addop> ::= "+" | "-"
         public BinaryOperatorType ExpectAddOperator()

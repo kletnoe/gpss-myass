@@ -4,16 +4,14 @@
 
 	<verb> ::= [ ID ] ID { <expression> }
 
-		<expression> ::= <binaryexpression> | <literal> | <lval>
+		<expression> ::= <binaryexpression> | <literal> | <call>
 
 			<binaryexpression> ::= <expression> BINARY_OPERATOR <expression>
 
-				<lval> ::= ID <accessor> 
+			<call> ::=  <procedurecall> | <directsnacall>
 
-					<accessor> ::= <call> | <directsna>
+				<procedurecall> ::= ID { <expression> }
 
-					<call> ::= { <expression> }
+				<directsnacall> ::= ID ID
 
-					<directsna> ::= ID
-
-				<literal> ::= INT | DOUBLE | STRING
+			<literal> ::= INT | DOUBLE | STRING

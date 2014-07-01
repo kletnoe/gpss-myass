@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyAss.Compiler_v2.AST
 {
-    public class ASTLValue : IASTExpression
+    public class ASTLValue : IASTCall
     {
         public string Id { get; set; }
-        public IASTAccessor Accessor { get; set; }
 
         public T Accept<T>(IASTVisitor<T> visitor)
         {
@@ -18,7 +17,7 @@ namespace MyAss.Compiler_v2.AST
 
         public override string ToString()
         {
-            return this.Id + this.Accessor;
+            return this.Id;
         }
     }
 }

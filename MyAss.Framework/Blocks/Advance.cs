@@ -32,7 +32,7 @@ namespace MyAss.Framework.Blocks
                 throw new ModelingException("ADVANCE: Negative time increment.");
             }
 
-            double increment = new Procedures.Distributions.Uniform(0, meanValue - halfRange, meanValue + halfRange).GetNext();
+            double increment = new Procedures.Distributions_old.Uniform(0, meanValue - halfRange, meanValue + halfRange).GetNext();
 
             return Simulation.It.Clock + increment;
         }

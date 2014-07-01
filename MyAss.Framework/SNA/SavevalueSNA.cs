@@ -21,5 +21,10 @@ namespace MyAss.Framework.SNA
                 throw new ModelingException("SNA::X: Entity is not a Savevalue. EntityId: " + entityId);
             }
         }
+
+        public static double X(string entityId)
+        {
+            return 0;
+        }
     }
 }
