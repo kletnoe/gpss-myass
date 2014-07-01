@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MyAss.Framework.OperandTypes;
+using MyAss.Framework.Procedures;
 
 namespace MyAss.Framework.Blocks
 {
@@ -32,7 +33,7 @@ namespace MyAss.Framework.Blocks
                 throw new ModelingException("ADVANCE: Negative time increment.");
             }
 
-            double increment = new Procedures.Distributions_old.Uniform(0, meanValue - halfRange, meanValue + halfRange).GetNext();
+            double increment = Distributions.Uniform(0, meanValue - halfRange, meanValue + halfRange);
 
             return Simulation.It.Clock + increment;
         }

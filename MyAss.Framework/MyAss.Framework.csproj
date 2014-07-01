@@ -101,6 +101,7 @@
     <Compile Include="Transaction.cs" />
     <Compile Include="TransactionParameters.cs" />
     <Compile Include="TransactionScheduler.cs" />
+    <Compile Include="v2_Types\InnerDynamicType.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ExceptionMessages.resx">
