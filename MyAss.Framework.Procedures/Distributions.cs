@@ -28,8 +28,10 @@ namespace MyAss.Framework.Procedures
         // 4. Exponential
         public static double Exponential(int stream, double locate, double scale)
         {
+            // TODO: Locate is not supported
+
             double randValue = RandomGenerators.GetRandom(stream).NextDouble();
-            return -scale * Math.Log(1 - randValue);
+            return -scale * System.Math.Log(1 - randValue);
         }
 
         // 5. Extreme Value A
@@ -115,7 +117,7 @@ namespace MyAss.Framework.Procedures
             {
                 result += rand.NextDouble();
             }
-            result = (result - (n / 2)) / Math.Sqrt(n / 12d);
+            result = (result - (n / 2)) / System.Math.Sqrt(n / 12d);
             result = result * stdDev + mean;
 
             return result;

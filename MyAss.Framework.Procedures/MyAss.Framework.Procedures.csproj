@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Distributions.cs" />
+    <Compile Include="Math.cs" />
     <Compile Include="RandomGenerators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
