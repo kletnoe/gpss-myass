@@ -121,42 +121,11 @@ namespace MyAss.Compiler_v2.CodeGeneration
         public CodeObject Visit(ASTVerb verb)
         {
             Type verbType = MetadataRetriever.GetBuiltinVerb(verb.VerbId);
-            int verbCtorParamsCount = verbType.GetConstructors().First().GetParameters().Length;
-
-            CodeObjectCreateExpression ctorCall = new CodeObjectCreateExpression(verbType);
-
-            for (int i = 0; i < verbCtorParamsCount; i++)
-            {
-                if (verb.Operands.Count > i && verb.Operands[i] != null)
-                {
-                    string operandMethodName = String.Format("Verb{0}_Operand{1}", this.verbNo, i + 1);
-                    CodeExpression operandExpression = (CodeExpression)verb.Operands[i].Accept(this);
-
-                    this.CreateOperandMethod(operandMethodName, operandExpression);
-
-                    ctorCall.Parameters.Add(
-                        new CodeObjectCreateExpression(
-                            typeof(MyAss.Framework.OperandTypes.ParExpression),
-                            new CodeDelegateCreateExpression(
-                                new CodeTypeReference(
-                                    typeof(MyAss.Framework.OperandTypes.ExpressionDelegate)
-                                ),
-                                new CodeTypeReferenceExpression(theClassName),
-                                operandMethodName
-                           )
-                        )
-                    );
-                }
-                else
-                {
-                    ctorCall.Parameters.Add(new CodePrimitiveExpression(null));
-                }
-            }
 
             CodeVariableDeclarationStatement varDeclaration = new CodeVariableDeclarationStatement(
                 verbType,
                 "verb",
-                ctorCall
+                this.CreateConstructorCallExpression(verbType, verb.Operands)
             );
 
             CodeExpressionStatement setLabelCall = new CodeExpressionStatement(
@@ -183,6 +152,43 @@ namespace MyAss.Compiler_v2.CodeGeneration
                 addToModelCall);
 
             return result;
+        }
+
+        private CodeObjectCreateExpression CreateConstructorCallExpression(Type verbType, IList<IASTExpression> operands)
+        {
+            int verbCtorParamsCount = verbType.GetConstructors().First().GetParameters().Length;
+
+            CodeObjectCreateExpression ctorCall = new CodeObjectCreateExpression(verbType);
+
+            for (int i = 0; i < verbCtorParamsCount; i++)
+            {
+                if (operands.Count > i && operands[i] != null)
+                {
+                    string operandMethodName = String.Format("Verb{0}_Operand{1}", this.verbNo, i + 1);
+                    CodeExpression operandExpression = (CodeExpression)operands[i].Accept(this);
+
+                    this.CreateOperandMethod(operandMethodName, operandExpression);
+
+                    ctorCall.Parameters.Add(
+                        new CodeObjectCreateExpression(
+                            typeof(MyAss.Framework.OperandTypes.ParExpression),
+                            new CodeDelegateCreateExpression(
+                                new CodeTypeReference(
+                                    typeof(MyAss.Framework.OperandTypes.ExpressionDelegate)
+                                ),
+                                new CodeTypeReferenceExpression(theClassName),
+                                operandMethodName
+                           )
+                        )
+                    );
+                }
+                else
+                {
+                    ctorCall.Parameters.Add(new CodePrimitiveExpression(null));
+                }
+            }
+
+            return ctorCall;
         }
 
         private void CreateOperandMethod(string methodName, CodeExpression codeExpr)
