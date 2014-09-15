@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace MyAss.Framework_v2.Chains
 {
-    internal class FutureTransactionChain : IEnumerable<Transaction>
+    public class FutureTransactionChain : IEnumerable<Transaction>
     {
         private LinkedList<Transaction> baseList;
 

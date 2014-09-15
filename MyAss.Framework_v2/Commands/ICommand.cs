@@ -8,5 +8,10 @@ namespace MyAss.Framework_v2.Commands
 {
     public interface ICommand
     {
+        int Id { get; }
+        string Label { get; }
+
+        void Execute(Simulation simulation);
+        void SetId(int id);
     }
 }

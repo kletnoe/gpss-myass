@@ -13,7 +13,7 @@ namespace MyAss.Framework_v2.Tests
         [Test]
         public void SomeTest()
         {
-            Assert.IsTrue(true);
+            
         }
     }
 }

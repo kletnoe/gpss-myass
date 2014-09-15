@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyAss.Framework_v2
 {
-    internal sealed class SimulationNumbersManager
+    public sealed class SimulationNumbersManager
     {
         private int transactionNo;
         private int blockNo;

@@ -35,7 +35,7 @@ namespace MyAss.Framework_v2
 
             foreach (var entity in this.simulation.Entities)
             {
-                entity.UpdateStats();
+                entity.Value.UpdateStats();
             }
 
             System.Console.WriteLine("End");

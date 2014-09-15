@@ -55,7 +55,7 @@ namespace MyAss.Framework_v2
 
         public bool IsPreempted { get; private set; }
 
-        public Transaction(int transactionNo, int creationTime)
+        public Transaction(int transactionNo, double creationTime)
         {
             int number = transactionNo;
             this.AssemblySet = number;
@@ -69,7 +69,7 @@ namespace MyAss.Framework_v2
             this.IsPreempted = false;
         }
 
-        public Transaction(int transactionNo, int creationTime, int priority, int ownerId) : this(transactionNo, creationTime)
+        public Transaction(int transactionNo, double creationTime, int priority, int ownerId) : this(transactionNo, creationTime)
         {
             this.Priority = priority;
             this.Owner = ownerId;
@@ -78,7 +78,7 @@ namespace MyAss.Framework_v2
         public override string ToString()
         {
             // return String.Format("Time: {0}, Prio: {1}, Clock: {2} ", CreationRealTime.ToString("HH:mm:ss.fff"), Priority, GenerationTime);
-            return String.Format("\t| Xn: {0} NET: {1} Own: {2} Next: {3}|", this.Number, this.NextEventTime, this.Owner, this.NextOwner);
+            return String.Format("\t| Xn: {0} NET: {1} Own: {2} Next: {3}|", this.Number, this.NextEventTime.ToString("F5"), this.Owner, this.NextOwner);
         }
 
         public void Dispose()
