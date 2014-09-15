@@ -15,7 +15,7 @@ namespace MyAss.Framework_v2
         public FutureTransactionChain FutureEventChain { get; private set; }
         public Queue<ICommand> CommandQueue { get; private set; }
 
-        public Dictionary<int, string> IdsList { get; private set; }
+        public BiDictionary<int, string> NamesDictionary { get; private set; }
         public Dictionary<int, IBlock> Blocks { get; private set; }
         public Dictionary<int, IEntity> Entities { get; private set; }
 
@@ -40,6 +40,7 @@ namespace MyAss.Framework_v2
         {
             model.Simulation = this;
 
+            this.ProcessNames(model);
             this.ProcessBlocks(model);
             this.ProcessCommands(model);
 
@@ -52,12 +53,17 @@ namespace MyAss.Framework_v2
             }
         }
 
+        private void ProcessNames(AbstractModel model)
+        {
+            this.NamesDictionary = model.NamesDictionary;
+        }
+
         private void ProcessBlocks(AbstractModel model)
         {
             int i = 1;
             foreach (var block in model.Blocks)
             {
-                block.SetLabel(i);
+                block.SetId(i);
                 this.Blocks.Add(i, block);
 
                 // Set NSB for previous

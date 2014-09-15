@@ -97,15 +97,13 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
         public void Queue(int units)
         {
             this.entriesCount += units;
+            this.UpdateStats();
+            this.currentContent += units;
 
             if (this.maxContent < this.currentContent)
             {
                 this.maxContent = this.currentContent;
             }
-
-            this.UpdateStats();
-
-            this.currentContent += units;
         }
 
         public void Depart(int units)

@@ -49,12 +49,20 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
         public override void Action(Simulation simulation)
         {
-            // TODO: Add Exception throwing
+            // A: Required.
+            if (this.A_StorageEntityId == null)
+            {
+                throw new ModelingException("ENTER: Operand A is required operand!");
+            }
+            int entityId = (int)this.A_StorageEntityId.GetValue();
+
+            // B: The default is 1.
+            int units = this.B_NumberOfUnits == null ? 1 : (int)this.B_NumberOfUnits.GetValue();
+
 
             Transaction transaction = simulation.ActiveTransaction;
 
-            StorageEntity storage = (StorageEntity)simulation.GetEntity((int)this.A_StorageEntityId.GetValue());
-            int units = (int)this.B_NumberOfUnits.GetValue();
+            StorageEntity storage = (StorageEntity)simulation.GetEntity(entityId);
 
             if (storage.IsAvaliable && storage.RemainingCapacity >= units)
             {

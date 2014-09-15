@@ -53,6 +53,7 @@
     <Compile Include="Entities\QueueEntity.cs" />
     <Compile Include="Entities\SavevalueEntity.cs" />
     <Compile Include="Entities\StorageEntity.cs" />
+    <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SNA\QueueSNA.cs" />
     <Compile Include="SNA\SavevalueSNA.cs" />

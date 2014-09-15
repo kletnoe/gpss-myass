@@ -12,15 +12,15 @@ namespace MyAss.Framework_v2
     {
         public Simulation Simulation { get; set; }
 
-        private Dictionary<string, int> names;
+        private BiDictionary<int, string> namesDictionary;
         private List<IBlock> blocks;
         private List<ICommand> commands;
 
-        public IReadOnlyDictionary<string, int> Names
+        public BiDictionary<int, string> NamesDictionary
         {
             get
             {
-                return this.names;
+                return this.namesDictionary;
             }
         }
 
@@ -42,14 +42,14 @@ namespace MyAss.Framework_v2
 
         public AbstractModel()
         {
-            this.names = new Dictionary<string, int>();
+            this.namesDictionary = new BiDictionary<int, string>();
             this.blocks = new List<IBlock>();
             this.commands = new List<ICommand>();
         }
 
-        public void AddName(string key, int value)
+        public void AddName(int key, string value)
         {
-            this.names.Add(key, value);
+            this.namesDictionary.Add(key, value);
         }
 
         public void AddVerb(IBlock block)

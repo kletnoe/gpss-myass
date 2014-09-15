@@ -33,7 +33,7 @@ namespace MyAss.Framework_v2.Blocks
             this.label = label;
         }
 
-        public void SetLabel(int id)
+        public void SetId(int id)
         {
             this.Id = id;
         }

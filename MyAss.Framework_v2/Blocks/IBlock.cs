@@ -9,14 +9,11 @@ namespace MyAss.Framework_v2.Blocks
     public interface IBlock
     {
         int Id { get; }
-        string Label { get; }
         int EntryCount { get; }
         IBlock NextSequentialBlock { get; set; }
         LinkedList<Transaction> RetryChain { get; }
 
-        void SetLabel(string label);
-
-        void SetLabel(int id);
+        void SetId(int id);
 
         void Action(Simulation simulation);
 

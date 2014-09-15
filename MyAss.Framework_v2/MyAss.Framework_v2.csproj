@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BiDictionary[TFirst_TSecond].cs" />
     <Compile Include="Blocks\AbstractBlock.cs" />
     <Compile Include="Blocks\IBlock.cs" />
     <Compile Include="Blocks\IEntityCretableBlock.cs" />
@@ -49,7 +50,9 @@
     <Compile Include="Commands\AbstractQueuedCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Entities\AbstractEntity.cs" />
+    <Compile Include="Entities\IDelayableEntity.cs" />
     <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Entities\IPendableEntity.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="ModelingException.cs" />
     <Compile Include="AbstractModel.cs" />

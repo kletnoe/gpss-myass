@@ -8,7 +8,7 @@ using MyAss.Framework_v2.Entities;
 
 namespace MyAss.Framework_v2.BuiltIn.Entities
 {
-    public class StorageEntity : AbstractEntity
+    public class StorageEntity : AbstractEntity, IDelayableEntity
     {
         private Simulation simulation;
 
@@ -25,7 +25,7 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
         private double latestChangeClock = 0.0;
         private double contentTimeArea = 0.0;
 
-        public LinkedList<Transaction> DelayChain { get; set; }
+        private LinkedList<Transaction> delayChain;
 
         public int Capacity
         {
@@ -141,6 +141,14 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
             }
         }
 
+        public LinkedList<Transaction> DelayChain
+        {
+            get
+            {
+                return this.delayChain;
+            }
+        }
+
         public StorageEntity(Simulation simulation, int id, int capacity)
         {
             this.simulation = simulation;
@@ -148,21 +156,19 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
             this.Id = id;
             this.capacity = capacity;
 
-            this.DelayChain = new LinkedList<Transaction>();
+            this.delayChain = new LinkedList<Transaction>();
         }
 
         public void Enter(int units)
         {
             this.entriesCount += units;
+            this.UpdateStats();
+            this.currentCount += units;
 
             if (this.maxContent < this.currentCount)
             {
                 this.maxContent = this.currentCount;
             }
-
-            this.UpdateStats();
-
-            this.currentCount += units;
         }
 
         public void Leave(int units)

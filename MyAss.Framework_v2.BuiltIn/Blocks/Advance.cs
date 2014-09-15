@@ -38,10 +38,10 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
         public override void Action(Simulation simualtion)
         {
-            // The default is 0.
+            // A: The default is 0.
             double meanValue = this.A_MeanValue == null ? 0 : this.A_MeanValue.GetValue();
 
-            // The default is 0.
+            // B: The default is 0.
             double halfRange = this.B_HalfRange == null ? 0 : this.B_HalfRange.GetValue();
 
 

@@ -5,6 +5,7 @@ using System.Text;
 using MyAss.Framework_v2;
 using MyAss.Framework_v2.Blocks;
 using MyAss.Framework_v2.BuiltIn.Entities;
+using MyAss.Framework_v2.Entities;
 
 namespace MyAss.Utilities.Reports_v2
 {
@@ -58,7 +59,15 @@ namespace MyAss.Utilities.Reports_v2
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine().AppendLine();
-            sb.AppendLine("// Identificators list should be there");
+            sb.AppendLine(String.Format("{0, 10} {1,-24} {2,6}",
+                    String.Empty, "NAME", "VALUE"));
+            foreach (var name in simulation.NamesDictionary.SecondToFirst)
+            {
+                sb.AppendLine(String.Format("{0, 10} {1,-24} {2,6}",
+                    String.Empty,
+                    name.Key,
+                    name.Value));
+            }
             return sb.ToString();
         }
 
@@ -68,9 +77,8 @@ namespace MyAss.Utilities.Reports_v2
             List<Transaction> allTransactions = new List<Transaction>();
             allTransactions.AddRange(simulation.CurrentEventChain);
             allTransactions.AddRange(simulation.FutureEventChain);
-            allTransactions.AddRange(simulation.Entities.OfType<StorageEntity>().SelectMany(x => x.DelayChain));
-            ///allTransactions.AddRange(simulation.Entities.OfType<FacilityEntity>().SelectMany(x => x.DelayChain));
-            ///allTransactions.AddRange(simulation.Entities.OfType<FacilityEntity>().SelectMany(x => x.PendingChain));
+            allTransactions.AddRange(simulation.Entities.Values.OfType<IDelayableEntity>().SelectMany(x => x.DelayChain));
+            allTransactions.AddRange(simulation.Entities.Values.OfType<IPendableEntity>().SelectMany(x => x.PendingChain));
             //
 
             StringBuilder sb = new StringBuilder();
@@ -81,7 +89,7 @@ namespace MyAss.Utilities.Reports_v2
             foreach (var block in simulation.Blocks)
             {
                 sb.AppendLine(String.Format("{0,-15} {1,5} {2,15} {3,13} {4,13} {5,13}",
-                    "",
+                    simulation.NamesDictionary.ContainsByFirst(block.Value.Id) ? simulation.NamesDictionary.GetByFirst(block.Value.Id) : String.Empty,
                     block.Value.Id,
                     block.Value.GetType().Name,
                     block.Value.EntryCount,
@@ -135,7 +143,7 @@ namespace MyAss.Utilities.Reports_v2
                 foreach (var item in items)
                 {
                     sb.AppendLine(String.Format("{0,-14} {1,6} {2,6} {3,6} {4,6} {5,9:F3} {6,9:F3} {7,9:F3} {8,6}",
-                        item.Id,
+                        simulation.NamesDictionary.GetByFirst(item.Id),
                         item.MaxContent,
                         item.CurrentContent,
                         item.EntriesCount,
@@ -163,7 +171,7 @@ namespace MyAss.Utilities.Reports_v2
                 foreach (var item in items)
                 {
                     sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9:F3} {8,9:F3} {9,5} {10,5}",
-                        item.Id,
+                        simulation.NamesDictionary.GetByFirst(item.Id),
                         item.Capacity,
                         item.RemainingCapacity,
                         item.MinContent,
@@ -224,7 +232,7 @@ namespace MyAss.Utilities.Reports_v2
                 foreach (var item in items)
                 {
                     sb.AppendLine(String.Format("{0,-24} {1,6} {2,10}",
-                        item.Id,
+                        simulation.NamesDictionary.GetByFirst(item.Id),
                         item.RetryChain.Count,
                         item.Value));
                 }
@@ -252,7 +260,7 @@ namespace MyAss.Utilities.Reports_v2
                 sb.AppendLine(String.Format("{0,6} {1,6} {2,10} {3,10} {4,10} {5,10}",
                     tr.Number,
                     tr.Priority,
-                    tr.MarkTime,
+                    tr.MarkTime.ToString("F5"),
                     tr.AssemblySet,
                     tr.Owner,
                     tr.NextOwner));
@@ -274,7 +282,7 @@ namespace MyAss.Utilities.Reports_v2
                 sb.AppendLine(String.Format("{0,6} {1,6} {2,10} {3,10} {4,10} {5,10}",
                     tr.Number,
                     tr.Priority,
-                    tr.NextEventTime,
+                    tr.NextEventTime.ToString("F5"),
                     tr.AssemblySet,
                     tr.Owner,
                     tr.NextOwner));

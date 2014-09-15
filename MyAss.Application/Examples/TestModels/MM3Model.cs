@@ -1,32 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyAss.Framework.Procedures;
+﻿using MyAss.Framework.Procedures;
+using MyAss.Framework_v2;
 using MyAss.Framework_v2.Blocks;
 using MyAss.Framework_v2.BuiltIn.Blocks;
 using MyAss.Framework_v2.BuiltIn.Commands;
-using MyAss.Framework_v2.BuiltIn.Entities;
-using MyAss.Framework_v2.Commands;
-using MyAss.Framework_v2.Entities;
-using MyAss.Framework_v2.OperandTypes;
 using MyAss.Framework_v2.BuiltIn.SNA;
-using MyAss.Framework_v2;
+using MyAss.Framework_v2.Commands;
+using MyAss.Framework_v2.OperandTypes;
 
 namespace MyAss.Application.Examples.TestModels
 {
     class MM3Model : AbstractModel
     {
+        // TODO: Figure out how to create Block labels binding =/
+
         public override AbstractModel Construct()
         {
             // Add names
-            this.AddName("GENERATECOUNTER", 10001);
-            this.AddName("GOAWAY", 11);
-            this.AddName("REJECTCOUNTER", 10004);
-            this.AddName("REJETIONPROB", 10003);
-            this.AddName("SERVER", 10000);
-            this.AddName("TAIL", 10002);
+            this.AddName(10001, "GENERATECOUNTER");
+            this.AddName(11, "GOAWAY");
+            this.AddName(10004, "REJECTCOUNTER");
+            this.AddName(10003, "REJETIONPROB");
+            this.AddName(10000, "SERVER");
+            this.AddName(10002, "TAIL");
+
 
             ICommand command1 = new Storage(new Number(3));
             command1.SetId(10000);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,16 @@ namespace MyAss.Application.Examples.TestModels
     {
         public static void RunMM3()
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Restart();
+
             Simulation sim = new Simulation(new MM3Model().Construct());
+
+            sw.Stop();
+            Console.WriteLine("Time elapsed: " + sw.Elapsed);
+
             StandardReport.PrintReport(sim);
+            Console.WriteLine();
         }
     }
 }
