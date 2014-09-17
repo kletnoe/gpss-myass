@@ -16,7 +16,7 @@ namespace MyAss.Application.Examples.TestModels
             Stopwatch sw = new Stopwatch();
             sw.Restart();
 
-            Simulation sim = new Simulation(new MM3Model().Construct());
+            Simulation sim = new Simulation(new MM3Model());
 
             sw.Stop();
             Console.WriteLine("Time elapsed: " + sw.Elapsed);

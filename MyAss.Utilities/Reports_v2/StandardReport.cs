@@ -20,7 +20,7 @@ namespace MyAss.Utilities.Reports_v2
 
             // General
             sb.Append(GeneralInfo(simulation));
-            sb.Append(NamesInfo(simulation));
+            sb.Append(NamesInfo(simulation)); ;
             sb.Append(BlocksInfo(simulation));
 
             // Entities

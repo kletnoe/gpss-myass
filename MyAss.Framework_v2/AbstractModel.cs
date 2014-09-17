@@ -47,9 +47,14 @@ namespace MyAss.Framework_v2
             this.commands = new List<ICommand>();
         }
 
-        public void AddName(int key, string value)
+        public void AddName(int nameId, string name)
         {
-            this.namesDictionary.Add(key, value);
+            this.namesDictionary.Add(nameId, name);
+        }
+
+        public void ReplaceNameId(int nameId, string name)
+        {
+            this.namesDictionary.ReplaceBySecond(nameId, name);
         }
 
         public void AddVerb(IBlock block)
@@ -61,7 +66,5 @@ namespace MyAss.Framework_v2
         {
             this.commands.Add(command);
         }
-
-        public abstract AbstractModel Construct();
     }
 }

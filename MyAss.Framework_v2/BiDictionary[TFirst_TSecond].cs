@@ -35,7 +35,35 @@ namespace MyAss.Framework_v2
                 throw new ArgumentException("Duplicate first or second");
             }
             this.firstToSecond.Add(first, second);
-            this. secondToFirst.Add(second, first);
+            this.secondToFirst.Add(second, first);
+        }
+
+        public void ReplaceByFirst(TFirst first, TSecond second)
+        {
+            if (this.firstToSecond.ContainsKey(first))
+            {
+                TSecond currentSecond = this.firstToSecond[first];
+
+                this.firstToSecond.Remove(first);
+                this.secondToFirst.Remove(currentSecond);
+            }
+
+            this.firstToSecond.Add(first, second);
+            this.secondToFirst.Add(second, first);
+        }
+
+        public void ReplaceBySecond(TFirst first, TSecond second)
+        {
+            if (this.secondToFirst.ContainsKey(second))
+            {
+                TFirst currentFirst = this.secondToFirst[second];
+
+                this.firstToSecond.Remove(currentFirst);
+                this.secondToFirst.Remove(second);
+            }
+
+            this.firstToSecond.Add(first, second);
+            this.secondToFirst.Add(second, first);
         }
 
         public TSecond GetByFirst(TFirst first)
@@ -56,6 +84,28 @@ namespace MyAss.Framework_v2
         public bool ContainsBySecond(TSecond second)
         {
             return this.secondToFirst.ContainsKey(second);
+        }
+
+        public void RemoveByFirst(TFirst first)
+        {
+            if (this.firstToSecond.ContainsKey(first))
+            {
+                TSecond second = this.firstToSecond[first];
+
+                this.firstToSecond.Remove(first);
+                this.secondToFirst.Remove(second);
+            }
+        }
+
+        public void RemoveBySecond(TSecond second)
+        {
+            if (this.secondToFirst.ContainsKey(second))
+            {
+                TFirst first = this.secondToFirst[second];
+
+                this.firstToSecond.Remove(first);
+                this.secondToFirst.Remove(second);
+            }
         }
 
         public void Clear()

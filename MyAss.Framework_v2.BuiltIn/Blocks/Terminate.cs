@@ -18,14 +18,15 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
         public override void Action(Simulation simulation)
         {
+            // A: The default is 0.
+            int decriment = this.A_TerminationCountDecriment == null ? 0 : (int)this.A_TerminationCountDecriment.GetValue();
+
             Transaction transaction = simulation.ActiveTransaction;
             this.EntryCount++;
 
             Console.WriteLine("Terminated\tTime: " + simulation.Clock + transaction + " " + this.Id, ConsoleColor.DarkGray);
 
-            int decriment = (int)this.A_TerminationCountDecriment.GetValue();
             simulation.TerminationsCount -= decriment;
-
             transaction.Dispose();
         }
     }
