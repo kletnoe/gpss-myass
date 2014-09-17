@@ -16,56 +16,56 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
         [Test]
         public void Expression_Literal()
         {
-            string input = @"Mark 3";
+            string input = @"Generate 3";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_SignedLiteral1()
         {
-            string input = @"Mark -3";
+            string input = @"Generate -3";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_SignedLiteral2()
         {
-            string input = @"Mark +3";
+            string input = @"Generate +3";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Id()
         {
-            string input = @"Mark GetSomething()";
+            string input = @"Generate GetSomething()";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_ParExpression()
         {
-            string input = @"Mark (GetSomething())";
+            string input = @"Generate (GetSomething())";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Addition()
         {
-            string input = @"Mark 3+4+5/25";
+            string input = @"Generate 3+4+5/25";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Complex1()
         {
-            string input = @"Mark ((GetSomething() + 3)/25)";
+            string input = @"Generate ((GetSomething() + 3)/25)";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Complex2()
         {
-            string input = @"Mark ((GetSomething() + 3)/25 + (1 + (id2 # (2 / 7))))";
+            string input = @"Generate ((GetSomething() + 3)/25 + (1 + (id2 # (2 / 7))))";
             Assert.Pass(this.Run(input).ToString());
         }
 

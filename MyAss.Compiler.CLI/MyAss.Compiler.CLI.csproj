@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C7D9FD2E-57E5-43CB-96D9-61218837E1C1}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{1C6CDF5E-66CA-453B-B683-38CE6088F481}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyAss.Compiler.Metadata</RootNamespace>
-    <AssemblyName>MyAss.Compiler.Metadata</AssemblyName>
+    <RootNamespace>MyAss.Compiler.CLI</RootNamespace>
+    <AssemblyName>MyAss.Compiler.CLI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -39,14 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MetadataRetriever_v2.cs" />
-    <Compile Include="MetadataRetriever.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyAss.Framework_v2\MyAss.Framework_v2.csproj">
-      <Project>{8a83f996-3614-4968-841e-2065eaff1a08}</Project>
-      <Name>MyAss.Framework_v2</Name>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyAss.Compiler\MyAss.Compiler.csproj">
+      <Project>{71dcfda0-ddf5-4494-a055-afd90aa09241}</Project>
+      <Name>MyAss.Compiler</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

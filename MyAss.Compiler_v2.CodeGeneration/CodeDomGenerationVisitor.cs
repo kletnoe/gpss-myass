@@ -2,51 +2,57 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using MyAss.Compiler;
 using MyAss.Compiler.Metadata;
 using MyAss.Compiler_v2.AST;
-using MyAss.Framework;
-using MyAss.Framework.Blocks;
-using MyAss.Framework.Commands;
+using MyAss.Framework_v2;
+using MyAss.Framework_v2.Blocks;
+using MyAss.Framework_v2.Commands;
 
 namespace MyAss.Compiler_v2.CodeGeneration
 {
     public class CodeDomGenerationVisitor : IASTVisitor<CodeObject>
     {
-        private Parser_v2 parser;
-
         private const string theNamespaceName = "Modeling";
-        private const string theClassName = "Model1";
+        private const string theClassName = "TheModel";
 
-        private const string setLabelMethodName = "SetLabel";
+        private const string setIdMethodName = "SetId";
         private const string addVerbMethodName = "AddVerb";
-        private const string getModelMethodName = "GetModel";
-        private const string resultModelVarName = "resultModel";
+        private const string addNameMethodName = "AddName";
+        private const string replaceNameIdMethodName = "ReplaceNameId";
+
+        private const string simulationFieldName = "simulation";
+
+
+        private Parser_v2 parser;
+        private MetadataRetriever_v2 metadataRetriever;
+        private Dictionary<string, int> namedVars = new Dictionary<string, int>();
 
         CodeNamespace theNamespace;
         CodeTypeDeclaration theClass;
+        CodeConstructor theConstructor;
 
+        private int currentBlockNo = 1;
+        private int currentCommandNo = 1;
         private int verbNo = 1;
+        private int currentNamedVarNo = 10000;
 
         public CodeDomGenerationVisitor(Parser_v2 parser)
         {
             this.parser = parser;
+            this.metadataRetriever = parser.MetadataRetriever;
 
-            this.theClass = new CodeTypeDeclaration()
-            {
-                Attributes = MemberAttributes.Public | MemberAttributes.Static,
-                Name = CodeDomGenerationVisitor.theClassName
-            };
+            this.theNamespace = new CodeNamespace();
+            this.theNamespace.Name = CodeDomGenerationVisitor.theNamespaceName;
 
-            this.theNamespace = new CodeNamespace()
-            {
-                Name = CodeDomGenerationVisitor.theNamespaceName
-            };
+            this.theClass = new CodeTypeDeclaration();
+            this.theClass.Attributes = MemberAttributes.Public;
+            this.theClass.Name = CodeDomGenerationVisitor.theClassName;
+            this.theClass.BaseTypes.Add(typeof(AbstractModel));
+            this.theNamespace.Types.Add(this.theClass);
 
-            theNamespace.Types.Add(theClass);
+            this.theConstructor = new CodeConstructor();
+            this.theConstructor.Attributes = MemberAttributes.Public;
+            this.theClass.Members.Add(this.theConstructor);
         }
 
         public CodeCompileUnit VisitAll()
@@ -56,8 +62,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
             model.Accept(this);
 
             CodeCompileUnit theAssembly = new CodeCompileUnit();
-            theAssembly.ReferencedAssemblies.Add("MyAss.Framework.dll");
-            theAssembly.ReferencedAssemblies.Add("MyAss.Framework.Procedures.dll");
+            theAssembly.ReferencedAssemblies.AddRange(this.metadataRetriever.AsssemblyPaths.ToArray());
             theAssembly.Namespaces.Add(theNamespace);
 
             return theAssembly;
@@ -65,93 +70,165 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
         public CodeObject Visit(ASTModel model)
         {
-            /*
-            Following scope constructs:
-            public static Model GetModel()
-            {
-                Model resultModel = new Model();
-            }
-            */
-            CodeMemberMethod method;
-            {
-                method = new CodeMemberMethod()
-                {
-                    Attributes = MemberAttributes.Public | MemberAttributes.Static,
-                    ReturnType = new CodeTypeReference(typeof(Model)),
-                    Name = getModelMethodName,
-                };
-
-                method.Statements.Add(
-                    new CodeVariableDeclarationStatement(
-                        typeof(Model),
-                        resultModelVarName,
-                        new CodeObjectCreateExpression(typeof(Model))
-                    )
-                );
-            }
-
             // Verbs
             foreach (var verb in model.Verbs)
             {
-                method.Statements.Add((CodeStatement)verb.Accept(this));
+                this.theConstructor.Statements.Add((CodeStatement)verb.Accept(this));
                 this.verbNo++;
             }
-
-            /*
-            Following scope constructs:
-                ...
-                return resultModel;
-                ...
-            */
-            {
-                method.Statements.Add(
-                    new CodeMethodReturnStatement(
-                        new CodeVariableReferenceExpression(
-                            resultModelVarName
-                        )
-                    )
-                );
-            }
-
-            this.theClass.Members.Add(method);
 
             return this.theClass;
         }
 
         public CodeObject Visit(ASTVerb verb)
         {
-            Type verbType = MetadataRetriever.GetBuiltinVerb(verb.VerbId);
+            Type verbType = this.metadataRetriever.GetVerb(verb.VerbId);
 
-            CodeVariableDeclarationStatement varDeclaration = new CodeVariableDeclarationStatement(
-                verbType,
-                "verb",
-                this.CreateConstructorCallExpression(verbType, verb.Operands)
-            );
+            // Construct always true if block to wrap several statements
+            CodeConditionStatement result = new CodeConditionStatement();
+            result.Condition = new CodePrimitiveExpression(true);
 
-            CodeExpressionStatement setLabelCall = new CodeExpressionStatement(
-                new CodeMethodInvokeExpression(
-                    new CodeVariableReferenceExpression("verb"),
-                    setLabelMethodName,
-                    new CodePrimitiveExpression(verb.LabelId)
-                )
-            );
+            // Process label if exists
+            if (verb.LabelId != null)
+            {
+                // If namedVar is not exists already
+                if (!this.namedVars.ContainsKey(verb.LabelId))
+                {
+                    this.CreateNewNamedVar(verb.LabelId);
+                }
 
-            CodeExpressionStatement addToModelCall = new CodeExpressionStatement(
-                new CodeMethodInvokeExpression(
-                    new CodeVariableReferenceExpression(resultModelVarName),
-                    addVerbMethodName,
-                    new CodeVariableReferenceExpression("verb")
-                )
-            );
+                // verb is Block
+                if (typeof(IBlock).IsAssignableFrom(verbType))
+                {
+                    this.ReplaceExistingNamedVar(verb.LabelId);
+                }
+            }
 
-            // Always positive if for several statements representation
-            CodeConditionStatement result = new CodeConditionStatement(
-                new CodePrimitiveExpression(true),
-                varDeclaration,
-                setLabelCall,
-                addToModelCall);
+            // Construct verb declaration
+            CodeVariableDeclarationStatement verbDeclaration = new CodeVariableDeclarationStatement();
+            verbDeclaration.Type = new CodeTypeReference(verbType);
+            verbDeclaration.Name = "verb";
+            verbDeclaration.InitExpression = this.CreateConstructorCallExpression(verbType, verb.Operands);
+            result.TrueStatements.Add(verbDeclaration);
+
+            // Construct Set label Id for Commands
+            if (verb.LabelId != null)
+            {
+                if (typeof(ICommand).IsAssignableFrom(verbType))
+                {
+                    result.TrueStatements.Add(this.CallCommandSetIdMethod("verb", verb.LabelId));
+                }
+            }
+
+
+            // Construct AddVerb method call
+            result.TrueStatements.Add(this.CallAddVerbMethod("verb"));
 
             return result;
+        }
+
+        private void CreateNewNamedVar(string namedVarName)
+        {
+            int namedVarId = this.currentNamedVarNo;
+            this.namedVars.Add(namedVarName, this.currentNamedVarNo);
+            this.currentNamedVarNo++;
+
+            // Construct NamedVar field
+            this.theClass.Members.Add(this.CreateNamedVar(namedVarName));
+
+            // Assign namedVar
+            this.theConstructor.Statements.Add(this.AssignNamedVar(namedVarName, namedVarId));
+            this.theConstructor.Statements.Add(this.CallAddNameMethod(namedVarName));
+        }
+
+        private void ReplaceExistingNamedVar(string namedVarName)
+        {
+            int blockNo = this.currentBlockNo;
+            this.theConstructor.Statements.Add(this.AssignNamedVar(namedVarName, blockNo));
+            this.theConstructor.Statements.Add(this.CallReplaceNameIdMethod(namedVarName));
+            this.theConstructor.Statements.Add(this.CallAddNameMethod(namedVarName));
+        }
+
+        private CodeMemberField CreateNamedVar(string namedVarName)
+        {
+            CodeMemberField field = new CodeMemberField();
+            field.Attributes = MemberAttributes.Private;
+            field.Type = new CodeTypeReference(typeof(int));
+            field.Name = namedVarName;
+
+            return field;
+        }
+
+        private CodeAssignStatement AssignNamedVar(string namedVarName, int value)
+        {
+            CodeAssignStatement assign = new CodeAssignStatement();
+            assign.Left = new CodeFieldReferenceExpression(
+                new CodeThisReferenceExpression(),
+                namedVarName
+            );
+            assign.Right = new CodePrimitiveExpression(value);
+
+            return assign;
+        }
+
+        private CodeExpressionStatement CallAddNameMethod(string namedVarName)
+        {
+            CodeMethodInvokeExpression methodCall = new CodeMethodInvokeExpression();
+            methodCall.Method = new CodeMethodReferenceExpression();
+            methodCall.Method.TargetObject = new CodeThisReferenceExpression();
+            methodCall.Method.MethodName = CodeDomGenerationVisitor.addNameMethodName;
+
+            methodCall.Parameters.Add(new CodeFieldReferenceExpression(
+                new CodeThisReferenceExpression(),
+                namedVarName
+            ));
+            methodCall.Parameters.Add(new CodePrimitiveExpression(namedVarName));
+
+            return new CodeExpressionStatement(methodCall);
+        }
+
+
+        private CodeExpressionStatement CallReplaceNameIdMethod(string namedVarName)
+        {
+            CodeMethodInvokeExpression methodCall = new CodeMethodInvokeExpression();
+            methodCall.Method = new CodeMethodReferenceExpression();
+            methodCall.Method.TargetObject = new CodeThisReferenceExpression();
+            methodCall.Method.MethodName = CodeDomGenerationVisitor.replaceNameIdMethodName;
+
+            methodCall.Parameters.Add(new CodeFieldReferenceExpression(
+                new CodeThisReferenceExpression(),
+                namedVarName
+            ));
+            methodCall.Parameters.Add(new CodePrimitiveExpression(namedVarName));
+
+            return new CodeExpressionStatement(methodCall);
+        }
+
+        private CodeExpressionStatement CallCommandSetIdMethod(string verbVarName, string namedVarName)
+        {
+            CodeMethodInvokeExpression methodCall = new CodeMethodInvokeExpression();
+            methodCall.Method = new CodeMethodReferenceExpression();
+            methodCall.Method.TargetObject = new CodeVariableReferenceExpression(verbVarName);
+            methodCall.Method.MethodName = CodeDomGenerationVisitor.setIdMethodName;
+
+            methodCall.Parameters.Add(new CodeFieldReferenceExpression(
+                new CodeThisReferenceExpression(),
+                namedVarName
+            ));
+
+            return new CodeExpressionStatement(methodCall);
+        }
+
+        private CodeExpressionStatement CallAddVerbMethod(string verbVarName)
+        {
+            CodeMethodInvokeExpression methodCall = new CodeMethodInvokeExpression();
+            methodCall.Method = new CodeMethodReferenceExpression();
+            methodCall.Method.TargetObject = new CodeThisReferenceExpression();
+            methodCall.Method.MethodName = CodeDomGenerationVisitor.addVerbMethodName;
+
+            methodCall.Parameters.Add(new CodeVariableReferenceExpression(verbVarName));
+
+            return new CodeExpressionStatement(methodCall);
         }
 
         private CodeObjectCreateExpression CreateConstructorCallExpression(Type verbType, IList<IASTExpression> operands)
@@ -171,12 +248,12 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
                     ctorCall.Parameters.Add(
                         new CodeObjectCreateExpression(
-                            typeof(MyAss.Framework.OperandTypes.ParExpression),
+                            typeof(MyAss.Framework_v2.OperandTypes.ParExpression),
                             new CodeDelegateCreateExpression(
                                 new CodeTypeReference(
-                                    typeof(MyAss.Framework.OperandTypes.ExpressionDelegate)
+                                    typeof(MyAss.Framework_v2.OperandTypes.ExpressionDelegate)
                                 ),
-                                new CodeTypeReferenceExpression(theClassName),
+                                new CodeThisReferenceExpression(),
                                 operandMethodName
                            )
                         )
@@ -195,7 +272,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
         {
             CodeMemberMethod method = new CodeMemberMethod()
             {
-                Attributes = MemberAttributes.Public | MemberAttributes.Static,
+                Attributes = MemberAttributes.Public,
                 ReturnType = new CodeTypeReference(typeof(Double)),
                 Name = methodName
             };
@@ -236,17 +313,40 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
         public CodeObject Visit(ASTLValue lval)
         {
-            return new CodePrimitiveExpression(100500);
+            // If namedVar is not exists already
+            if (!this.namedVars.ContainsKey(lval.Id))
+            {
+                this.CreateNewNamedVar(lval.Id);
+            }
+
+            return new CodeFieldReferenceExpression(
+                new CodeThisReferenceExpression(),
+                lval.Id
+            );
         }
 
         public CodeObject Visit(ASTDirectSNACall sna)
         {
+            // If namedVar is not exists already
+            if (!this.namedVars.ContainsKey(sna.ActualId))
+            {
+                this.CreateNewNamedVar(sna.ActualId);
+            }
+
+
             CodeMethodInvokeExpression result = new CodeMethodInvokeExpression(
                 new CodeMethodReferenceExpression(
-                    new CodeTypeReferenceExpression(MetadataRetriever.GetBuiltinSnaType()),
+                    new CodeTypeReferenceExpression(this.metadataRetriever.GetProcedure(sna.SnaId).ReflectedType),
                     sna.SnaId
                 ),
-                new CodePrimitiveExpression(sna.ActualId)
+                new CodeFieldReferenceExpression(
+                    new CodeThisReferenceExpression(),
+                    CodeDomGenerationVisitor.simulationFieldName
+                ),
+                new CodeFieldReferenceExpression(
+                    new CodeThisReferenceExpression(),
+                    sna.ActualId
+                )
             );
 
             return result;
@@ -256,7 +356,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
         {
             CodeMethodInvokeExpression result = new CodeMethodInvokeExpression(
                 new CodeMethodReferenceExpression(
-                    new CodeTypeReferenceExpression(MetadataRetriever.GetBuiltinProceduresType()),
+                    new CodeTypeReferenceExpression(this.metadataRetriever.GetProcedure(call.ProcedureId).ReflectedType),
                     call.ProcedureId
                 )
             );

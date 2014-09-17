@@ -16,7 +16,7 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
         [Test]
         public void DirectSna()
         {
-            string input = @"Mark x$SomeId";
+            string input = @"Generate x$SomeId";
             Assert.Pass(this.Run(input).ToString());
         }
 

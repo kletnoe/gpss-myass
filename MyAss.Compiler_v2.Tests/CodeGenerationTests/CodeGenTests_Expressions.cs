@@ -17,7 +17,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void IntLiteral()
         {
-            string input = @"Mark 1";
+            string input = @"Generate 1";
             string expected = @"1";
 
             CommonCode(input, expected);
@@ -26,7 +26,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void SignedIntLiteralPlus()
         {
-            string input = @"Mark +11";
+            string input = @"Generate +11";
             string expected = @"(0+11)";
 
             CommonCode(input, expected);
@@ -35,7 +35,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void SignedIntLiteralMinus()
         {
-            string input = @"Mark -12";
+            string input = @"Generate -12";
             string expected = @"(0-12)";
 
             CommonCode(input, expected);
@@ -44,7 +44,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void SignedIntLiteral2()
         {
-            string input = @"Mark -(+(-(-1)))";
+            string input = @"Generate -(+(-(-1)))";
             string expected = @"(0-(0+(0-(0-1))))";
 
             CommonCode(input, expected);
@@ -53,7 +53,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void MulopIntLiteral()
         {
-            string input = @"Mark 11#5/3";
+            string input = @"Generate 11#5/3";
             string expected = @"((11#5)/3)";
 
             CommonCode(input, expected);
@@ -62,7 +62,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void MulopIntLiteral2()
         {
-            string input = @"Mark 11#5\3";
+            string input = @"Generate 11#5\3";
             string expected = @"((11#5)\3)";
 
             CommonCode(input, expected);
@@ -71,7 +71,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void MulopIntLiteralParents()
         {
-            string input = @"Mark 11#(5/3)";
+            string input = @"Generate 11#(5/3)";
             string expected = @"(11#(5/3))";
 
             CommonCode(input, expected);
@@ -80,7 +80,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void MulopIntLiteralNegative()
         {
-            string input = @"Mark -2#25/4#3";
+            string input = @"Generate -2#25/4#3";
             string expected = @"((((0-2)#25)/4)#3)";
 
             CommonCode(input, expected);
@@ -90,7 +90,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void AddopIntLiteral()
         {
-            string input = @"Mark 1+2";
+            string input = @"Generate 1+2";
             string expected = @"(1+2)";
 
             CommonCode(input, expected);
@@ -99,7 +99,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void AddopIntLiteral2()
         {
-            string input = @"Mark 1+2-3";
+            string input = @"Generate 1+2-3";
             string expected = @"((1+2)-3)";
 
             CommonCode(input, expected);
@@ -108,7 +108,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void AddopIntLiteralParens()
         {
-            string input = @"Mark 1+(2+3)";
+            string input = @"Generate 1+(2+3)";
             string expected = @"(1+(2+3))";
 
             CommonCode(input, expected);
@@ -117,7 +117,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void AddopIntLiteralExtraParens()
         {
-            string input = @"Mark ((1+((2+3))))";
+            string input = @"Generate ((1+((2+3))))";
             string expected = @"(1+(2+3))";
 
             CommonCode(input, expected);
@@ -126,7 +126,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void AddopIntLiteralNegative()
         {
-            string input = @"Mark -1+2+3";
+            string input = @"Generate -1+2+3";
             string expected = @"(((0-1)+2)+3)";
 
             CommonCode(input, expected);
@@ -135,7 +135,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void MixedIntLiteral()
         {
-            string input = @"Mark ((4+5)/(2#3+1))";
+            string input = @"Generate ((4+5)/(2#3+1))";
             string expected = @"((4+5)/((2#3)+1))";
 
             CommonCode(input, expected);
@@ -144,7 +144,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void DoubleLiteral()
         {
-            string input = @"Mark 1.3+2.4";
+            string input = @"Generate 1.3+2.4";
             string expected = @"(1.3+2.4)";
 
             CommonCode(input, expected);
@@ -153,7 +153,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void SpacesInExpressions()
         {
-            string input = @"Mark (1 + 2)";
+            string input = @"Generate (1 + 2)";
             string expected = @"(1+2)";
 
             CommonCode(input, expected);
@@ -162,7 +162,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void SpacesInExpressions2()
         {
-            string input = @"Mark (1 + (1 / 3))";
+            string input = @"Generate (1 + (1 / 3))";
             string expected = @"(1+(1/3))";
 
             CommonCode(input, expected);
@@ -171,7 +171,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void SpacesInExpressions3()
         {
-            string input = @"Mark ((1 + 2) / 3)";
+            string input = @"Generate ((1 + 2) / 3)";
             string expected = @"((1+2)/3)";
 
             CommonCode(input, expected);
@@ -180,7 +180,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void SpacesInExpressions4()
         {
-            string input = @"Mark ((1 + 2) / ( 1-  (3 # 4)))";
+            string input = @"Generate ((1 + 2) / ( 1-  (3 # 4)))";
             string expected = @"((1+2)/(1-(3#4)))";
 
             CommonCode(input, expected);
@@ -189,7 +189,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void SpacesInExpressions5()
         {
-            string input = @"Mark (-1 - 2) -3";
+            string input = @"Generate (-1 - 2) -3";
             string expected = @"((0-1)-2)";
 
             CommonCode(input, expected);
@@ -198,8 +198,8 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void DirectSna()
         {
-            string input = @"Mark X$Tail";
-            string expected = @"X(Tail)";
+            string input = @"Generate X$Tail";
+            string expected = @"X(simulation, Tail)";
 
             CommonCode(input, expected);
         }
@@ -207,7 +207,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         [Test]
         public void Procedure()
         {
-            string input = @"Mark Exponential(1,2,3)";
+            string input = @"Generate Exponential(1,2,3)";
             string expected = @"Exponential(1, 2, 3)";
 
             CommonCode(input, expected);

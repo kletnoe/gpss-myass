@@ -57,9 +57,9 @@
       <Project>{65edceec-6974-4ed0-aca6-115a0812628f}</Project>
       <Name>MyAss.Compiler_v2.AST</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyAss.Framework\MyAss.Framework.csproj">
-      <Project>{511c1ef6-f99a-42d5-8d3a-4f8e93a11c3e}</Project>
-      <Name>MyAss.Framework</Name>
+    <ProjectReference Include="..\MyAss.Framework_v2\MyAss.Framework_v2.csproj">
+      <Project>{8a83f996-3614-4968-841e-2065eaff1a08}</Project>
+      <Name>MyAss.Framework_v2</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

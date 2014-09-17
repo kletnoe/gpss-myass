@@ -12,7 +12,6 @@ namespace MyAss.Application
 {
     class Program
     {
-
         static void Main(string[] args)
         {
             ModelRunner.RunMM3();

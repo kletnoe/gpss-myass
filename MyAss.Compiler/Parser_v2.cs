@@ -12,10 +12,35 @@ namespace MyAss.Compiler_v2
     public class Parser_v2
     {
         public IScanner Scanner { get; private set; }
+        public MetadataRetriever_v2 MetadataRetriever { get; private set; }
 
         public Parser_v2(IScanner scanner)
         {
             this.Scanner = scanner;
+
+
+            /// Temp
+            List<string> assemblies = new List<string>()
+            {
+                "MyAss.Framework_v2.dll",
+                "MyAss.Framework_v2.BuiltIn.dll",
+                "MyAss.Framework.Procedures.dll"
+            };
+
+            List<string> namespaces = new List<string>()
+            {
+                "MyAss.Framework_v2.BuiltIn.Blocks",
+                "MyAss.Framework_v2.BuiltIn.Commands"
+            };
+
+            List<string> types = new List<string>()
+            {
+                "MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA",
+                "MyAss.Framework_v2.BuiltIn.SNA.QueueSNA",
+                "MyAss.Framework.Procedures.Distributions"
+            };
+
+            this.MetadataRetriever = new MetadataRetriever_v2(assemblies, namespaces, types);
         }
 
         public ASTModel Parse()
@@ -93,7 +118,7 @@ namespace MyAss.Compiler_v2
             ASTVerb verb = new ASTVerb();
 
             string firstId = this.ExpectID();
-            if (MetadataRetriever.IsBuiltinVerb(firstId))
+            if (this.MetadataRetriever.IsVerb(firstId))
             {
                 // Id is verb 
                 verb.VerbId = firstId;

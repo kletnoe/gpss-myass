@@ -22,6 +22,14 @@ namespace MyAss.Compiler_v2.CodeGeneration
                 OutputAssembly = InMemory ? null : outputPath
             };
 
+            compilerParams.ReferencedAssemblies.AddRange(new string[]{
+                "MyAss.Framework_v2.dll",
+                "MyAss.Framework_v2.BuiltIn.dll",
+                "MyAss.Framework.Procedures.dll"});
+
+            compilerParams.TempFiles = new TempFileCollection(@"c:\temp\", true);
+
+            compilerParams.CompilerOptions = "/optimize-";
 
             CSharpCodeProvider provider = new CSharpCodeProvider();
             CompilerResults results = provider.CompileAssemblyFromDom(compilerParams, compileUnit);

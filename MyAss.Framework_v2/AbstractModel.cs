@@ -10,7 +10,7 @@ namespace MyAss.Framework_v2
 {
     public abstract class AbstractModel
     {
-        public Simulation Simulation { get; set; }
+        protected Simulation simulation;
 
         private BiDictionary<int, string> namesDictionary;
         private List<IBlock> blocks;
@@ -45,6 +45,16 @@ namespace MyAss.Framework_v2
             this.namesDictionary = new BiDictionary<int, string>();
             this.blocks = new List<IBlock>();
             this.commands = new List<ICommand>();
+        }
+
+        public void SetSimulation(Simulation simulation)
+        {
+            this.simulation = simulation;
+        }
+
+        public Simulation GetSimulation()
+        {
+            return this.simulation;
         }
 
         public void AddName(int nameId, string name)

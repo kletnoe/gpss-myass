@@ -25,9 +25,9 @@ namespace MyAss.Application.Examples.TestModels
             this.AddName(SERVER, "SERVER");
             ICommand command1 = new Storage(new ParExpression(this.Command1_Operand1));
             command1.SetId(this.SERVER);
+            this.AddVerb(command1);
 
             // START 1000
-            this.AddVerb(command1);
             ICommand command2 = new Start(new ParExpression(this.Command2_Operand1), null, null, null);
             this.AddVerb(command2);
 
@@ -104,12 +104,12 @@ namespace MyAss.Application.Examples.TestModels
 
         public double Block2_Operand2()
         {
-            return SavevalueSNA.X(this.Simulation, this.GENERATECOUNTER) + 1;
+            return SavevalueSNA.X(this.simulation, this.GENERATECOUNTER) + 1;
         }
 
         public double Block3_Operand2()
         {
-            return QueueSNA.Q(this.Simulation, this.TAIL);
+            return QueueSNA.Q(this.simulation, this.TAIL);
         }
 
         public double Block3_Operand3() { return 20; }
@@ -134,8 +134,8 @@ namespace MyAss.Application.Examples.TestModels
 
         public double Block9_Operand2()
         {
-            double rej = SavevalueSNA.X(this.Simulation, this.REJECTCOUNTER);
-            double gen = SavevalueSNA.X(this.Simulation, this.GENERATECOUNTER);
+            double rej = SavevalueSNA.X(this.simulation, this.REJECTCOUNTER);
+            double gen = SavevalueSNA.X(this.simulation, this.GENERATECOUNTER);
 
             return rej/gen;
         }
@@ -146,7 +146,7 @@ namespace MyAss.Application.Examples.TestModels
 
         public double Block11_Operand2()
         {
-            return SavevalueSNA.X(this.Simulation, this.REJECTCOUNTER) + 1;
+            return SavevalueSNA.X(this.simulation, this.REJECTCOUNTER) + 1;
         }
     }
 }

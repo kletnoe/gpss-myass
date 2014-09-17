@@ -26,6 +26,14 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
             {
                 return Print(expr as CodeMethodReferenceExpression);
             }
+            else if (expr is CodeThisReferenceExpression)
+            {
+                return Print(expr as CodeThisReferenceExpression);
+            }
+            else if (expr is CodeFieldReferenceExpression)
+            {
+                return Print(expr as CodeFieldReferenceExpression);
+            }
 
             else
             {
@@ -36,6 +44,16 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         public static string Print(CodeMethodReferenceExpression expr)
         {
             return expr.MethodName;
+        }
+
+        public static string Print(CodeThisReferenceExpression expr)
+        {
+            return "this";
+        }
+
+        public static string Print(CodeFieldReferenceExpression expr)
+        {
+            return expr.FieldName;
         }
 
         public static string Print(CodeMethodInvokeExpression expr)

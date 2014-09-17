@@ -8,6 +8,14 @@ Rules of Thumb:
 4. Suffix logic (Assign/Savevalue) fubars current grammatics, is not supported;
 5. Issue with optional label solved with verb name lookup in Framework metadata;
 
+<source> ::= { <directive> }+ <model>
+
+	<directive> ::= <directiveid> <directiveparam>
+
+		<directiveid> ::= "@using" | "@usingP"
+
+		<directiveparam> ::= ID
+
 <model> ::= { <verb> [ COMMENT ] "\r\n" }+
 
 	<verb> ::= [ ID ] ID [ <operands> ]
@@ -52,6 +60,7 @@ ID Types:
 - VerbName
 - Entity Instance Name
 - Method (or SNA)
+- Directive parameter
 
 
 Thoughts:
@@ -63,3 +72,5 @@ Thoughts:
 2. SNA may not be wrapped in static methods, but just methods on the Entity;
 
 3. Simulation object should not be singleton
+
+4. Add logic to restrict duplicate labels

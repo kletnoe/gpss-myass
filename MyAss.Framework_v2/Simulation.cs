@@ -38,7 +38,7 @@ namespace MyAss.Framework_v2
         public Simulation(AbstractModel model)
             : this()
         {
-            model.Simulation = this;
+            model.SetSimulation(this);
 
             this.ProcessNames(model);
             this.ProcessBlocks(model);
