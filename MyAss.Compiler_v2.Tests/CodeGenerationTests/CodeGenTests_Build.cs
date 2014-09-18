@@ -73,7 +73,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
             string input = @"
 Server STORAGE 3
 
-	START 100001
+	START 10000
 
 	GENERATE (Exponential(1,0,1/2))
 	SAVEVALUE GenerateCounter,X$GenerateCounter+1

@@ -184,7 +184,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
                     if (ctorParam.ParameterType == typeof(IDoubleOperand))
                     {
-                        string parameterMethodName = String.Format("Verb{0}_Operand{1}", this.verbNo, ctorParam.Position);
+                        string parameterMethodName = String.Format("Verb{0}_Operand{1}", this.verbNo, ctorParam.Position + 1);
 
                         // Visit expression
                         CodeExpression operandExpression = (CodeExpression)operand.Accept(this);

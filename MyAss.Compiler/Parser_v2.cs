@@ -49,20 +49,20 @@ namespace MyAss.Compiler_v2
             );
         }
 
-        public string ExpectID()
+        private string ExpectID()
         {
             string id = (string)this.Expect(TokenType.ID);
             return id;
         }
 
-        public string ExpectQualID()
+        private string ExpectQualID()
         {
             string id = (string)this.Expect(TokenType.QUALID);
             return id;
         }
 
         // Single token
-        public object Expect(TokenType expected)
+        private object Expect(TokenType expected)
         {
             if (expected == this.Scanner.CurrentToken)
             {
@@ -124,7 +124,7 @@ namespace MyAss.Compiler_v2
         }
 
         // <model> ::=  { <verb> [ COMMENT ] "\r\n" }+
-        public ASTModel ExpectModel()
+        private ASTModel ExpectModel()
         {
             this.ExpectDirectives();
 
@@ -165,7 +165,7 @@ namespace MyAss.Compiler_v2
         }
 
         // <verb> ::= [ ID ] ID { <operand> }
-        public ASTVerb ExpectVerb()
+        private ASTVerb ExpectVerb()
         {
             ASTVerb verb = new ASTVerb();
 
@@ -224,7 +224,7 @@ namespace MyAss.Compiler_v2
         }
 
         // <operand> ::= "" | <expression> | <parexpression>
-        public IASTExpression ExpectOperand()
+        private IASTExpression ExpectOperand()
         {
             IASTExpression operand = null;
 
@@ -260,7 +260,7 @@ namespace MyAss.Compiler_v2
 
 
         // <expression> ::= <term> { <addop> <term> }
-        public IASTExpression ExpectExpression()
+        private IASTExpression ExpectExpression()
         {
             IASTExpression expression = this.ExpectTerm();
 
@@ -279,7 +279,7 @@ namespace MyAss.Compiler_v2
         }
 
         // <term> ::= ( <factor> | <signedfactor> ) { <mulop> <factor> }
-        public IASTExpression ExpectTerm()
+        private IASTExpression ExpectTerm()
         {
             IASTExpression expression = this.ExpectSignedFactor();
 
@@ -300,7 +300,7 @@ namespace MyAss.Compiler_v2
         }
 
         // <signedfactor> ::= [ <addop> ] <factor>
-        public IASTExpression ExpectSignedFactor()
+        private IASTExpression ExpectSignedFactor()
         {
             IASTExpression expression;
 
@@ -327,7 +327,7 @@ namespace MyAss.Compiler_v2
         }
 
         // <factor> ::= <literal> | <lval> | "(" <expression> ")"
-        public IASTExpression ExpectFactor()
+        private IASTExpression ExpectFactor()
         {
             IASTExpression expression = null;
 
@@ -354,7 +354,7 @@ namespace MyAss.Compiler_v2
 
 
         // <literal> ::= INT | DOUBLE | STRING
-        public ASTLiteral ExpectLiteral()
+        private ASTLiteral ExpectLiteral()
         {
             object value = this.Expect(TokenType.NUMERIC);
             LiteralType type;
@@ -383,7 +383,7 @@ namespace MyAss.Compiler_v2
         // <accessor> ::= <call> | <directsna>
         // <call> ::= "(" ( "" | <expr> { "," <expr> } ) ")"
         // <directsna> ::= "$" ID
-        public IASTCall ExpectCall()
+        private IASTCall ExpectCall()
         {
             string id = this.ExpectID();
 
@@ -494,7 +494,7 @@ namespace MyAss.Compiler_v2
         //}
 
         // <addop> ::= "+" | "-"
-        public BinaryOperatorType ExpectAddOperator()
+        private BinaryOperatorType ExpectAddOperator()
         {
             switch (this.Scanner.CurrentToken)
             {
@@ -511,7 +511,7 @@ namespace MyAss.Compiler_v2
         }
 
         // <mulop> ::= "#" | "/" | "%" | "^"
-        public BinaryOperatorType ExpectMulOperator()
+        private BinaryOperatorType ExpectMulOperator()
         {
             switch (this.Scanner.CurrentToken)
             {
