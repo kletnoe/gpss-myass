@@ -38,6 +38,13 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         }
 
         [Test]
+        public void VerbWithLiteral()
+        {
+            string input = @"TEST L Q$Tail,20,GoAway";
+            CommonCode(input);
+        }
+
+        [Test]
         public void VerbWithName()
         {
             string input = @"SAVEVALUE GenerateCounter,1";
@@ -58,12 +65,12 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
             string input = @"
 Server STORAGE 3
 
-	START 1000
+	START 100001
 
 	GENERATE (Exponential(1,0,1/2))
 	SAVEVALUE GenerateCounter,X$GenerateCounter+1
 
-	;TEST L Q$Tail,20,GoAway		;Jump if in Stack >20
+	TEST L Q$Tail,20,GoAway		;Jump if in Stack >20
 	QUEUE Tail
 	ENTER Server,1
 	DEPART Tail

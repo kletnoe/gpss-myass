@@ -11,25 +11,28 @@ namespace MyAss.Compiler_v2.CodeGeneration
 {
     public static class Compilation
     {
-        private const string outputPath = @"c:\temp\HelloWorld.dll";
+        private const string outputPath = @"c:\temp\HelloWorld.exe";
 
         public static void CompileAssembly(CodeCompileUnit compileUnit, bool InMemory)
         {
             CompilerParameters compilerParams = new CompilerParameters()
             {
                 GenerateInMemory = InMemory,
-                GenerateExecutable = false,
+                GenerateExecutable = true,
                 OutputAssembly = InMemory ? null : outputPath
             };
 
             compilerParams.ReferencedAssemblies.AddRange(new string[]{
+                "System.dll",
+                "MyAss.Utilities.dll",
+
                 "MyAss.Framework_v2.dll",
                 "MyAss.Framework_v2.BuiltIn.dll",
                 "MyAss.Framework.Procedures.dll"});
 
             compilerParams.TempFiles = new TempFileCollection(@"c:\temp\", true);
 
-            compilerParams.CompilerOptions = "/optimize-";
+            //compilerParams.CompilerOptions = "/optimize-";
 
             CSharpCodeProvider provider = new CSharpCodeProvider();
             CompilerResults results = provider.CompileAssemblyFromDom(compilerParams, compileUnit);

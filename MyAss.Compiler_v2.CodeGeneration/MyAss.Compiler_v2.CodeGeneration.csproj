@@ -43,6 +43,7 @@
     <Compile Include="Compilation.cs" />
     <Compile Include="CompilerException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RunnableClassGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyAss.Compiler.Metadata\MyAss.Compiler.Metadata.csproj">
@@ -60,6 +61,10 @@
     <ProjectReference Include="..\MyAss.Framework_v2\MyAss.Framework_v2.csproj">
       <Project>{8a83f996-3614-4968-841e-2065eaff1a08}</Project>
       <Name>MyAss.Framework_v2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyAss.Utilities\MyAss.Utilities.csproj">
+      <Project>{ee26563e-13ca-4a02-84bc-f9e6aec8314a}</Project>
+      <Name>MyAss.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
