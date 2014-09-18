@@ -93,7 +93,7 @@ namespace TestModels
         }
 
         public double Command1_Operand1() { return 3; }
-        public double Command2_Operand1() { return 10000; }
+        public double Command2_Operand1() { return 100001; }
 
         public double Block1_Operand1()
         {

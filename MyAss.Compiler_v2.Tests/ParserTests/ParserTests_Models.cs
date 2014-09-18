@@ -45,7 +45,7 @@ GoAway	SAVEVALUE RejectCounter,X$RejectCounter+1
         private IASTNode RunModel(string input)
         {
             Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
-            ASTModel model = parser.Parse();
+            ASTModel model = parser.Model;
             return model;
         }
     }

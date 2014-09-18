@@ -46,6 +46,7 @@
     <Compile Include="ASTPrintVisitor.cs" />
     <Compile Include="ASTPrintVisitor[T].cs" />
     <Compile Include="ASTResolver.cs" />
+    <Compile Include="Compiler.cs" />
     <Compile Include="IASTResolver.cs" />
     <Compile Include="IParser.cs" />
     <Compile Include="Parser.cs" />
@@ -69,6 +70,10 @@
     <ProjectReference Include="..\MyAss.Compiler_v2.AST\MyAss.Compiler_v2.AST.csproj">
       <Project>{65edceec-6974-4ed0-aca6-115a0812628f}</Project>
       <Name>MyAss.Compiler_v2.AST</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyAss.Compiler_v2.CodeGeneration\MyAss.Compiler_v2.CodeGeneration.csproj">
+      <Project>{2a319cac-280a-4685-abcb-d4875f49fda8}</Project>
+      <Name>MyAss.Compiler_v2.CodeGeneration</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyAss.Framework\MyAss.Framework.csproj">
       <Project>{511C1EF6-F99A-42D5-8D3A-4F8E93A11C3E}</Project>

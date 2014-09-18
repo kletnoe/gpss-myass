@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyAss.Compiler.CLI
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             if (args.Length == 0)
             {
@@ -16,9 +16,9 @@ namespace MyAss.Compiler.CLI
             }
 
             string sourceModel = args[0];
-            List<string> references = args.Skip(1).ToList();
+            List<string> passedRefs = args.Skip(1).ToList();
 
-
+            Compiler.Compile(sourceModel, passedRefs);
         }
     }
 }

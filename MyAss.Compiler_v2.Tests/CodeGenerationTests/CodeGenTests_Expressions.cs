@@ -216,9 +216,9 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         public static void CommonCode(string input, string expected)
         {
             Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
-            CodeDomGenerationVisitor vis = new CodeDomGenerationVisitor(parser);
+            CodeDomGenerationVisitor vis = new CodeDomGenerationVisitor(parser.MetadataRetriever);
 
-            CodeCompileUnit assembly = vis.VisitAll();
+            CodeCompileUnit assembly = vis.VisitAll(parser.Model);
             string result = CodeDomHelper.Print(GetResultExpression(assembly));
 
             Assert.AreEqual(expected, result);

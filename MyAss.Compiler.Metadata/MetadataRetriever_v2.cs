@@ -11,15 +11,15 @@ namespace MyAss.Compiler.Metadata
 {
     public class MetadataRetriever_v2
     {
-        private List<string> assemblyPaths;
-        private List<Assembly> assemblies;
-        private List<string> referencedNamespaces;
-        private List<string> referencedTypes;
+        private HashSet<string> assemblyPaths;
+        private HashSet<string> referencedNamespaces;
+        private HashSet<string> referencedTypes;
 
+        private List<Assembly> assemblies;
         private List<Type> verbs;
         private List<MethodInfo> procedures;
 
-        public IReadOnlyList<string> AsssemblyPaths
+        public ISet<string> AsssemblyPaths
         {
             get
             {
@@ -45,15 +45,16 @@ namespace MyAss.Compiler.Metadata
 
         private MetadataRetriever_v2()
         {
-            this.assemblyPaths = new List<string>();
+            this.assemblyPaths = new HashSet<string>();
+            this.referencedNamespaces = new HashSet<string>();
+            this.referencedTypes = new HashSet<string>();
+
             this.assemblies = new List<Assembly>();
-            this.referencedNamespaces = new List<string>();
-            this.referencedTypes = new List<string>();
             this.verbs = new List<Type>();
             this.procedures = new List<MethodInfo>();
         }
 
-        public MetadataRetriever_v2(List<string> assemblyPaths, List<string> referencedNamespaces, List<string> referencedTypes)
+        public MetadataRetriever_v2(HashSet<string> assemblyPaths, HashSet<string> referencedNamespaces, HashSet<string> referencedTypes)
             :this()
         {
             this.assemblyPaths = assemblyPaths;

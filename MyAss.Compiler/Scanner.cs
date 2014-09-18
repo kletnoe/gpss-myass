@@ -94,6 +94,9 @@ namespace MyAss.Compiler
                 case ',':
                     this.Ret(TokenType.COMMA);
                     break;
+                case '@':
+                    this.Ret(TokenType.ATSIGN);
+                    break;
 
                 case '\r':
                 case '\n':
@@ -144,9 +147,27 @@ namespace MyAss.Compiler
             {
                 buffer += this.CharSource.CurrentChar;
                 this.CharSource.Next();
-            } while (char.IsLetterOrDigit(this.CharSource.CurrentChar));
+            } while (char.IsLetterOrDigit(this.CharSource.CurrentChar) || this.CharSource.CurrentChar == '.');
 
-            this.Ret(TokenType.ID, buffer);
+            if (buffer.Contains("."))
+            {
+                this.Ret(TokenType.QUALID, buffer);
+            }
+            else
+            {
+                switch (buffer.ToUpper())
+                {
+                    case "USING":
+                        this.Ret(TokenType.USING);
+                        break;
+                    case "USINGP":
+                        this.Ret(TokenType.USINGP);
+                        break;
+                    default:
+                        this.Ret(TokenType.ID, buffer);
+                        break;
+                }
+            }
         }
 
         private void RetNumber()

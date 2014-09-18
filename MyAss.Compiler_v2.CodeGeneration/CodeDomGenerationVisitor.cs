@@ -24,7 +24,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
         private const string simulationFieldName = "simulation";
 
 
-        private Parser_v2 parser;
+        private ASTModel model;
         private MetadataRetriever_v2 metadataRetriever;
         private Dictionary<string, int> namedVars = new Dictionary<string, int>();
 
@@ -37,10 +37,9 @@ namespace MyAss.Compiler_v2.CodeGeneration
         private int verbNo = 1;
         private int currentNamedVarNo = 10000;
 
-        public CodeDomGenerationVisitor(Parser_v2 parser)
+        public CodeDomGenerationVisitor(MetadataRetriever_v2 metadataRetriever)
         {
-            this.parser = parser;
-            this.metadataRetriever = parser.MetadataRetriever;
+            this.metadataRetriever = metadataRetriever;
 
             this.theNamespace = new CodeNamespace();
             this.theNamespace.Name = CodeDomGenerationVisitor.theNamespaceName;
@@ -60,10 +59,8 @@ namespace MyAss.Compiler_v2.CodeGeneration
             this.theClass.Members.Add(this.theConstructor);
         }
 
-        public CodeCompileUnit VisitAll()
+        public CodeCompileUnit VisitAll(ASTModel model)
         {
-            ASTModel model = parser.Parse();
-
             model.Accept(this);
 
             CodeCompileUnit theAssembly = new CodeCompileUnit();

@@ -9,6 +9,7 @@ namespace MyAss.Compiler
     {
         NUMERIC,
         ID,
+        QUALID,
         COMMENT,
         WHITE,
 
@@ -17,7 +18,7 @@ namespace MyAss.Compiler
         // BinaryOperator
         PLUS,               // '+'
         MINUS,              // '-'
-        OCTOTHORPE,          // '#'
+        OCTOTHORPE,         // '#'
         FWDSLASH,           // '/'
         BCKSLASH,           // '\'
         CARRET,             // '^'
@@ -27,8 +28,13 @@ namespace MyAss.Compiler
         DOLLAR,     // '$'
         ASTERISK,   // '*'
         COMMA,      // ','
+        ATSIGN,     // '@'
 
         ILLEGAL,
         EOF,        // '\0'
+
+        // Keywords
+        USING,
+        USINGP,
     }
 }

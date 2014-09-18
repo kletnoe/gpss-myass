@@ -50,10 +50,6 @@
       <Project>{c7d9fd2e-57e5-43cb-96d9-61218837e1c1}</Project>
       <Name>MyAss.Compiler.Metadata</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyAss.Compiler\MyAss.Compiler.csproj">
-      <Project>{71dcfda0-ddf5-4494-a055-afd90aa09241}</Project>
-      <Name>MyAss.Compiler</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyAss.Compiler_v2.AST\MyAss.Compiler_v2.AST.csproj">
       <Project>{65edceec-6974-4ed0-aca6-115a0812628f}</Project>
       <Name>MyAss.Compiler_v2.AST</Name>

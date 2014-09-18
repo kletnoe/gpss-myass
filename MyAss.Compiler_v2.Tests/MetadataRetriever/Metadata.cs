@@ -15,19 +15,19 @@ namespace MyAss.Compiler_v2.Tests.MetadataRetriever
         [Test]
         public void Test_Metadata()
         {
-            List<string> assemblies = new List<string>()
+            HashSet<string> assemblies = new HashSet<string>()
             {
                 "MyAss.Framework_v2.BuiltIn.dll",
                 "MyAss.Framework.Procedures.dll"
             };
 
-            List<string> namespaces = new List<string>()
+            HashSet<string> namespaces = new HashSet<string>()
             {
                 "MyAss.Framework_v2.BuiltIn.Blocks",
                 "MyAss.Framework_v2.BuiltIn.Commands"
             };
 
-            List<string> types = new List<string>()
+            HashSet<string> types = new HashSet<string>()
             {
                 "MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA",
                 "MyAss.Framework_v2.BuiltIn.SNA.QueueSNA",

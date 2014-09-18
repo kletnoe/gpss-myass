@@ -13,44 +13,51 @@ namespace MyAss.Compiler_v2
     {
         public IScanner Scanner { get; private set; }
         public MetadataRetriever_v2 MetadataRetriever { get; private set; }
+        public List<string> ReferencedAssemblies { get; private set; }
+        public ASTModel Model { get; private set; }
 
         public Parser_v2(IScanner scanner)
+            : this(scanner, new List<string>())
         {
-            this.Scanner = scanner;
-
-
-            /// Temp
-            List<string> assemblies = new List<string>()
-            {
-                "MyAss.Framework_v2.dll",
-                "MyAss.Framework_v2.BuiltIn.dll",
-                "MyAss.Framework.Procedures.dll"
-            };
-
-            List<string> namespaces = new List<string>()
-            {
-                "MyAss.Framework_v2.BuiltIn.Blocks",
-                "MyAss.Framework_v2.BuiltIn.Commands"
-            };
-
-            List<string> types = new List<string>()
-            {
-                "MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA",
-                "MyAss.Framework_v2.BuiltIn.SNA.QueueSNA",
-                "MyAss.Framework.Procedures.Distributions"
-            };
-
-            this.MetadataRetriever = new MetadataRetriever_v2(assemblies, namespaces, types);
+            
         }
 
-        public ASTModel Parse()
+        public Parser_v2(IScanner scanner, List<string> referencedAssemblies)
+        {
+            this.Scanner = scanner;
+            this.ReferencedAssemblies = referencedAssemblies;
+
+            this.Model = this.Parse();
+        }
+
+        private ASTModel Parse()
         {
             return this.ExpectModel();
+        }
+
+        private void ConstructMetadataRetriever(List<string> namespaces, List<string> types)
+        {
+            // Get default usings
+            namespaces.AddRange(Compiler.Compiler.DefaultNamespaces);
+            types.AddRange(Compiler.Compiler.DefaultTypes);
+            this.ReferencedAssemblies.AddRange(Compiler.Compiler.DefaultRefs);
+
+            this.MetadataRetriever = new MetadataRetriever_v2(
+                new HashSet<string>(this.ReferencedAssemblies),
+                new HashSet<string>(namespaces),
+                new HashSet<string>(types)
+            );
         }
 
         public string ExpectID()
         {
             string id = (string)this.Expect(TokenType.ID);
+            return id;
+        }
+
+        public string ExpectQualID()
+        {
+            string id = (string)this.Expect(TokenType.QUALID);
             return id;
         }
 
@@ -72,10 +79,55 @@ namespace MyAss.Compiler_v2
             }
         }
 
+        // <directives> ::= { "@" <directive> }+
+        // <directive> ::= ( "using" | "usingp" ) ID
+        private void ExpectDirectives()
+        {
+            List<string> namespaces = new List<string>();
+            List<string> types = new List<string>();
 
-        // <model> ::= { <verb> [ COMMENT ] "\r\n" }+
+            while (this.Scanner.CurrentToken == TokenType.ATSIGN)
+            {
+                this.Expect(TokenType.ATSIGN);
+
+                if (this.Scanner.CurrentToken == TokenType.USING)
+                {
+                    namespaces.Add(this.ExpectDirectiveUsing());
+                }
+                else if(this.Scanner.CurrentToken == TokenType.USINGP)
+                {
+                    types.Add(this.ExpectDirectiveUsingP());
+                }
+                else
+                {
+                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
+                        @"USING or USINGP", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+                }
+            }
+
+            // Construct metadata
+            this.ConstructMetadataRetriever(namespaces, types);
+        }
+
+        // <using> ::= "using" ID
+        private string ExpectDirectiveUsing()
+        {
+            this.Expect(TokenType.USING);
+            return this.ExpectQualID();
+        }
+
+        // <usingp> ::= "usingp" ID
+        private string ExpectDirectiveUsingP()
+        {
+            this.Expect(TokenType.USINGP);
+            return this.ExpectQualID();
+        }
+
+        // <model> ::=  { <verb> [ COMMENT ] "\r\n" }+
         public ASTModel ExpectModel()
         {
+            this.ExpectDirectives();
+
             ASTModel model = new ASTModel();
 
             while (this.Scanner.CurrentToken != TokenType.EOF)
@@ -138,10 +190,10 @@ namespace MyAss.Compiler_v2
                 verb.VerbId = secondId;
             }
 
-            do
+            while (this.Scanner.CurrentToken == TokenType.WHITE)
             {
                 this.Expect(TokenType.WHITE);
-            } while (this.Scanner.CurrentToken == TokenType.WHITE);
+            }
 
             // Operands
 

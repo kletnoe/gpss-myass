@@ -7,6 +7,7 @@ using MyAss.Compiler_v2.CodeGeneration;
 using NUnit.Framework;
 using MyAss.Framework;
 using MyAss.Compiler;
+using MyAss.Compiler_v2.AST;
 
 namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
 {
@@ -41,6 +42,13 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         public void VerbWithLiteral()
         {
             string input = @"TEST L Q$Tail,20,GoAway";
+            CommonCode(input);
+        }
+
+        [Test]
+        public void JustVerbName()
+        {
+            string input = @"TERMINATE";
             CommonCode(input);
         }
 
@@ -91,10 +99,10 @@ GoAway	SAVEVALUE RejectCounter,X$RejectCounter+1
         private static void CommonCode(string input)
         {
             Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
-            CodeDomGenerationVisitor vis = new CodeDomGenerationVisitor(parser);
 
-            CodeCompileUnit assembly = vis.VisitAll();
-            Compilation.CompileAssembly(assembly, false);
+            CodeDomGenerationVisitor vis = new CodeDomGenerationVisitor(parser.MetadataRetriever);
+            CodeCompileUnit assembly = vis.VisitAll(parser.Model);
+            Compilation.CompileAssembly(assembly, true);
 
             Assert.Pass(Compilation.PrintCodeObject(assembly));
         }
