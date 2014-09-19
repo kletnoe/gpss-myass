@@ -19,6 +19,11 @@ namespace MyAss.Compiler.CLI
             string sourceModelPath = args[0];
             List<string> passedRefsPaths = args.Skip(1).ToList();
 
+            if (!passedRefsPaths.Any())
+            {
+                passedRefsPaths = Compiler.AssemblyCompiler.DefaultRefs.ToList();
+            }
+
             try {
                 FileInfo modelFile;
                 List<FileInfo> libraries;
