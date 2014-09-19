@@ -13,15 +13,9 @@ namespace MyAss.Compiler_v2.CodeGeneration
 {
     public class CodeDomGenerationVisitor : IASTVisitor<CodeObject>
     {
-        private const string theNamespaceName = "Modeling";
-        private const string theClassName = "TheModel";
-
-        private const string setIdMethodName = "SetId";
-        private const string addVerbMethodName = "AddVerb";
-        private const string addNameMethodName = "AddName";
-        private const string replaceNameIdMethodName = "ReplaceNameId";
-
-        private const string simulationFieldName = "simulation";
+        private const string TheNamespaceName = "Modeling";
+        private const string TheClassName = "TheModel";
+        private const string SimulationFieldName = "simulation";
 
 
         private ASTModel model;
@@ -42,16 +36,16 @@ namespace MyAss.Compiler_v2.CodeGeneration
             this.metadataRetriever = metadataRetriever;
 
             this.theNamespace = new CodeNamespace();
-            this.theNamespace.Name = CodeDomGenerationVisitor.theNamespaceName;
+            this.theNamespace.Name = CodeDomGenerationVisitor.TheNamespaceName;
 
             this.theClass = new CodeTypeDeclaration();
             this.theClass.Attributes = MemberAttributes.Public;
-            this.theClass.Name = CodeDomGenerationVisitor.theClassName;
+            this.theClass.Name = CodeDomGenerationVisitor.TheClassName;
             this.theClass.BaseTypes.Add(typeof(AbstractModel));
             this.theNamespace.Types.Add(this.theClass);
 
             //
-            this.theNamespace.Types.Add(RunnableClassGenerator.ConstructRunnableClass(theClassName));
+            this.theNamespace.Types.Add(RunnableClassGenerator.ConstructRunnableClass(TheClassName));
             //
 
             this.theConstructor = new CodeConstructor();
@@ -125,13 +119,13 @@ namespace MyAss.Compiler_v2.CodeGeneration
             {
                 if (typeof(ICommand).IsAssignableFrom(verbType))
                 {
-                    result.TrueStatements.Add(ConstructCallCommandSetIdMethod("verb", verb.LabelId));
+                    result.TrueStatements.Add(GenerationUtils.ConstructCallCommandSetIdMethod("verb", verb.LabelId));
                 }
             }
 
 
             // Construct AddVerb method call
-            result.TrueStatements.Add(ConstructCallAddVerbMethod("verb"));
+            result.TrueStatements.Add(GenerationUtils.ConstructCallAddVerbMethod("verb"));
 
 
             // This is needed for Block labels assignment!!!
@@ -150,13 +144,13 @@ namespace MyAss.Compiler_v2.CodeGeneration
             this.currentNamedVarNo++;
 
             // Construct NamedVar field
-            this.theClass.Members.Add(ConstructCreateNamedVar(namedVarName));
+            this.theClass.Members.Add(GenerationUtils.ConstructCreateNamedVar(namedVarName));
 
             // Assign namedVar
-            this.theConstructor.Statements.Add(ConstructAssignNamedVar(namedVarName, namedVarId));
+            this.theConstructor.Statements.Add(GenerationUtils.ConstructAssignNamedVar(namedVarName, namedVarId));
 
             // Put namedVar to Dictionary
-            this.theConstructor.Statements.Add(ConstructCallAddNameMethod(namedVarName));
+            this.theConstructor.Statements.Add(GenerationUtils.ConstructCallAddNameMethod(namedVarName));
         }
 
         private void ReplaceExistingNamedVar(string namedVarName)
@@ -164,10 +158,10 @@ namespace MyAss.Compiler_v2.CodeGeneration
             int blockNo = this.currentBlockNo;
 
             // Assign namedVar
-            this.theConstructor.Statements.Add(ConstructAssignNamedVar(namedVarName, blockNo));
+            this.theConstructor.Statements.Add(GenerationUtils.ConstructAssignNamedVar(namedVarName, blockNo));
 
             // Replace namedVar in Dictionary
-            this.theConstructor.Statements.Add(ConstructCallReplaceNameIdMethod(namedVarName));
+            this.theConstructor.Statements.Add(GenerationUtils.ConstructCallReplaceNameIdMethod(namedVarName));
         }
 
         private CodeObjectCreateExpression CreateConstructorCallExpression(Type verbType, IList<IASTExpression> operands)
@@ -193,14 +187,14 @@ namespace MyAss.Compiler_v2.CodeGeneration
                         this.CreateOperandMethod(parameterMethodName, operandExpression);
 
                         // Add method delegate as constructor parameter
-                        constructorCall.Parameters.Add(ConctructCtorDelegateParameter(parameterMethodName));
+                        constructorCall.Parameters.Add(GenerationUtils.ConctructCtorDelegateParameter(parameterMethodName));
                     }
                     else if (ctorParam.ParameterType == typeof(LiteralOperand))
                     {
                         if (operand is ASTLValue)
                         {
                             string literal = (operand as ASTLValue).Id;
-                            constructorCall.Parameters.Add(ConstructCtorLiteralParameter(literal));
+                            constructorCall.Parameters.Add(GenerationUtils.ConstructCtorLiteralParameter(literal));
                         }
                         else
                         {
@@ -258,7 +252,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
         {
             CodeBinaryOperatorExpression result = new CodeBinaryOperatorExpression(
                 (CodeExpression)expr.Left.Accept(this),
-                MapBinaryOperator(expr.Operator),
+                GenerationUtils.MapBinaryOperator(expr.Operator),
                 (CodeExpression)expr.Right.Accept(this)
             );
 
@@ -295,7 +289,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
                 ),
                 new CodeFieldReferenceExpression(
                     new CodeThisReferenceExpression(),
-                    CodeDomGenerationVisitor.simulationFieldName
+                    CodeDomGenerationVisitor.SimulationFieldName
                 ),
                 new CodeFieldReferenceExpression(
                     new CodeThisReferenceExpression(),
@@ -339,125 +333,6 @@ namespace MyAss.Compiler_v2.CodeGeneration
             
         }
 
-        #region Static Stuff
 
-        private static CodeBinaryOperatorType MapBinaryOperator(BinaryOperatorType op)
-        {
-            switch (op)
-            {
-                case BinaryOperatorType.Add: return CodeBinaryOperatorType.Add;
-                case BinaryOperatorType.Substract: return CodeBinaryOperatorType.Subtract;
-                case BinaryOperatorType.Multiply: return CodeBinaryOperatorType.Multiply;
-                case BinaryOperatorType.Divide: return CodeBinaryOperatorType.Divide;
-                case BinaryOperatorType.Modulus: return CodeBinaryOperatorType.Modulus;
-                default: throw new CompilerException("Not supported binary operator!");
-            }
-        }
-
-        private static  CodeMemberField ConstructCreateNamedVar(string namedVarName)
-        {
-            CodeMemberField field = new CodeMemberField();
-            field.Attributes = MemberAttributes.Private;
-            field.Type = new CodeTypeReference(typeof(int));
-            field.Name = namedVarName;
-
-            return field;
-        }
-
-        private static CodeAssignStatement ConstructAssignNamedVar(string namedVarName, int value)
-        {
-            CodeAssignStatement assign = new CodeAssignStatement();
-            assign.Left = new CodeFieldReferenceExpression(
-                new CodeThisReferenceExpression(),
-                namedVarName
-            );
-            assign.Right = new CodePrimitiveExpression(value);
-
-            return assign;
-        }
-
-        private static CodeExpressionStatement ConstructCallAddNameMethod(string namedVarName)
-        {
-            CodeMethodInvokeExpression methodCall = new CodeMethodInvokeExpression();
-            methodCall.Method = new CodeMethodReferenceExpression();
-            methodCall.Method.TargetObject = new CodeThisReferenceExpression();
-            methodCall.Method.MethodName = CodeDomGenerationVisitor.addNameMethodName;
-
-            methodCall.Parameters.Add(new CodeFieldReferenceExpression(
-                new CodeThisReferenceExpression(),
-                namedVarName
-            ));
-            methodCall.Parameters.Add(new CodePrimitiveExpression(namedVarName));
-
-            return new CodeExpressionStatement(methodCall);
-        }
-
-
-        private static CodeExpressionStatement ConstructCallReplaceNameIdMethod(string namedVarName)
-        {
-            CodeMethodInvokeExpression methodCall = new CodeMethodInvokeExpression();
-            methodCall.Method = new CodeMethodReferenceExpression();
-            methodCall.Method.TargetObject = new CodeThisReferenceExpression();
-            methodCall.Method.MethodName = CodeDomGenerationVisitor.replaceNameIdMethodName;
-
-            methodCall.Parameters.Add(new CodeFieldReferenceExpression(
-                new CodeThisReferenceExpression(),
-                namedVarName
-            ));
-            methodCall.Parameters.Add(new CodePrimitiveExpression(namedVarName));
-
-            return new CodeExpressionStatement(methodCall);
-        }
-
-        private static CodeExpressionStatement ConstructCallCommandSetIdMethod(string verbVarName, string namedVarName)
-        {
-            CodeMethodInvokeExpression methodCall = new CodeMethodInvokeExpression();
-            methodCall.Method = new CodeMethodReferenceExpression();
-            methodCall.Method.TargetObject = new CodeVariableReferenceExpression(verbVarName);
-            methodCall.Method.MethodName = CodeDomGenerationVisitor.setIdMethodName;
-
-            methodCall.Parameters.Add(new CodeFieldReferenceExpression(
-                new CodeThisReferenceExpression(),
-                namedVarName
-            ));
-
-            return new CodeExpressionStatement(methodCall);
-        }
-
-        private static CodeExpressionStatement ConstructCallAddVerbMethod(string verbVarName)
-        {
-            CodeMethodInvokeExpression methodCall = new CodeMethodInvokeExpression();
-            methodCall.Method = new CodeMethodReferenceExpression();
-            methodCall.Method.TargetObject = new CodeThisReferenceExpression();
-            methodCall.Method.MethodName = CodeDomGenerationVisitor.addVerbMethodName;
-
-            methodCall.Parameters.Add(new CodeVariableReferenceExpression(verbVarName));
-
-            return new CodeExpressionStatement(methodCall);
-        }
-
-        private static CodeObjectCreateExpression ConctructCtorDelegateParameter(string parameterMethodName)
-        {
-            return new CodeObjectCreateExpression(
-                typeof(MyAss.Framework_v2.OperandTypes.ParExpression),
-                new CodeDelegateCreateExpression(
-                    new CodeTypeReference(
-                        typeof(MyAss.Framework_v2.OperandTypes.ExpressionDelegate)
-                    ),
-                    new CodeThisReferenceExpression(),
-                    parameterMethodName
-                )
-            );
-        }
-
-        private static CodeObjectCreateExpression ConstructCtorLiteralParameter(string literal)
-        {
-            return new CodeObjectCreateExpression(
-                typeof(MyAss.Framework_v2.OperandTypes.LiteralOperand),
-                new CodePrimitiveExpression(literal)
-            );
-        }
-
-        #endregion
     }
 }

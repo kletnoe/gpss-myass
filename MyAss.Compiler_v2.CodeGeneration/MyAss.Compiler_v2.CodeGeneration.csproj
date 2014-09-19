@@ -42,6 +42,7 @@
     <Compile Include="CodeDomGenerationVisitor.cs" />
     <Compile Include="Compilation.cs" />
     <Compile Include="CompilerException.cs" />
+    <Compile Include="GenerationUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunnableClassGenerator.cs" />
   </ItemGroup>
