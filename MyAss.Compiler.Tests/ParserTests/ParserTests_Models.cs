@@ -13,7 +13,7 @@ namespace MyAss.Compiler.Tests.ParserTests
     public class ParserTests_Models
     {
         [Test]
-        public void Block_DirSna2()
+        public void Model()
         {
             string input = @"
 Server STORAGE 3

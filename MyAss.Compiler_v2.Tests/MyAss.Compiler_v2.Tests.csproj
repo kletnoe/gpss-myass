@@ -49,12 +49,15 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Build\BuildTests_Model.cs" />
     <Compile Include="CodeGenerationTests\CodeDomHelper.cs" />
     <Compile Include="CodeGenerationTests\CodeGenTests_Build.cs" />
     <Compile Include="CodeGenerationTests\CodeGenTests_Expressions.cs" />
     <Compile Include="CodeGenerationTests\CodeGenTests_Verbs.cs" />
+    <Compile Include="Defaults.cs" />
     <Compile Include="MetadataRetriever\Metadata.cs" />
     <Compile Include="ParserTests\ParserTests_Accessors.cs" />
+    <Compile Include="ParserTests\ParserTests_Directives.cs" />
     <Compile Include="ParserTests\ParserTests_Expressions.cs" />
     <Compile Include="ParserTests\ParserTests_IdConflsicts.cs" />
     <Compile Include="ParserTests\ParserTests_Literals.cs" />

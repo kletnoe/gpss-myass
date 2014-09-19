@@ -17,8 +17,7 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
         public void Literal_Int()
         {
             string input = @"TERMINATE 3";
-
-            Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
+            RunModel(input);
             //var result = parser.ExpectLiteral();
 
             //Assert.IsTrue(result.LiteralType == LiteralType.Int32, "result.LiteralType == AST.LiteralType.Int32");
@@ -31,14 +30,22 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
         public void Literal_Double()
         {
             string input = @"TERMINATE 3.33";
-
-            Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
+            RunModel(input);
             //var result = parser.ExpectLiteral();
 
             //Assert.IsTrue(result.LiteralType == LiteralType.Double, "result.LiteralType == AST.LiteralType.Double");
             //Assert.IsInstanceOf<Double>(result.Value, "IsInstanceOf<Double>");
             //Assert.IsTrue((Double)result.Value == 3.33, "(Double)result.Value == 3.33");
             //Assert.Pass(result.ToString());
+        }
+
+        private IASTNode RunModel(string input)
+        {
+            input = Defaults.DefUsing + input;
+
+            Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
+            ASTModel model = parser.Model;
+            return model;
         }
     }
 }

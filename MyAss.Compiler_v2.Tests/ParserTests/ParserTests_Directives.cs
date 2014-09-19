@@ -2,63 +2,59 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using MyAss.Compiler;
-using MyAss.Compiler_v2;
 using MyAss.Compiler_v2.AST;
 using NUnit.Framework;
 
 namespace MyAss.Compiler_v2.Tests.ParserTests
 {
     [TestFixture]
-    [Category("ParserTests_v2_Accessors")]
-    public class ParserTests_Accessors
+    [Category("ParserTests_v2_Directives")]
+    public class ParserTests_Directives
     {
         [Test]
-        public void Expr_Call()
+        public void Directive_UsingID()
         {
-            string input = @"Generate Some(1,2,b)";
+            string input = @"@using Test";
             Assert.Pass(this.RunModel(input).ToString());
         }
 
         [Test]
-        public void Expr_DirSna()
+        public void Directive_UsingQualID()
         {
-            string input = @"Generate Some$some2";
+            string input = @"@using Test.Test";
             Assert.Pass(this.RunModel(input).ToString());
         }
 
         [Test]
-        public void Block_Call()
+        public void Directive_UsingpID()
         {
-            string input = @"Generate Some(1,2,b)";
+            string input = @"@usingp Test";
             Assert.Pass(this.RunModel(input).ToString());
         }
 
         [Test]
-        public void Block_DirSna()
+        public void Directive_UsingpQualID()
         {
-            string input = @"Generate Some$some2";
+            string input = @"@usingp Test.Test";
             Assert.Pass(this.RunModel(input).ToString());
         }
 
         [Test]
-        public void Block_Call2()
+        public void Directive_Usings()
         {
-            string input = @"Generate Some(1,2,b),1";
-            Assert.Pass(this.RunModel(input).ToString());
-        }
+            string input = @"
+@usingp Test.Test
+@using Some.Test
 
-        [Test]
-        public void Block_DirSna2()
-        {
-            string input = @"Generate Some$some2,1";
+@usingp Test.Some
+";
             Assert.Pass(this.RunModel(input).ToString());
         }
 
         private IASTNode RunModel(string input)
         {
-            input = Defaults.DefUsing + input;
-
             Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
             ASTModel model = parser.Model;
             return model;

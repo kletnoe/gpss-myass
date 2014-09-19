@@ -71,6 +71,8 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
 
         private IASTNode Run(string input)
         {
+            input = Defaults.DefUsing + input;
+
             Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
             ASTModel model = parser.Model;
             return model;

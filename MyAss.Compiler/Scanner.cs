@@ -104,7 +104,7 @@ namespace MyAss.Compiler
                     break;
 
                 default:
-                    if (char.IsLetter(this.CharSource.CurrentChar))
+                    if (char.IsLetter(this.CharSource.CurrentChar) || this.CharSource.CurrentChar == '_')
                     {
                         this.RetIdOrKwd();
                     }
@@ -147,7 +147,9 @@ namespace MyAss.Compiler
             {
                 buffer += this.CharSource.CurrentChar;
                 this.CharSource.Next();
-            } while (char.IsLetterOrDigit(this.CharSource.CurrentChar) || this.CharSource.CurrentChar == '.');
+            } while (char.IsLetterOrDigit(this.CharSource.CurrentChar)
+                || this.CharSource.CurrentChar == '_'
+                || this.CharSource.CurrentChar == '.');
 
             if (buffer.Contains("."))
             {

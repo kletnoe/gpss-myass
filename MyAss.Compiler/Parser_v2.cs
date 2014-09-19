@@ -17,9 +17,9 @@ namespace MyAss.Compiler_v2
         public ASTModel Model { get; private set; }
 
         public Parser_v2(IScanner scanner)
-            : this(scanner, new List<string>())
+            : this(scanner, AssemblyCompiler.DefaultRefs.ToList())
         {
-            
+
         }
 
         public Parser_v2(IScanner scanner, List<string> referencedAssemblies)
@@ -37,16 +37,38 @@ namespace MyAss.Compiler_v2
 
         private void ConstructMetadataRetriever(List<string> namespaces, List<string> types)
         {
-            // Get default usings
-            namespaces.AddRange(Compiler.Compiler.DefaultNamespaces);
-            types.AddRange(Compiler.Compiler.DefaultTypes);
-            this.ReferencedAssemblies.AddRange(Compiler.Compiler.DefaultRefs);
+            // Get default usings should be removed
+            //namespaces.AddRange(AssemblyCompiler.DefaultNamespaces);
+            //types.AddRange(AssemblyCompiler.DefaultTypes);
+            //this.ReferencedAssemblies.AddRange(AssemblyCompiler.DefaultRefs);
+            // 
 
             this.MetadataRetriever = new MetadataRetriever_v2(
                 new HashSet<string>(this.ReferencedAssemblies),
                 new HashSet<string>(namespaces),
                 new HashSet<string>(types)
             );
+        }
+
+        private void EatWhiteAndComments()
+        {
+            while (this.Scanner.CurrentToken == TokenType.COMMENT
+                || this.Scanner.CurrentToken == TokenType.WHITE
+                || this.Scanner.CurrentToken == TokenType.LF)
+            {
+                switch (this.Scanner.CurrentToken)
+                {
+                    case TokenType.COMMENT:
+                        this.Expect(TokenType.COMMENT);
+                        break;
+                    case TokenType.WHITE:
+                        this.Expect(TokenType.WHITE);
+                        break;
+                    case TokenType.LF:
+                        this.Expect(TokenType.LF);
+                        break;
+                }
+            }
         }
 
         private string ExpectID()
@@ -57,7 +79,21 @@ namespace MyAss.Compiler_v2
 
         private string ExpectQualID()
         {
-            string id = (string)this.Expect(TokenType.QUALID);
+            string id;
+
+            switch (this.Scanner.CurrentToken)
+            {
+                case TokenType.QUALID:
+                    id = (string)this.Expect(TokenType.QUALID);
+                    break;
+                case TokenType.ID:
+                    id = (string)this.Expect(TokenType.ID);
+                    break;
+                default:
+                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
+                        @"QUALID or ID", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+            }
+
             return id;
         }
 
@@ -86,6 +122,8 @@ namespace MyAss.Compiler_v2
             List<string> namespaces = new List<string>();
             List<string> types = new List<string>();
 
+            this.EatWhiteAndComments();
+
             while (this.Scanner.CurrentToken == TokenType.ATSIGN)
             {
                 this.Expect(TokenType.ATSIGN);
@@ -103,6 +141,16 @@ namespace MyAss.Compiler_v2
                     throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
                         @"USING or USINGP", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
                 }
+
+                // Eat comment
+                if (this.Scanner.CurrentToken == TokenType.COMMENT)
+                {
+                    this.Expect(TokenType.COMMENT);
+                }
+
+                this.Expect(TokenType.LF);
+
+                this.EatWhiteAndComments();
             }
 
             // Construct metadata
@@ -126,31 +174,15 @@ namespace MyAss.Compiler_v2
         // <model> ::=  { <verb> [ COMMENT ] "\r\n" }+
         private ASTModel ExpectModel()
         {
-            this.ExpectDirectives();
-
             ASTModel model = new ASTModel();
 
-            while (this.Scanner.CurrentToken != TokenType.EOF)
-            {
-                // Eat comments, white;
-                while (this.Scanner.CurrentToken == TokenType.COMMENT
-                    || this.Scanner.CurrentToken == TokenType.WHITE)
-                {
-                    switch (this.Scanner.CurrentToken)
-                    {
-                        case TokenType.COMMENT:
-                            this.Expect(TokenType.COMMENT);
-                            break;
-                        case TokenType.WHITE:
-                            this.Expect(TokenType.WHITE);
-                            break;
-                    }
-                }
+            this.ExpectDirectives();
 
-                if (this.Scanner.CurrentToken == TokenType.ID)
-                {
-                    model.Verbs.Add(ExpectVerb());
-                }
+            this.EatWhiteAndComments();
+
+            while (this.Scanner.CurrentToken == TokenType.ID)
+            {
+                model.Verbs.Add(ExpectVerb());
 
                 // Eat comment
                 if (this.Scanner.CurrentToken == TokenType.COMMENT)
@@ -159,7 +191,11 @@ namespace MyAss.Compiler_v2
                 }
 
                 this.Expect(TokenType.LF);
+
+                this.EatWhiteAndComments();
             }
+
+            this.Expect(TokenType.EOF);
 
             return model;
         }

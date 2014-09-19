@@ -22,9 +22,9 @@ namespace MyAss.Compiler_v2.CodeGeneration
         private MetadataRetriever_v2 metadataRetriever;
         private Dictionary<string, int> namedVars = new Dictionary<string, int>();
 
-        CodeNamespace theNamespace;
-        CodeTypeDeclaration theClass;
-        CodeConstructor theConstructor;
+        private CodeNamespace theNamespace;
+        private CodeTypeDeclaration theClass;
+        private CodeConstructor theConstructor;
 
         private int currentBlockNo = 1;
         private int currentCommandNo = 1;
@@ -55,20 +55,23 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
         public CodeCompileUnit VisitAll(ASTModel model)
         {
-            model.Accept(this);
+            //return (CodeTypeDeclaration)
+                model.Accept(this);
 
             CodeCompileUnit theAssembly = new CodeCompileUnit();
-            theAssembly.ReferencedAssemblies.AddRange(this.metadataRetriever.AsssemblyPaths.ToArray());
+           // theAssembly.ReferencedAssemblies.AddRange(this.metadataRetriever.AsssemblyPaths.ToArray());
             theAssembly.Namespaces.Add(theNamespace);
 
             return theAssembly;
         }
 
+        public CodeTypeDeclaration VisitAll_(ASTModel model)
+        {
+            return (CodeTypeDeclaration)model.Accept(this);
+        }
+
         public CodeObject Visit(ASTModel model)
         {
-            /// Here going to be logic for usings!
-
-
             // Verbs
             foreach (var verb in model.Verbs)
             {

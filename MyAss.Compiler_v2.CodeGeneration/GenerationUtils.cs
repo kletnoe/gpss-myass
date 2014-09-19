@@ -1,9 +1,12 @@
 ﻿using System;
 using System.CodeDom;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.CSharp;
 using MyAss.Compiler_v2.AST;
 
 namespace MyAss.Compiler_v2.CodeGeneration
@@ -130,6 +133,22 @@ namespace MyAss.Compiler_v2.CodeGeneration
                 typeof(MyAss.Framework_v2.OperandTypes.LiteralOperand),
                 new CodePrimitiveExpression(literal)
             );
+        }
+
+        public static string PrintCodeObject(CodeCompileUnit compileUnit)
+        {
+            CodeGeneratorOptions options = new CodeGeneratorOptions()
+            {
+
+            };
+
+            StringWriter writer = new StringWriter();
+
+            CSharpCodeProvider provider = new CSharpCodeProvider();
+            provider.GenerateCodeFromCompileUnit(compileUnit, writer, options);
+
+            writer.Flush();
+            return writer.ToString();
         }
     }
 }

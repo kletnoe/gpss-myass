@@ -66,45 +66,14 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
             CommonCode(input);
         }
 
-        [Test]
-        
-        public void Model()
-        {
-            string input = @"
-Server STORAGE 3
-
-	START 10000
-
-	GENERATE (Exponential(1,0,1/2))
-	SAVEVALUE GenerateCounter,X$GenerateCounter+1
-
-	TEST L Q$Tail,20,GoAway		;Jump if in Stack >20
-	QUEUE Tail
-	ENTER Server,1
-	DEPART Tail
-	ADVANCE (Exponential(2,0,1/0.2))
-	LEAVE Server,1
-
-	SAVEVALUE RejetionProb,(X$RejectCounter/X$GenerateCounter)
-	TERMINATE 1
-
-
-GoAway	SAVEVALUE RejectCounter,X$RejectCounter+1
-	TERMINATE 		;Delete rejected.
-
-";
-            CommonCode(input);
-        }
-
         private static void CommonCode(string input)
         {
-            Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
+            input = Defaults.DefUsing + input;
 
-            CodeDomGenerationVisitor vis = new CodeDomGenerationVisitor(parser.MetadataRetriever);
-            CodeCompileUnit assembly = vis.VisitAll(parser.Model);
-            Compilation.CompileAssembly(assembly, true);
+            AssemblyCompiler compiler = new AssemblyCompiler(input, true);
+            compiler.Compile(true);
 
-            Assert.Pass(Compilation.PrintCodeObject(assembly));
+            Assert.Pass(GenerationUtils.PrintCodeObject(compiler.CompileUnit));
         }
     }
 }

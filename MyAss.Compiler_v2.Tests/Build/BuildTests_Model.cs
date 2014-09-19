@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyAss.Compiler;
-using MyAss.Compiler_v2;
-using MyAss.Compiler_v2.AST;
+using MyAss.Compiler_v2.CodeGeneration;
 using NUnit.Framework;
 
-namespace MyAss.Compiler_v2.Tests.ParserTests
+namespace MyAss.Compiler_v2.Tests.Build
 {
     [TestFixture]
-    [Category("ParserTests_v2_Models")]
-    public class ParserTests_Models
+    [Category("Build_v2_Model")]
+    public class BuildTests_Model
     {
         [Test]
         public void Model()
@@ -47,14 +46,15 @@ GoAway	SAVEVALUE RejectCounter,X$RejectCounter+1
 	TERMINATE 		;Delete rejected.
 
 ";
-            Assert.Pass(this.RunModel(input).ToString());
+            CommonCode(input);
         }
 
-        private IASTNode RunModel(string input)
+        private static void CommonCode(string input)
         {
-            Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
-            ASTModel model = parser.Model;
-            return model;
+            AssemblyCompiler compiler = new AssemblyCompiler(input, true);
+            compiler.Compile(true);
+
+            Assert.Pass(GenerationUtils.PrintCodeObject(compiler.CompileUnit));
         }
     }
 }

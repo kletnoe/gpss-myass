@@ -215,6 +215,8 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
 
         public static void CommonCode(string input, string expected)
         {
+            input = Defaults.DefUsing + input;
+
             Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
             CodeDomGenerationVisitor vis = new CodeDomGenerationVisitor(parser.MetadataRetriever);
 
