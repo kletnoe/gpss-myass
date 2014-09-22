@@ -8,7 +8,7 @@ namespace TestModels
             var sw = new System.Diagnostics.Stopwatch();
             sw.Restart();
 
-            var sim = new MyAss.Framework_v2.Simulation(new MM3Model());
+            var sim = new MyAss.Framework_v2.Simulation(new MM3Model_Dynamic());
 
             sw.Stop();
             System.Console.WriteLine("Time elapsed: " + sw.Elapsed);

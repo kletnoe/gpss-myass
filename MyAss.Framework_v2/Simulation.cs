@@ -103,5 +103,9 @@ namespace MyAss.Framework_v2
         {
             return this.Entities[id];
         }
+        public bool ContainsEntity(int id)
+        {
+            return this.Entities.ContainsKey(id);
+        }
     }
 }
