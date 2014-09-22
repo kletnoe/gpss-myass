@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using MyAss.Framework_v2;
 using MyAss.Framework_v2.Blocks;
-using MyAss.Framework_v2.BuiltIn.Entities;
+//using MyAss.Framework_v2.BuiltIn.Entities;
 using MyAss.Framework_v2.Entities;
 
 namespace MyAss.Utilities.Reports_v2
@@ -20,20 +20,21 @@ namespace MyAss.Utilities.Reports_v2
 
             // General
             sb.Append(GeneralInfo(simulation));
-            sb.Append(NamesInfo(simulation)); ;
+            sb.Append(NamesInfo(simulation));
             sb.Append(BlocksInfo(simulation));
 
             // Entities
+            sb.AppendLine(EntitiesInfo(simulation));
             ///sb.Append(FacilitiesInfo(simulation));
-            sb.Append(QueuesInfo(simulation));
-            sb.Append(StoragesInfo(simulation));
-            sb.Append(TablesInfo(simulation));
-            sb.Append(UserChainsInfo(simulation));
-            sb.Append(TransactionGroupsInfo(simulation));
-            sb.Append(NumericGroupsInfo(simulation));
-            sb.Append(LogicswitchesInfo(simulation));
-            sb.Append(SavevaluesInfo(simulation));
-            sb.Append(MatrixEntitiesInfo(simulation));
+            //sb.Append(QueuesInfo(simulation));
+            //sb.Append(StoragesInfo(simulation));
+            //sb.Append(TablesInfo(simulation));
+            //sb.Append(UserChainsInfo(simulation));
+            //sb.Append(TransactionGroupsInfo(simulation));
+            //sb.Append(NumericGroupsInfo(simulation));
+            //sb.Append(LogicswitchesInfo(simulation));
+            //sb.Append(SavevaluesInfo(simulation));
+            //sb.Append(MatrixEntitiesInfo(simulation));
 
             // Transaction Chains
             sb.Append(CECInfo(simulation));
@@ -50,7 +51,8 @@ namespace MyAss.Utilities.Reports_v2
                 .AppendLine("End time:\t" + simulation.Clock)
                 .AppendLine("Blocks: \t" + simulation.Blocks.Count)
                 ///.AppendLine("Facilities: \t" + simulation.Entities.Count(x => x.GetType() == typeof(FacilityEntity)))
-                .AppendLine("Storages: \t" + simulation.Entities.Count(x => x.GetType() == typeof(StorageEntity)));
+                ///.AppendLine("Storages: \t" + simulation.Entities.Count(x => x.GetType() == typeof(StorageEntity)))
+                ;
 
             return sb.ToString();
         }
@@ -100,150 +102,27 @@ namespace MyAss.Utilities.Reports_v2
             return sb.ToString();
         }
 
-        //private static String FacilitiesInfo(Simulation simulation)
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    IList<FacilityEntity> items = simulation.Entities.OfType<FacilityEntity>().ToList();
-
-        //    if (items.Count > 0)
-        //    {
-        //        sb.AppendLine().AppendLine();
-        //        sb.AppendLine(String.Format("{0,-14} {1,6} {2,9} {3,9} {4,6} {5,6} {6,6} {7,6} {8,6} {9,6}",
-        //            "FACILITY", "ENTRY", "UTIL.", "AVE.TIME", "AVAIL", "OWNER", "PEND", "INTER", "RETRY", "DELAY"));
-
-        //        foreach (var item in items)
-        //        {
-        //            sb.AppendLine(String.Format("{0,-14} {1,6} {2,9:F3} {3,9:F3} {4,6} {5,6} {6,6} {7,6} {8,6} {9,6}",
-        //                item.Id,
-        //                item.CaptureCount,
-        //                item.Utilization,
-        //                item.AverageHoldingTime,
-        //                item.IsAvaliable,
-        //                item.Owner,
-        //                item.PendingChain.Count,
-        //                item.InterruptChain.Count,
-        //                item.RetryChain.Count,
-        //                item.DelayChain.Count));
-        //        }
-        //    }
-        //    return sb.ToString();
-        //}
-
-        private static String QueuesInfo(Simulation simulation)
+        private static String EntitiesInfo(Simulation simulation)
         {
             StringBuilder sb = new StringBuilder();
-            IList<QueueEntity> items = simulation.Entities.Values.OfType<QueueEntity>().ToList();
 
-            if (items.Count > 0)
+            IList<IEntity> entities = simulation.Entities.Values.ToList();
+            Dictionary<Type, IList<IEntity>> entityTypeToEntitiesList = TypesDivider<IEntity>.DivideByType(entities);
+
+            foreach (var singleTypeEntities in entityTypeToEntitiesList)
             {
-                sb.AppendLine().AppendLine();
-                sb.AppendLine(String.Format("{0,-14} {1,6} {2,6} {3,6} {4,6} {5,9} {6,9} {7,9} {8,6}",
-                    "QUEUE", "MAX", "CONT.", "ENTRY", "ENTRY0", "AVE.CONT", "AVE.TIME", "AVE.-0", "RETRY"));
-
-                foreach (var item in items)
+                if (singleTypeEntities.Value.Any())
                 {
-                    sb.AppendLine(String.Format("{0,-14} {1,6} {2,6} {3,6} {4,6} {5,9:F3} {6,9:F3} {7,9:F3} {8,6}",
-                        simulation.NamesDictionary.GetByFirst(item.Id),
-                        item.MaxContent,
-                        item.CurrentContent,
-                        item.EntriesCount,
-                        item.ZeroEntriesCount,
-                        item.AverageContent,
-                        item.AverageResidenceTime,
-                        item.AverageResidenceTimeNonZero,
-                        item.RetryChain.Count));
-                }
-            }
-            return sb.ToString();
-        }
+                    sb.AppendLine().AppendLine();
+                    sb.AppendLine(singleTypeEntities.Value.First().GetStandardReportHeader());
 
-        private static String StoragesInfo(Simulation simulation)
-        {
-            StringBuilder sb = new StringBuilder();
-            IList<StorageEntity> items = simulation.Entities.Values.OfType<StorageEntity>().ToList();
-
-            if (items.Count > 0)
-            {
-                sb.AppendLine().AppendLine();
-                sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9} {8,9} {9,5} {10,5}",
-                    "STOTAGE", "CAP.", "REM.", "MIN.", "MAX.", "ENTRY", "AVL.", "AVE.C", "UTIL", "RETRY", "DELAY"));
-
-                foreach (var item in items)
-                {
-                    sb.AppendLine(String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9:F3} {8,9:F3} {9,5} {10,5}",
-                        simulation.NamesDictionary.GetByFirst(item.Id),
-                        item.Capacity,
-                        item.RemainingCapacity,
-                        item.MinContent,
-                        item.MaxContent,
-                        item.EntriesCount,
-                        item.IsAvaliable,
-                        item.AverageContent,
-                        item.Utilization,
-                        item.RetryChain.Count,
-                        item.DelayChain.Count));
+                    foreach (var entity in singleTypeEntities.Value)
+                    {
+                        sb.AppendLine(entity.GetStandardReportLine());
+                    }
                 }
             }
 
-            return sb.ToString();
-        }
-
-        private static String TablesInfo(Simulation simulation)
-        {
-            StringBuilder sb = new StringBuilder();
-            return sb.ToString();
-        }
-
-        private static String UserChainsInfo(Simulation simulation)
-        {
-            StringBuilder sb = new StringBuilder();
-            return sb.ToString();
-        }
-
-        private static String TransactionGroupsInfo(Simulation simulation)
-        {
-            StringBuilder sb = new StringBuilder();
-            return sb.ToString();
-        }
-
-        private static String NumericGroupsInfo(Simulation simulation)
-        {
-            StringBuilder sb = new StringBuilder();
-            return sb.ToString();
-        }
-
-        private static String LogicswitchesInfo(Simulation simulation)
-        {
-            StringBuilder sb = new StringBuilder();
-            return sb.ToString();
-        }
-
-        private static String SavevaluesInfo(Simulation simulation)
-        {
-            StringBuilder sb = new StringBuilder();
-            IList<SavevalueEntity> items = simulation.Entities.Values.OfType<SavevalueEntity>().ToList();
-
-            if (items.Count > 0)
-            {
-                sb.AppendLine().AppendLine();
-                sb.AppendLine(String.Format("{0,-24} {1,6} {2,10}",
-                    "SAVEVALUE", "RETRY", "VALUE"));
-
-                foreach (var item in items)
-                {
-                    sb.AppendLine(String.Format("{0,-24} {1,6} {2,10}",
-                        simulation.NamesDictionary.GetByFirst(item.Id),
-                        item.RetryChain.Count,
-                        item.Value));
-                }
-            }
-
-            return sb.ToString();
-        }
-
-        private static String MatrixEntitiesInfo(Simulation simulation)
-        {
-            StringBuilder sb = new StringBuilder();
             return sb.ToString();
         }
 

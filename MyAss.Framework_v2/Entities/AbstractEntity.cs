@@ -16,5 +16,7 @@ namespace MyAss.Framework_v2.Entities
         }
 
         public abstract void UpdateStats();
+        public abstract string GetStandardReportHeader();
+        public abstract string GetStandardReportLine();
     }
 }

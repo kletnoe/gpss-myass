@@ -130,5 +130,25 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
 
             this.latestChangeClock = this.simulation.Clock;
         }
+
+        public override string GetStandardReportHeader()
+        {
+            return String.Format("{0,-14} {1,6} {2,6} {3,6} {4,6} {5,9} {6,9} {7,9} {8,6}",
+                    "QUEUE", "MAX", "CONT.", "ENTRY", "ENTRY0", "AVE.CONT", "AVE.TIME", "AVE.-0", "RETRY");
+        }
+
+        public override string GetStandardReportLine()
+        {
+            return String.Format("{0,-14} {1,6} {2,6} {3,6} {4,6} {5,9:F3} {6,9:F3} {7,9:F3} {8,6}",
+                        this.simulation.NamesDictionary.GetByFirst(this.Id),
+                        this.MaxContent,
+                        this.CurrentContent,
+                        this.EntriesCount,
+                        this.ZeroEntriesCount,
+                        this.AverageContent,
+                        this.AverageResidenceTime,
+                        this.AverageResidenceTimeNonZero,
+                        this.RetryChain.Count);
+        }
     }
 }

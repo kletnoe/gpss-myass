@@ -11,5 +11,8 @@ namespace MyAss.Framework_v2.Entities
         LinkedList<Transaction> RetryChain { get; }
 
         void UpdateStats();
+
+        string GetStandardReportHeader();
+        string GetStandardReportLine();
     }
 }

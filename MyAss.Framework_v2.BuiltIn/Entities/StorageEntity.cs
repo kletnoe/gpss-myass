@@ -205,5 +205,27 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
 
             this.latestChangeClock = this.simulation.Clock;
         }
+
+        public override string GetStandardReportHeader()
+        {
+            return String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9} {8,9} {9,5} {10,5}",
+                    "STORAGE", "CAP.", "REM.", "MIN.", "MAX.", "ENTRY", "AVL.", "AVE.C", "UTIL", "RETRY", "DELAY");
+        }
+
+        public override string GetStandardReportLine()
+        {
+            return String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9:F3} {8,9:F3} {9,5} {10,5}",
+                        this.simulation.NamesDictionary.GetByFirst(this.Id),
+                        this.Capacity,
+                        this.RemainingCapacity,
+                        this.MinContent,
+                        this.MaxContent,
+                        this.EntriesCount,
+                        this.IsAvaliable,
+                        this.AverageContent,
+                        this.Utilization,
+                        this.RetryChain.Count,
+                        this.DelayChain.Count);
+        }
     }
 }

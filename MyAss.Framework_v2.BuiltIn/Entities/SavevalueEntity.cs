@@ -69,5 +69,19 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
         {
 
         }
+
+        public override string GetStandardReportHeader()
+        {
+            return String.Format("{0,-24} {1,6} {2,10}",
+                    "SAVEVALUE", "RETRY", "VALUE");
+        }
+
+        public override string GetStandardReportLine()
+        {
+            return String.Format("{0,-24} {1,6} {2,10}",
+                        this.simulation.NamesDictionary.GetByFirst(this.Id),
+                        this.RetryChain.Count,
+                        this.Value);
+        }
     }
 }
