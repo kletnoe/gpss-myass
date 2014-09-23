@@ -113,6 +113,8 @@ namespace MyAss.Compiler
             compilerParams.OutputAssembly = inMemory ? null : this.OutputExePath;
 
             compilerParams.ReferencedAssemblies.Add("System.dll");
+            compilerParams.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
+            compilerParams.ReferencedAssemblies.Add("System.Core.dll");
             compilerParams.ReferencedAssemblies.AddRange(this.ReferencedDlls.ToArray());
 
             //compilerParams.TempFiles = new TempFileCollection(DefaultOutputDir, true);
