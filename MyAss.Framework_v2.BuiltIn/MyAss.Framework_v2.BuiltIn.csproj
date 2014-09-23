@@ -48,6 +48,7 @@
     <Compile Include="Blocks\Savevalue.cs" />
     <Compile Include="Blocks\Terminate.cs" />
     <Compile Include="Blocks\Test.cs" />
+    <Compile Include="Commands\Equ.cs" />
     <Compile Include="Commands\Start.cs" />
     <Compile Include="Commands\Storage.cs" />
     <Compile Include="Entities\QueueEntity.cs" />
