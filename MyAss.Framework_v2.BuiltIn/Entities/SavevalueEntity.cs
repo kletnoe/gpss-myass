@@ -65,6 +65,11 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
         //    return number;
         //}
 
+        public double X()
+        {
+            return (double)this.value;
+        }
+
         public override void UpdateStats()
         {
 

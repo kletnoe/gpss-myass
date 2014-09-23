@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CSharp;
+using Microsoft.CSharp.RuntimeBinder;
 using MyAss.Compiler_v2.AST;
 
 namespace MyAss.Compiler_v2.CodeGeneration
@@ -133,6 +134,57 @@ namespace MyAss.Compiler_v2.CodeGeneration
                 typeof(MyAss.Framework_v2.OperandTypes.LiteralOperand),
                 new CodePrimitiveExpression(literal)
             );
+        }
+
+
+        // Generates:
+        //public double %snaName%(int entityId)
+        //{
+        //    try
+        //    {
+        //        IEntity entity = simulation.GetEntity(entityId);
+        //        dynamic dynamicEntity = entity;
+        //        return (double)dynamicEntity.%snaName%();
+        //    }
+        //    catch (RuntimeBinderException)
+        //    {
+        //        return 0;
+        //    }
+        //    catch (KeyNotFoundException)
+        //    {
+        //        return 0;
+        //    }
+        //}
+        public static CodeMemberMethod ConstructSimpleSnaMethod(string snaName)
+        {
+            CodeMemberMethod method = new CodeMemberMethod();
+            method.Attributes = MemberAttributes.Private;
+            method.ReturnType = new CodeTypeReference(typeof(double));
+            method.Name = snaName;
+
+            method.Parameters.Add(new CodeParameterDeclarationExpression(typeof(int), "entityId"));
+
+            CodeTryCatchFinallyStatement tryCatchStatement = new CodeTryCatchFinallyStatement();
+
+            tryCatchStatement.TryStatements.Add(new CodeSnippetStatement("var entity = this.simulation.GetEntity(entityId);"));
+            tryCatchStatement.TryStatements.Add(new CodeSnippetStatement("dynamic dynamicEntity = entity;"));
+            tryCatchStatement.TryStatements.Add(new CodeSnippetStatement("return (double)dynamicEntity." + snaName + "();"));
+
+
+            CodeCatchClause catchRuntimeBinderException = new CodeCatchClause();
+            catchRuntimeBinderException.CatchExceptionType = new CodeTypeReference(typeof(RuntimeBinderException));
+            catchRuntimeBinderException.Statements.Add(new CodeMethodReturnStatement(new CodePrimitiveExpression(0D)));
+
+            CodeCatchClause catchKeyNotFoundException = new CodeCatchClause();
+            catchKeyNotFoundException.CatchExceptionType = new CodeTypeReference(typeof(KeyNotFoundException));
+            catchKeyNotFoundException.Statements.Add(new CodeMethodReturnStatement(new CodePrimitiveExpression(0D)));
+
+            tryCatchStatement.CatchClauses.Add(catchRuntimeBinderException);
+            tryCatchStatement.CatchClauses.Add(catchKeyNotFoundException);
+
+            method.Statements.Add(tryCatchStatement);
+
+            return method;
         }
 
         public static string PrintCodeObject(CodeCompileUnit compileUnit)

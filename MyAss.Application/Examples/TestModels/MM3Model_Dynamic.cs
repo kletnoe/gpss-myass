@@ -128,7 +128,7 @@ namespace TestModels
 
         public double Block7_Operand1()
         {
-            return Distributions.Exponential(1, 0, 1.0 / 0.2);
+            return Distributions.Exponential(2, 0, 1.0 / 0.2);
         }
 
         public double Block8_Operand1() { return this.SERVER; }

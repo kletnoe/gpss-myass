@@ -118,6 +118,11 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
             this.currentContent -= units;
         }
 
+        public double Q()
+        {
+            return this.CurrentContent;
+        }
+
         public override void UpdateStats()
         {
             this.contentTimeArea += this.currentContent * (this.simulation.Clock - this.latestChangeClock);

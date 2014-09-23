@@ -21,6 +21,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
         private ASTModel model;
         private MetadataRetriever_v2 metadataRetriever;
         private Dictionary<string, int> namedVars = new Dictionary<string, int>();
+        private HashSet<String> snaMethods = new HashSet<string>();
 
         private CodeNamespace theNamespace;
         private CodeTypeDeclaration theClass;
@@ -299,6 +300,24 @@ namespace MyAss.Compiler_v2.CodeGeneration
                     sna.ActualId
                 )
             );
+
+
+            //CodeMethodInvokeExpression result = new CodeMethodInvokeExpression(
+            //    new CodeMethodReferenceExpression(
+            //        new CodeThisReferenceExpression(),
+            //        sna.SnaId
+            //    ),
+            //    new CodeFieldReferenceExpression(
+            //        new CodeThisReferenceExpression(),
+            //        sna.ActualId
+            //    )
+            //);
+
+            //if (!this.snaMethods.Contains(sna.SnaId))
+            //{
+            //    this.snaMethods.Add(sna.SnaId);
+            //    this.theClass.Members.Add(GenerationUtils.ConstructSimpleSnaMethod(sna.SnaId));
+            //}
 
             return result;
         }
