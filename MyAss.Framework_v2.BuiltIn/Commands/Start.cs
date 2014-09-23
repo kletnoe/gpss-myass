@@ -31,7 +31,7 @@ namespace MyAss.Framework_v2.BuiltIn.Commands
             int terminationCount = this.A_TerminationCount == null ? -1 : (int)this.A_TerminationCount.GetValue();
             if (terminationCount < 0)
             {
-                throw new ModelingException("STORAGE: Operand A must be PosInteger!");
+                throw new ModelingException("START: Operand A must be PosInteger!");
             }
 
             // Nullable Literal.
@@ -41,7 +41,7 @@ namespace MyAss.Framework_v2.BuiltIn.Commands
             int chainPrintout = this.D_ChainPrintout == null ? 0 : (int)this.D_ChainPrintout.GetValue();
             if (terminationCount < 0)
             {
-                throw new ModelingException("STORAGE: Operand D must be PosInteger!");
+                throw new ModelingException("START: Operand D must be PosInteger!");
             }
 
             simulation.TerminationsCount = terminationCount;
