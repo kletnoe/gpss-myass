@@ -36,7 +36,8 @@ namespace MyAss.Compiler
                     "MyAss.Utilities.dll",
                     "MyAss.Framework_v2.dll",
                     "MyAss.Framework_v2.BuiltIn.dll",
-                    "MyAss.Framework.Procedures.dll"
+                    "MyAss.Framework.Procedures.dll",
+                    "MyAss.Framework_v2.TablePackage.dll",
                 };
             }
         }

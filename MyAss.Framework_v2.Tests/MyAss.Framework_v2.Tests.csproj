@@ -62,6 +62,10 @@
       <Project>{fa47fa51-a313-4f76-a539-41a33fe7100d}</Project>
       <Name>MyAss.Framework_v2.BuiltIn</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyAss.Framework_v2.TablePackage\MyAss.Framework_v2.TablePackage.csproj">
+      <Project>{ed4ea16d-dff2-4656-ac80-5f82c16c1f14}</Project>
+      <Name>MyAss.Framework_v2.TablePackage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyAss.Framework_v2\MyAss.Framework_v2.csproj">
       <Project>{8a83f996-3614-4968-841e-2065eaff1a08}</Project>
       <Name>MyAss.Framework_v2</Name>

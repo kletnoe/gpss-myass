@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.CLI", "MyAss
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework_v2.FacilityPackage", "MyAss.Framework_v2.FacilityPackage\MyAss.Framework_v2.FacilityPackage.csproj", "{38CC4FE3-31BD-4BF0-BC73-213933F690C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework_v2.TablePackage", "MyAss.Framework_v2.TablePackage\MyAss.Framework_v2.TablePackage.csproj", "{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -234,6 +236,16 @@ Global
 		{38CC4FE3-31BD-4BF0-BC73-213933F690C8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{38CC4FE3-31BD-4BF0-BC73-213933F690C8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{38CC4FE3-31BD-4BF0-BC73-213933F690C8}.Release|x86.ActiveCfg = Release|Any CPU
+		{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
