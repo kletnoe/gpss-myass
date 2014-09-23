@@ -23,19 +23,18 @@ namespace MyAss.Framework_v2
 
         /**/
 
-        private TransactionParameters parameters;
+        private Dictionary<int, double> transactionParameters;
 
-        // This created for optimization
-        public TransactionParameters Parameters
+        public Dictionary<int, double> TransactionParameters
         {
             get
             {
-                if (this.parameters == null)
+                if (this.transactionParameters == null)
                 {
-                    this.parameters = new TransactionParameters();
+                    this.transactionParameters = new Dictionary<int, double>();
                 }
 
-                return parameters;
+                return transactionParameters;
             }
         }
 

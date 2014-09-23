@@ -71,8 +71,8 @@
     <Compile Include="SavevalueType.cs" />
     <Compile Include="Simulation.cs" />
     <Compile Include="SimulationNumbersManager.cs" />
+    <Compile Include="SNA\SystemSna.cs" />
     <Compile Include="Transaction.cs" />
-    <Compile Include="TransactionParameters.cs" />
     <Compile Include="TransactionScheduler.cs" />
     <Compile Include="TypesDivider[T].cs" />
   </ItemGroup>
