@@ -74,21 +74,43 @@ namespace MyAss.Framework_v2.TablePackage.Entities
 
         public override string GetStandardReportHeader()
         {
-            return "temp: TheTable!";
+            return String.Format("{0,-14} {1,8} {2,8} {3,6} {4,8} {5,5} {6,7} {7,9} {8,6}",
+                "TABLE", "MEAN", "STD.DEV.", "RETRY", "", "RANGE", "", "FREQUENCY", "CUM.%");
         }
 
         public override string GetStandardReportLine()
         {
-            return this.GetIntervalsInfo();
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine(String.Format("{0,-14} {1,8:F3} {2,8:F3} {3,6}",
+                this.simulation.NamesDictionary.GetByFirst(this.Id),
+                this.mean,
+                this.standardDeviation,
+                this.RetryChain.Count));
+
+            sb.AppendLine(this.GetIntervalsInfo());
+
+            return sb.ToString();
         }
 
         private string GetIntervalsInfo()
         {
             StringBuilder sb = new StringBuilder();
 
+            int cumulativeSum = 0;
+
             foreach (var interval in this.intervals.Intervals)
             {
-                sb.AppendLine(interval.ObservedFrequency + "\t" +interval.IntervalStart + " - " + interval.IntervalEnd);
+                cumulativeSum += interval.ObservedFrequency;
+                double cumulativePercent = ((double)cumulativeSum / (double)this.entriesCount) * 100;
+
+                sb.AppendLine(String.Format("{0,40} {1,9} {2,1} {3,9} {4,9} {5,6:F2}",
+                    String.Empty,
+                    Double.IsNegativeInfinity(interval.IntervalStart) ? "-Inf." : interval.IntervalStart.ToString("F3"),
+                    "-",
+                    Double.IsPositiveInfinity(interval.IntervalEnd) ? "Inf." : interval.IntervalEnd.ToString("F3"),
+                    interval.ObservedFrequency,
+                    cumulativePercent));
             }
 
             return sb.ToString();

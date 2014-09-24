@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Examples\TestModels\MM3Model.txt" />
+    <Content Include="Examples\TestModels\MM3Model_WithTable.txt" />
     <Content Include="Source.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
