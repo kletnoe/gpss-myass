@@ -19,7 +19,7 @@ namespace MyAss.Framework_v2.BuiltIn.Commands
 
         public override void Execute(Simulation simulation)
         {
-            // Required. The operand must be Expression.
+            // A: Required. The operand must be Expression.
             if (this.X_Expression == null)
             {
                 throw new ModelingException("EQU: Operand X must be Expression!");

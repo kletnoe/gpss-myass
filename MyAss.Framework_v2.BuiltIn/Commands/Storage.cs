@@ -20,9 +20,13 @@ namespace MyAss.Framework_v2.BuiltIn.Commands
 
         public override void Execute(Simulation simulation)
         {
-            // Required. The operand must be PosInteger.
-            int capacity = this.A_StorageCapacity == null ? -1 : (int)this.A_StorageCapacity.GetValue();
-            if (capacity < 0)
+            // A: Required. The operand must be PosInteger.
+            if (this.A_StorageCapacity == null)
+            {
+                throw new ModelingException("STORAGE: Operand A is required operand!");
+            }
+            int capacity = (int)this.A_StorageCapacity.GetValue();
+            if (capacity <= 0)
             {
                 throw new ModelingException("STORAGE: Operand A must be PosInteger!");
             }

@@ -22,14 +22,15 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
         public override void Action(Simulation simulation)
         {
-            // Required.
-            int entityId = this.A_SavevalueEntityId == null ? 0 : (int)this.A_SavevalueEntityId.GetValue();
-            if (entityId == 0)
+            // A: Required.
+            if (this.A_SavevalueEntityId == null)
             {
                 throw new ModelingException("SAVEVALUE: Operand A is required operand!");
             }
+            int entityId = (int)this.A_SavevalueEntityId.GetValue();
 
-            // Required.
+            // B: Required.
+            // TODO: Savevalues currently operates with strings...
             string value = this.B_Value == null ? null : this.B_Value.GetValue().ToString();
             if (value == null)
             {

@@ -24,10 +24,37 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             this.C_DestBlockNo = destBlockNo;
         }
 
+        // TODO: Implement Refuse Mode
         public override void Action(Simulation simulation)
         {
-            // TODO: Add Exception throwing
-            // TODO: Implement Refuse Mode
+            // O: Required
+            if (this.O_RelationalOp == null || this.O_RelationalOp.Value == null)
+            {
+                throw new ModelingException("TEST: Operand O is required conditional operand!");
+            }
+            string relationalOp = this.O_RelationalOp.Value;
+
+            // A: Required.
+            if (this.A_LValue == null)
+            {
+                throw new ModelingException("TEST: Operand A is required operand!");
+            }
+            double lValue = this.A_LValue.GetValue();
+
+            // B: Required.
+            if (this.B_RValue == null)
+            {
+                throw new ModelingException("TEST: Operand B is required operand!");
+            }
+            double rValue = this.B_RValue.GetValue();
+
+            // C: Required. Optional in refuce mode.
+            if (this.C_DestBlockNo == null)
+            {
+                throw new ModelingException("TEST: Operand C is required operand!");
+            }
+            int consumerOnFalseBlockId = (int)C_DestBlockNo.GetValue();
+
 
             Transaction transaction = simulation.ActiveTransaction;
             this.EntryCount++;
@@ -35,12 +62,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             Console.WriteLine("Tested  \tTime: " + simulation.Clock + transaction, ConsoleColor.DarkGreen);
             Console.WriteLine("\ttrue");
 
-            IBlock consumerOnFalse = simulation.Blocks[(int)C_DestBlockNo.GetValue()];
-
-            double lValue = this.A_LValue.GetValue();
-            double rValue = this.B_RValue.GetValue();
-
-            string relationalOp = this.O_RelationalOp.Value;
+            IBlock consumerOnFalse = simulation.Blocks[consumerOnFalseBlockId];
 
             if (this.Compare(relationalOp, lValue, rValue))
             {

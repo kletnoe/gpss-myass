@@ -22,11 +22,21 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
         public override void Action(Simulation simulation)
         {
+            // A: Required.
+            if (this.A_StorageEntityId == null)
+            {
+                throw new ModelingException("LEAVE: Operand A is required operand!");
+            }
+            int entityId = (int)this.A_StorageEntityId.GetValue();
+
+            // B: The default is 1.
+            int units = this.B_NumberOfUnits == null ? 1 : (int)this.B_NumberOfUnits.GetValue();
+
+
             Transaction transaction = simulation.ActiveTransaction;
             this.EntryCount++;
 
-            StorageEntity storage = (StorageEntity)simulation.GetEntity((int)this.A_StorageEntityId.GetValue());
-            int units = (int)this.B_NumberOfUnits.GetValue();
+            StorageEntity storage = (StorageEntity)simulation.GetEntity(entityId);
             storage.Leave(units);
 
             Console.WriteLine("Leaved  \tTime: " + simulation.Clock + transaction, ConsoleColor.Yellow);

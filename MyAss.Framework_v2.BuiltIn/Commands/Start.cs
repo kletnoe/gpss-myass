@@ -27,22 +27,25 @@ namespace MyAss.Framework_v2.BuiltIn.Commands
 
         public override void Execute(Simulation simulation)
         {
-            // Required. The operand must be PosInteger.
-            int terminationCount = this.A_TerminationCount == null ? -1 : (int)this.A_TerminationCount.GetValue();
-            if (terminationCount < 0)
+            // A: Required. The operand must be PosInteger.
+            if (this.A_TerminationCount == null)
+            {
+                throw new ModelingException("START: Operand A is required operand!");
+            }
+            int terminationCount = (int)this.A_TerminationCount.GetValue();
+            if (terminationCount <= 0)
             {
                 throw new ModelingException("START: Operand A must be PosInteger!");
             }
 
-            // Nullable Literal.
+            // B: Nullable Literal.
             string relationalOp = this.B_PrintoutOperand == null ? null : this.B_PrintoutOperand.Value;
 
-            // Not Required. The operand must be PosInteger.
+            // C: Legacy. Not in use.
+
+            // D: Not Required. The default is 0. (Not in use for now)
             int chainPrintout = this.D_ChainPrintout == null ? 0 : (int)this.D_ChainPrintout.GetValue();
-            if (terminationCount < 0)
-            {
-                throw new ModelingException("START: Operand D must be PosInteger!");
-            }
+
 
             simulation.TerminationsCount = terminationCount;
 
