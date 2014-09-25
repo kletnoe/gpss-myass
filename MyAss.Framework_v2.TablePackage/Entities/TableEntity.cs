@@ -21,6 +21,8 @@ namespace MyAss.Framework_v2.TablePackage.Entities
         private double mean = 0.0;
         private double standardDeviation = 0.0;
 
+        //private double latestValue = Double.NaN;
+
         private TableIntervals intervals;
 
         public TableEntity(Simulation simulation, int id, IDoubleOperand tableArgument,
@@ -55,10 +57,11 @@ namespace MyAss.Framework_v2.TablePackage.Entities
         public void Tabulate(int weightedFactor)
         {
             this.entriesCount++;
-
-            int value = (int)this.tableArgument.GetValue();
-
+            double value = this.tableArgument.GetValue();
             this.IncrementInterval(value, weightedFactor);
+
+            // Stats
+            this.mean = (this.mean * (this.entriesCount - 1) + value) / (double)this.entriesCount;
         }
 
         private void IncrementInterval(double value, int weightedFactor)
@@ -69,7 +72,7 @@ namespace MyAss.Framework_v2.TablePackage.Entities
 
         public override void UpdateStats()
         {
-            //throw new NotImplementedException();
+            // This is empty 'cos Table stats are not in connection with Simulation.Clock.
         }
 
         public override string GetStandardReportHeader()
