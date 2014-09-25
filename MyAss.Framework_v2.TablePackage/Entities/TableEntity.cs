@@ -19,7 +19,9 @@ namespace MyAss.Framework_v2.TablePackage.Entities
 
         private int entriesCount = 0;
         private double mean = 0.0;
-        private double standardDeviation = 0.0;
+        private double accumulatedSumOfSquares = 0.0;
+        private double sampleStandardDeviation = 0.0;
+        //private double populationStandardDeviation = 0.0;
 
         //private double latestValue = Double.NaN;
 
@@ -51,7 +53,7 @@ namespace MyAss.Framework_v2.TablePackage.Entities
 
         public double TD()
         {
-            return this.standardDeviation;
+            return this.sampleStandardDeviation;
         }
 
         public void Tabulate(int weightedFactor)
@@ -62,6 +64,11 @@ namespace MyAss.Framework_v2.TablePackage.Entities
 
             // Stats
             this.mean = (this.mean * (this.entriesCount - 1) + value) / (double)this.entriesCount;
+            this.accumulatedSumOfSquares += Math.Pow(value, 2);
+            this.sampleStandardDeviation = Math.Sqrt(
+                (this.accumulatedSumOfSquares - (Math.Pow(this.mean, 2) * this.entriesCount)) 
+                / (double)(this.entriesCount - 1)
+            );
         }
 
         private void IncrementInterval(double value, int weightedFactor)
@@ -88,7 +95,7 @@ namespace MyAss.Framework_v2.TablePackage.Entities
             sb.AppendLine(String.Format("{0,-14} {1,8:F3} {2,8:F3} {3,6}",
                 this.simulation.NamesDictionary.GetByFirst(this.Id),
                 this.mean,
-                this.standardDeviation,
+                this.sampleStandardDeviation,
                 this.RetryChain.Count));
 
             sb.AppendLine(this.GetIntervalsInfo());

@@ -26,6 +26,13 @@ namespace MyAss.Compiler_v2.Tests.Run
             string input = TestModels.MM3Model_WithTable;
             CommonCode(input);
         }
+
+        [Test]
+        public void Model_TableStdDevTest()
+        {
+            string input = TestModels.TableStdSevTest;
+            CommonCode(input);
+        }
         
         private static void CommonCode(string input)
         {

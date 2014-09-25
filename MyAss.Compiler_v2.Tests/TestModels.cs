@@ -130,5 +130,57 @@ GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
 ";
             }
         }
+
+
+        public static String TableStdSevTest
+        {
+            get
+            {
+                return @"
+@using MyAss.Framework_v2.BuiltIn.Blocks
+@using MyAss.Framework_v2.BuiltIn.Commands
+@using MyAss.Framework_v2.TablePackage.Blocks
+@using MyAss.Framework_v2.TablePackage.Commands
+
+@usingp MyAss.Framework_v2.SNA.SystemSna
+@usingp MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA
+@usingp MyAss.Framework_v2.BuiltIn.SNA.QueueSNA
+@usingp MyAss.Framework.Procedures.Distributions
+
+TheTable TABLE P$const,0,1,20
+START 1
+
+	GENERATE ,,1,1
+	ASSIGN const,3
+	TABULATE TheTable
+	TERMINATE 
+
+	GENERATE ,,2,1
+	ASSIGN const,8
+	TABULATE TheTable
+	TERMINATE
+
+	GENERATE ,,3,1
+	ASSIGN const,1
+	TABULATE TheTable
+	TERMINATE
+
+	GENERATE ,,4,1
+	ASSIGN const,5
+	TABULATE TheTable
+	TERMINATE
+
+	GENERATE ,,5,1
+	ASSIGN const,14
+	TABULATE TheTable
+	TERMINATE
+
+	GENERATE ,,6,1
+	ASSIGN const,6
+	TABULATE TheTable
+	TERMINATE 1
+";
+            }
+        }
     }
 }

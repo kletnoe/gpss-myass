@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blocks\Advance.cs" />
+    <Compile Include="Blocks\Assign.cs" />
     <Compile Include="Blocks\Depart.cs" />
     <Compile Include="Blocks\Enter.cs" />
     <Compile Include="Blocks\Generate.cs" />
