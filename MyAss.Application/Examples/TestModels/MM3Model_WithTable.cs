@@ -70,7 +70,7 @@ namespace TestModels
                 this.AddVerb(verb);
             }
             // 
-            // SAVEVALUE GenerateCounter,X$GenerateCounter
+            // SAVEVALUE GenerateCounter,(X$GenerateCounter + 1)
             this.GenerateCounter = 10003;
             this.AddName(this.GenerateCounter, "GenerateCounter");
             if (true)
@@ -125,10 +125,10 @@ namespace TestModels
                 this.AddVerb(verb);
             }
             // 
-            // LEAVE Server
+            // LEAVE Server,1
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Leave verb = new MyAss.Framework_v2.BuiltIn.Blocks.Leave(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb13_Operand1)), new MyAss.Framework_v2.OperandTypes.ParExpression(() => 1));
+                MyAss.Framework_v2.BuiltIn.Blocks.Leave verb = new MyAss.Framework_v2.BuiltIn.Blocks.Leave(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb13_Operand1)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb13_Operand2)));
                 this.AddVerb(verb);
             }
             // 
@@ -150,7 +150,7 @@ namespace TestModels
                 this.AddVerb(verb);
             }
             // 
-            // GoAway SAVEVALUE RejectCounter,X$RejectCounter
+            // GoAway SAVEVALUE RejectCounter,(X$RejectCounter + 1)
             this.GoAway = 13;
             this.ReplaceNameId(this.GoAway, "GoAway");
             if (true)
@@ -233,7 +233,7 @@ namespace TestModels
         public virtual double Verb6_Operand2()
         {
             double result;
-            result = MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA.X(this.simulation, this.GenerateCounter);
+            result = (MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA.X(this.simulation, this.GenerateCounter) + 1D);
             return result;
         }
 
@@ -307,6 +307,13 @@ namespace TestModels
             return result;
         }
 
+        public virtual double Verb13_Operand2()
+        {
+            double result;
+            result = 1D;
+            return result;
+        }
+
         public virtual double Verb14_Operand1()
         {
             double result;
@@ -338,7 +345,7 @@ namespace TestModels
         public virtual double Verb16_Operand2()
         {
             double result;
-            result = MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA.X(this.simulation, this.RejectCounter);
+            result = (MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA.X(this.simulation, this.RejectCounter) + 1D);
             return result;
         }
     }

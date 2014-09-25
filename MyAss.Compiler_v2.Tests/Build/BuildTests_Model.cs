@@ -110,7 +110,7 @@ OnQueue TABLE MP$OnQueueTime,0,4,20
 	GENERATE (Exponential(1,0,1/2))
 ;		MARK InSystemTime
 		MARK OnQueueTime
-	SAVEVALUE GenerateCounter,X$GenerateCounter
+	SAVEVALUE GenerateCounter,(X$GenerateCounter+1)
 
 	TEST L Q$Tail,20,GoAway		;Jump if in Stack >20
 	QUEUE Tail
@@ -127,7 +127,7 @@ OnQueue TABLE MP$OnQueueTime,0,4,20
 	TERMINATE 1
 
 
-GoAway	SAVEVALUE RejectCounter,X$RejectCounter
+GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
 	TERMINATE 		;Delete rejected.
 
 ";

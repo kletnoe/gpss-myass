@@ -29,46 +29,62 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             this.E_PriorityLevel = priorityLevel;
         }
 
-        private double GetNextEventTime(Simulation simulation)
+        // When Operand B is an FN class SNA, it is a special case called a "function modifier". 
+        // In this case, the time increment is calculated by multiplying the result of the function by the evaluated A Operand.
+        private Transaction GenerateNext(Simulation simulation)
         {
-            // When Operand B is an FN class SNA, it is a special case called a "function modifier". 
-            // In this case, the time increment is calculated by multiplying the result of the function by the evaluated A Operand.
-
-            if (this.A_MeanValue == null && this.D_CreationLimit == null)
-            {
-                throw new ModelingException("GENERATE: Either Operand A or Operand D must be used");
-            }
-
+            // A: The default is 0. Either Operand A or Operand D must be used.
             double meanValue = this.A_MeanValue == null ? 0 : this.A_MeanValue.GetValue();
+
+            // B: The default is 0.
             double halfRange = this.B_HalfRange == null ? 0 : this.B_HalfRange.GetValue();
+
+            // C: The default is 0.
             double startDelay = this.C_StartDelay == null ? 0 : this.C_StartDelay.GetValue();
 
-            if ((meanValue - halfRange) < 0)
-            {
-                throw new ModelingException("GENERATE: Negative time increment.");
-            }
+            // D: The default is Infinity. Either Operand A or Operand D must be used.
+            //int creationLimit = this.D_CreationLimit == null ? Int32.MaxValue : (int)this.D_CreationLimit.GetValue();
 
-            double increment = meanValue - halfRange + (this.rand.NextDouble() * halfRange);
+            // E: The default is 0.
+            int priority = this.E_PriorityLevel == null ? 0 : (int)this.E_PriorityLevel.GetValue();
+
+
+            double transactGenerationTime;
             if (this.EntryCount == 0)
             {
-                increment += startDelay;
+                transactGenerationTime = simulation.Clock + this.GetTimeIncrement(meanValue, halfRange, startDelay);
             }
-
-            return simulation.Clock + increment;
-        }
-
-        private void GenerateNext(Simulation simulation)
-        {
-            double transactGenerationTime = this.GetNextEventTime(simulation);
+            else
+            {
+                transactGenerationTime = simulation.Clock + this.GetTimeIncrement(meanValue, halfRange);
+            }
 
             Transaction transaction = new Transaction(simulation.NumbersManager.NextFreeTransactionNo, simulation.Clock)
             {
                 NextOwner = this.Id,
-                Priority = 0,
+                Priority = priority,
                 NextEventTime = transactGenerationTime,
                 MarkTime = transactGenerationTime
             };
-            simulation.FutureEventChain.Add(transaction);
+
+            return transaction;
+        }
+
+        private double GetTimeIncrement(double meanValue, double halfRange, double startDelay)
+        {
+            if ((meanValue - halfRange) < 0)
+            {
+                throw new ModelingException("ADVANCE: Negative time increment!");
+            }
+
+            double increment = (meanValue - halfRange + (this.rand.NextDouble() * halfRange)) + startDelay;
+
+            return increment;
+        }
+
+        private double GetTimeIncrement(double meanValue, double halfRange)
+        {
+            return this.GetTimeIncrement(meanValue, halfRange, 0);
         }
 
         public override void Action(Simulation simulation)
@@ -83,13 +99,15 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
             if (this.D_CreationLimit == null || this.EntryCount < this.D_CreationLimit.GetValue())
             {
-                this.GenerateNext(simulation);
+                Transaction nextTransaction = this.GenerateNext(simulation);
+                simulation.FutureEventChain.Add(nextTransaction);
             }
         }
 
         public void GenerateFirst(Simulation simulation)
         {
-            this.GenerateNext(simulation);
+            Transaction transaction = this.GenerateNext(simulation);
+            simulation.FutureEventChain.Add(transaction);
         }
     }
 }
