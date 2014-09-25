@@ -56,6 +56,7 @@
     <Compile Include="CodeGenerationTests\CodeGenTests_Verbs.cs" />
     <Compile Include="Defaults.cs" />
     <Compile Include="MetadataRetriever\Metadata.cs" />
+    <Compile Include="TestModels.cs" />
     <Compile Include="ParserTests\ParserTests_Accessors.cs" />
     <Compile Include="ParserTests\ParserTests_Directives.cs" />
     <Compile Include="ParserTests\ParserTests_Expressions.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="ParserTests\ParserTests_Literals.cs" />
     <Compile Include="ParserTests\ParserTests_Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Run\Run_Model.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyAss.Compiler.Metadata\MyAss.Compiler.Metadata.csproj">

@@ -12,12 +12,11 @@ namespace MyAss.Framework_v2.Tests
     [TestFixture]
     public class SampleTest
     {
+        private Random rand = new Random(1);
+
         [Test]
         public void SomeTest()
         {
-            TableEntity table = new TableEntity(null, 0, new ParExpression(() => 1), 0, 4, 10);
-
-            Assert.Pass(table.GetStandardReportLine());
         }
     }
 }

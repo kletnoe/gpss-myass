@@ -4,6 +4,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CSharp;
@@ -26,6 +27,7 @@ namespace MyAss.Compiler
         public ASTModel ASTModel { get; private set; }
         public MetadataRetriever_v2 MetadataRetriever { get; private set; }
         public CodeCompileUnit CompileUnit { get; private set; }
+        public Assembly Assembly { get; private set; }
 
         public static IReadOnlyList<string> DefaultRefs
         {
@@ -106,6 +108,11 @@ namespace MyAss.Compiler
             CompileAssembly(inMemory);
         }
 
+        public void RunAssembly()
+        {
+            this.Assembly.EntryPoint.Invoke(null, null);
+        }
+
         private void CompileAssembly(bool inMemory)
         {
             CompilerParameters compilerParams = new CompilerParameters();
@@ -129,6 +136,8 @@ namespace MyAss.Compiler
             {
                 throw this.ResultErrorsToException(results.Errors);
             }
+
+            this.Assembly = results.CompiledAssembly;
         }
 
         private AggregateException ResultErrorsToException(CompilerErrorCollection errors)

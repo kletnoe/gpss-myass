@@ -7,20 +7,12 @@ using MyAss.Compiler;
 using MyAss.Compiler_v2.CodeGeneration;
 using NUnit.Framework;
 
-namespace MyAss.Compiler_v2.Tests.Build
+namespace MyAss.Compiler_v2.Tests.Run
 {
     [TestFixture]
-    [Category("Build_v2_Model")]
-    public class BuildTests_Model
+    [Category("Run_v2_Model")]
+    public class Run_Model
     {
-        [Test]
-        [Ignore]
-        public void Model_Dynamic()
-        {
-            string input = TestModels.MM3Model_Dynamic;
-            CommonCode(input);
-        }
-
         [Test]
         public void Model()
         {
@@ -39,8 +31,7 @@ namespace MyAss.Compiler_v2.Tests.Build
         {
             AssemblyCompiler compiler = new AssemblyCompiler(input, true);
             compiler.Compile(true);
-
-            Assert.Pass(GenerationUtils.PrintCodeObject(compiler.CompileUnit));
+            compiler.RunAssembly();
         }
     }
 }

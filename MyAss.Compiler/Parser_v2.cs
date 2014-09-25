@@ -255,7 +255,7 @@ namespace MyAss.Compiler_v2
             }
 
 
-            Console.WriteLine(verb);
+            //Console.WriteLine(verb);
             return verb;
         }
 
