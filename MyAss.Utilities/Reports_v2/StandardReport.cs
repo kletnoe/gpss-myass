@@ -131,18 +131,26 @@ namespace MyAss.Utilities.Reports_v2
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine().AppendLine();
-            sb.AppendLine(String.Format("{0,-6} {1,6} {2,10} {3,10} {4,10} {5,10}",
-                "CEC XN", "PRI", "M1", "ASSEM", "CURRENT", "NEXT"));
+            sb.AppendLine(String.Format("{0,-6} {1,4} {2,10} {3,8} {4,8} {5,6} {6, 15} {7, 10}",
+                "CEC XN", "PRI", "M1", "ASSEM", "CURRENT", "NEXT", "PARAMETER", "VALUE"));
 
             foreach (Transaction tr in simulation.CurrentEventChain)
             {
-                sb.AppendLine(String.Format("{0,6} {1,6} {2,10} {3,10} {4,10} {5,10}",
+                sb.AppendLine(String.Format("{0,6} {1,4} {2,10} {3,8} {4,8} {5,6}",
                     tr.Number,
                     tr.Priority,
-                    tr.MarkTime.ToString("F5"),
+                    tr.MarkTime.ToString("F3"),
                     tr.AssemblySet,
                     tr.Owner,
                     tr.NextOwner));
+
+                foreach (var parameter in tr.TransactionParameters)
+                {
+                    sb.AppendLine(String.Format("{0,47} {1,15} {2,10}",
+                        String.Empty,
+                        simulation.NamesDictionary.GetByFirst(parameter.Key),
+                        parameter.Value.ToString("F3")));
+                }
             }
 
             return sb.ToString();
@@ -153,18 +161,26 @@ namespace MyAss.Utilities.Reports_v2
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine().AppendLine();
-            sb.AppendLine(String.Format("{0,-6} {1,6} {2,10} {3,10} {4,10} {5,10}",
-                "FEC XN", "PRI", "BDT", "ASSEM", "CURRENT", "NEXT"));
+            sb.AppendLine(String.Format("{0,-6} {1,4} {2,10} {3,8} {4,8} {5,6} {6, 15} {7, 10}",
+                "FEC XN", "PRI", "BDT", "ASSEM", "CURRENT", "NEXT", "PARAMETER", "VALUE"));
 
             foreach (Transaction tr in simulation.FutureEventChain)
             {
-                sb.AppendLine(String.Format("{0,6} {1,6} {2,10} {3,10} {4,10} {5,10}",
+                sb.AppendLine(String.Format("{0,6} {1,4} {2,10} {3,8} {4,8} {5,6}",
                     tr.Number,
                     tr.Priority,
-                    tr.NextEventTime.ToString("F5"),
+                    tr.NextEventTime.ToString("F3"),
                     tr.AssemblySet,
                     tr.Owner,
                     tr.NextOwner));
+
+                foreach (var parameter in tr.TransactionParameters)
+                {
+                    sb.AppendLine(String.Format("{0,47} {1,15} {2,10}",
+                        String.Empty,
+                        simulation.NamesDictionary.GetByFirst(parameter.Key),
+                        parameter.Value.ToString("F3")));
+                }
             }
 
             return sb.ToString();
