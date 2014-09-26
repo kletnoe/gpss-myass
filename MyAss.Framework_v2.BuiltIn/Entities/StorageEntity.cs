@@ -12,162 +12,58 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
     {
         private Simulation simulation;
 
-        private int capacity;
-        private int currentCount = 0;
-        private bool avaliable = true;
-        private int entriesCount = 0;
-        private int maxContent = 0;
-        private int minContent = 0;
-        private double averageContent = 0.0;
-        private double utilization = 0.0;
-        private double averageTime = 0.0;
+        public LinkedList<Transaction> DelayChain { get; private set; }
 
-        private double latestChangeClock = 0.0;
-        private double contentTimeArea = 0.0;
+        public int Capacity { get; private set; }
+        public int CurrentCount { get; private set; }
+        public int EntriesCount { get; private set; }
+        public int MaxContent { get; private set; }
+        public int MinContent { get; private set; }
+        public int RemainingCapacity { get { return this.Capacity - this.CurrentCount; } }
+        public double AverageContent { get; private set; }
+        public double Utilization { get; private set; }
+        public double AverageHoldingTime { get; private set; }
+        public bool IsEmpty { get; private set; }
+        public bool IsAvaliable { get; private set; }
 
-        private LinkedList<Transaction> delayChain;
+        public double LatestChangeClock { get; private set; }
+        public double ContentTimeArea { get; private set; }
 
-        public int Capacity
+        public StorageEntity()
         {
-            get
-            {
-                return this.capacity;
-            }
-        }
+            CurrentCount = 0;
+            IsAvaliable = true;
+            EntriesCount = 0;
+            MaxContent = 0;
+            MinContent = 0;
+            AverageContent = 0.0;
+            Utilization = 0.0;
+            AverageHoldingTime = 0.0;
 
-        // S
-        public int CurrentCount
-        {
-            get
-            {
-                return this.currentCount;
-            }
-        }
-
-        // SC
-        public int EntriesCount
-        {
-            get
-            {
-                return this.entriesCount;
-            }
-        }
-
-        // SM
-        public int MaxContent
-        {
-            get
-            {
-                return this.maxContent;
-            }
-        }
-
-        public int MinContent
-        {
-            get
-            {
-                return this.minContent;
-            }
-        }
-
-        // R
-        public int RemainingCapacity
-        {
-            get
-            {
-                return this.capacity - this.currentCount;
-            }
-        }
-
-        // SA
-        public double AverageContent
-        {
-            get
-            {
-                return this.averageContent;
-            }
-        }
-
-        // SR
-        public double FractionalUtilization
-        {
-            get
-            {
-                return Math.Floor(this.utilization * 1000);
-            }
-        }
-
-        public double Utilization
-        {
-            get
-            {
-                return this.utilization;
-            }
-        }
-
-        // ST
-        public double AverageHoldingTime
-        {
-            get
-            {
-                return this.averageTime;
-            }
-        }
-
-        // SE
-        public bool IsEmpty
-        {
-            get
-            {
-                return this.currentCount == 0;
-            }
-        }
-
-        // SF
-        public bool IsFull
-        {
-            get
-            {
-                return this.currentCount == this.capacity;
-            }
-        }
-
-        // SV
-        public bool IsAvaliable
-        {
-            get
-            {
-                return this.avaliable;
-            }
-        }
-
-        public LinkedList<Transaction> DelayChain
-        {
-            get
-            {
-                return this.delayChain;
-            }
+            LatestChangeClock = 0.0;
+            ContentTimeArea = 0.0;
         }
 
         public StorageEntity(Simulation simulation, int id, int capacity)
+            : this()
         {
             this.simulation = simulation;
 
             this.Id = id;
-            this.capacity = capacity;
+            this.Capacity = capacity;
 
-            this.delayChain = new LinkedList<Transaction>();
+            this.DelayChain = new LinkedList<Transaction>();
         }
 
         public void Enter(int units)
         {
-            this.entriesCount += units;
+            this.EntriesCount += units;
             this.UpdateStats();
-            this.currentCount += units;
+            this.CurrentCount += units;
 
-            if (this.maxContent < this.currentCount)
+            if (this.MaxContent < this.CurrentCount)
             {
-                this.maxContent = this.currentCount;
+                this.MaxContent = this.CurrentCount;
             }
         }
 
@@ -175,7 +71,7 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
         {
             this.UpdateStats();
 
-            this.currentCount -= units;
+            this.CurrentCount -= units;
 
             if (this.DelayChain.Count > 0)
             {
@@ -188,22 +84,22 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
 
         public void SAvail()
         {
-            this.avaliable = true;
+            this.IsAvaliable = true;
         }
 
         public void SUnavail()
         {
-            this.avaliable = false;
+            this.IsAvaliable = false;
         }
 
         public override void UpdateStats()
         {
-            this.contentTimeArea += this.currentCount * (this.simulation.Clock - this.latestChangeClock);
-            this.averageContent = this.contentTimeArea / this.simulation.Clock;
-            this.utilization = this.contentTimeArea / (this.capacity * this.simulation.Clock);
-            this.averageTime = this.contentTimeArea / this.entriesCount;
+            this.ContentTimeArea += this.CurrentCount * (this.simulation.Clock - this.LatestChangeClock);
+            this.AverageContent = this.ContentTimeArea / this.simulation.Clock;
+            this.Utilization = this.ContentTimeArea / (this.Capacity * this.simulation.Clock);
+            this.AverageHoldingTime = this.ContentTimeArea / this.EntriesCount;
 
-            this.latestChangeClock = this.simulation.Clock;
+            this.LatestChangeClock = this.simulation.Clock;
         }
 
         public override string GetStandardReportHeader()
@@ -217,7 +113,7 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
             return String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9:F3} {8,9:F3} {9,5} {10,5}",
                         this.simulation.NamesDictionary.GetByFirst(this.Id),
                         this.Capacity,
-                        this.RemainingCapacity,
+                        this.Capacity - this.CurrentCount,
                         this.MinContent,
                         this.MaxContent,
                         this.EntriesCount,
@@ -227,5 +123,20 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
                         this.RetryChain.Count,
                         this.DelayChain.Count);
         }
+
+        #region SNA
+
+        public double R { get { return this.RemainingCapacity; } }
+        public double S { get { return this.CurrentCount; } }
+        public double SA { get { return this.AverageContent; } }
+        public double SC { get { return this.EntriesCount; } }
+        public double SE { get { return this.CurrentCount == 0 ? 1 : 0; } }
+        public double SF { get { return this.CurrentCount == 0 ? 0 : 1; } }
+        public double SR { get { return Math.Floor(this.Utilization * 1000); } }
+        public double SM { get { return this.MaxContent; } }
+        public double ST { get { return this.AverageHoldingTime; } }
+        public double SV { get { return this.IsAvaliable ? 1 : 0; } }
+
+        #endregion
     }
 }

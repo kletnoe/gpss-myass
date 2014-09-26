@@ -10,85 +10,32 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
     {
         private Simulation simulation;
 
-        private int currentContent = 0;
+        public int CurrentContent { get; private set; }
+        public int EntriesCount { get; private set; }
+        public int MaxContent { get; private set; }
+        public int ZeroEntriesCount { get; private set; }
+        public double AverageContent { get; private set; }
+        public double AverageResidenceTime { get; private set; }
+        public double AverageResidenceTimeNonZero { get; private set; }
 
-        private int entriesCount = 0;
-        private int zeroEntriesCount = 0;
-        private int maxContent = 0;
-        private double averageContent = 0.0;
-        private double averageTime = 0.0;
-        private double averageTimeNonZero = 0.0;
+        public double LatestChangeClock { get; private set; }
+        public double ContentTimeArea { get; private set; }
 
-        private double latestChangeClock = 0.0;
-        private double contentTimeArea = 0.0;
-
-        /// <summary>
-        /// SNA::Q
-        /// </summary>
-        public int CurrentContent
+        public QueueEntity()
         {
-            get
-            {
-                return this.currentContent;
-            }
+            CurrentContent = 0;
+            EntriesCount = 0;
+            ZeroEntriesCount = 0;
+            MaxContent = 0;
+            AverageContent = 0.0;
+            AverageResidenceTime = 0.0;
+            AverageResidenceTimeNonZero = 0.0;
+            LatestChangeClock = 0.0;
+            ContentTimeArea = 0.0;
         }
-
-        // QC
-        public int EntriesCount
-        {
-            get
-            {
-                return this.entriesCount;
-            }
-        }
-
-        // QM
-        public int MaxContent
-        {
-            get
-            {
-                return this.maxContent;
-            }
-        }
-
-        // QA
-        public double AverageContent
-        {
-            get
-            {
-                return this.averageContent;
-            }
-        }
-
-        // QT
-        public double AverageResidenceTime
-        {
-            get
-            {
-                return this.averageTime;
-            }
-        }
-
-        // QX
-        public double AverageResidenceTimeNonZero
-        {
-            get
-            {
-                return this.averageTimeNonZero;
-            }
-        }
-
-        // QZ
-        public int ZeroEntriesCount
-        {
-            get
-            {
-                return this.zeroEntriesCount;
-            }
-        }
-
 
         public QueueEntity(Simulation simulation, int id)
+            : this()
         {
             this.simulation = simulation;
             this.Id = id;
@@ -96,13 +43,13 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
 
         public void Queue(int units)
         {
-            this.entriesCount += units;
+            this.EntriesCount += units;
             this.UpdateStats();
-            this.currentContent += units;
+            this.CurrentContent += units;
 
-            if (this.maxContent < this.currentContent)
+            if (this.MaxContent < this.CurrentContent)
             {
-                this.maxContent = this.currentContent;
+                this.MaxContent = this.CurrentContent;
             }
         }
 
@@ -110,30 +57,25 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
         {
             this.UpdateStats();
 
-            if (currentContent == units && this.latestChangeClock == this.simulation.Clock)
+            if (CurrentContent == units && this.LatestChangeClock == this.simulation.Clock)
             {
-                this.zeroEntriesCount += units;
+                this.ZeroEntriesCount += units;
             }
 
-            this.currentContent -= units;
-        }
-
-        public double Q()
-        {
-            return this.CurrentContent;
+            this.CurrentContent -= units;
         }
 
         public override void UpdateStats()
         {
-            this.contentTimeArea += this.currentContent * (this.simulation.Clock - this.latestChangeClock);
-            this.averageContent = this.contentTimeArea / this.simulation.Clock;
-            this.averageTime = this.contentTimeArea / this.entriesCount;
-            this.averageTimeNonZero = this.contentTimeArea / (this.entriesCount - this.zeroEntriesCount);
+            this.ContentTimeArea += this.CurrentContent * (this.simulation.Clock - this.LatestChangeClock);
+            this.AverageContent = this.ContentTimeArea / this.simulation.Clock;
+            this.AverageResidenceTime = this.ContentTimeArea / this.EntriesCount;
+            this.AverageResidenceTimeNonZero = this.ContentTimeArea / (this.EntriesCount - this.ZeroEntriesCount);
 
             //double timeDelta = Simulation.It.Clock - this.previousChangeClock;
             //this.averageContent = ( (this.averageContent * this.previousChangeClock) + (this.currentContent * timeDelta) ) / Simulation.It.Clock;
 
-            this.latestChangeClock = this.simulation.Clock;
+            this.LatestChangeClock = this.simulation.Clock;
         }
 
         public override string GetStandardReportHeader()
@@ -155,5 +97,58 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
                         this.AverageResidenceTimeNonZero,
                         this.RetryChain.Count);
         }
+
+        #region SNA
+
+        /// <summary>
+        /// SNA::Q
+        /// Current Queue content.
+        /// </summary>
+        /// <returns>Current Queue content.</returns>
+        public double Q { get { return this.CurrentContent; } }
+
+        /// <summary>
+        /// SNA::QA
+        /// Average Queue content.
+        /// </summary>
+        /// <returns>Average Queue content.</returns>
+        public double QA { get { return this.AverageContent; } }
+
+        /// <summary>
+        /// SNA::QC
+        /// Total queue entries.
+        /// </summary>
+        /// <returns>Total queue entries.</returns>
+        public double QC { get { return this.EntriesCount; } }
+
+        /// <summary>
+        /// SNA::QM
+        /// Maximum Queue contents.
+        /// </summary>
+        /// <returns>Maximum Queue contents.</returns>
+        public double QM { get { return this.MaxContent; } }
+
+        /// <summary>
+        /// SNA::QT
+        /// Average Queue residence time.
+        /// </summary>
+        /// <returns>Average Queue residence time.</returns>
+        public double QT { get { return this.AverageResidenceTime; } }
+
+        /// <summary>
+        /// SNA::QX
+        /// Average Queue residence time excluding zero entries.
+        /// </summary>
+        /// <returns>Average Queue residence time excluding zero entries.</returns>
+        public double QX { get { return this.AverageResidenceTimeNonZero; } }
+
+        /// <summary>
+        /// SNA::QZ
+        /// Queue zero entry count.
+        /// </summary>
+        /// <returns>Queue zero entry count.</returns>
+        public double QZ { get { return this.ZeroEntriesCount; } }
+
+        #endregion
     }
 }

@@ -21,7 +21,7 @@ namespace MyAss.Framework_v2.BuiltIn.SNA
 
             if (entity is SavevalueEntity)
             {
-                return (double)((SavevalueEntity)entity).Value;
+                return (double)((SavevalueEntity)entity).X;
             }
             else
             {

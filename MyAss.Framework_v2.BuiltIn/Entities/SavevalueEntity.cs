@@ -9,18 +9,8 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
     public class SavevalueEntity : AbstractEntity
     {
         private Simulation simulation;
-        private SavevalueType value;
 
-        /// <summary>
-        /// SNA::X
-        /// </summary>
-        public SavevalueType Value
-        {
-            get
-            {
-                return this.value;
-            }
-        }
+        public SavevalueType Value { get; private set; }
 
         public SavevalueEntity(Simulation simulation, int id)
         {
@@ -30,44 +20,12 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
 
         public void SetValue(string value)
         {
-            this.value = (SavevalueType)value;
-        }
-
-        //public void SubValue(string value)
-        //{
-        //    this.value = this.value - (SavevalueType)value;
-        //}
-
-        //public void AddValue(string value)
-        //{
-        //    this.value = this.value + (SavevalueType)value;
-        //}
-
-        public void SetValueAsDouble(double value)
-        {
-            this.value = (SavevalueType)value;
+            this.Value = (SavevalueType)value;
         }
 
         public string GetValue()
         {
-            return this.value.Value;
-        }
-
-        //public double GetValueAsDouble()
-        //{
-        //    double number;
-
-        //    if (!Double.TryParse(this.value, out number))
-        //    {
-        //        number = 0.0;
-        //    }
-
-        //    return number;
-        //}
-
-        public double X()
-        {
-            return (double)this.value;
+            return this.Value.Value;
         }
 
         public override void UpdateStats()
@@ -88,5 +46,11 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
                         this.RetryChain.Count,
                         this.Value);
         }
+
+        #region SNA
+
+        public SavevalueType X { get { return this.Value; } }
+
+        #endregion
     }
 }

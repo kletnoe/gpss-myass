@@ -20,7 +20,7 @@ namespace MyAss.Framework_v2.BuiltIn.SNA
 
             if (entity is QueueEntity)
             {
-                return ((QueueEntity)entity).CurrentContent;
+                return ((QueueEntity)entity).Q;
             }
             else
             {
