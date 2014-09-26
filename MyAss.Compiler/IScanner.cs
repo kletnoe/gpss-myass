@@ -11,6 +11,8 @@ namespace MyAss.Compiler
         object CurrentTokenVal { get; }
         int CurrentTokenLine { get; }
         int CurrentTokenColumn { get; }
+        string CurrentLine { get; }
+
         bool IgnoreWhitespace { get; set; }
 
         void Next();

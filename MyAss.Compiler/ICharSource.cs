@@ -11,6 +11,7 @@ namespace MyAss.Compiler
         int Line { get; }
         int Column { get; }
         char CurrentChar { get; }
+        string CurrentLine { get; }
 
         void Next();
     }

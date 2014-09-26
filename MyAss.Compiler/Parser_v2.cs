@@ -90,8 +90,7 @@ namespace MyAss.Compiler_v2
                     id = (string)this.Expect(TokenType.ID);
                     break;
                 default:
-                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
-                        @"QUALID or ID", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+                    throw new ParserException(this, @"QUALID or ID");
             }
 
             return id;
@@ -110,8 +109,7 @@ namespace MyAss.Compiler_v2
             }
             else
             {
-                throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
-                    expected, Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+                throw new ParserException(this, expected.ToString());
             }
         }
 
@@ -138,8 +136,7 @@ namespace MyAss.Compiler_v2
                 }
                 else
                 {
-                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
-                        @"USING or USINGP", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+                    throw new ParserException(this, @"USING or USINGP");
                 }
 
                 // Eat comment
@@ -247,8 +244,7 @@ namespace MyAss.Compiler_v2
                         this.Expect(TokenType.WHITE);
                         break;
                     default:
-                        throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
-                   @"WhiteSpace or Comma", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+                        throw new ParserException(this, @"WhiteSpace or Comma");
                 }
 
                 verb.Operands.Add(this.ExpectOperand());
@@ -381,8 +377,7 @@ namespace MyAss.Compiler_v2
                     this.Expect(TokenType.RPAR);
                     break;
                 default:
-                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
-                        @"ID or NUMERIC or '(' ", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+                    throw new ParserException(this, @"ID or NUMERIC or '(' ");
             }
 
             return expression;
@@ -541,8 +536,7 @@ namespace MyAss.Compiler_v2
                     this.Expect(TokenType.MINUS);
                     return BinaryOperatorType.Substract;
                 default:
-                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
-                        @"+ or -", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+                    throw new ParserException(this, @"+ or -");
             }
         }
 
@@ -564,8 +558,7 @@ namespace MyAss.Compiler_v2
                     this.Expect(TokenType.CARRET);
                     return BinaryOperatorType.Exponent;
                 default:
-                    throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
-                        @"# or / or \ or ^", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
+                    throw new ParserException(this, @"# or / or \ or ^");
             }
         }
     }

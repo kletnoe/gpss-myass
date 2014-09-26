@@ -13,11 +13,20 @@ namespace MyAss.Compiler
         private int line;
         private int column;
         private char currentChar;
+        private string currentLine;
 
         public int Position { get { return this.position; } }
         public int Line { get { return this.line; } }
         public int Column { get { return this.column; } }
         public char CurrentChar { get { return this.currentChar; } }
+
+        public string CurrentLine
+        {
+            get
+            {
+                return this.source.Split('\n')[this.line - 1];
+            }
+        }
 
         public StringCharSource(string source)
         {

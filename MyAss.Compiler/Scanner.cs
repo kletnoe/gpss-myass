@@ -13,12 +13,15 @@ namespace MyAss.Compiler
         private object currentTokenVal;
         private int currentTokenLine;
         private int currentTokenColumn;
+
         public bool ignoreWhitespace;
 
         public TokenType CurrentToken { get { return this.currentToken; } }
         public object CurrentTokenVal { get { return this.currentTokenVal; } }
         public int CurrentTokenLine { get { return this.currentTokenLine; } }
         public int CurrentTokenColumn { get { return this.currentTokenColumn; } }
+        public string CurrentLine { get { return  this.CharSource.CurrentLine; } }
+
         public bool IgnoreWhitespace { get { return this.ignoreWhitespace; } set { this.ignoreWhitespace = value; } }
 
 
