@@ -168,7 +168,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
             tryCatchStatement.TryStatements.Add(new CodeSnippetStatement("var entity = this.simulation.GetEntity(entityId);"));
             tryCatchStatement.TryStatements.Add(new CodeSnippetStatement("dynamic dynamicEntity = entity;"));
-            tryCatchStatement.TryStatements.Add(new CodeSnippetStatement("return (double)dynamicEntity." + snaName + "();"));
+            tryCatchStatement.TryStatements.Add(new CodeSnippetStatement("return (double)dynamicEntity." + snaName + ";"));
 
 
             CodeCatchClause catchRuntimeBinderException = new CodeCatchClause();

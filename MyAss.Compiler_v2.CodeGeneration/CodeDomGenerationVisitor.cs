@@ -285,7 +285,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
                 this.CreateNewNamedVar(sna.ActualId);
             }
 
-
+            //*
             CodeMethodInvokeExpression result = new CodeMethodInvokeExpression(
                 new CodeMethodReferenceExpression(
                     new CodeTypeReferenceExpression(this.metadataRetriever.GetProcedure(sna.SnaId).ReflectedType),
@@ -300,25 +300,26 @@ namespace MyAss.Compiler_v2.CodeGeneration
                     sna.ActualId
                 )
             );
+            //*/
 
+            /*
+            CodeMethodInvokeExpression result = new CodeMethodInvokeExpression(
+                new CodeMethodReferenceExpression(
+                    new CodeThisReferenceExpression(),
+                    sna.SnaId
+                ),
+                new CodeFieldReferenceExpression(
+                    new CodeThisReferenceExpression(),
+                    sna.ActualId
+                )
+            );
 
-            //CodeMethodInvokeExpression result = new CodeMethodInvokeExpression(
-            //    new CodeMethodReferenceExpression(
-            //        new CodeThisReferenceExpression(),
-            //        sna.SnaId
-            //    ),
-            //    new CodeFieldReferenceExpression(
-            //        new CodeThisReferenceExpression(),
-            //        sna.ActualId
-            //    )
-            //);
-
-            //if (!this.snaMethods.Contains(sna.SnaId))
-            //{
-            //    this.snaMethods.Add(sna.SnaId);
-            //    this.theClass.Members.Add(GenerationUtils.ConstructSimpleSnaMethod(sna.SnaId));
-            //}
-
+            if (!this.snaMethods.Contains(sna.SnaId))
+            {
+                this.snaMethods.Add(sna.SnaId);
+                this.theClass.Members.Add(GenerationUtils.ConstructSimpleSnaMethod(sna.SnaId));
+            }
+            //*/
             return result;
         }
 

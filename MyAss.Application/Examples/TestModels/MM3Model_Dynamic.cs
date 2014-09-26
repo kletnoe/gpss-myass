@@ -160,7 +160,7 @@ namespace TestModels
             {
                 IEntity entity = simulation.GetEntity(entityId);
                 dynamic dynamicEntity = entity;
-                return (double)dynamicEntity.CurrentContent;
+                return (double)dynamicEntity.Q;
             }
             catch (RuntimeBinderException)
             {
@@ -178,7 +178,7 @@ namespace TestModels
             {
                 IEntity entity = simulation.GetEntity(entityId);
                 dynamic dynamicEntity = entity;
-                return (double)dynamicEntity.Value;
+                return (double)dynamicEntity.X;
             }
             catch (RuntimeBinderException)
             {
