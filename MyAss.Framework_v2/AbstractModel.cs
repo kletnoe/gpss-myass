@@ -12,15 +12,15 @@ namespace MyAss.Framework_v2
     {
         protected Simulation simulation;
 
-        private BiDictionary<int, string> namesDictionary;
+        private NamesAndVarsDictionary namesAndVarsDictionary;
         private List<IBlock> blocks;
         private List<ICommand> commands;
 
-        public BiDictionary<int, string> NamesDictionary
+        public NamesAndVarsDictionary NamesDictionary
         {
             get
             {
-                return this.namesDictionary;
+                return this.namesAndVarsDictionary;
             }
         }
 
@@ -42,7 +42,7 @@ namespace MyAss.Framework_v2
 
         public AbstractModel()
         {
-            this.namesDictionary = new BiDictionary<int, string>();
+            this.namesAndVarsDictionary = new NamesAndVarsDictionary();
             this.blocks = new List<IBlock>();
             this.commands = new List<ICommand>();
         }
@@ -57,14 +57,18 @@ namespace MyAss.Framework_v2
             return this.simulation;
         }
 
-        public void AddName(int nameId, string name)
+        public void AddName(string name, int nameId)
         {
-            this.namesDictionary.Add(nameId, name);
+            this.namesAndVarsDictionary.AddName(name, nameId);
         }
 
-        public void ReplaceNameId(int nameId, string name)
+        public void ReplaceNameId(string name, int nameId)
         {
-            this.namesDictionary.ReplaceBySecond(nameId, name);
+            if (this.namesAndVarsDictionary.ContainsKey(name))
+            {
+                this.namesAndVarsDictionary.Remove(name);
+                this.namesAndVarsDictionary.AddName(name, nameId);
+            }
         }
 
         public void AddVerb(IBlock block)

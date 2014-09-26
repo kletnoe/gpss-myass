@@ -26,9 +26,12 @@ namespace MyAss.Framework_v2.BuiltIn.Commands
             }
             double value = this.X_Expression.GetValue();
 
-            // TODO: Temp hack double -> int cast!
-            string name = simulation.NamesDictionary.GetByFirst(this.Id);
-            simulation.NamesDictionary.ReplaceBySecond((int)value, name);
+            // Equ command Id is useless.
+            this.Id = 0;
+
+            string name = simulation.NamesAndVarsDictionary.GetNameByValue(this.Id);
+            simulation.NamesAndVarsDictionary.Remove(name);
+            simulation.NamesAndVarsDictionary.AddVar(name, value);
         }
     }
 }

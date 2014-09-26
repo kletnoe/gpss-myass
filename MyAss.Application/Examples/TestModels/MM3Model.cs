@@ -22,7 +22,7 @@ namespace TestModels
         {
             // Server STORAGE 3
             this.SERVER = 10000;
-            this.AddName(SERVER, "SERVER");
+            this.AddName("SERVER", SERVER);
             ICommand command1 = new Storage(new ParExpression(this.Command1_Operand1));
             command1.SetId(this.SERVER);
             this.AddVerb(command1);
@@ -37,15 +37,15 @@ namespace TestModels
 
             // SAVEVALUE GenerateCounter,X$GenerateCounter+1
             this.GENERATECOUNTER = 10001;
-            this.AddName(GENERATECOUNTER, "GENERATECOUNTER");
+            this.AddName("GENERATECOUNTER", GENERATECOUNTER);
             IBlock block2 = new Savevalue(new ParExpression(this.Block2_Operand1), new ParExpression(this.Block2_Operand2));
             this.AddVerb(block2);
 
             // TEST L Q$Tail,20,GoAway		;Jump if in Queue >20
             this.TAIL = 10002;
-            this.AddName(TAIL, "TAIL");
+            this.AddName("TAIL", TAIL);
             this.GOAWAY = 10003;
-            this.AddName(GOAWAY, "GOAWAY");
+            this.AddName("GOAWAY", GOAWAY);
             IBlock block3 = new Test(new LiteralOperand("L"), new ParExpression(this.Block3_Operand2), new ParExpression(this.Block3_Operand3), new ParExpression(this.Block3_Operand4));
             this.AddVerb(block3);
 
@@ -71,9 +71,9 @@ namespace TestModels
 
             // SAVEVALUE RejetionProb,(X$RejectCounter/X$GenerateCounter)
             this.REJETIONPROB = 10004;
-            this.AddName(REJETIONPROB, "REJETIONPROB");
+            this.AddName("REJETIONPROB", REJETIONPROB);
             this.REJECTCOUNTER = 10005;
-            this.AddName(REJECTCOUNTER, "REJECTCOUNTER");
+            this.AddName("REJECTCOUNTER", REJECTCOUNTER);
             IBlock block9 = new Savevalue(new ParExpression(this.Block9_Operand1), new ParExpression(this.Block9_Operand2));
             this.AddVerb(block9);
 
@@ -83,7 +83,7 @@ namespace TestModels
 
             // GoAway	SAVEVALUE RejectCounter,X$RejectCounter+1
             this.GOAWAY = 11;
-            this.ReplaceNameId(GOAWAY, "GOAWAY");
+            this.ReplaceNameId("GOAWAY", GOAWAY);
             IBlock block11 = new Savevalue(new ParExpression(this.Block11_Operand1), new ParExpression(this.Block11_Operand2));
             this.AddVerb(block11);
 

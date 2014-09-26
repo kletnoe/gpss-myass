@@ -29,7 +29,7 @@ namespace TestModels
             // 
             // Server STORAGE 3
             this.Server = 10000;
-            this.AddName(this.Server, "Server");
+            this.AddName("Server", this.Server);
             if (true)
             {
                 MyAss.Framework_v2.BuiltIn.Commands.Storage verb = new MyAss.Framework_v2.BuiltIn.Commands.Storage(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb1_Operand1)));
@@ -39,9 +39,9 @@ namespace TestModels
             // 
             // OnQueue TABLE MP$OnQueueTime,0,4,20
             this.OnQueue = 10001;
-            this.AddName(this.OnQueue, "OnQueue");
+            this.AddName("OnQueue", this.OnQueue);
             this.OnQueueTime = 10002;
-            this.AddName(this.OnQueueTime, "OnQueueTime");
+            this.AddName("OnQueueTime", this.OnQueueTime);
             if (true)
             {
                 MyAss.Framework_v2.TablePackage.Commands.Table verb = new MyAss.Framework_v2.TablePackage.Commands.Table(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb2_Operand1)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb2_Operand2)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb2_Operand3)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb2_Operand4)));
@@ -72,7 +72,7 @@ namespace TestModels
             // 
             // SAVEVALUE GenerateCounter,(X$GenerateCounter + 1)
             this.GenerateCounter = 10003;
-            this.AddName(this.GenerateCounter, "GenerateCounter");
+            this.AddName("GenerateCounter", this.GenerateCounter);
             if (true)
             {
                 MyAss.Framework_v2.BuiltIn.Blocks.Savevalue verb = new MyAss.Framework_v2.BuiltIn.Blocks.Savevalue(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb6_Operand1)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb6_Operand2)));
@@ -81,9 +81,9 @@ namespace TestModels
             // 
             // TEST L,Q$Tail,20,GoAway,,
             this.Tail = 10004;
-            this.AddName(this.Tail, "Tail");
+            this.AddName("Tail", this.Tail);
             this.GoAway = 10005;
-            this.AddName(this.GoAway, "GoAway");
+            this.AddName("GoAway", this.GoAway);
             if (true)
             {
                 MyAss.Framework_v2.BuiltIn.Blocks.Test verb = new MyAss.Framework_v2.BuiltIn.Blocks.Test(new MyAss.Framework_v2.OperandTypes.LiteralOperand("L"), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb7_Operand2)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb7_Operand3)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb7_Operand4)));
@@ -134,9 +134,9 @@ namespace TestModels
             // 
             // SAVEVALUE RejetionProb,(X$RejectCounter / X$GenerateCounter)
             this.RejetionProb = 10006;
-            this.AddName(this.RejetionProb, "RejetionProb");
+            this.AddName("RejetionProb", this.RejetionProb);
             this.RejectCounter = 10007;
-            this.AddName(this.RejectCounter, "RejectCounter");
+            this.AddName("RejectCounter", this.RejectCounter);
             if (true)
             {
                 MyAss.Framework_v2.BuiltIn.Blocks.Savevalue verb = new MyAss.Framework_v2.BuiltIn.Blocks.Savevalue(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb14_Operand1)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb14_Operand2)));
@@ -152,7 +152,7 @@ namespace TestModels
             // 
             // GoAway SAVEVALUE RejectCounter,(X$RejectCounter + 1)
             this.GoAway = 13;
-            this.ReplaceNameId(this.GoAway, "GoAway");
+            this.ReplaceNameId("GoAway", this.GoAway);
             if (true)
             {
                 MyAss.Framework_v2.BuiltIn.Blocks.Savevalue verb = new MyAss.Framework_v2.BuiltIn.Blocks.Savevalue(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb16_Operand1)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb16_Operand2)));

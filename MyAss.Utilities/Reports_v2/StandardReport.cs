@@ -61,14 +61,14 @@ namespace MyAss.Utilities.Reports_v2
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine().AppendLine();
-            sb.AppendLine(String.Format("{0, 10} {1,-24} {2,6}",
+            sb.AppendLine(String.Format("{0, 10} {1,-24} {2,10}",
                     String.Empty, "NAME", "VALUE"));
-            foreach (var name in simulation.NamesDictionary.SecondToFirst)
+            foreach (var name in simulation.NamesAndVarsDictionary)
             {
-                sb.AppendLine(String.Format("{0, 10} {1,-24} {2,6}",
+                sb.AppendLine(String.Format("{0, 10} {1,-24} {2,10}",
                     String.Empty,
                     name.Key,
-                    name.Value));
+                    name.Value.ToString("F3")));
             }
             return sb.ToString();
         }
@@ -91,7 +91,7 @@ namespace MyAss.Utilities.Reports_v2
             foreach (var block in simulation.Blocks)
             {
                 sb.AppendLine(String.Format("{0,-15} {1,5} {2,15} {3,13} {4,13} {5,13}",
-                    simulation.NamesDictionary.ContainsByFirst(block.Value.Id) ? simulation.NamesDictionary.GetByFirst(block.Value.Id) : String.Empty,
+                    simulation.NamesAndVarsDictionary.ContainsNameValue(block.Value.Id) ? simulation.NamesAndVarsDictionary.GetNameByValue(block.Value.Id) : String.Empty,
                     block.Value.Id,
                     block.Value.GetType().Name,
                     block.Value.EntryCount,
@@ -148,7 +148,7 @@ namespace MyAss.Utilities.Reports_v2
                 {
                     sb.AppendLine(String.Format("{0,47} {1,15} {2,10}",
                         String.Empty,
-                        simulation.NamesDictionary.GetByFirst(parameter.Key),
+                        simulation.NamesAndVarsDictionary.GetNameByValue(parameter.Key),
                         parameter.Value.ToString("F3")));
                 }
             }
@@ -178,7 +178,7 @@ namespace MyAss.Utilities.Reports_v2
                 {
                     sb.AppendLine(String.Format("{0,47} {1,15} {2,10}",
                         String.Empty,
-                        simulation.NamesDictionary.GetByFirst(parameter.Key),
+                        simulation.NamesAndVarsDictionary.GetNameByValue(parameter.Key),
                         parameter.Value.ToString("F3")));
                 }
             }

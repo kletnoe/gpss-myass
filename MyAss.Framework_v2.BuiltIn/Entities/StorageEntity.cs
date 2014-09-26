@@ -121,7 +121,7 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
         public override string GetStandardReportLine()
         {
             return String.Format("{0,-14} {1,4} {2,4} {3,4} {4,4} {5,6} {6,4} {7,9:F3} {8,9:F3} {9,5} {10,5}",
-                        this.simulation.NamesDictionary.GetByFirst(this.Id),
+                        this.simulation.NamesAndVarsDictionary.GetNameByValue(this.Id),
                         this.Capacity,
                         this.Capacity - this.CurrentCount,
                         this.MinContent,

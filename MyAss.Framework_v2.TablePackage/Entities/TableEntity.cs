@@ -86,7 +86,7 @@ namespace MyAss.Framework_v2.TablePackage.Entities
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine(String.Format("{0,-14} {1,8:F3} {2,8:F3} {3,6}",
-                this.simulation.NamesDictionary.GetByFirst(this.Id),
+                this.simulation.NamesAndVarsDictionary.GetNameByValue(this.Id),
                 this.Mean,
                 this.SampleStandardDeviation,
                 this.RetryChain.Count));

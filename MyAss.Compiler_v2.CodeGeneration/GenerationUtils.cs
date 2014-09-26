@@ -61,11 +61,11 @@ namespace MyAss.Compiler_v2.CodeGeneration
             methodCall.Method.TargetObject = new CodeThisReferenceExpression();
             methodCall.Method.MethodName = AddNameMethodName;
 
+            methodCall.Parameters.Add(new CodePrimitiveExpression(namedVarName));
             methodCall.Parameters.Add(new CodeFieldReferenceExpression(
                 new CodeThisReferenceExpression(),
                 namedVarName
             ));
-            methodCall.Parameters.Add(new CodePrimitiveExpression(namedVarName));
 
             return new CodeExpressionStatement(methodCall);
         }
@@ -78,11 +78,11 @@ namespace MyAss.Compiler_v2.CodeGeneration
             methodCall.Method.TargetObject = new CodeThisReferenceExpression();
             methodCall.Method.MethodName = ReplaceNameIdMethodName;
 
+            methodCall.Parameters.Add(new CodePrimitiveExpression(namedVarName));
             methodCall.Parameters.Add(new CodeFieldReferenceExpression(
                 new CodeThisReferenceExpression(),
                 namedVarName
             ));
-            methodCall.Parameters.Add(new CodePrimitiveExpression(namedVarName));
 
             return new CodeExpressionStatement(methodCall);
         }

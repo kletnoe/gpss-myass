@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,25 +7,15 @@ using System.Threading.Tasks;
 
 namespace MyAss.Framework_v2
 {
-    public class BiDictionary<TFirst,TSecond>
+    public class BiDictionary<TFirst,TSecond> : IEnumerable<KeyValuePair<TFirst, TSecond>>
     {
-        private Dictionary<TFirst,TSecond> firstToSecond = new Dictionary<TFirst, TSecond>();
-        private Dictionary<TSecond,TFirst> secondToFirst = new Dictionary<TSecond, TFirst>();
+        private Dictionary<TFirst,TSecond> firstToSecond;
+        private Dictionary<TSecond,TFirst> secondToFirst;
 
-        public IReadOnlyDictionary<TFirst,TSecond> FirstToSecond
+        public BiDictionary()
         {
-            get
-            {
-                return this.firstToSecond;
-            }
-        }
-
-        public IReadOnlyDictionary<TSecond,TFirst> SecondToFirst
-        {
-            get
-            {
-                return this.secondToFirst;
-            }
+            firstToSecond = new Dictionary<TFirst, TSecond>();
+            secondToFirst = new Dictionary<TSecond, TFirst>();
         }
 
         public void Add(TFirst first, TSecond second)
@@ -86,7 +77,7 @@ namespace MyAss.Framework_v2
             return this.secondToFirst.ContainsKey(second);
         }
 
-        public void RemoveByFirst(TFirst first)
+        public bool RemoveByFirst(TFirst first)
         {
             if (this.firstToSecond.ContainsKey(first))
             {
@@ -94,10 +85,16 @@ namespace MyAss.Framework_v2
 
                 this.firstToSecond.Remove(first);
                 this.secondToFirst.Remove(second);
+
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        public void RemoveBySecond(TSecond second)
+        public bool RemoveBySecond(TSecond second)
         {
             if (this.secondToFirst.ContainsKey(second))
             {
@@ -105,6 +102,12 @@ namespace MyAss.Framework_v2
 
                 this.firstToSecond.Remove(first);
                 this.secondToFirst.Remove(second);
+
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -112,6 +115,19 @@ namespace MyAss.Framework_v2
         {
             this.firstToSecond.Clear();
             this.secondToFirst.Clear();
+        }
+
+        public IEnumerator<KeyValuePair<TFirst, TSecond>> GetEnumerator()
+        {
+            foreach (var item in this.firstToSecond)
+            {
+                yield return item;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }

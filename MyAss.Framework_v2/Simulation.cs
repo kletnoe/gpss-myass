@@ -15,7 +15,7 @@ namespace MyAss.Framework_v2
         public FutureTransactionChain FutureEventChain { get; private set; }
         public Queue<ICommand> CommandQueue { get; private set; }
 
-        public BiDictionary<int, string> NamesDictionary { get; private set; }
+        public NamesAndVarsDictionary NamesAndVarsDictionary { get; private set; }
         public Dictionary<int, IBlock> Blocks { get; private set; }
         public Dictionary<int, IEntity> Entities { get; private set; }
 
@@ -55,7 +55,7 @@ namespace MyAss.Framework_v2
 
         private void ProcessNames(AbstractModel model)
         {
-            this.NamesDictionary = model.NamesDictionary;
+            this.NamesAndVarsDictionary = model.NamesDictionary;
         }
 
         private void ProcessBlocks(AbstractModel model)

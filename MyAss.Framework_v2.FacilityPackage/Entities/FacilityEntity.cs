@@ -66,7 +66,7 @@ namespace MyAss.Framework_v2.FacilityPackage.Entities
         public override string GetStandardReportLine()
         {
             return String.Format("{0,-14} {1,6} {2,9:F3} {3,9:F3} {4,6} {5,6} {6,6} {7,6} {8,6} {9,6}",
-                this.simulation.NamesDictionary.GetByFirst(this.Id),
+                this.simulation.NamesAndVarsDictionary.GetNameByValue(this.Id),
                 this.CaptureCount,
                 this.Utilization,
                 this.AverageHoldingTime,

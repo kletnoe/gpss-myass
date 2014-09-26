@@ -93,7 +93,7 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
         public override string GetStandardReportLine()
         {
             return String.Format("{0,-14} {1,6} {2,6} {3,6} {4,6} {5,9:F3} {6,9:F3} {7,9:F3} {8,6}",
-                        this.simulation.NamesDictionary.GetByFirst(this.Id),
+                        this.simulation.NamesAndVarsDictionary.GetNameByValue(this.Id),
                         this.MaxContent,
                         this.CurrentContent,
                         this.EntriesCount,

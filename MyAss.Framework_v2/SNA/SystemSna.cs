@@ -12,7 +12,7 @@ namespace MyAss.Framework_v2.SNA
         {
             if (!simulation.ActiveTransaction.TransactionParameters.ContainsKey(parameterId))
             {
-                throw new ModelingException("Reference to non-existent Parameter: " + simulation.NamesDictionary.GetByFirst(parameterId));
+                throw new ModelingException("Reference to non-existent Parameter: " + simulation.NamesAndVarsDictionary.GetNameByValue(parameterId));
             }
 
             double result = simulation.Clock - simulation.ActiveTransaction.TransactionParameters[parameterId];
@@ -23,7 +23,7 @@ namespace MyAss.Framework_v2.SNA
         {
             if (!simulation.ActiveTransaction.TransactionParameters.ContainsKey(parameterId))
             {
-                throw new ModelingException("Reference to non-existent Parameter: " + simulation.NamesDictionary.GetByFirst(parameterId));
+                throw new ModelingException("Reference to non-existent Parameter: " + simulation.NamesAndVarsDictionary.GetNameByValue(parameterId));
             }
 
             double result = simulation.ActiveTransaction.TransactionParameters[parameterId];
