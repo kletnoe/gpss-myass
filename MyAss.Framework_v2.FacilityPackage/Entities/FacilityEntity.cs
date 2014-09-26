@@ -7,110 +7,53 @@ using MyAss.Framework_v2.Entities;
 
 namespace MyAss.Framework_v2.FacilityPackage.Entities
 {
-    public class FacilityEntity : AbstractEntity
+    public class FacilityEntity : AbstractEntity, IPendableEntity, IInterruptableEntity, IDelayableEntity
     {
         private Simulation simulation;
 
-        private int ownerId = 0;
+        public LinkedList<Transaction> PendingChain { get; private set; }
+        public LinkedList<Transaction> InterruptChain { get; private set; }
+        public LinkedList<Transaction> DelayChain { get; private set; }
 
-        private bool busy = false;
-        private bool avaliable = true;
-        private int captureCount = 0;
-        private bool interrupted = false;
-        private double utilization = 0.0;
-        private double averageTime = 0.0;
+        public bool IsAvaliable { get; private set; }
+        public bool IsBusy { get; private set; }
+        public int CaptureCount { get; private set; }
+        public bool IsInterrupted { get; private set; }
+        public double Utilization { get; private set; }
+        public double AverageHoldingTime { get; private set; }
+        public int OwnerId { get; private set; }
 
-        private double latestChangeClock = 0.0;
-        private double contentTimeArea = 0.0;
+        public double LatestChangeClock { get; private set; }
+        public double ContentTimeArea { get; private set; }
 
-        public LinkedList<Transaction> PendingChain { get; set; }
-        public LinkedList<Transaction> InterruptChain { get; set; }
-        public LinkedList<Transaction> DelayChain { get; set; }
-
-        //public Transaction Ownership { get; private set; }
-
-        // FV
-        public bool IsAvaliable
+        public FacilityEntity()
         {
-            get
-            {
-                return this.avaliable;
-            }
-        }
+            OwnerId = 0;
 
-        // F
-        public bool IsBuisy
-        {
-            get
-            {
-                return this.busy;
-            }
-        }
+            IsBusy = false;
+            IsAvaliable = true;
+            CaptureCount = 0;
+            IsInterrupted = false;
+            Utilization = 0.0;
+            AverageHoldingTime = 0.0;
 
-        // FC
-        public int CaptureCount
-        {
-            get
-            {
-                return this.captureCount;
-            }
-        }
-
-        // FI
-        public bool IsInterrupted
-        {
-            get
-            {
-                return this.interrupted;
-            }
-        }
-
-        // FR
-        public double FractionalUtilization
-        {
-            get
-            {
-                return Math.Floor(this.utilization * 1000);
-            }
-        }
-
-        public double Utilization
-        {
-            get
-            {
-                return this.utilization;
-            }
-        }
-
-        // FT
-        public double AverageHoldingTime
-        {
-            get
-            {
-                return this.averageTime;
-            }
-        }
-
-        public int Owner
-        {
-            get
-            {
-                return this.ownerId;
-            }
+            LatestChangeClock = 0.0;
+            ContentTimeArea = 0.0;
         }
 
         public FacilityEntity(int id)
+            : this()
         {
             this.Id = id;
         }
 
         public override void UpdateStats()
         {
-            this.contentTimeArea += (this.busy ? 1 : 0) * (this.simulation.Clock - this.latestChangeClock);
-            this.utilization = this.contentTimeArea / this.simulation.Clock;
-            this.averageTime = this.contentTimeArea / this.captureCount;
+            this.ContentTimeArea += (this.IsBusy ? 1 : 0) * (this.simulation.Clock - this.LatestChangeClock);
+            this.Utilization = this.ContentTimeArea / this.simulation.Clock;
+            this.AverageHoldingTime = this.ContentTimeArea / this.CaptureCount;
 
-            this.latestChangeClock = this.simulation.Clock;
+            this.LatestChangeClock = this.simulation.Clock;
         }
 
 
@@ -128,11 +71,22 @@ namespace MyAss.Framework_v2.FacilityPackage.Entities
                 this.Utilization,
                 this.AverageHoldingTime,
                 this.IsAvaliable,
-                this.Owner,
+                this.OwnerId,
                 this.PendingChain.Count,
                 this.InterruptChain.Count,
                 this.RetryChain.Count,
                 this.DelayChain.Count);
         }
+
+        #region SNA
+
+        public double F { get { return this.IsBusy ? 1 : 0; } }
+        public double FC { get { return this.CaptureCount; } }
+        public double FI { get { return this.IsInterrupted ? 1 : 0; } }
+        public double FR { get { return Math.Floor(this.Utilization * 1000); } }
+        public double FT { get { return this.AverageHoldingTime; } }
+        public double FV { get { return this.IsAvaliable ? 1 : 0; } }
+
+        #endregion
     }
 }

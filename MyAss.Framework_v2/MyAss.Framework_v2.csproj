@@ -52,6 +52,7 @@
     <Compile Include="Entities\AbstractEntity.cs" />
     <Compile Include="Entities\IDelayableEntity.cs" />
     <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Entities\IInterruptableEntity.cs" />
     <Compile Include="Entities\IPendableEntity.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="ModelingException.cs" />
