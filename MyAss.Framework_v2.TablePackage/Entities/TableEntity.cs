@@ -12,68 +12,61 @@ namespace MyAss.Framework_v2.TablePackage.Entities
     {
         private Simulation simulation;
 
-        IDoubleOperand tableArgument;
-        double firstIntervalEndPoint;
-        double intervalWidth;
-        int intervalsCount;
+        public TableIntervals Intervals { get; private set; }
+        public IDoubleOperand TableArgument { get; private set; }
 
-        private int entriesCount = 0;
-        private double mean = 0.0;
-        private double accumulatedSumOfSquares = 0.0;
-        private double sampleStandardDeviation = 0.0;
-        //private double populationStandardDeviation = 0.0;
+        public int EntriesCount { get; private set; }
+        public double Mean { get; private set; }
+        public double AccumulatedSumOfSquares { get; private set; }
+        public double SampleStandardDeviation { get; private set; }
+        //public double PopulationStandardDeviation { get; private set; }
 
-        //private double latestValue = Double.NaN;
+        public double FirstIntervalEndPoint { get; private set; }
+        public double IntervalWidth { get; private set; }
+        public int IntervalsCount { get; private set; }
 
-        private TableIntervals intervals;
+        public TableEntity()
+        {
+            EntriesCount = 0;
+            Mean = 0.0;
+            AccumulatedSumOfSquares = 0.0;
+            SampleStandardDeviation = 0.0;
+            //PopulationStandardDeviation = 0.0;
+        }
 
         public TableEntity(Simulation simulation, int id, IDoubleOperand tableArgument,
             double firstIntervalEndPoint, double intervalWidth, int intervalsCount)
+            : this()
         {
             this.simulation = simulation;
             this.Id = id;
 
-            this.tableArgument = tableArgument;
-            this.firstIntervalEndPoint = firstIntervalEndPoint;
-            this.intervalWidth = intervalWidth;
-            this.intervalsCount = intervalsCount;
+            this.TableArgument = tableArgument;
+            this.FirstIntervalEndPoint = firstIntervalEndPoint;
+            this.IntervalWidth = intervalWidth;
+            this.IntervalsCount = intervalsCount;
 
-            this.intervals = new TableIntervals(firstIntervalEndPoint, intervalWidth, intervalsCount);
-        }
-
-        public double TB()
-        {
-            return this.mean;
-        }
-
-        public double TC()
-        {
-            return this.entriesCount;
-        }
-
-        public double TD()
-        {
-            return this.sampleStandardDeviation;
+            this.Intervals = new TableIntervals(firstIntervalEndPoint, intervalWidth, intervalsCount);
         }
 
         public void Tabulate(int weightedFactor)
         {
-            this.entriesCount++;
-            double value = this.tableArgument.GetValue();
+            this.EntriesCount++;
+            double value = this.TableArgument.GetValue();
             this.IncrementInterval(value, weightedFactor);
 
             // Stats
-            this.mean = (this.mean * (this.entriesCount - 1) + value) / (double)this.entriesCount;
-            this.accumulatedSumOfSquares += Math.Pow(value, 2);
-            this.sampleStandardDeviation = Math.Sqrt(
-                (this.accumulatedSumOfSquares - (Math.Pow(this.mean, 2) * this.entriesCount)) 
-                / (double)(this.entriesCount - 1)
+            this.Mean = (this.Mean * (this.EntriesCount - 1) + value) / (double)this.EntriesCount;
+            this.AccumulatedSumOfSquares += Math.Pow(value, 2);
+            this.SampleStandardDeviation = Math.Sqrt(
+                (this.AccumulatedSumOfSquares - (Math.Pow(this.Mean, 2) * this.EntriesCount)) 
+                / (double)(this.EntriesCount - 1)
             );
         }
 
         private void IncrementInterval(double value, int weightedFactor)
         {
-            TableInterval interval = this.intervals.Intervals.Where(x => x.IntervalStart < value && x.IntervalEnd >= value).First();
+            TableInterval interval = this.Intervals.Intervals.Where(x => x.IntervalStart < value && x.IntervalEnd >= value).First();
             interval.ObservedFrequency += weightedFactor;
         }
 
@@ -94,8 +87,8 @@ namespace MyAss.Framework_v2.TablePackage.Entities
 
             sb.AppendLine(String.Format("{0,-14} {1,8:F3} {2,8:F3} {3,6}",
                 this.simulation.NamesDictionary.GetByFirst(this.Id),
-                this.mean,
-                this.sampleStandardDeviation,
+                this.Mean,
+                this.SampleStandardDeviation,
                 this.RetryChain.Count));
 
             sb.AppendLine(this.GetIntervalsInfo());
@@ -109,10 +102,10 @@ namespace MyAss.Framework_v2.TablePackage.Entities
 
             int cumulativeSum = 0;
 
-            foreach (var interval in this.intervals.Intervals)
+            foreach (var interval in this.Intervals.Intervals)
             {
                 cumulativeSum += interval.ObservedFrequency;
-                double cumulativePercent = ((double)cumulativeSum / (double)this.entriesCount) * 100;
+                double cumulativePercent = ((double)cumulativeSum / (double)this.EntriesCount) * 100;
 
                 sb.AppendLine(String.Format("{0,40} {1,9} {2,1} {3,9} {4,9} {5,6:F2}",
                     String.Empty,
@@ -125,5 +118,13 @@ namespace MyAss.Framework_v2.TablePackage.Entities
 
             return sb.ToString();
         }
+
+        #region SNA
+
+        public double TB { get { return this.Mean; } }
+        public double TC { get { return this.EntriesCount; } }
+        public double TD { get { return this.SampleStandardDeviation; } }
+
+        #endregion
     }
 }
