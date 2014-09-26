@@ -21,16 +21,23 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
         public override void Action(Simulation simulation)
         {
-            // A: Required.
-            if(this.A_QueueEntityId == null)
+            // A: Required. The operand must be PosInteger.
+            if (this.A_QueueEntityId == null)
             {
                 throw new ModelingException("QUEUE: Operand A is required operand!");
             }
             int entityId = (int)this.A_QueueEntityId.GetValue();
+            if (entityId <= 0)
+            {
+                throw new ModelingException("QUEUE: Operand A must be PosInteger!");
+            }
 
-            // B: The default is 1.
+            // B: The default is 1. The operand must be PosInteger.
             int units = this.B_NumberOfUnits == null ? 1 : (int)this.B_NumberOfUnits.GetValue();
-
+            if (units <= 0)
+            {
+                throw new ModelingException("QUEUE: Operand B must be PosInteger!");
+            }
 
             this.CreateEntity(simulation, entityId);
 

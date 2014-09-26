@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blocks\Adopt.cs" />
     <Compile Include="Blocks\Advance.cs" />
     <Compile Include="Blocks\Assign.cs" />
     <Compile Include="Blocks\Depart.cs" />

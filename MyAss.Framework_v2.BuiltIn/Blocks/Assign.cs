@@ -24,12 +24,16 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
         // TODO: Operand c "function modifier".
         public override void Action(Simulation simulation)
         {
-            // A: Required.
+            // A: Required. The operand must be PosInteger.
             if (A_ParameterId == null)
             {
                 throw new ModelingException("ASSIGN: Operand A is required operand!");
             }
             int parameterId = (int)this.A_ParameterId.GetValue();
+            if (parameterId <= 0)
+            {
+                throw new ModelingException("ASSIGN: Operand A must be PosInteger!");
+            }
 
             // B: Required.
             if (B_Value == null)

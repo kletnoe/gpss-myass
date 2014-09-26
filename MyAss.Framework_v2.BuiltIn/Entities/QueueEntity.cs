@@ -55,8 +55,14 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
 
         public void Depart(int units)
         {
+            if (this.CurrentContent < units)
+            {
+                throw new ModelingException("QueueEntity: Content of the Queue Entity is about to become negative!");
+            }
+
             this.UpdateStats();
 
+            // TODO: It isn't clear how to count ZeroEntries 'cos Queue may have subscriber witch take pairs or smth.
             if (CurrentContent == units && this.LatestChangeClock == this.simulation.Clock)
             {
                 this.ZeroEntriesCount += units;

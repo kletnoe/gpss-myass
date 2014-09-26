@@ -57,6 +57,11 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
 
         public void Enter(int units)
         {
+            if (this.RemainingCapacity < units)
+            {
+                throw new ModelingException("StorageEntity: Request for more storage than exists!");
+            }
+
             this.EntriesCount += units;
             this.UpdateStats();
             this.CurrentCount += units;
@@ -69,6 +74,11 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
 
         public void Leave(int units)
         {
+            if (this.Capacity < units)
+            {
+                throw new ModelingException("StorageEntity: An attempt to free more storage than was defined!");
+            }
+
             this.UpdateStats();
 
             this.CurrentCount -= units;

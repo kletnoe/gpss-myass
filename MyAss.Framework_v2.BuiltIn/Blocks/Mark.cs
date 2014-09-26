@@ -19,7 +19,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
         public override void Action(Simulation simulation)
         {
-            // A: Optional.
+            // A: Optional. The operand must be PosInteger.
 
             Transaction transaction = simulation.ActiveTransaction;
             this.EntryCount++;
@@ -31,6 +31,11 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             else
             {
                 int parameterId = (int)this.A_ParameterId.GetValue();
+                if (parameterId <= 0)
+                {
+                    throw new ModelingException("MARK: Operand A must be PosInteger!");
+                }
+
                 transaction.TransactionParameters.Add(parameterId, simulation.Clock);
             }
 

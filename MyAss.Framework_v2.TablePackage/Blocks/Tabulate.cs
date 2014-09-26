@@ -22,15 +22,23 @@ namespace MyAss.Framework_v2.TablePackage.Blocks
 
         public override void Action(Simulation simulation)
         {
-            // A: Required.
+            // A: Required. The operand must be PosInteger.
             if (this.A_TableEntityId == null)
             {
                 throw new ModelingException("TABULATE: Operand A is required operand!");
             }
             int entityId = (int)this.A_TableEntityId.GetValue();
+            if (entityId <= 0)
+            {
+                throw new ModelingException("TABULATE: Operand A must be PosInteger!");
+            }
 
-            // B: The default is 1.
+            // B: The default is 1. The operand must be PosInteger.
             int weightedFactor = this.B_WeightingFactor == null ? 1 : (int)this.B_WeightingFactor.GetValue();
+            if (weightedFactor <= 0)
+            {
+                throw new ModelingException("TABULATE: Operand B must be PosInteger!");
+            }
 
 
             Transaction transaction = simulation.ActiveTransaction;

@@ -44,7 +44,7 @@ namespace MyAss.Framework_v2
 
         public int Number { get; private set; }
 
-        public int AssemblySet { get; private set; }
+        public int AssemblySet { get; set; }
 
         public bool DelayIndicator { get; private set; }
 

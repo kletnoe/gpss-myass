@@ -48,12 +48,16 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             }
             double rValue = this.B_RValue.GetValue();
 
-            // C: Required. Optional in refuce mode.
+            // C: Required. The operand must be PosInteger. Optional in refuse mode.
             if (this.C_DestBlockNo == null)
             {
                 throw new ModelingException("TEST: Operand C is required operand!");
             }
             int consumerOnFalseBlockId = (int)C_DestBlockNo.GetValue();
+            if (consumerOnFalseBlockId <= 0)
+            {
+                throw new ModelingException("TEST: Operand C must be PosInteger!");
+            }
 
 
             Transaction transaction = simulation.ActiveTransaction;
@@ -89,7 +93,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
                 case "LE": return (lValue <= rValue);
                 case "NE": return (lValue != rValue);
                 default:
-                    throw new ModelingException("Invalid TEST block LiteralOperand!");
+                    throw new ModelingException("TEST: Operand O invalid LiteralOperand!");
             }
         }
     }
