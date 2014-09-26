@@ -29,39 +29,36 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             int parameterId = (int)this.A_PriorityValue.GetValue();
 
             // B: Optional.
-
+            bool placeBehind;
+            if(B_BufferOption == null)
+            {
+                placeBehind = false;
+            }
+            else if(B_BufferOption.Value == "BU")
+            {
+                placeBehind = true;
+            }
+            else
+            {
+                throw new ModelingException("ASSIGN: Operand B invalid LiteralOperand!");
+            }
 
             Transaction transaction = simulation.ActiveTransaction;
             this.EntryCount++;
 
-            if (B_BufferOption == null || !this.IsBU(B_BufferOption.Value))
-            {
-                // Place behind
+            Console.WriteLine("Prioritized\tTime: " + simulation.Clock + transaction, ConsoleColor.Gray);
+            transaction.Owner = this.Id;
+            this.NextSequentialBlock.PassTransaction(transaction);
 
-                Console.WriteLine("Prioritized\tTime: " + simulation.Clock + transaction, ConsoleColor.Gray);
-                transaction.Owner = this.Id;
-                this.NextSequentialBlock.PassTransaction(transaction);
+            if (placeBehind)
+            {
                 simulation.CurrentEventChain.AddBehind(transaction);
             }
             else
             {
-                // Place ahead
-
-                Console.WriteLine("Prioritized\tTime: " + simulation.Clock + transaction, ConsoleColor.Gray);
-                transaction.Owner = this.Id;
-                this.NextSequentialBlock.PassTransaction(transaction);
                 simulation.CurrentEventChain.AddAhead(transaction);
             }
         }
 
-        private bool IsBU(string bufferOption)
-        {
-            switch (bufferOption.ToUpperInvariant())
-            {
-                case "BU": return true;
-                default:
-                    throw new ModelingException("ASSIGN: Operand B invalid LiteralOperand!");
-            }
-        }
     }
 }
