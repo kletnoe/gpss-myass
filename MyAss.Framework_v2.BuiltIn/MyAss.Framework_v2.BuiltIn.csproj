@@ -47,6 +47,7 @@
     <Compile Include="Blocks\Generate.cs" />
     <Compile Include="Blocks\Leave.cs" />
     <Compile Include="Blocks\Mark.cs" />
+    <Compile Include="Blocks\Priority.cs" />
     <Compile Include="Blocks\Queue.cs" />
     <Compile Include="Blocks\Savevalue.cs" />
     <Compile Include="Blocks\Terminate.cs" />
