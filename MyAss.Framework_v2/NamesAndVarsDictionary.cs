@@ -103,7 +103,7 @@ namespace MyAss.Framework_v2
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this.GetEnumerator();
         }
     }
 }
