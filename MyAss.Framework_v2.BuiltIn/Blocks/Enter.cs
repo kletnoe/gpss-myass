@@ -24,8 +24,11 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
         {
             // TODO: Refactor this, storage may pass self here;
 
+            // A: Required.
             StorageEntity storage = (StorageEntity)simulation.GetEntity((int)this.A_StorageEntityId.GetValue());
-            int units = (int)this.B_NumberOfUnits.GetValue();
+
+            // B: The default value is 1.
+            int units = this.B_NumberOfUnits == null ? 1 : (int)this.B_NumberOfUnits.GetValue();
 
             if (storage.IsAvaliable && storage.RemainingCapacity >= units)
             {

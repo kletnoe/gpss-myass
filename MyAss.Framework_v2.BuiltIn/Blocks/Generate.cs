@@ -77,7 +77,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
                 throw new ModelingException("ADVANCE: Negative time increment!");
             }
 
-            double increment = (meanValue - halfRange + (this.rand.NextDouble() * halfRange)) + startDelay;
+            double increment = (meanValue - halfRange + (this.rand.NextDouble() * halfRange * 2)) + startDelay;
 
             return increment;
         }

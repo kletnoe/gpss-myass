@@ -31,7 +31,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
                 throw new ModelingException("ADVANCE: Negative time increment!");
             }
 
-            double increment = meanValue - halfRange + (this.rand.NextDouble() * halfRange);
+            double increment = meanValue - halfRange + (this.rand.NextDouble() * halfRange * 2);
 
             return increment;
         }
