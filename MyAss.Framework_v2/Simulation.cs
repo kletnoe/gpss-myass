@@ -38,18 +38,25 @@ namespace MyAss.Framework_v2
         public Simulation(AbstractModel model)
             : this()
         {
-            model.SetSimulation(this);
+            try {
 
-            this.ProcessNames(model);
-            this.ProcessBlocks(model);
-            this.ProcessCommands(model);
+                model.SetSimulation(this);
 
-            TransactionScheduler scheduler = new TransactionScheduler(this);
-            scheduler.MainLoop();
+                this.ProcessNames(model);
+                this.ProcessBlocks(model);
+                this.ProcessCommands(model);
 
-            if (this.IsReportNeeded)
+                TransactionScheduler scheduler = new TransactionScheduler(this);
+                scheduler.MainLoop();
+
+                if (this.IsReportNeeded)
+                {
+                    //StandardReport.PrintReport(this);
+                }
+            }
+            catch (Exception ex)
             {
-                //StandardReport.PrintReport(this);
+                System.Console.WriteLine(ex.Message);
             }
         }
 

@@ -21,7 +21,14 @@ namespace MyAss.Framework_v2
             {
                 if (this.simulation.CurrentEventChain.Count == 0)
                 {
-                    UpdateTime();
+                    if (this.simulation.FutureEventChain.Count == 0)
+                    {
+                        throw new ModelingException("Future Event Chain is empty!");
+                    }
+                    else
+                    {
+                        UpdateTime();
+                    }
                 }
 
                 Transaction transaction = this.simulation.CurrentEventChain.First;
