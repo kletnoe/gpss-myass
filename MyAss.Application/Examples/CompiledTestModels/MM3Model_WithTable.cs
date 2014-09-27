@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyAss.Framework_v2;
 
-namespace TestModels
+namespace CompiledTestModels
 {
     public class MM3Model_WithTable : MyAss.Framework_v2.AbstractModel
     {
-        private int Server;
+        private ReferencedNumber Server;
 
-        private int OnQueue;
+        private ReferencedNumber OnQueue;
 
-        private int OnQueueTime;
+        private ReferencedNumber OnQueueTime;
 
-        private int GenerateCounter;
+        private ReferencedNumber GenerateCounter;
 
-        private int Tail;
+        private ReferencedNumber Tail;
 
-        private int GoAway;
+        private ReferencedNumber GoAway;
 
-        private int RejetionProb;
+        private ReferencedNumber RejetionProb;
 
-        private int RejectCounter;
+        private ReferencedNumber RejectCounter;
 
         public MM3Model_WithTable()
         {

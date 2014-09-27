@@ -6,7 +6,7 @@ using MyAss.Compiler.AST;
 using MyAss.Compiler;
 using MyAss.Compiler.CodeGeneration;
 using System.CodeDom;
-using TestModels;
+using CompiledTestModels;
 
 namespace MyAss.Application
 {

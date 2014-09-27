@@ -11,16 +11,16 @@ using MyAss.Framework_v2.Commands;
 using MyAss.Framework_v2.Entities;
 using MyAss.Framework_v2.OperandTypes;
 
-namespace TestModels
+namespace CompiledTestModels
 {
     class MM3Model_Dynamic : AbstractModel
     {
-        private int SERVER;
-        private int GENERATECOUNTER;
-        private int TAIL;
-        private int GOAWAY;
-        private int REJETIONPROB;
-        private int REJECTCOUNTER;
+        private ReferencedNumber SERVER;
+        private ReferencedNumber GENERATECOUNTER;
+        private ReferencedNumber TAIL;
+        private ReferencedNumber GOAWAY;
+        private ReferencedNumber REJETIONPROB;
+        private ReferencedNumber REJECTCOUNTER;
 
         public MM3Model_Dynamic()
         {

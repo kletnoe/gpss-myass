@@ -1,5 +1,5 @@
 ﻿
-namespace TestModels
+namespace CompiledTestModels
 {
     public static class ModelRunner
     {
