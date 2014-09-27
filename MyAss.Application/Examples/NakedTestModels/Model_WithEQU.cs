@@ -23,7 +23,18 @@ namespace MyAss.Application.Examples.NakedTestModels
 @usingp MyAss.Framework_v2.BuiltIn.SNA.QueueSNA
 @usingp MyAss.Framework.Procedures.Distributions
 
-nnnnn
+In_use EQU 5 ;Mean time
+Range EQU 3 ;Half range
+Server STORAGE 1
+
+START 30000
+        GENERATE  7,7           ;People arrive
+        QUEUE     Turn          ;Enter queue
+        ENTER     Server          ;Acquire turnstile
+        DEPART    Turn          ;Depart the queue
+        ADVANCE   In_use,Range  ;Use turnstile
+        LEAVE   Server          ;Leave turnstile
+        TERMINATE 1             ;One spectator enters
 ";
             }
         }
