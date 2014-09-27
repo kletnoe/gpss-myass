@@ -7,6 +7,7 @@ using MyAss.Compiler;
 using MyAss.Compiler.CodeGeneration;
 using System.CodeDom;
 using CompiledTestModels;
+using MyAss.Application.Examples.NakedTestModels;
 
 namespace MyAss.Application
 {
@@ -14,7 +15,7 @@ namespace MyAss.Application
     {
         static void Main(string[] args)
         {
-            ModelRunner.RunMM3();
+            Runner.Run();
             Console.WriteLine("Done");
         }
     }
