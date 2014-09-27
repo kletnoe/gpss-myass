@@ -41,6 +41,8 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
             this.Id = id;
         }
 
+        private int latestTransactionId = 0;
+
         public void Queue(int units)
         {
             this.EntriesCount += units;
@@ -60,13 +62,13 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
                 throw new ModelingException("QueueEntity: Content of the Queue Entity is about to become negative!");
             }
 
-            this.UpdateStats();
-
             // TODO: It isn't clear how to count ZeroEntries 'cos Queue may have subscriber witch take pairs or smth.
             if (CurrentContent == units && this.LatestChangeClock == this.simulation.Clock)
             {
                 this.ZeroEntriesCount += units;
             }
+
+            this.UpdateStats();
 
             this.CurrentContent -= units;
         }
