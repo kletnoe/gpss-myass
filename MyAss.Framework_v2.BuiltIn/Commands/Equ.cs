@@ -26,12 +26,14 @@ namespace MyAss.Framework_v2.BuiltIn.Commands
             }
             double value = this.X_Expression.GetValue();
 
+            string name = simulation.NamesAndVarsDictionary.GetNameByValue(this.Id);
+            ReferencedNumber refNo = simulation.NamesAndVarsDictionary.GetValue(name);
+            simulation.NamesAndVarsDictionary.Remove(name);
+            refNo.SetValueDouble(value);
+            simulation.NamesAndVarsDictionary.AddVar(name, refNo);
+
             // Equ command Id is useless.
             this.Id = 0;
-
-            string name = simulation.NamesAndVarsDictionary.GetNameByValue(this.Id);
-            simulation.NamesAndVarsDictionary.Remove(name);
-            simulation.NamesAndVarsDictionary.AddVar(name, value);
         }
     }
 }

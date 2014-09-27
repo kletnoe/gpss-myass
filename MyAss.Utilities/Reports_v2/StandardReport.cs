@@ -68,7 +68,7 @@ namespace MyAss.Utilities.Reports_v2
                 sb.AppendLine(String.Format("{0, 10} {1,-24} {2,10}",
                     String.Empty,
                     name.Key,
-                    name.Value.ToString("F3")));
+                    name.Value.ToString()));
             }
             return sb.ToString();
         }

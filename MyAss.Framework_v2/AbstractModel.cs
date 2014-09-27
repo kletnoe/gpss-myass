@@ -57,12 +57,12 @@ namespace MyAss.Framework_v2
             return this.simulation;
         }
 
-        public void AddName(string name, int nameId)
+        public void AddName(string name, ReferencedNumber nameId)
         {
             this.namesAndVarsDictionary.AddName(name, nameId);
         }
 
-        public void ReplaceNameId(string name, int nameId)
+        public void ReplaceNameId(string name, ReferencedNumber nameId)
         {
             if (this.namesAndVarsDictionary.ContainsKey(name))
             {

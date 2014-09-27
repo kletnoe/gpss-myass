@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BiDictionary[TFirst_TSecond].cs" />
+    <Compile Include="ReferencedNumber.cs" />
     <Compile Include="NamesAndVarsDictionary.cs" />
     <Compile Include="Blocks\AbstractBlock.cs" />
     <Compile Include="Blocks\IBlock.cs" />

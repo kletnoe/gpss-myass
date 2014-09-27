@@ -13,18 +13,18 @@ namespace MyAss.Framework_v2
     /// I cant figure out how to implement this more adequately.
     /// Sorry.
     /// </summary>
-    public class NamesAndVarsDictionary : IEnumerable<KeyValuePair<string, double>>
+    public class NamesAndVarsDictionary : IEnumerable<KeyValuePair<string, ReferencedNumber>>
     {
-        private BiDictionary<string, int> names;
-        private Dictionary<string, double> vars;
+        private BiDictionary<string, ReferencedNumber> names;
+        private Dictionary<string, ReferencedNumber> vars;
 
         public NamesAndVarsDictionary()
         {
-            this.names = new BiDictionary<string, int>();
-            this.vars = new Dictionary<string, double>();
+            this.names = new BiDictionary<string, ReferencedNumber>();
+            this.vars = new Dictionary<string, ReferencedNumber>();
         }
 
-        public void AddName(string key, int value)
+        public void AddName(string key, ReferencedNumber value)
         {
             if (this.names.ContainsByFirst(key) || this.vars.ContainsKey(key))
             {
@@ -34,7 +34,7 @@ namespace MyAss.Framework_v2
             this.names.Add(key, value);
         }
 
-        public void AddVar(string key, double value)
+        public void AddVar(string key, ReferencedNumber value)
         {
             if (names.ContainsByFirst(key) || vars.ContainsKey(key))
             {
@@ -44,7 +44,7 @@ namespace MyAss.Framework_v2
             this.vars.Add(key, value);
         }
 
-        public double GetValue(string key)
+        public ReferencedNumber GetValue(string key)
         {
             if (names.ContainsByFirst(key))
             {
@@ -62,9 +62,9 @@ namespace MyAss.Framework_v2
 
         public string GetNameByValue(int value)
         {
-            if (this.names.ContainsBySecond(value))
+            if (this.names.ContainsBySecond(new ReferencedNumber(value)))
             {
-                return this.names.GetBySecond(value);
+                return this.names.GetBySecond(new ReferencedNumber(value));
             }
             else
             {
@@ -79,7 +79,7 @@ namespace MyAss.Framework_v2
 
         public bool ContainsNameValue(int value)
         {
-            return this.names.ContainsBySecond(value);
+            return this.names.ContainsBySecond(new ReferencedNumber(value));
         }
 
         public bool Remove(string key)
@@ -88,11 +88,11 @@ namespace MyAss.Framework_v2
             return this.names.RemoveByFirst(key) | this.vars.Remove(key);
         }
 
-        public IEnumerator<KeyValuePair<string, double>> GetEnumerator()
+        public IEnumerator<KeyValuePair<string, ReferencedNumber>> GetEnumerator()
         {
             foreach (var variable in this.names)
             {
-                yield return new KeyValuePair<string, double>(variable.Key, variable.Value);
+                yield return variable;
             }
 
             foreach (var name in this.vars)
