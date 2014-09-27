@@ -10,33 +10,33 @@ using NUnit.Framework;
 namespace MyAss.Compiler_v2.Tests.Build
 {
     [TestFixture]
-    [Category("Build_v2_Model")]
-    public class BuildTests_Model
+    [Category("Build_v2_ModelsFromLessons")]
+    public class Build_ModelsFromLessons
     {
         [Test]
-        [Ignore]
-        public void Model_Dynamic()
+        public void L1_WithStorage()
         {
-            string input = TestModels.MM3Model_Dynamic;
+            string input = @"
+In_use EQU 5 ;Mean time
+Range EQU 3 ;Half range
+Server STORAGE 1
+
+START 300
+        GENERATE  7,7           ;People arrive
+        QUEUE     Turn          ;Enter queue
+        ENTER     Server          ;Acquire turnstile
+        DEPART    Turn          ;Depart the queue
+        ADVANCE   In_use,Range  ;Use turnstile
+        LEAVE   Server          ;Leave turnstile
+        TERMINATE 1             ;One spectator enters
+";
             CommonCode(input);
         }
 
-        [Test]
-        public void Model()
-        {
-            string input = TestModels.MM3Model_Simple;
-            CommonCode(input);
-        }
-
-        [Test]
-        public void Model_WithTable()
-        {
-            string input = TestModels.MM3Model_WithTable;
-            CommonCode(input);
-        }
-        
         private static void CommonCode(string input)
         {
+            input = Defaults.DefUsing + input;
+
             AssemblyCompiler compiler = new AssemblyCompiler(input, true);
             compiler.Compile(true);
 
