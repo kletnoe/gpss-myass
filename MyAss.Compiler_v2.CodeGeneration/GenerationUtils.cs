@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.CSharp;
 using Microsoft.CSharp.RuntimeBinder;
 using MyAss.Compiler_v2.AST;
+using MyAss.Framework_v2;
 
 namespace MyAss.Compiler_v2.CodeGeneration
 {
@@ -36,7 +37,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
         {
             CodeMemberField field = new CodeMemberField();
             field.Attributes = MemberAttributes.Private;
-            field.Type = new CodeTypeReference(typeof(int));
+            field.Type = new CodeTypeReference(typeof(ReferencedNumber));
             field.Name = namedVarName;
 
             return field;
