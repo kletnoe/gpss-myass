@@ -36,7 +36,7 @@ namespace MyAss.Compiler
             this.currentToken = token;
             this.currentTokenVal = value;
 
-            //Console.WriteLine(token + " \t" + value);
+            //Console.WriteLine(String.Format("{0, -10}",  token) + value);
         }
 
         private void Ret(TokenType token)

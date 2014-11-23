@@ -26,8 +26,8 @@ Parser grammar:
                 <factor> ::= <literal> | <call> | <LPAR> <expression> <RPAR>
                   <call> ::= <lval> | <procedurecall> | <snacall>
                     <lval> ::= <ID>
-                    <directsna> ::= <ID> <DOLLAR> <ID>
-                    <call> ::= <ID> <LPAR> <actuals> <RPAR>
+                    <snacall> ::= <ID> <DOLLAR> <ID>
+                    <procedurecall> ::= <ID> <LPAR> <actuals> <RPAR>
                       <actuals> ::= [ <expression> ( <COMMA> <expression> )* ]
                   <literal> ::= <NUMBER>
 

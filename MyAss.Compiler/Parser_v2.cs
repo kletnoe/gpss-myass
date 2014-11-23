@@ -426,8 +426,8 @@ namespace MyAss.Compiler_v2
 
         // <call> ::= <lval> | <procedurecall> | <snacall>
         //   <lval> ::= <ID>
-        //   <directsna> ::= <ID> <DOLLAR> <ID>
-        //   <call> ::= <ID> <LPAR> <actuals> <RPAR>
+        //   <snacall> ::= <ID> <DOLLAR> <ID>
+        //   <procedurecall> ::= <ID> <LPAR> <actuals> <RPAR>
         private IASTCall ExpectCall()
         {
             string id = this.ExpectID();
