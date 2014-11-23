@@ -50,7 +50,8 @@ namespace MyAss.Compiler_v2
             );
         }
 
-        private void EatWhiteAndComments()
+        // <leadingtrivia> ::= ( <WHITE> | <COMMENT> | <LF> )*
+        private void ExpectLeadingTrivia()
         {
             while (this.Scanner.CurrentToken == TokenType.COMMENT
                 || this.Scanner.CurrentToken == TokenType.WHITE
@@ -71,28 +72,17 @@ namespace MyAss.Compiler_v2
             }
         }
 
-        // <linefeed> :: = [ <COMMENT> | <WHITE> ] <LF> [ <WHITE> ]
-        private void ExpectCommentOrWhiteWithLF()
+        // <trailingtrivia> ::= [ <WHITE> ] [ <COMMENT>]
+        private void ExpectTrailingTrivia()
         {
-            while (this.Scanner.CurrentToken == TokenType.COMMENT
-                || this.Scanner.CurrentToken == TokenType.WHITE)
-            {
-                switch (this.Scanner.CurrentToken)
-                {
-                    case TokenType.COMMENT:
-                        this.Expect(TokenType.COMMENT);
-                        break;
-                    case TokenType.WHITE:
-                        this.Expect(TokenType.WHITE);
-                        break;
-                }
-            }
-
-            this.Expect(TokenType.LF);
-
-            while(this.Scanner.CurrentToken == TokenType.WHITE)
+            if(this.Scanner.CurrentToken == TokenType.WHITE)
             {
                 this.Expect(TokenType.WHITE);
+            }
+
+            if (this.Scanner.CurrentToken == TokenType.COMMENT)
+            {
+                this.Expect(TokenType.COMMENT);
             }
         }
 
@@ -138,76 +128,14 @@ namespace MyAss.Compiler_v2
             }
         }
 
-        // <directives> :: = ( <directive> ( <linefeed> )+ )* 
-        private void ExpectDirectives()
-        {
-            List<string> namespaces = new List<string>();
-            List<string> types = new List<string>();
-
-            this.EatWhiteAndComments();
-
-            while (this.Scanner.CurrentToken == TokenType.ATSIGN)
-            {
-                this.Expect(TokenType.ATSIGN);
-
-                if (this.Scanner.CurrentToken == TokenType.USING)
-                {
-                    namespaces.Add(this.ExpectDirectiveUsing());
-                }
-                else if(this.Scanner.CurrentToken == TokenType.USINGP)
-                {
-                    types.Add(this.ExpectDirectiveUsingP());
-                }
-                else
-                {
-                    throw new ParserException(this, @"USING or USINGP");
-                }
-
-                // Eat comment
-                if (this.Scanner.CurrentToken == TokenType.COMMENT)
-                {
-                    this.Expect(TokenType.COMMENT);
-                }
-
-                this.Expect(TokenType.LF);
-
-                this.EatWhiteAndComments();
-            }
-
-            // Construct metadata
-            this.ConstructMetadataRetriever(namespaces, types);
-        }
-
-        // <using> ::= "using" ID
-        private string ExpectDirectiveUsing()
-        {
-            this.Expect(TokenType.USING);
-            return this.ExpectQualID();
-        }
-
-        // <usingp> ::= "usingp" ID
-        private string ExpectDirectiveUsingP()
-        {
-            this.Expect(TokenType.USINGP);
-            return this.ExpectQualID();
-        }
-
-        // <model> ::= ( <linefeed> )* <directives> <verbs> <EOF>
+        // <model> ::= <leadingtrivia> <directives> <verbs> <EOF>
         private ASTModel ExpectModel()
         {
             ASTModel model = new ASTModel();
 
-            while (this.Scanner.CurrentToken == TokenType.COMMENT
-                || this.Scanner.CurrentToken == TokenType.WHITE
-                || this.Scanner.CurrentToken == TokenType.LF)
-            {
-                this.ExpectCommentOrWhiteWithLF();
-            }
+            this.ExpectLeadingTrivia();
                 
-
             this.ExpectDirectives();
-
-            this.EatWhiteAndComments();
 
             IList<ASTVerb> verbs = this.ExpectVerbs();
             foreach (var verb in verbs)
@@ -220,7 +148,63 @@ namespace MyAss.Compiler_v2
             return model;
         }
 
-        // <verbs> ::= ( <verb> ( ( <linefeed> )+ )+
+        // <directives> :: = ( <ATSIGN> <directive> <trailingtrivia> <LF> <leadingtrivia> )*
+        private void ExpectDirectives()
+        {
+            List<string> namespaces = new List<string>();
+            List<string> types = new List<string>();
+
+            while (this.Scanner.CurrentToken == TokenType.ATSIGN)
+            {
+                this.Expect(TokenType.ATSIGN);
+
+                if (this.Scanner.CurrentToken == TokenType.USING)
+                {
+                    namespaces.Add(this.ExpectDirective());
+                }
+                else if (this.Scanner.CurrentToken == TokenType.USINGP)
+                {
+                    types.Add(this.ExpectDirective());
+                }
+                else
+                {
+                    throw new ParserException(this, @"USING or USINGP");
+                }
+
+                this.ExpectTrailingTrivia();
+                this.Expect(TokenType.LF);
+                this.ExpectLeadingTrivia();
+            }
+
+            // Construct metadata
+            this.ConstructMetadataRetriever(namespaces, types);
+        }
+
+        // <directive> ::= <USING> | <USINGP> ( <WHITE> )+ <QUAL-ID>
+        private string ExpectDirective()
+        {
+            if (this.Scanner.CurrentToken == TokenType.USING)
+            {
+                this.Expect(TokenType.USING);
+            }
+            else if (this.Scanner.CurrentToken == TokenType.USINGP)
+            {
+                this.Expect(TokenType.USINGP);
+            }
+            else
+            {
+                throw new ParserException(this, @"USING or USINGP");
+            }
+
+            do
+            {
+                this.Expect(TokenType.WHITE);
+            } while (this.Scanner.CurrentToken == TokenType.WHITE);
+
+            return this.ExpectQualID();
+        }
+
+        // <verbs> ::= ( <verb> <trailingtrivia> <LF> <leadingtrivia> )*
         private IList<ASTVerb> ExpectVerbs()
         {
             IList<ASTVerb> verbs = new List<ASTVerb>();
@@ -229,18 +213,15 @@ namespace MyAss.Compiler_v2
             {
                 verbs.Add(ExpectVerb());
 
-                do
-                {
-                    this.ExpectCommentOrWhiteWithLF();
-                } while (this.Scanner.CurrentToken == TokenType.COMMENT
-                     || this.Scanner.CurrentToken == TokenType.WHITE
-                     || this.Scanner.CurrentToken == TokenType.LF);
+                this.ExpectTrailingTrivia();
+                this.Expect(TokenType.LF);
+                this.ExpectLeadingTrivia();
             }
 
             return verbs;
         }
 
-        // <verb> ::= [ <ID> ] <ID> [ <operands> ]
+        // <verb> ::= [ <ID> ( <WHITE> )+ ] <ID> [ ( <WHITE> )+ <operands> ]
         private ASTVerb ExpectVerb()
         {
             ASTVerb verb = new ASTVerb();
@@ -266,23 +247,26 @@ namespace MyAss.Compiler_v2
                 verb.VerbId = secondId;
             }
 
-            while (this.Scanner.CurrentToken == TokenType.WHITE)
+            if(this.Scanner.CurrentToken == TokenType.WHITE)
             {
-                this.Expect(TokenType.WHITE);
-            }
+                do
+                {
+                    this.Expect(TokenType.WHITE);
+                } while (this.Scanner.CurrentToken == TokenType.WHITE);
 
-            // Operands
-            IList<IASTExpression> operands = this.ExpectOperands();
-            foreach (var operand in operands)
-            {
-                verb.Operands.Add(operand);
+                // Operands
+                IList<IASTExpression> operands = this.ExpectOperands();
+                foreach (var operand in operands)
+                {
+                    verb.Operands.Add(operand);
+                }
             }
 
             //Console.WriteLine(verb);
             return verb;
         }
 
-        // <operands> ::= <operand> ( <COMMA> <operand> )*
+        // <operands> ::= <operand> ( ( <COMMA> | <WHITE> ) <operand> )*
         private IList<IASTExpression> ExpectOperands()
         {
             IList<IASTExpression> operands = new List<IASTExpression>();

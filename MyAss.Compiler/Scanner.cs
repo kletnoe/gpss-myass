@@ -163,10 +163,10 @@ namespace MyAss.Compiler
                 switch (buffer.ToUpper())
                 {
                     case "USING":
-                        this.Ret(TokenType.USING);
+                        this.Ret(TokenType.USING, -1);
                         break;
                     case "USINGP":
-                        this.Ret(TokenType.USINGP);
+                        this.Ret(TokenType.USINGP, -1);
                         break;
                     default:
                         this.Ret(TokenType.ID, buffer);

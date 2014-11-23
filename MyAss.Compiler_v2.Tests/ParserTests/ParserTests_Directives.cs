@@ -23,7 +23,7 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
         [Test]
         public void Directive_UsingQualID()
         {
-            string input = @"@using Test.Test";
+            string input = @"@using   Test.Test";
             Assert.Pass(this.RunModel(input).ToString());
         }
 
