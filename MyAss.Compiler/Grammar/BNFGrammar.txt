@@ -8,31 +8,31 @@ Rules of Thumb:
 4. Suffix logic (Assign/Savevalue) fubars current grammatics, is not supported;
 5. Issue with optional label solved with verb name lookup in Framework metadata;
 
-<source> ::= { <directive> }+ <model>
+<source> ::= ( <directive> )+ <model>
 
 	<directive> ::= <directiveid> <directiveparam>
 
-		<directiveid> ::= "@using" | "@usingP"
+		<directiveid> ::= ( "@" "using" )| ( "@" "usingP" )
 
-		<directiveparam> ::= ID
+		<directiveparam> ::= <qual-id>
 
-<model> ::= { <verb> [ COMMENT ] "\r\n" }+
+<model> ::= ( <verb> [ <comment> ] "\r\n" )+
 
-	<verb> ::= [ ID ] ID [ <operands> ]
+	<verb> ::= [ <id> ] <id> [ <operands> ]
 
-		<operands> ::= <operand> { "," <operand> }
+		<operands> ::= <operand> ( "," <operand> )*
 
 		<operand> ::= "" | <expression> | <parexpression>
 
 		<parexpression> ::= "(" <expression> ")"
 
-		<expression> ::= <term> { <additive> }
+		<expression> ::= <term> ( <additive> )*
 
 			<additive> ::= <addop> <term>
 
 			<addop> ::= "+" | "-"
 
-			<term> ::= <signedfactor> { <multiplicative> }
+			<term> ::= <signedfactor> ( <multiplicative> )*
 
 				<multiplicative> ::= <mulop> <factor>
 
@@ -42,17 +42,51 @@ Rules of Thumb:
 
 					<factor> ::= <literal> | <lval> | "(" <expression> ")"
 
-						<lval> ::= ID [ <accessor> ]
+						<lval> ::= <id> [ <accessor> ]
 
 							<accessor> ::= <call> | <directsna>
 
 							<call> ::= "(" <actuals> ")"
 
-								<actuals> ::= "" | <expression> { "," <expression> }
+								<actuals> ::= "" | <expression> ( "," <expression> )*
 
-							<directsna> ::= "$" ID
+							<directsna> ::= "$" <id>
 
-						<literal> ::= INT | DOUBLE | STRING
+						<literal> ::= <number>
+
+
+<number> ::= <integer> | <real>
+
+	<integer> ::= ( <digit> )+
+
+	<real> ::= <integer> "." <integer>
+
+<id> ::= <letter> ( <letter> | <digit> | "_" )*
+
+<qual-id> ::= <letter> ( <letter> | <digit> | "_" | "." )*
+
+<comment> :== ";" <any-char>
+
+	<letter> :=   "A" | "B" | "C" | "D" | "E" | "F" | "G"
+			| "H" | "I" | "J" | "K" | "L" | "M" | "N"
+			| "O" | "P" | "Q" | "R" | "S" | "T" | "U"
+			| "V" | "W" | "X" | "Y" | "Z" 
+			| "a" | "b" | "c" | "d" | "e" | "f" | "g"
+			| "h" | "i" | "j" | "k" | "l" | "m" | "n"
+			| "o" | "p" | "q" | "r" | "s" | "t" | "u"
+			| "v" | "w" | "x" | "y" | "z"
+
+	<digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+	<any-char> ::= any character except "\r", "\n", "\0"
+
+
+BNF syntax description:
+(...)	- grouping
+[...]	- optional item
+(...)*	- items repeating 0 or more times
+(...)+	- items repeating 1 or more times
+|		- choice operator
 
 
 ID Types:

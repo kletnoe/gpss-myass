@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="MyAss.Compiler_v2.AST.ASTBinaryExpression" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACACAAAAAIgA=</HashCode>
+      <FileName>ASTBinaryExpression.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTDirectSNACall" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAgABAAAAAAAA=</HashCode>
+      <FileName>ASTDirectSNACall.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTLiteral" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>ASTLiteral.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTLValue" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ASTLValue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTModel" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>ASTModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTProcedureCall" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="7.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BIAAAAAAAAAAAAAEAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ASTProcedureCall.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTVerb" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAEAAAAEEAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ASTVerb.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="MyAss.Compiler_v2.AST.IASTCall">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IASTCall.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Compiler_v2.AST.IASTExpression">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IASTExpression.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Compiler_v2.AST.IASTNode">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IASTNode.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Compiler_v2.AST.IASTVisitor&lt;T&gt;" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IASTVisitor[T].cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="MyAss.Compiler_v2.AST.BinaryOperatorType">
+    <Position X="6.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAAQAAAAAAAAABAAAQAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>BinaryOperatorType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyAss.Compiler_v2.AST.LiteralType">
+    <Position X="6.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAACAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>LiteralType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -83,6 +83,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Grammar\BNFGrammar.txt" />
+    <Content Include="Grammar\BNFGrammar_PrettyPrint.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

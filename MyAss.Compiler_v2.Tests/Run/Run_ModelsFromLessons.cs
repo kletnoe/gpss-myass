@@ -23,7 +23,7 @@ Server STORAGE 1
 START 3000
         GENERATE  7,7           ;People arrive
         QUEUE     Turn          ;Enter queue
-        ENTER     Server          ;Acquire turnstile
+        ENTER     Server        ;Acquire turnstile
         DEPART    Turn          ;Depart the queue
         ADVANCE   In_use,Range  ;Use turnstile
         LEAVE   Server          ;Leave turnstile

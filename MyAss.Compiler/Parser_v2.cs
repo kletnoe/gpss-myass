@@ -71,6 +71,31 @@ namespace MyAss.Compiler_v2
             }
         }
 
+        // <linefeed> :: = [ <COMMENT> | <WHITE> ] <LF> [ <WHITE> ]
+        private void ExpectCommentOrWhiteWithLF()
+        {
+            while (this.Scanner.CurrentToken == TokenType.COMMENT
+                || this.Scanner.CurrentToken == TokenType.WHITE)
+            {
+                switch (this.Scanner.CurrentToken)
+                {
+                    case TokenType.COMMENT:
+                        this.Expect(TokenType.COMMENT);
+                        break;
+                    case TokenType.WHITE:
+                        this.Expect(TokenType.WHITE);
+                        break;
+                }
+            }
+
+            this.Expect(TokenType.LF);
+
+            while(this.Scanner.CurrentToken == TokenType.WHITE)
+            {
+                this.Expect(TokenType.WHITE);
+            }
+        }
+
         private string ExpectID()
         {
             string id = (string)this.Expect(TokenType.ID);
@@ -113,8 +138,7 @@ namespace MyAss.Compiler_v2
             }
         }
 
-        // <directives> ::= { "@" <directive> }+
-        // <directive> ::= ( "using" | "usingp" ) ID
+        // <directives> :: = ( <directive> ( <linefeed> )+ )* 
         private void ExpectDirectives()
         {
             List<string> namespaces = new List<string>();
@@ -168,28 +192,27 @@ namespace MyAss.Compiler_v2
             return this.ExpectQualID();
         }
 
-        // <model> ::=  { <verb> [ COMMENT ] "\r\n" }+
+        // <model> ::= ( <linefeed> )* <directives> <verbs> <EOF>
         private ASTModel ExpectModel()
         {
             ASTModel model = new ASTModel();
+
+            while (this.Scanner.CurrentToken == TokenType.COMMENT
+                || this.Scanner.CurrentToken == TokenType.WHITE
+                || this.Scanner.CurrentToken == TokenType.LF)
+            {
+                this.ExpectCommentOrWhiteWithLF();
+            }
+                
 
             this.ExpectDirectives();
 
             this.EatWhiteAndComments();
 
-            while (this.Scanner.CurrentToken == TokenType.ID)
+            IList<ASTVerb> verbs = this.ExpectVerbs();
+            foreach (var verb in verbs)
             {
-                model.Verbs.Add(ExpectVerb());
-
-                // Eat comment
-                if (this.Scanner.CurrentToken == TokenType.COMMENT)
-                {
-                    this.Expect(TokenType.COMMENT);
-                }
-
-                this.Expect(TokenType.LF);
-
-                this.EatWhiteAndComments();
+                model.Verbs.Add(verb);
             }
 
             this.Expect(TokenType.EOF);
@@ -197,7 +220,27 @@ namespace MyAss.Compiler_v2
             return model;
         }
 
-        // <verb> ::= [ ID ] ID { <operand> }
+        // <verbs> ::= ( <verb> ( ( <linefeed> )+ )+
+        private IList<ASTVerb> ExpectVerbs()
+        {
+            IList<ASTVerb> verbs = new List<ASTVerb>();
+
+            while(this.Scanner.CurrentToken == TokenType.ID)
+            {
+                verbs.Add(ExpectVerb());
+
+                do
+                {
+                    this.ExpectCommentOrWhiteWithLF();
+                } while (this.Scanner.CurrentToken == TokenType.COMMENT
+                     || this.Scanner.CurrentToken == TokenType.WHITE
+                     || this.Scanner.CurrentToken == TokenType.LF);
+            }
+
+            return verbs;
+        }
+
+        // <verb> ::= [ <ID> ] <ID> [ <operands> ]
         private ASTVerb ExpectVerb()
         {
             ASTVerb verb = new ASTVerb();
@@ -229,8 +272,22 @@ namespace MyAss.Compiler_v2
             }
 
             // Operands
+            IList<IASTExpression> operands = this.ExpectOperands();
+            foreach (var operand in operands)
+            {
+                verb.Operands.Add(operand);
+            }
 
-            verb.Operands.Add(this.ExpectOperand());
+            //Console.WriteLine(verb);
+            return verb;
+        }
+
+        // <operands> ::= <operand> ( <COMMA> <operand> )*
+        private IList<IASTExpression> ExpectOperands()
+        {
+            IList<IASTExpression> operands = new List<IASTExpression>();
+
+            operands.Add(this.ExpectOperand());
 
             while (this.Scanner.CurrentToken == TokenType.COMMA
                     || this.Scanner.CurrentToken == TokenType.WHITE)
@@ -247,15 +304,13 @@ namespace MyAss.Compiler_v2
                         throw new ParserException(this, @"WhiteSpace or Comma");
                 }
 
-                verb.Operands.Add(this.ExpectOperand());
+                operands.Add(this.ExpectOperand());
             }
 
-
-            //Console.WriteLine(verb);
-            return verb;
+            return operands;
         }
 
-        // <operand> ::= "" | <expression> | <parexpression>
+        // <operand> ::= [ <expression> | <parexpression> ]
         private IASTExpression ExpectOperand()
         {
             IASTExpression operand = null;
@@ -275,6 +330,8 @@ namespace MyAss.Compiler_v2
             return operand;
         }
 
+        // <parexpression> ::= <LPAR> <expression> <RPAR>
+        // Note that ParExpression turns scanners IgnoreWhitespace
         private IASTExpression ExpectParExpression()
         {
             IASTExpression operand = null;
@@ -291,7 +348,7 @@ namespace MyAss.Compiler_v2
         }
 
 
-        // <expression> ::= <term> { <addop> <term> }
+        // <expression> ::= <term> ( <addop> <term> )*
         private IASTExpression ExpectExpression()
         {
             IASTExpression expression = this.ExpectTerm();
@@ -310,7 +367,7 @@ namespace MyAss.Compiler_v2
             return expression;
         }
 
-        // <term> ::= ( <factor> | <signedfactor> ) { <mulop> <factor> }
+        // <term> ::= <signedfactor> ( <mulop> <factor> )*
         private IASTExpression ExpectTerm()
         {
             IASTExpression expression = this.ExpectSignedFactor();
@@ -358,18 +415,18 @@ namespace MyAss.Compiler_v2
             return expression;
         }
 
-        // <factor> ::= <literal> | <lval> | "(" <expression> ")"
+        // <factor> ::= <literal> | <call> | <LPAR> <expression> <RPAR>
         private IASTExpression ExpectFactor()
         {
             IASTExpression expression = null;
 
             switch (this.Scanner.CurrentToken)
             {
-                case TokenType.ID:
-                    expression = this.ExpectCall();
-                    break;
                 case TokenType.NUMERIC:
                     expression = this.ExpectLiteral();
+                    break;
+                case TokenType.ID:
+                    expression = this.ExpectCall();
                     break;
                 case TokenType.LPAR:
                     this.Expect(TokenType.LPAR);
@@ -383,7 +440,71 @@ namespace MyAss.Compiler_v2
             return expression;
         }
 
+        // <call> ::= <lval> | <procedurecall> | <snacall>
+        //   <lval> ::= <ID>
+        //   <directsna> ::= <ID> <DOLLAR> <ID>
+        //   <call> ::= <ID> <LPAR> <actuals> <RPAR>
+        private IASTCall ExpectCall()
+        {
+            string id = this.ExpectID();
 
+            if(this.Scanner.CurrentToken == TokenType.LPAR)
+            {
+                ASTProcedureCall call = new ASTProcedureCall();
+                call.ProcedureId = id;
+
+                this.Expect(TokenType.LPAR);
+
+                IList<IASTExpression> actuals = this.ExpectActuals();
+                foreach (var actual in actuals)
+                {
+                    call.Actuals.Add(actual);
+                }
+
+                this.Expect(TokenType.RPAR);
+
+                return call;
+            }
+            else if(this.Scanner.CurrentToken == TokenType.DOLLAR)
+            {
+                this.Expect(TokenType.DOLLAR);
+                return new ASTDirectSNACall()
+                {
+                    SnaId = id,
+                    ActualId = ExpectID()
+                };
+            }
+            else
+            {
+                return new ASTLValue()
+                {
+                    Id = id
+                };
+            }
+        }
+
+        // <actuals> ::= [ <expression> ( <COMMA> <expression> )* ]
+        private IList<IASTExpression> ExpectActuals()
+        {
+            IList<IASTExpression> actuals = new List<IASTExpression>();
+
+            if (this.Scanner.CurrentToken == TokenType.ID
+                || this.Scanner.CurrentToken == TokenType.NUMERIC
+                || this.Scanner.CurrentToken == TokenType.LPAR)
+            {
+                actuals.Add(this.ExpectExpression());
+
+                while (this.Scanner.CurrentToken == TokenType.COMMA)
+                {
+                    this.Expect(TokenType.COMMA);
+                    actuals.Add(this.ExpectExpression());
+                }
+            }
+
+            return actuals;
+        }
+
+        // <literal> ::= <NUMBER>
         // <literal> ::= INT | DOUBLE | STRING
         private ASTLiteral ExpectLiteral()
         {
@@ -410,121 +531,7 @@ namespace MyAss.Compiler_v2
             };
         }
 
-        // <lval> ::= ID [ <accessor> ]
-        // <accessor> ::= <call> | <directsna>
-        // <call> ::= "(" ( "" | <expr> { "," <expr> } ) ")"
-        // <directsna> ::= "$" ID
-        private IASTCall ExpectCall()
-        {
-            string id = this.ExpectID();
-
-            if(this.Scanner.CurrentToken == TokenType.LPAR)
-            {
-                ASTProcedureCall call = new ASTProcedureCall();
-                call.ProcedureId = id;
-
-                this.Expect(TokenType.LPAR);
-
-                if (this.Scanner.CurrentToken == TokenType.ID
-                    || this.Scanner.CurrentToken == TokenType.NUMERIC)
-                {
-                    call.Actuals.Add(this.ExpectExpression());
-
-                    while (this.Scanner.CurrentToken == TokenType.COMMA)
-                    {
-                        this.Expect(TokenType.COMMA);
-                        call.Actuals.Add(this.ExpectExpression());
-                    }
-                }
-
-                this.Expect(TokenType.RPAR);
-
-                return call;
-            }
-            else if(this.Scanner.CurrentToken == TokenType.DOLLAR)
-            {
-                this.Expect(TokenType.DOLLAR);
-                return new ASTDirectSNACall()
-                {
-                    SnaId = id,
-                    ActualId = ExpectID()
-                };
-            }
-            else
-            {
-                return new ASTLValue()
-                {
-                    Id = id
-                };
-            }
-        }
-
-        //// <lval> ::= ID [ <accessor> ]
-        //public ASTLValue ExpectLValue()
-        //{
-        //    ASTLValue lvalue = new ASTLValue();
-
-        //    lvalue.Id = this.ExpectID();
-
-        //    if (this.Scanner.CurrentToken == TokenType.LPAR
-        //        || this.Scanner.CurrentToken == TokenType.DOLLAR)
-        //    {
-        //        lvalue.Accessor = this.ExpectAccessor();
-        //    }
-
-        //    return lvalue;
-        //}
-
-        //// <accessor> ::= <call> | <directsna>
-        //public IASTAccessor ExpectAccessor()
-        //{
-        //    switch (this.Scanner.CurrentToken)
-        //    {
-        //        case TokenType.LPAR:
-        //            return this.ExpectCall();
-        //        case TokenType.DOLLAR:
-        //            return this.ExpectDirectSNA();
-        //        default:
-        //            throw new Exception(String.Format("Expected {0} but got {1} at line {2} column {3}",
-        //                @"( or $ or + or -", Scanner.CurrentToken, Scanner.CurrentTokenLine, Scanner.CurrentTokenColumn));
-        //    }
-        //}
-
-        //// <call> ::= "(" ( "" | <expr> { "," <expr> } ) ")"
-        //public ASTProcedureCall ExpectCall_old()
-        //{
-        //    ASTProcedureCall call = new ASTProcedureCall();
-
-        //    this.Expect(TokenType.LPAR);
-
-        //    if (this.Scanner.CurrentToken == TokenType.ID
-        //        || this.Scanner.CurrentToken == TokenType.NUMERIC)
-        //    {
-        //        call.Actuals.Add(this.ExpectExpression());
-
-        //        while (this.Scanner.CurrentToken == TokenType.COMMA)
-        //        {
-        //            this.Expect(TokenType.COMMA);
-        //            call.Actuals.Add(this.ExpectExpression());
-        //        }
-        //    }
-
-        //    this.Expect(TokenType.RPAR);
-
-        //    return call;
-        //}
-
-        //// <directsna> ::= "$" ID
-        //public ASTDirectSNACall ExpectDirectSNA()
-        //{
-        //    this.Expect(TokenType.DOLLAR);
-        //    return new ASTDirectSNACall()
-        //    {
-        //        ActualId = ExpectID()
-        //    };
-        //}
-
-        // <addop> ::= "+" | "-"
+        // <addop> ::= <PLUS> | <MINUS>
         private BinaryOperatorType ExpectAddOperator()
         {
             switch (this.Scanner.CurrentToken)
@@ -540,7 +547,7 @@ namespace MyAss.Compiler_v2
             }
         }
 
-        // <mulop> ::= "#" | "/" | "%" | "^"
+        // <mulop> ::= <OCTOTHORPE> | <FWDSLASH> | <BCKSLASH> | <CARRET>
         private BinaryOperatorType ExpectMulOperator()
         {
             switch (this.Scanner.CurrentToken)

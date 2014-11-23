@@ -39,6 +39,13 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         }
 
         [Test]
+        public void PrecedureCallComplex()
+        {
+            string input = @"GENERATE (Exponential(1,0,(1+0.4)/2))";
+            CommonCode(input);
+        }
+
+        [Test]
         public void VerbWithLiteral()
         {
             string input = @"TEST L Q$Tail,20,GoAway";
@@ -49,6 +56,22 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         public void JustVerbName()
         {
             string input = @"TERMINATE";
+            CommonCode(input);
+        }
+
+        [Test]
+        public void JustVerbNameLF()
+        {
+            string input = @"
+TERMINATE;comment
+  ";
+            CommonCode(input);
+        }
+
+        [Test]
+        public void JustVerbNameComment()
+        {
+            string input = @"TERMINATE;comment";
             CommonCode(input);
         }
 

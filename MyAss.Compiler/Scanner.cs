@@ -175,6 +175,7 @@ namespace MyAss.Compiler
             }
         }
 
+        // <NUMBER> ::= ( <digit> )+ [ "." ( <digit> )+ ]
         private void RetNumber()
         {
             string buffer = "";
@@ -182,7 +183,19 @@ namespace MyAss.Compiler
             {
                 buffer += this.CharSource.CurrentChar;
                 this.CharSource.Next();
-            } while (Char.IsDigit(this.CharSource.CurrentChar) || this.CharSource.CurrentChar == '.');
+            } while (Char.IsDigit(this.CharSource.CurrentChar));
+
+            if (this.CharSource.CurrentChar == '.')
+            {
+                buffer += this.CharSource.CurrentChar;
+                this.CharSource.Next();
+
+                do
+                {
+                    buffer += this.CharSource.CurrentChar;
+                    this.CharSource.Next();
+                } while (Char.IsDigit(this.CharSource.CurrentChar));
+            }
 
             try
             {
