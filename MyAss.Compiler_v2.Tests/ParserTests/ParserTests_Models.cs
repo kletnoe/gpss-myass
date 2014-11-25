@@ -21,7 +21,7 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
             Assert.Pass(this.RunModel(input).ToString());
         }
 
-        private IASTNode RunModel(string input)
+        private ASTAnyNode RunModel(string input)
         {
             Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
             ASTModel model = parser.Model;

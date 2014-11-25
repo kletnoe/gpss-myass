@@ -255,7 +255,7 @@ namespace MyAss.Compiler_v2
                 } while (this.Scanner.CurrentToken == TokenType.WHITE);
 
                 // Operands
-                IList<IASTExpression> operands = this.ExpectOperands();
+                IList<ASTAnyExpression> operands = this.ExpectOperands();
                 foreach (var operand in operands)
                 {
                     verb.Operands.Add(operand);
@@ -267,9 +267,9 @@ namespace MyAss.Compiler_v2
         }
 
         // <operands> ::= <operand> ( ( <COMMA> | <WHITE> ) <operand> )*
-        private IList<IASTExpression> ExpectOperands()
+        private IList<ASTAnyExpression> ExpectOperands()
         {
-            IList<IASTExpression> operands = new List<IASTExpression>();
+            IList<ASTAnyExpression> operands = new List<ASTAnyExpression>();
 
             operands.Add(this.ExpectOperand());
 
@@ -295,9 +295,9 @@ namespace MyAss.Compiler_v2
         }
 
         // <operand> ::= [ <expression> | <parexpression> ]
-        private IASTExpression ExpectOperand()
+        private ASTAnyExpression ExpectOperand()
         {
-            IASTExpression operand = null;
+            ASTAnyExpression operand = null;
 
             if (this.Scanner.CurrentToken == TokenType.LPAR)
             {
@@ -316,9 +316,9 @@ namespace MyAss.Compiler_v2
 
         // <parexpression> ::= <LPAR> <expression> <RPAR>
         // Note that ParExpression turns scanners IgnoreWhitespace
-        private IASTExpression ExpectParExpression()
+        private ASTAnyExpression ExpectParExpression()
         {
-            IASTExpression operand = null;
+            ASTAnyExpression operand = null;
 
             this.Scanner.IgnoreWhitespace = true;
             this.Expect(TokenType.LPAR);
@@ -333,9 +333,9 @@ namespace MyAss.Compiler_v2
 
 
         // <expression> ::= <term> ( <addop> <term> )*
-        private IASTExpression ExpectExpression()
+        private ASTAnyExpression ExpectExpression()
         {
-            IASTExpression expression = this.ExpectTerm();
+            ASTAnyExpression expression = this.ExpectTerm();
 
             while (this.Scanner.CurrentToken == TokenType.PLUS
                 || this.Scanner.CurrentToken == TokenType.MINUS)
@@ -352,9 +352,9 @@ namespace MyAss.Compiler_v2
         }
 
         // <term> ::= <signedfactor> ( <mulop> <factor> )*
-        private IASTExpression ExpectTerm()
+        private ASTAnyExpression ExpectTerm()
         {
-            IASTExpression expression = this.ExpectSignedFactor();
+            ASTAnyExpression expression = this.ExpectSignedFactor();
 
             while (this.Scanner.CurrentToken == TokenType.OCTOTHORPE
                 || this.Scanner.CurrentToken == TokenType.FWDSLASH
@@ -373,9 +373,9 @@ namespace MyAss.Compiler_v2
         }
 
         // <signedfactor> ::= [ <addop> ] <factor>
-        private IASTExpression ExpectSignedFactor()
+        private ASTAnyExpression ExpectSignedFactor()
         {
-            IASTExpression expression;
+            ASTAnyExpression expression;
 
             if (this.Scanner.CurrentToken == TokenType.PLUS
                 || this.Scanner.CurrentToken == TokenType.MINUS)
@@ -400,9 +400,9 @@ namespace MyAss.Compiler_v2
         }
 
         // <factor> ::= <literal> | <call> | <LPAR> <expression> <RPAR>
-        private IASTExpression ExpectFactor()
+        private ASTAnyExpression ExpectFactor()
         {
-            IASTExpression expression = null;
+            ASTAnyExpression expression = null;
 
             switch (this.Scanner.CurrentToken)
             {
@@ -428,7 +428,7 @@ namespace MyAss.Compiler_v2
         //   <lval> ::= <ID>
         //   <snacall> ::= <ID> <DOLLAR> <ID>
         //   <procedurecall> ::= <ID> <LPAR> <actuals> <RPAR>
-        private IASTCall ExpectCall()
+        private ASTAnyCall ExpectCall()
         {
             string id = this.ExpectID();
 
@@ -439,7 +439,7 @@ namespace MyAss.Compiler_v2
 
                 this.Expect(TokenType.LPAR);
 
-                IList<IASTExpression> actuals = this.ExpectActuals();
+                IList<ASTAnyExpression> actuals = this.ExpectActuals();
                 foreach (var actual in actuals)
                 {
                     call.Actuals.Add(actual);
@@ -468,9 +468,9 @@ namespace MyAss.Compiler_v2
         }
 
         // <actuals> ::= [ <expression> ( <COMMA> <expression> )* ]
-        private IList<IASTExpression> ExpectActuals()
+        private IList<ASTAnyExpression> ExpectActuals()
         {
-            IList<IASTExpression> actuals = new List<IASTExpression>();
+            IList<ASTAnyExpression> actuals = new List<ASTAnyExpression>();
 
             if (this.Scanner.CurrentToken == TokenType.ID
                 || this.Scanner.CurrentToken == TokenType.NUMERIC

@@ -1,18 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyAss.Compiler_v2.AST
 {
-    public class ASTBinaryExpression : IASTExpression
+    [DataContract]
+    [KnownType(typeof(ASTBinaryExpression))]
+    [KnownType(typeof(ASTDirectSNACall))]
+    [KnownType(typeof(ASTProcedureCall))]
+    [KnownType(typeof(ASTLValue))]
+    [KnownType(typeof(ASTLiteral))]
+    public class ASTBinaryExpression : ASTAnyExpression
     {
-        public IASTExpression Left { get; set; }
-        public BinaryOperatorType Operator { get; set; }
-        public IASTExpression Right { get; set; }
+        [DataMember]
+        public ASTAnyExpression Left { get; set; }
 
-        public T Accept<T>(IASTVisitor<T> visitor)
+        [DataMember]
+        public BinaryOperatorType Operator { get; set; }
+
+        [DataMember]
+        public ASTAnyExpression Right { get; set; }
+
+        public override T Accept<T>(IASTVisitor<T> visitor)
         {
             return visitor.Visit(this);
         }

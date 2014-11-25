@@ -168,7 +168,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
             this.theConstructor.Statements.Add(GenerationUtils.ConstructCallReplaceNameIdMethod(namedVarName));
         }
 
-        private CodeObjectCreateExpression CreateConstructorCallExpression(Type verbType, IList<IASTExpression> operands)
+        private CodeObjectCreateExpression CreateConstructorCallExpression(Type verbType, IList<ASTAnyExpression> operands)
         {
             CodeObjectCreateExpression constructorCall = new CodeObjectCreateExpression();
             constructorCall.CreateType = new CodeTypeReference(verbType);
@@ -178,7 +178,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
             {
                 if (operands.Count > ctorParam.Position && operands[ctorParam.Position] != null)
                 {
-                    IASTExpression operand = operands[ctorParam.Position];
+                    ASTAnyExpression operand = operands[ctorParam.Position];
 
                     if (ctorParam.ParameterType == typeof(IDoubleOperand))
                     {

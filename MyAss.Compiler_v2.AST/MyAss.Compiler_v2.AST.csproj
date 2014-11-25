@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,9 +48,10 @@
     <Compile Include="ASTModel.cs" />
     <Compile Include="ASTVerb.cs" />
     <Compile Include="BinaryOperatorType.cs" />
-    <Compile Include="IASTCall.cs" />
-    <Compile Include="IASTExpression.cs" />
-    <Compile Include="IASTNode.cs" />
+    <Compile Include="ASTAnyCall.cs" />
+    <Compile Include="ASTAnyExpression.cs" />
+    <Compile Include="ASTAnyNode.cs" />
+    <Compile Include="IASTVisitableNode.cs" />
     <Compile Include="IASTVisitor[T].cs" />
     <Compile Include="LiteralType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

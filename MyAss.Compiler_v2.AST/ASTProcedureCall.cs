@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyAss.Compiler_v2.AST
 {
-    public class ASTProcedureCall : IASTCall
+    [DataContract]
+    public class ASTProcedureCall : ASTAnyCall
     {
+        [DataMember]
         public string ProcedureId { get; set; }
-        public IList<IASTExpression> Actuals { get; private set; }
+
+        [DataMember]
+        public IList<ASTAnyExpression> Actuals { get; private set; }
 
         public ASTProcedureCall()
         {
-            this.Actuals = new List<IASTExpression>();
+            this.Actuals = new List<ASTAnyExpression>();
         }
 
-        public T Accept<T>(IASTVisitor<T> visitor)
+        public override T Accept<T>(IASTVisitor<T> visitor)
         {
             return visitor.Visit(this);
         }

@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyAss.Compiler_v2.AST
 {
-    public class ASTDirectSNACall : IASTCall
+    [DataContract]
+    public class ASTDirectSNACall : ASTAnyCall
     {
+        [DataMember]
         public string SnaId { get; set; }
+
+        [DataMember]
         public string ActualId { get; set; }
 
-        public T Accept<T>(IASTVisitor<T> visitor)
+        public override T Accept<T>(IASTVisitor<T> visitor)
         {
             return visitor.Visit(this);
         }

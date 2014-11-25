@@ -55,7 +55,7 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
             Assert.Pass(this.RunModel(input).ToString());
         }
 
-        private IASTNode RunModel(string input)
+        private ASTAnyNode RunModel(string input)
         {
             input = Defaults.DefUsing + input;
 

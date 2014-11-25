@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyAss.Compiler_v2.AST
 {
-    public class ASTModel : IASTNode
+    [DataContract]
+    public class ASTModel : ASTAnyNode
     {
+        [DataMember]
         public IList<ASTVerb> Verbs { get; private set; }
 
         public ASTModel()
@@ -15,7 +18,7 @@ namespace MyAss.Compiler_v2.AST
             this.Verbs = new List<ASTVerb>();
         }
 
-        public T Accept<T>(IASTVisitor<T> visitor)
+        public override T Accept<T>(IASTVisitor<T> visitor)
         {
             return visitor.Visit(this);
         }
