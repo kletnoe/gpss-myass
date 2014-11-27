@@ -22,7 +22,7 @@ namespace MyAss.Compiler_v2.Tests.ASTTests
         {
             string input = TestModels.MM3Model_Simple;
             ASTAnyNode node = this.RunModel(input);
-            string result = this.Serialize(node, node.GetType());
+            string result = node.Serialize();
             Console.WriteLine(result);
         }
 
@@ -33,7 +33,7 @@ namespace MyAss.Compiler_v2.Tests.ASTTests
             node.Verbs.Add(new ASTVerb());
             node.Verbs.Add(new ASTVerb());
 
-            string result = this.Serialize(node, node.GetType());
+            string result = node.Serialize();
             Console.WriteLine(result);
         }
 
@@ -49,14 +49,14 @@ namespace MyAss.Compiler_v2.Tests.ASTTests
                 Value = 2.3
             });
 
-            string result = this.Serialize(node, node.GetType());
+            string result = node.Serialize();
             Console.WriteLine(result);
         }
 
         [Test]
         public void Binary()
         {
-            var binary = new ASTBinaryExpression()
+            var node = new ASTBinaryExpression()
             {
                 Left = new ASTBinaryExpression()
                 {
@@ -80,48 +80,21 @@ namespace MyAss.Compiler_v2.Tests.ASTTests
                 }
             };
 
-            string result = this.Serialize(binary, binary.GetType());
+            string result = node.Serialize();
             Console.WriteLine(result);
         }
 
         [Test]
         public void Literal()
         {
-            ASTLiteral literal = new ASTLiteral();
-            literal.LiteralType = LiteralType.Double;
-            literal.Value = 10.5d;
+            ASTLiteral node = new ASTLiteral();
+            node.LiteralType = LiteralType.Double;
+            node.Value = 10.5d;
 
 
-            string result = this.Serialize(literal, literal.GetType());
+            string result = node.Serialize();
             Console.WriteLine(result);
 
-        }
-
-        private string Serialize(ASTAnyNode node, Type type)
-        {
-            String result;
-
-            var serializer = new DataContractSerializer(node.GetType());
-            var settings = new XmlWriterSettings
-            {
-                Indent = true,
-                NamespaceHandling = NamespaceHandling.OmitDuplicates,
-
-            };
-            using (var sw = new StringWriter())
-            {
-                using (var xw = XmlWriter.Create(sw, settings))
-                {
-                    serializer.WriteStartObject(xw, node);
-                    xw.WriteAttributeString("xmlns", "xs", null, "http://www.w3.org/2001/XMLSchema");
-                    serializer.WriteObjectContent(xw, node);
-                    serializer.WriteEndObject(xw);
-                    //serializer.WriteObject(xw, node);
-                }
-                result = sw.ToString();
-            }
-
-            return result;
         }
 
         private ASTAnyNode RunModel(string input)

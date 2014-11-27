@@ -15,13 +15,13 @@ namespace MyAss.Compiler_v2.AST
     [KnownType(typeof(ASTLiteral))]
     public class ASTVerb : ASTAnyNode
     {
-        [DataMember]
+        [DataMember(Order = 0)]
         public string LabelId { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 1)]
         public string VerbId { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 2)]
         public IList<ASTAnyExpression> Operands { get; private set; }
 
         public ASTVerb()

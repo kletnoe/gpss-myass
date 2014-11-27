@@ -15,13 +15,13 @@ namespace MyAss.Compiler_v2.AST
     [KnownType(typeof(ASTLiteral))]
     public class ASTBinaryExpression : ASTAnyExpression
     {
-        [DataMember]
+        [DataMember(Order = 0)]
         public ASTAnyExpression Left { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 1)]
         public BinaryOperatorType Operator { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 2)]
         public ASTAnyExpression Right { get; set; }
 
         public override T Accept<T>(IASTVisitor<T> visitor)

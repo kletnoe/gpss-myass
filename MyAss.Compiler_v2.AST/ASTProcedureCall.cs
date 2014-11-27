@@ -10,10 +10,10 @@ namespace MyAss.Compiler_v2.AST
     [DataContract]
     public class ASTProcedureCall : ASTAnyCall
     {
-        [DataMember]
+        [DataMember(Order = 0)]
         public string ProcedureId { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 1)]
         public IList<ASTAnyExpression> Actuals { get; private set; }
 
         public ASTProcedureCall()

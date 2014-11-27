@@ -25,7 +25,7 @@ Server STORAGE 3
 	START 10000
 
 	GENERATE (Exponential(1,0,1/2))
-	SAVEVALUE GenerateCounter,X$GenerateCounter+1
+	SAVEVALUE GenerateCounter,(X$GenerateCounter+1)
 
 	TEST L Q$Tail,20,GoAway		;Jump if in Stack >20
 	QUEUE Tail
@@ -38,7 +38,7 @@ Server STORAGE 3
 	TERMINATE 1
 
 
-GoAway	SAVEVALUE RejectCounter,X$RejectCounter+1
+GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
 	TERMINATE 		;Delete rejected.
 
 ";

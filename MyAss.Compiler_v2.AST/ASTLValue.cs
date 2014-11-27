@@ -10,7 +10,7 @@ namespace MyAss.Compiler_v2.AST
     [DataContract]
     public class ASTLValue : ASTAnyCall
     {
-        [DataMember]
+        [DataMember(Order = 0)]
         public string Id { get; set; }
 
         public override T Accept<T>(IASTVisitor<T> visitor)

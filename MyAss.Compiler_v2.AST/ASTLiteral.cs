@@ -10,10 +10,10 @@ namespace MyAss.Compiler_v2.AST
     [DataContract]
     public class ASTLiteral : ASTAnyExpression
     {
-        [DataMember]
+        [DataMember(Order = 0)]
         public LiteralType LiteralType { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 1)]
         public object Value { get; set; }
 
         public override T Accept<T>(IASTVisitor<T> visitor)

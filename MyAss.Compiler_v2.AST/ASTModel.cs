@@ -10,7 +10,7 @@ namespace MyAss.Compiler_v2.AST
     [DataContract]
     public class ASTModel : ASTAnyNode
     {
-        [DataMember]
+        [DataMember(Order = 0)]
         public IList<ASTVerb> Verbs { get; private set; }
 
         public ASTModel()
