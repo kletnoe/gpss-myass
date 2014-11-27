@@ -38,6 +38,14 @@
   </Class>
   <Class Name="MyAss.Compiler_v2.AST.ASTLiteral">
     <Position X="5.75" Y="5.5" Width="2" />
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyExpression" ManuallyRouted="true">
+      <Path>
+        <Point X="1.25" Y="3.747" />
+        <Point X="1.25" Y="5.333" />
+        <Point X="6.75" Y="5.333" />
+        <Point X="6.75" Y="5.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>ASTLiteral.cs</FileName>
