@@ -291,6 +291,9 @@ namespace MyAss.Compiler_v2
                 operands.Add(this.ExpectOperand());
             }
 
+            // Hack: Remove trailing null operands.
+            operands = operands.TakeWhile((x, index) => operands.Skip(index).Any(w => w != null)).ToList();
+
             return operands;
         }
 
