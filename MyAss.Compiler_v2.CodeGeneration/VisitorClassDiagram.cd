@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="MyAss.Compiler_v2.CodeGeneration.CodeDomGenerationVisitor" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="3.25" Width="7.25" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAEQAAAQIAAAAgYIAAIBgAgAAgAIACABIAAE=</HashCode>
+      <FileName>CodeDomGenerationVisitor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="MyAss.Compiler_v2.AST.IASTVisitor&lt;T&gt;">
+    <Position X="0.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

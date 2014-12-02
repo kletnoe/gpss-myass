@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Compiler.cs" />
     <Compile Include="Examples\CodeGen\ExpectedClass\Model2.cs" />
+    <Compile Include="Examples\CompiledTestModels\Model_Default.cs" />
     <Compile Include="Examples\CustomAttributes\VerbConstructorAttribute.cs" />
     <Compile Include="Examples\NakedTestModels\Model_Default.cs" />
     <Compile Include="Examples\NakedTestModels\Runner.cs" />

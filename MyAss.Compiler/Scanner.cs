@@ -41,7 +41,7 @@ namespace MyAss.Compiler
 
         private void Ret(TokenType token)
         {
-            this.Ret(token, -1);
+            this.Ret(token, null);
             this.CharSource.Next();
         }
 
@@ -163,10 +163,10 @@ namespace MyAss.Compiler
                 switch (buffer.ToUpper())
                 {
                     case "USING":
-                        this.Ret(TokenType.USING, -1);
+                        this.Ret(TokenType.USING, null);
                         break;
                     case "USINGP":
-                        this.Ret(TokenType.USINGP, -1);
+                        this.Ret(TokenType.USINGP, null);
                         break;
                     default:
                         this.Ret(TokenType.ID, buffer);
