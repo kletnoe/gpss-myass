@@ -41,8 +41,6 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
             this.Id = id;
         }
 
-        private int latestTransactionId = 0;
-
         public void Queue(int units)
         {
             this.EntriesCount += units;

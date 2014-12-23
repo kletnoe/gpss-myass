@@ -18,7 +18,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
         private const string SimulationFieldName = "simulation";
 
 
-        private ASTModel model;
+        //private ASTModel model;
         private MetadataRetriever_v2 metadataRetriever;
         private Dictionary<string, int> namedVars = new Dictionary<string, int>();
         private HashSet<String> snaMethods = new HashSet<string>();
@@ -28,7 +28,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
         private CodeConstructor theConstructor;
 
         private int currentBlockNo = 1;
-        private int currentCommandNo = 1;
+        //private int currentCommandNo = 1;
         private int verbNo = 1;
         private int currentNamedVarNo = 10000;
 
