@@ -7,11 +7,6 @@ namespace MyAss.Compiler
 {
     public enum TokenType
     {
-        // To remove
-        NUMERIC,
-        QUALID,
-        COMMENT,
-
         // Keywords
         USING,
         USINGP,
