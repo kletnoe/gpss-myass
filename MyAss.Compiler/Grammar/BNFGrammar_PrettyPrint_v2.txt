@@ -7,14 +7,18 @@ BNF syntax description:
 |		- choice operator
 
 Parser grammar:
-<leadingtrivia> ::= ( <WHITE> | <COMMENT> | <LF> )*
-<trailingtrivia> ::= [ <WHITE> ] [ <COMMENT>]
+<leadingtrivia> ::= ( <WHITE> | <comment> | <LF> )*
+<trailingtrivia> ::= [ <WHITE> ] [ <comment>]
+<comment> ::= <SEMICOL> ( <any-token> )*
+  <any-token> ::= any token except <LF> and <EOF>
+<qual-id> ::= (<id> <PERIOD> )* <id>
+<number> ::= <integer> [ <PERIOD> <integer> ]
 
 <model> ::= <leadingtrivia> <directives> <verbs> <EOF>
   <directives> :: = ( <ATSIGN> <directive> <trailingtrivia> <LF> <leadingtrivia> )* 
-    <directive> ::= <USING> | <USINGP> ( <WHITE> )+ <QUAL-ID>
+    <directive> ::= <USING> | <USINGP> ( <WHITE> )+ <qual-id>
   <verbs> ::= ( <verb> <trailingtrivia> <LF> <leadingtrivia> )*
-    <verb> ::= [ <ID> ( <WHITE> )+ ] <ID> [ ( <WHITE> )+ <operands> ]
+    <verb> ::= [ <id> ( <WHITE> )+ ] <qual-id> [ ( <WHITE> )+ <operands> ]
       <operands> ::= <operand> ( ( <COMMA> | <WHITE> ) <operand> )*
         <operand> ::= [ <expression> | <parexpression> ]
           <parexpression> ::= <LPAR> <expression> <RPAR>
@@ -25,11 +29,11 @@ Parser grammar:
               <signedfactor> ::= [ <addop> ] <factor>
                 <factor> ::= <literal> | <call> | <LPAR> <expression> <RPAR>
                   <call> ::= <lval> | <procedurecall> | <snacall>
-                    <lval> ::= <ID>
-                    <snacall> ::= <ID> <DOLLAR> <ID>
-                    <procedurecall> ::= <ID> <LPAR> <actuals> <RPAR>
+                    <lval> ::= <id>
+                    <snacall> ::= <qual-id> <DOLLAR> <id>
+                    <procedurecall> ::= <qual-id> <LPAR> <actuals> <RPAR>
                       <actuals> ::= [ <expression> ( <COMMA> <expression> )* ]
-                  <literal> ::= <NUMBER>
+                  <literal> ::= <number>
 
 
 Token grammar:
@@ -48,19 +52,19 @@ Token grammar:
 <DOLLAR> ::= '$'
 <ASTERISK> ::= '*'
 <COMMA> ::= ','
+<SEMICOL> ::= ';'
 <ATSIGN> ::= '@'
+<PERIOD> ::= '.'
+<UNDERSCORE> ::= '_'
 
 <ILLEGAL>
 <EOF> ::= '\0'
 <LF> ::= '\r' | '\n'
 <WHITE> ::= ' '
-<COMMENT> ::= ';' ( <any-char> )*
-  <any-char> ::= any character except '\r', '\n', '\0''
 
-<NUMBER> ::= ( <digit> )+ [ '.' ( <digit> )+ ]
-<ID> ::= <letter> ( <letter> | <digit> | '_' )*
-<QUAL-ID2> ::= (<ID> '.')* <ID>
-<QUAL-ID> ::= <letter> ( <letter> | <digit> | '_' | '.' )*
+<id> ::= <letter> | <UNDERSCORE> | <id> <letter> | <id> <digit> | <id> <UNDERSCORE>
+<integer> ::= <digit> | <integer> <digit>
+
   <letter> :=   'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'
       | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N'
       | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U'
@@ -70,8 +74,3 @@ Token grammar:
       | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u'
       | 'v' | 'w' | 'x' | 'y' | 'z'
   <digit> ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
-
-
-
-<verb-id> ::= (<ID> '.')* <ID>
-<procedure-id ::= (<ID> '.')* <ID>

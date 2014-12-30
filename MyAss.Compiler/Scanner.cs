@@ -97,8 +97,17 @@ namespace MyAss.Compiler
                 case ',':
                     this.Ret(TokenType.COMMA);
                     break;
+                case ';':
+                    this.Ret(TokenType.SEMICOL);
+                    break;
                 case '@':
                     this.Ret(TokenType.ATSIGN);
+                    break;
+                case '.':
+                    this.Ret(TokenType.PERIOD);
+                    break;
+                case '_':
+                    this.Ret(TokenType.UNDERSCORE);
                     break;
 
                 case '\r':
@@ -107,17 +116,13 @@ namespace MyAss.Compiler
                     break;
 
                 default:
-                    if (char.IsLetter(this.CharSource.CurrentChar) || this.CharSource.CurrentChar == '_')
+                    if (Char.IsLetter(this.CharSource.CurrentChar) || this.CharSource.CurrentChar == '_')
                     {
                         this.RetIdOrKwd();
                     }
-                    else if (Char.IsDigit(this.CharSource.CurrentChar) || this.CharSource.CurrentChar == '.')
+                    else if (Char.IsDigit(this.CharSource.CurrentChar) /*|| this.CharSource.CurrentChar == '.'*/)
                     {
-                        this.RetNumber();
-                    }
-                    else if (this.CharSource.CurrentChar == ';')
-                    {
-                        this.RetComment();
+                        this.RetInteger();
                     }
                     else if (Char.IsWhiteSpace(this.CharSource.CurrentChar) && this.CharSource.CurrentChar != '\n')
                     {
@@ -131,18 +136,19 @@ namespace MyAss.Compiler
             }
         }
 
-        private void RetComment()
-        {
-            string buffer = "";
-            do
-            {
-                buffer += this.CharSource.CurrentChar;
-                this.CharSource.Next();
-            } while (this.CharSource.CurrentChar != '\n' && this.CharSource.CurrentChar != '\0');
+        //private void RetComment()
+        //{
+        //    string buffer = "";
+        //    do
+        //    {
+        //        buffer += this.CharSource.CurrentChar;
+        //        this.CharSource.Next();
+        //    } while (this.CharSource.CurrentChar != '\n' && this.CharSource.CurrentChar != '\0');
 
-            this.Ret(TokenType.COMMENT, buffer);
-        }
+        //    this.Ret(TokenType.COMMENT, buffer);
+        //}
 
+        // <id> ::= <letter> | <UNDERSCORE> | <id> <letter> | <id> <digit> | <id> <UNDERSCORE>
         private void RetIdOrKwd()
         {
             string buffer = "";
@@ -151,32 +157,24 @@ namespace MyAss.Compiler
                 buffer += this.CharSource.CurrentChar;
                 this.CharSource.Next();
             } while (char.IsLetterOrDigit(this.CharSource.CurrentChar)
-                || this.CharSource.CurrentChar == '_'
-                || this.CharSource.CurrentChar == '.');
+                || this.CharSource.CurrentChar == '_');
 
-            if (buffer.Contains("."))
+            switch (buffer.ToUpper())
             {
-                this.Ret(TokenType.QUALID, buffer);
-            }
-            else
-            {
-                switch (buffer.ToUpper())
-                {
-                    case "USING":
-                        this.Ret(TokenType.USING, null);
-                        break;
-                    case "USINGP":
-                        this.Ret(TokenType.USINGP, null);
-                        break;
-                    default:
-                        this.Ret(TokenType.ID, buffer);
-                        break;
-                }
+                case "USING":
+                    this.Ret(TokenType.USING, null);
+                    break;
+                case "USINGP":
+                    this.Ret(TokenType.USINGP, null);
+                    break;
+                default:
+                    this.Ret(TokenType.ID, buffer);
+                    break;
             }
         }
 
-        // <NUMBER> ::= ( <digit> )+ [ "." ( <digit> )+ ]
-        private void RetNumber()
+        // <integer> ::= <digit> | <integer> <digit>
+        private void RetInteger()
         {
             string buffer = "";
             do
@@ -185,34 +183,47 @@ namespace MyAss.Compiler
                 this.CharSource.Next();
             } while (Char.IsDigit(this.CharSource.CurrentChar));
 
-            if (this.CharSource.CurrentChar == '.')
-            {
-                buffer += this.CharSource.CurrentChar;
-                this.CharSource.Next();
-
-                do
-                {
-                    buffer += this.CharSource.CurrentChar;
-                    this.CharSource.Next();
-                } while (Char.IsDigit(this.CharSource.CurrentChar));
-            }
-
-            try
-            {
-                if (buffer.Contains("."))
-                {
-                    this.Ret(TokenType.NUMERIC, Double.Parse(buffer));
-                }
-                else
-                {
-                    this.Ret(TokenType.NUMERIC, Int32.Parse(buffer));
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(string.Format("Tokenizing error occurred @ line {0} column {1}. Error message: {2}",
-                    this.CharSource.Line, this.CharSource.Column, e.Message));
-            }
+            this.Ret(TokenType.INTEGER, buffer);
         }
+
+        //// <NUMBER> ::= ( <digit> )+ [ "." ( <digit> )+ ]
+        //private void RetNumber()
+        //{
+        //    string buffer = "";
+        //    do
+        //    {
+        //        buffer += this.CharSource.CurrentChar;
+        //        this.CharSource.Next();
+        //    } while (Char.IsDigit(this.CharSource.CurrentChar));
+
+        //    if (this.CharSource.CurrentChar == '.')
+        //    {
+        //        buffer += this.CharSource.CurrentChar;
+        //        this.CharSource.Next();
+
+        //        do
+        //        {
+        //            buffer += this.CharSource.CurrentChar;
+        //            this.CharSource.Next();
+        //        } while (Char.IsDigit(this.CharSource.CurrentChar));
+        //    }
+
+        //    try
+        //    {
+        //        if (buffer.Contains("."))
+        //        {
+        //            this.Ret(TokenType.NUMERIC, Double.Parse(buffer));
+        //        }
+        //        else
+        //        {
+        //            this.Ret(TokenType.NUMERIC, Int32.Parse(buffer));
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(string.Format("Tokenizing error occurred @ line {0} column {1}. Error message: {2}",
+        //            this.CharSource.Line, this.CharSource.Column, e.Message));
+        //    }
+        //}
     }
 }

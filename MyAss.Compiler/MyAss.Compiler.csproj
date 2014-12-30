@@ -49,9 +49,9 @@
     <Compile Include="Compiler.cs" />
     <Compile Include="IASTResolver.cs" />
     <Compile Include="IParser.cs" />
-    <Compile Include="Parser.cs" />
     <Compile Include="ICharSource.cs" />
     <Compile Include="IScanner.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="ParserException.cs" />
     <Compile Include="Parser_v2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,7 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Grammar\BNFGrammar.txt" />
+    <Content Include="Grammar\BNFGrammar_PrettyPrint_v2.txt" />
     <Content Include="Grammar\BNFGrammar_PrettyPrint.txt" />
+    <Content Include="Grammar\Errors.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

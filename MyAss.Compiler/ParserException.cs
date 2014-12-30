@@ -16,7 +16,7 @@ namespace MyAss.Compiler
                 parser.Scanner.CurrentTokenLine,
                 parser.Scanner.CurrentTokenColumn,
                 Environment.NewLine,
-                parser.Scanner.CurrentLine))
+                parser.Scanner.CurrentLine.Insert(parser.Scanner.CurrentTokenColumn-1, ">")))
         {
 
         }

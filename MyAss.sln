@@ -20,8 +20,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.AST", "MyAss
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.CodeGeneration", "MyAss.Compiler.CodeGeneration\MyAss.Compiler.CodeGeneration.csproj", "{29DE190E-0ED5-4E22-8553-3397115A595B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.Tests", "MyAss.Compiler.Tests\MyAss.Compiler.Tests.csproj", "{D1E1C285-49AB-4382-81C6-B5EFA7726579}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework.Tests", "MyAss.Framework.Tests\MyAss.Framework.Tests.csproj", "{70F1ECF1-5EBA-4CA7-B2D4-7D2E7345EDF9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.Metadata", "MyAss.Compiler.Metadata\MyAss.Compiler.Metadata.csproj", "{C7D9FD2E-57E5-43CB-96D9-61218837E1C1}"
@@ -116,16 +114,6 @@ Global
 		{29DE190E-0ED5-4E22-8553-3397115A595B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{29DE190E-0ED5-4E22-8553-3397115A595B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{29DE190E-0ED5-4E22-8553-3397115A595B}.Release|x86.ActiveCfg = Release|Any CPU
-		{D1E1C285-49AB-4382-81C6-B5EFA7726579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1E1C285-49AB-4382-81C6-B5EFA7726579}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1E1C285-49AB-4382-81C6-B5EFA7726579}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{D1E1C285-49AB-4382-81C6-B5EFA7726579}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{D1E1C285-49AB-4382-81C6-B5EFA7726579}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D1E1C285-49AB-4382-81C6-B5EFA7726579}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1E1C285-49AB-4382-81C6-B5EFA7726579}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1E1C285-49AB-4382-81C6-B5EFA7726579}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D1E1C285-49AB-4382-81C6-B5EFA7726579}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{D1E1C285-49AB-4382-81C6-B5EFA7726579}.Release|x86.ActiveCfg = Release|Any CPU
 		{70F1ECF1-5EBA-4CA7-B2D4-7D2E7345EDF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{70F1ECF1-5EBA-4CA7-B2D4-7D2E7345EDF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70F1ECF1-5EBA-4CA7-B2D4-7D2E7345EDF9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

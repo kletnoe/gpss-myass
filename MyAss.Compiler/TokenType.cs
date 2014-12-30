@@ -7,34 +7,39 @@ namespace MyAss.Compiler
 {
     public enum TokenType
     {
+        // To remove
         NUMERIC,
-        ID,
         QUALID,
         COMMENT,
-        WHITE,
 
-        LF,
+        // Keywords
+        USING,
+        USINGP,
 
         // BinaryOperator
-        PLUS,               // '+'
-        MINUS,              // '-'
-        OCTOTHORPE,         // '#'
-        FWDSLASH,           // '/'
-        BCKSLASH,           // '\'
-        CARRET,             // '^'
+        PLUS,       // '+'
+        MINUS,      // '-'
+        OCTOTHORPE, // '#'
+        FWDSLASH,   // '/'
+        BCKSLASH,   // '\\'
+        CARRET,     // '^'
 
         LPAR,       // '('
         RPAR,       // ')'
         DOLLAR,     // '$'
         ASTERISK,   // '*'
         COMMA,      // ','
+        SEMICOL,    // ';'
         ATSIGN,     // '@'
+        PERIOD,     // '.'
+        UNDERSCORE, // '_'
 
         ILLEGAL,
         EOF,        // '\0'
+        LF,         // '\r' or '\n'
+        WHITE,
 
-        // Keywords
-        USING,
-        USINGP,
+        ID,
+        INTEGER,
     }
 }

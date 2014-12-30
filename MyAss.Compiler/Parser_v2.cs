@@ -50,67 +50,6 @@ namespace MyAss.Compiler_v2
             );
         }
 
-        // <leadingtrivia> ::= ( <WHITE> | <COMMENT> | <LF> )*
-        private void ExpectLeadingTrivia()
-        {
-            while (this.Scanner.CurrentToken == TokenType.COMMENT
-                || this.Scanner.CurrentToken == TokenType.WHITE
-                || this.Scanner.CurrentToken == TokenType.LF)
-            {
-                switch (this.Scanner.CurrentToken)
-                {
-                    case TokenType.COMMENT:
-                        this.Expect(TokenType.COMMENT);
-                        break;
-                    case TokenType.WHITE:
-                        this.Expect(TokenType.WHITE);
-                        break;
-                    case TokenType.LF:
-                        this.Expect(TokenType.LF);
-                        break;
-                }
-            }
-        }
-
-        // <trailingtrivia> ::= [ <WHITE> ] [ <COMMENT>]
-        private void ExpectTrailingTrivia()
-        {
-            if(this.Scanner.CurrentToken == TokenType.WHITE)
-            {
-                this.Expect(TokenType.WHITE);
-            }
-
-            if (this.Scanner.CurrentToken == TokenType.COMMENT)
-            {
-                this.Expect(TokenType.COMMENT);
-            }
-        }
-
-        private string ExpectID()
-        {
-            string id = (string)this.Expect(TokenType.ID);
-            return id;
-        }
-
-        private string ExpectQualID()
-        {
-            string id;
-
-            switch (this.Scanner.CurrentToken)
-            {
-                case TokenType.QUALID:
-                    id = (string)this.Expect(TokenType.QUALID);
-                    break;
-                case TokenType.ID:
-                    id = (string)this.Expect(TokenType.ID);
-                    break;
-                default:
-                    throw new ParserException(this, @"QUALID or ID");
-            }
-
-            return id;
-        }
-
         // Single token
         private object Expect(TokenType expected)
         {
@@ -127,6 +66,107 @@ namespace MyAss.Compiler_v2
                 throw new ParserException(this, expected.ToString());
             }
         }
+
+        // <leadingtrivia> ::= ( <WHITE> | <comment> | <LF> )*
+        private void ExpectLeadingTrivia()
+        {
+            while (this.Scanner.CurrentToken == TokenType.SEMICOL
+                || this.Scanner.CurrentToken == TokenType.WHITE
+                || this.Scanner.CurrentToken == TokenType.LF)
+            {
+                switch (this.Scanner.CurrentToken)
+                {
+                    case TokenType.SEMICOL:
+                        this.ExpectComment();
+                        break;
+                    case TokenType.WHITE:
+                        this.Expect(TokenType.WHITE);
+                        break;
+                    case TokenType.LF:
+                        this.Expect(TokenType.LF);
+                        break;
+                }
+            }
+        }
+
+        // <trailingtrivia> ::= [ <WHITE> ] [ <comment>]
+        private void ExpectTrailingTrivia()
+        {
+            if(this.Scanner.CurrentToken == TokenType.WHITE)
+            {
+                this.Expect(TokenType.WHITE);
+            }
+
+            if (this.Scanner.CurrentToken == TokenType.SEMICOL)
+            {
+                this.ExpectComment();
+            }
+        }
+
+        // <comment> ::= <SEMICOL> ( <any-char> )*
+        private void ExpectComment()
+        {
+            this.Expect(TokenType.SEMICOL);
+
+            while (this.Scanner.CurrentToken != TokenType.LF
+                && this.Scanner.CurrentToken != TokenType.EOF)
+            {
+                this.ExpectAnyToken();
+            }
+        }
+
+        // <any-token> ::= any token except <LF> and <EOF>
+        private void ExpectAnyToken()
+        {
+            if (this.Scanner.CurrentToken != TokenType.LF
+                && this.Scanner.CurrentToken != TokenType.EOF)
+            {
+                this.Expect(this.Scanner.CurrentToken);
+            }
+        }
+
+        // <id>
+        private string ExpectID()
+        {
+            string id = (string)this.Expect(TokenType.ID);
+            return id;
+        }
+
+        // <qual-id> ::= (<id> <PERIOD> )* <id>
+        // TODO: Temporary returns only last id
+        private string ExpectQualID()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(this.ExpectID());
+
+            while (this.Scanner.CurrentToken == TokenType.PERIOD)
+            {
+                this.Expect(TokenType.PERIOD);
+                sb.Append('.');
+                sb.Append(this.ExpectID());
+            }
+
+            return sb.ToString();
+        }
+
+        // <number> ::= <integer> [ <PERIOD> <integer> ]
+        private double ExpectNumber()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append((string)this.Expect(TokenType.INTEGER));
+
+            if (this.Scanner.CurrentToken == TokenType.PERIOD)
+            {
+                this.Expect(TokenType.PERIOD);
+                sb.Append('.');
+                sb.Append((string)this.Expect(TokenType.INTEGER));
+            }
+
+            double result = Double.Parse(sb.ToString());
+            return result;
+        }
+
 
         // <model> ::= <leadingtrivia> <directives> <verbs> <EOF>
         private ASTModel ExpectModel()
@@ -307,7 +347,7 @@ namespace MyAss.Compiler_v2
                 operand = this.ExpectParExpression();
             }
             else if (this.Scanner.CurrentToken == TokenType.ID
-                || this.Scanner.CurrentToken == TokenType.NUMERIC
+                || this.Scanner.CurrentToken == TokenType.INTEGER
                 || this.Scanner.CurrentToken == TokenType.MINUS
                 || this.Scanner.CurrentToken == TokenType.PLUS)
             {
@@ -409,7 +449,7 @@ namespace MyAss.Compiler_v2
 
             switch (this.Scanner.CurrentToken)
             {
-                case TokenType.NUMERIC:
+                case TokenType.INTEGER:
                     expression = this.ExpectLiteral();
                     break;
                 case TokenType.ID:
@@ -421,7 +461,7 @@ namespace MyAss.Compiler_v2
                     this.Expect(TokenType.RPAR);
                     break;
                 default:
-                    throw new ParserException(this, @"ID or NUMERIC or '(' ");
+                    throw new ParserException(this, @"ID or INTEGER or '(' ");
             }
 
             return expression;
@@ -476,7 +516,7 @@ namespace MyAss.Compiler_v2
             IList<ASTAnyExpression> actuals = new List<ASTAnyExpression>();
 
             if (this.Scanner.CurrentToken == TokenType.ID
-                || this.Scanner.CurrentToken == TokenType.NUMERIC
+                || this.Scanner.CurrentToken == TokenType.INTEGER
                 || this.Scanner.CurrentToken == TokenType.LPAR)
             {
                 actuals.Add(this.ExpectExpression());
@@ -491,32 +531,43 @@ namespace MyAss.Compiler_v2
             return actuals;
         }
 
-        // <literal> ::= <NUMBER>
-        // <literal> ::= INT | DOUBLE | STRING
         private ASTLiteral ExpectLiteral()
         {
-            object value = this.Expect(TokenType.NUMERIC);
-            LiteralType type;
-
-            if (value is Int32)
-            {
-                type = LiteralType.Int32;
-            }
-            else if (value is Double)
-            {
-                type = LiteralType.Double;
-            }
-            else
-            {
-                type = LiteralType.String;
-            }
+            double value = this.ExpectNumber();
 
             return new ASTLiteral()
             {
-                LiteralType = type,
+                LiteralType = LiteralType.Double,
                 Value = value
             };
         }
+
+        //// <literal> ::= <NUMBER>
+        //// <literal> ::= INT | DOUBLE | STRING
+        //private ASTLiteral ExpectLiteral()
+        //{
+        //    object value = this.Expect(TokenType.NUMERIC);
+        //    LiteralType type;
+
+        //    if (value is Int32)
+        //    {
+        //        type = LiteralType.Int32;
+        //    }
+        //    else if (value is Double)
+        //    {
+        //        type = LiteralType.Double;
+        //    }
+        //    else
+        //    {
+        //        type = LiteralType.String;
+        //    }
+
+        //    return new ASTLiteral()
+        //    {
+        //        LiteralType = type,
+        //        Value = value
+        //    };
+        //}
 
         // <addop> ::= <PLUS> | <MINUS>
         private BinaryOperatorType ExpectAddOperator()
