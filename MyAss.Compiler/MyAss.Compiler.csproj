@@ -43,15 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ASTPrintVisitor.cs" />
-    <Compile Include="ASTPrintVisitor[T].cs" />
-    <Compile Include="ASTResolver.cs" />
     <Compile Include="Compiler.cs" />
-    <Compile Include="IASTResolver.cs" />
-    <Compile Include="IParser.cs" />
     <Compile Include="ICharSource.cs" />
     <Compile Include="IScanner.cs" />
-    <Compile Include="Parser.cs" />
     <Compile Include="ParserException.cs" />
     <Compile Include="Parser_v2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,10 +54,6 @@
     <Compile Include="TokenType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyAss.Compiler.AST\MyAss.Compiler.AST.csproj">
-      <Project>{8E3B820C-140B-45A9-8C39-8803F0D9B1EA}</Project>
-      <Name>MyAss.Compiler.AST</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyAss.Compiler.Metadata\MyAss.Compiler.Metadata.csproj">
       <Project>{c7d9fd2e-57e5-43cb-96d9-61218837e1c1}</Project>
       <Name>MyAss.Compiler.Metadata</Name>

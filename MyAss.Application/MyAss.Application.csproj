@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compiler.cs" />
     <Compile Include="Examples\CodeGen\ExpectedClass\Model2.cs" />
     <Compile Include="Examples\CompiledTestModels\Model_Default.cs" />
     <Compile Include="Examples\CustomAttributes\VerbConstructorAttribute.cs" />
@@ -65,20 +64,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProposalModel.cs" />
     <Compile Include="Examples\CompiledTestModels\MM3Model.cs" />
-    <Compile Include="SimpleASTExample.cs" />
-    <Compile Include="TestParser.cs" />
     <Compile Include="TestScanner.cs" />
     <Compile Include="TestSources.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyAss.Compiler.AST\MyAss.Compiler.AST.csproj">
-      <Project>{8E3B820C-140B-45A9-8C39-8803F0D9B1EA}</Project>
-      <Name>MyAss.Compiler.AST</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyAss.Compiler.CodeGeneration\MyAss.Compiler.CodeGeneration.csproj">
-      <Project>{29DE190E-0ED5-4E22-8553-3397115A595B}</Project>
-      <Name>MyAss.Compiler.CodeGeneration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyAss.Compiler\MyAss.Compiler.csproj">
       <Project>{71DCFDA0-DDF5-4494-A055-AFD90AA09241}</Project>
       <Name>MyAss.Compiler</Name>
