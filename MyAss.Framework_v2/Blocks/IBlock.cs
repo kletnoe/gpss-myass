@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyAss.Framework_v2.Blocks
 {
-    public interface IBlock
+    public interface IBlock : IVerb
     {
         int Id { get; }
         int EntryCount { get; }

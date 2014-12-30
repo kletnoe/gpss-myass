@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyAss.Framework_v2.Commands
 {
-    public interface ICommand
+    public interface ICommand : IVerb
     {
         int Id { get; }
         string Label { get; }
