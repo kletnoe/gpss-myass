@@ -58,6 +58,7 @@
     <Compile Include="CodeGenerationTests\CodeGenTests_Build.cs" />
     <Compile Include="CodeGenerationTests\CodeGenTests_Expressions.cs" />
     <Compile Include="CodeGenerationTests\CodeGenTests_Verbs.cs" />
+    <Compile Include="CodeGenerationTests\ReflectionTests.cs" />
     <Compile Include="Defaults.cs" />
     <Compile Include="MetadataRetriever\Metadata.cs" />
     <Compile Include="Run\Run_ModelsFromLessons.cs" />
