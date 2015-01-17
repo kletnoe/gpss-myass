@@ -14,6 +14,13 @@ namespace MyAss.Compiler_v2.Tests.Run
     public class Run_Model
     {
         [Test]
+        public void Model_FullQual()
+        {
+            string input = TestModels.MM3Model_Simple_FullQual;
+            CommonCode(input);
+        }
+
+        [Test]
         public void Model()
         {
             string input = TestModels.MM3Model_Simple;

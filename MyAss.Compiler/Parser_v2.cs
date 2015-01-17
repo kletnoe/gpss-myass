@@ -12,8 +12,11 @@ namespace MyAss.Compiler_v2
     public class Parser_v2
     {
         public IScanner Scanner { get; private set; }
-        public MetadataRetriever_v2 MetadataRetriever { get; private set; }
+        public MetadataRetriever_v3 MetadataRetriever { get; private set; }
         public List<string> ReferencedAssemblies { get; private set; }
+        public List<string> UsedNamespaces { get; private set; }
+        public List<string> UsedTypes { get; private set; }
+
         public ASTModel Model { get; private set; }
 
         public Parser_v2(IScanner scanner)
@@ -26,6 +29,9 @@ namespace MyAss.Compiler_v2
         {
             this.Scanner = scanner;
             this.ReferencedAssemblies = referencedAssemblies;
+            this.MetadataRetriever = new MetadataRetriever_v3(referencedAssemblies);
+            this.UsedNamespaces = new List<string>();
+            this.UsedTypes = new List<string>();
 
             this.Model = this.Parse();
         }
@@ -35,19 +41,40 @@ namespace MyAss.Compiler_v2
             return this.ExpectModel();
         }
 
-        private void ConstructMetadataRetriever(List<string> namespaces, List<string> types)
+        private bool IsVerbId(string id)
         {
-            // Get default usings should be removed
-            //namespaces.AddRange(AssemblyCompiler.DefaultNamespaces);
-            //types.AddRange(AssemblyCompiler.DefaultTypes);
-            //this.ReferencedAssemblies.AddRange(AssemblyCompiler.DefaultRefs);
-            // 
+            if (id.Contains('.'))
+            {
+                return this.MetadataRetriever.IsVerbName(id);
+            }
+            else
+            {
+                return this.MetadataRetriever.IsVerbName(this.UsedNamespaces, id);
+            }
+        }
 
-            this.MetadataRetriever = new MetadataRetriever_v2(
-                new HashSet<string>(this.ReferencedAssemblies),
-                new HashSet<string>(namespaces),
-                new HashSet<string>(types)
-            );
+        private string ResolveVerbId(string id)
+        {
+            if (id.Contains('.'))
+            {
+                return this.MetadataRetriever.ResolveVerbName(id);
+            }
+            else
+            {
+                return this.MetadataRetriever.ResolveVerbName(this.UsedNamespaces, id);
+            }
+        }
+
+        private string ResolveFunctionId(string id)
+        {
+            if (id.Contains('.'))
+            {
+                return this.MetadataRetriever.ResolveFunctionName(id);
+            }
+            else
+            {
+                return this.MetadataRetriever.ResolveFunctionName(this.UsedTypes, id);
+            }
         }
 
         // Single token
@@ -70,8 +97,8 @@ namespace MyAss.Compiler_v2
         // <leadingtrivia> ::= ( <WHITE> | <comment> | <LF> )*
         private void ExpectLeadingTrivia()
         {
-            while (this.Scanner.CurrentToken == TokenType.SEMICOL
-                || this.Scanner.CurrentToken == TokenType.WHITE
+            while (this.Scanner.CurrentToken == TokenType.WHITE
+                || this.Scanner.CurrentToken == TokenType.SEMICOL
                 || this.Scanner.CurrentToken == TokenType.LF)
             {
                 switch (this.Scanner.CurrentToken)
@@ -191,20 +218,17 @@ namespace MyAss.Compiler_v2
         // <directives> :: = ( <ATSIGN> <directive> <trailingtrivia> <LF> <leadingtrivia> )*
         private void ExpectDirectives()
         {
-            List<string> namespaces = new List<string>();
-            List<string> types = new List<string>();
-
             while (this.Scanner.CurrentToken == TokenType.ATSIGN)
             {
                 this.Expect(TokenType.ATSIGN);
 
                 if (this.Scanner.CurrentToken == TokenType.USING)
                 {
-                    namespaces.Add(this.ExpectDirective());
+                    this.UsedNamespaces.Add(this.ExpectDirective());
                 }
                 else if (this.Scanner.CurrentToken == TokenType.USINGP)
                 {
-                    types.Add(this.ExpectDirective());
+                    this.UsedTypes.Add(this.ExpectDirective());
                 }
                 else
                 {
@@ -215,9 +239,6 @@ namespace MyAss.Compiler_v2
                 this.Expect(TokenType.LF);
                 this.ExpectLeadingTrivia();
             }
-
-            // Construct metadata
-            this.ConstructMetadataRetriever(namespaces, types);
         }
 
         // <directive> ::= <USING> | <USINGP> ( <WHITE> )+ <QUAL-ID>
@@ -261,31 +282,28 @@ namespace MyAss.Compiler_v2
             return verbs;
         }
 
-        // <verb> ::= [ <ID> ( <WHITE> )+ ] <ID> [ ( <WHITE> )+ <operands> ]
+        // <verb> ::= [ <id> ( <WHITE> )+ ] <qual-id> [ ( <WHITE> )+ <operands> ]
+        // TODO: Temporary hack, <qual-id> for label 
         private ASTVerb ExpectVerb()
         {
             ASTVerb verb = new ASTVerb();
 
-            string firstId = this.ExpectID();
-            if (this.MetadataRetriever.IsVerb(firstId))
+            string currentId = this.ExpectQualID();
+
+            if (!this.IsVerbId(currentId))
             {
-                // Id is verb 
-                verb.VerbId = firstId;
-            }
-            else
-            {
-                // Id is label
-                verb.LabelId = firstId;
+                // Verb has Label
+                verb.LabelId = currentId;
 
                 do
                 {
                     this.Expect(TokenType.WHITE);
                 } while (this.Scanner.CurrentToken == TokenType.WHITE);
 
-                string secondId = this.ExpectID();
-
-                verb.VerbId = secondId;
+                currentId = this.ExpectQualID();
             }
+
+            verb.VerbId = this.ResolveVerbId(currentId);
 
             if(this.Scanner.CurrentToken == TokenType.WHITE)
             {
@@ -301,6 +319,20 @@ namespace MyAss.Compiler_v2
                     verb.Operands.Add(operand);
                 }
             }
+
+            //// Operands
+            //if (this.Scanner.CurrentToken == TokenType.LPAR
+            //    || this.Scanner.CurrentToken == TokenType.ID
+            //    || this.Scanner.CurrentToken == TokenType.INTEGER
+            //    || this.Scanner.CurrentToken == TokenType.MINUS
+            //    || this.Scanner.CurrentToken == TokenType.PLUS)
+            //{
+            //    IList<ASTAnyExpression> operands = this.ExpectOperands();
+            //    foreach (var operand in operands)
+            //    {
+            //        verb.Operands.Add(operand);
+            //    }
+            //}
 
             //Console.WriteLine(verb);
             return verb;
@@ -325,7 +357,7 @@ namespace MyAss.Compiler_v2
                         this.Expect(TokenType.WHITE);
                         break;
                     default:
-                        throw new ParserException(this, @"WhiteSpace or Comma");
+                        throw new ParserException(this, @"WHITE or COMMA");
                 }
 
                 operands.Add(this.ExpectOperand());
@@ -461,7 +493,7 @@ namespace MyAss.Compiler_v2
                     this.Expect(TokenType.RPAR);
                     break;
                 default:
-                    throw new ParserException(this, @"ID or INTEGER or '(' ");
+                    throw new ParserException(this, @"ID or INTEGER or LPAR ");
             }
 
             return expression;
@@ -473,12 +505,12 @@ namespace MyAss.Compiler_v2
         //   <procedurecall> ::= <ID> <LPAR> <actuals> <RPAR>
         private ASTAnyCall ExpectCall()
         {
-            string id = this.ExpectID();
+            string id = this.ExpectQualID();
 
             if(this.Scanner.CurrentToken == TokenType.LPAR)
             {
                 ASTProcedureCall call = new ASTProcedureCall();
-                call.ProcedureId = id;
+                call.ProcedureId = this.ResolveFunctionId(id);
 
                 this.Expect(TokenType.LPAR);
 
@@ -497,7 +529,7 @@ namespace MyAss.Compiler_v2
                 this.Expect(TokenType.DOLLAR);
                 return new ASTDirectSNACall()
                 {
-                    SnaId = id,
+                    SnaId = this.ResolveFunctionId(id),
                     ActualId = ExpectID()
                 };
             }
@@ -517,6 +549,8 @@ namespace MyAss.Compiler_v2
 
             if (this.Scanner.CurrentToken == TokenType.ID
                 || this.Scanner.CurrentToken == TokenType.INTEGER
+                || this.Scanner.CurrentToken == TokenType.MINUS
+                || this.Scanner.CurrentToken == TokenType.PLUS
                 || this.Scanner.CurrentToken == TokenType.LPAR)
             {
                 actuals.Add(this.ExpectExpression());

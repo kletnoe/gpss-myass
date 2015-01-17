@@ -96,6 +96,10 @@
       <Project>{EE26563E-13CA-4A02-84BC-F9E6AEC8314A}</Project>
       <Name>MyAss.Utilities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyCustomLibrary\MyCustomLibrary.csproj">
+      <Project>{0d631126-af01-407c-8a15-4876bbf8f49f}</Project>
+      <Name>MyCustomLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Examples\CompiledTestModels\MM3Model.txt" />

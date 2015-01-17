@@ -111,23 +111,40 @@ namespace MyAss.Compiler.Metadata
 
         public bool IsVerb(string verbName)
         {
-            return this.verbs.Where(x => String.Equals(x.Name, verbName, StringComparison.InvariantCultureIgnoreCase)).Any();
+            if (verbName.Contains('.'))
+            {
+                return this.verbs.Where(x => String.Equals(x.FullName, verbName, StringComparison.InvariantCultureIgnoreCase)).Any();
+            }
+            else
+            {
+                return this.verbs.Where(x => String.Equals(x.Name, verbName, StringComparison.InvariantCultureIgnoreCase)).Any();
+            }
         }
 
         public Type GetVerb(string verbName)
         {
-            IEnumerable<Type> verbs = this.verbs.Where(x => String.Equals(x.Name, verbName, StringComparison.InvariantCultureIgnoreCase));
-            if (verbs.Count() == 1)
+            IEnumerable<Type> verbsFound;
+
+            if (verbName.Contains('.'))
             {
-                return verbs.First();
+                verbsFound = this.verbs.Where(x => String.Equals(x.FullName, verbName, StringComparison.InvariantCultureIgnoreCase));
             }
-            else if(verbs.Count() == 0)
+            else
+            {
+                verbsFound = this.verbs.Where(x => String.Equals(x.Name, verbName, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            if (verbsFound.Count() == 1)
+            {
+                return verbsFound.First();
+            }
+            else if(verbsFound.Count() == 0)
             {
                 throw new Exception("Verb " + verbName + " not found by name");
             }
             else
             {
-                throw new Exception("Found " + verbs.Count() + " verbs with name " + verbName);
+                throw new Exception("Found " + verbsFound.Count() + " verbs with name " + verbName);
             }
         }
 

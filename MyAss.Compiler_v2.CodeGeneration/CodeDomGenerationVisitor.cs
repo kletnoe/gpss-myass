@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using MyAss.Compiler.Metadata;
 using MyAss.Compiler_v2.AST;
 using MyAss.Framework_v2;
@@ -19,7 +20,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
 
         //private ASTModel model;
-        private MetadataRetriever_v2 metadataRetriever;
+        private MetadataRetriever_v3 metadataRetriever;
         private Dictionary<string, int> namedVars = new Dictionary<string, int>();
         private HashSet<String> snaMethods = new HashSet<string>();
 
@@ -32,7 +33,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
         private int verbNo = 1;
         private int currentNamedVarNo = 10000;
 
-        public CodeDomGenerationVisitor(MetadataRetriever_v2 metadataRetriever)
+        public CodeDomGenerationVisitor(MetadataRetriever_v3 metadataRetriever)
         {
             this.metadataRetriever = metadataRetriever;
 
@@ -89,7 +90,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
         public CodeObject Visit(ASTVerb verb)
         {
-            Type verbType = this.metadataRetriever.GetVerb(verb.VerbId);
+            Type verbType = this.metadataRetriever.GetVerbType(verb.VerbId);
 
             // Construct always true if block to wrap several statements
             CodeConditionStatement result = new CodeConditionStatement();
@@ -285,11 +286,12 @@ namespace MyAss.Compiler_v2.CodeGeneration
                 this.CreateNewNamedVar(sna.ActualId);
             }
 
+            MethodInfo theMethod = this.metadataRetriever.GetFunctionMethod(sna.SnaId);
             //*
             CodeMethodInvokeExpression result = new CodeMethodInvokeExpression(
                 new CodeMethodReferenceExpression(
-                    new CodeTypeReferenceExpression(this.metadataRetriever.GetProcedure(sna.SnaId).ReflectedType),
-                    sna.SnaId
+                    new CodeTypeReferenceExpression(theMethod.ReflectedType),
+                    theMethod.Name
                 ),
                 new CodeFieldReferenceExpression(
                     new CodeThisReferenceExpression(),
@@ -325,10 +327,12 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
         public CodeObject Visit(ASTProcedureCall call)
         {
+            MethodInfo theMethod = this.metadataRetriever.GetFunctionMethod(call.ProcedureId);
+
             CodeMethodInvokeExpression result = new CodeMethodInvokeExpression(
                 new CodeMethodReferenceExpression(
-                    new CodeTypeReferenceExpression(this.metadataRetriever.GetProcedure(call.ProcedureId).ReflectedType),
-                    call.ProcedureId
+                    new CodeTypeReferenceExpression(theMethod.ReflectedType),
+                    theMethod.Name
                 )
             );
 

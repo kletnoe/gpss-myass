@@ -25,7 +25,7 @@ namespace MyAss.Compiler
         public string OutputExePath { get; private set; }
 
         public ASTModel ASTModel { get; private set; }
-        public MetadataRetriever_v2 MetadataRetriever { get; private set; }
+        public MetadataRetriever_v3 MetadataRetriever { get; private set; }
         public CodeCompileUnit CompileUnit { get; private set; }
         public Assembly Assembly { get; private set; }
 

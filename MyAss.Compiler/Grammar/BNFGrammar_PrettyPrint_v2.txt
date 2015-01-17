@@ -1,4 +1,52 @@
 ﻿
+Tyye to restructute AnyCall one more time:
+
+LVAL : EXPR
++ID
++ANYCALL
+
+PROCCALL : ANYCALL
+SNACALL : ANYCALL
+
+<lval> ::= <id> [<acessor>]
+<acessor> ::= <proc-call> | <sna-call>
+<proc-call> ::= <LPAR> <actuals> <RPAR>
+<sna-call> ::= <DOLLAR> <id>
+
+===============================
+
+Starters:
+<leadingtrivia>		--> ε | <WHITE> | <SEMICOL> | <LF>
+<trailingtrivia>	--> ε | <WHITE> | <SEMICOL>
+<comment>			--> <SEMICOL>
+<any-token>			--> ε | any token except <LF> and <EOF>
+<id>				--> <ID>
+<qual-id>			--> <ID>
+<number>			--> <INTEGER>
+<model>
+<directives>		--> ε | <USING> | <USINGP>
+<directive>			--> <USING> | <USINGP>
+<verbs>				--> ε | <ID>
+<verb>				--> <ID>
+<operands>			--> ε | <LPAR> | <ID> | <INTEGER> | <MINUS> | <PLUS>
+<operand>			--> ε | <LPAR> | <ID> | <INTEGER> | <MINUS> | <PLUS>
+<parexpression>		--> <LPAR>
+<expression>		--> <ID> | <INTEGER> | <MINUS> | <PLUS> | <LPAR>
+<addop>				--> <PLUS> | <MINUS>
+<term>				--> <ID> | <INTEGER> | <MINUS> | <PLUS>
+<mulop>				--> <OCTOTHORPE> | <FWDSLASH> | <BCKSLASH> | <CARRET>
+<signedfactor>		--> <ID> | <INTEGER> | <MINUS> | <PLUS>
+<factor>			--> <ID> | <INTEGER> | <LPAR>
+<call>				--> <ID>
+<lval>				--> <ID>
+<snacall>			--> <ID>
+<procedurecall>		--> <ID>
+<actuals>			--> ε | <ID> | <INTEGER> | <MINUS> | <PLUS> | <LPAR>
+<literal>			--> <INTEGER> 
+
+
+
+
 BNF syntax description:
 (...)	- grouping
 [...]	- optional item
@@ -11,8 +59,9 @@ Parser grammar:
 <trailingtrivia> ::= [ <WHITE> ] [ <comment>]
 <comment> ::= <SEMICOL> ( <any-token> )*
   <any-token> ::= any token except <LF> and <EOF>
+<id> ::= <ID>
 <qual-id> ::= (<id> <PERIOD> )* <id>
-<number> ::= <integer> [ <PERIOD> <integer> ]
+<number> ::= <INTEGER> [ <PERIOD> <INTEGER> ]
 
 <model> ::= <leadingtrivia> <directives> <verbs> <EOF>
   <directives> :: = ( <ATSIGN> <directive> <trailingtrivia> <LF> <leadingtrivia> )* 
@@ -62,10 +111,10 @@ Token grammar:
 <LF> ::= '\r' | '\n'
 <WHITE> ::= ' '
 
-<id> ::= <letter> | <UNDERSCORE> | <id> <letter> | <id> <digit> | <id> <UNDERSCORE>
-<integer> ::= <digit> | <integer> <digit>
+<ID> ::= <LETTER> | <UNDERSCORE> | <ID> <LETTER> | <ID> <DIGIT> | <ID> <UNDERSCORE>
+<INTEGER> ::= <DIGIT> | <INTEGER> <DIGIT>
 
-  <letter> :=   'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'
+  <LETTER> :=   'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'
       | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N'
       | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U'
       | 'V' | 'W' | 'X' | 'Y' | 'Z' 
@@ -73,4 +122,4 @@ Token grammar:
       | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n'
       | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u'
       | 'v' | 'w' | 'x' | 'y' | 'z'
-  <digit> ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+  <DIGIT> ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'

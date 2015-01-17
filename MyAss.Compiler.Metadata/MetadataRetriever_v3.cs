@@ -8,47 +8,242 @@ using MyAss.Framework_v2;
 
 namespace MyAss.Compiler.Metadata
 {
-    class MetadataRetriever_v3
+    public class MetadataRetriever_v3
     {
-        private Type verbType = typeof(IVerb);
-
-        private HashSet<string> assemblyPaths;
+        private List<string> assemblyPaths;
         private List<Assembly> assemblies;
+        private List<TypeInfo> verbTypes;
 
-        public MetadataRetriever_v3(HashSet<string> assemblyPaths)
+        public IReadOnlyCollection<string> AsssemblyPaths
         {
-            this.assemblyPaths = assemblyPaths;
+            get
+            {
+                return this.assemblyPaths;
+            }
+        }
+
+        public IReadOnlyCollection<Assembly> Asssemblies
+        {
+            get
+            {
+                return this.assemblies;
+            }
+        }
+
+        public IReadOnlyCollection<TypeInfo> VerbTypes
+        {
+            get
+            {
+                return this.verbTypes;
+            }
+        }
+
+        public MetadataRetriever_v3(List<string> assemblyPaths)
+        {
+            List<string> assemblyPathsDistinct = assemblyPaths.Distinct().ToList();
+
+            this.assemblyPaths = assemblyPathsDistinct;
             this.assemblies = new List<Assembly>();
 
-            foreach (var assemblyPath in assemblyPaths)
+            foreach (var assemblyPath in assemblyPathsDistinct)
             {
                 assemblies.Add(Assembly.LoadFrom(assemblyPath));
             }
+
+            this.verbTypes = new List<TypeInfo>();
+            this.verbTypes.AddRange(assemblies.SelectMany(t => t.DefinedTypes
+                    .Where(x =>
+                            typeof(IVerb).IsAssignableFrom(x)
+                            && !x.IsInterface
+                            && !x.IsAbstract
+                    )
+                )
+            );
         }
 
-        public ClassMeta GetClassMeta(string fullName)
+        public bool IsVerbName(string verbFullName)
         {
-            IEnumerable<TypeInfo> types = assemblies.SelectMany(t => t.DefinedTypes
-                .Where(x => x.FullName == fullName
-                    && this.verbType.IsAssignableFrom(x)
-                    && !x.IsInterface
-                    && !x.IsAbstract)
-                );
+            Tuple<string, string> splitted = this.SplitByLastPeriod(verbFullName);
+            return this.IsVerbName(new List<string>() { splitted.Item1 }, splitted.Item2);
+        }
 
-            if (types.Count() == 1)
+        public bool IsVerbName(List<string> namespaceNames, string verbName)
+        {
+            IList<TypeInfo> verbsFound = this.FindVerbsByName(namespaceNames, verbName);
+
+            if (verbsFound.Count() > 1)
             {
-                TypeInfo type = types.First();
-                return new ClassMeta(type.AssemblyQualifiedName, type.Namespace, type.Name);
+                throw new Exception("Found " + verbsFound.Count() + " verbs with name " + verbName);
             }
             else
             {
-                throw new Exception();
+                return verbsFound.Any();
             }
         }
 
-        public MethodMeta GetMethodMeta(string fullName)
+        public string ResolveVerbName(string verbFullName)
         {
-            return null;
+            Tuple<string, string> splitted = this.SplitByLastPeriod(verbFullName);
+            return this.ResolveVerbName(new List<string>() { splitted.Item1 }, splitted.Item2);
+        }
+
+        public string ResolveVerbName(List<string> namespaceNames, string verbName)
+        {
+            IList<TypeInfo> verbsFound = this.FindVerbsByName(namespaceNames, verbName);
+
+            if (verbsFound.Count() == 1)
+            {
+                return verbsFound.First().FullName;
+            }
+            else if (verbsFound.Count() == 0)
+            {
+                throw new Exception("Verb " + verbName + " not found by name");
+            }
+            else
+            {
+                throw new Exception("Found " + verbsFound.Count() + " verbs with name " + verbName);
+            }
+        }
+
+        private IList<TypeInfo> FindVerbsByName(List<string> namespaceNames, string verbName)
+        {
+            List<TypeInfo> verbsFound = new List<TypeInfo>();
+
+            foreach (var namespaceName in namespaceNames)
+            {
+                verbsFound.AddRange(this.FindVerbsByName(namespaceName, verbName));
+            }
+
+            return verbsFound;
+        }
+
+        private IList<TypeInfo> FindVerbsByName(string namespaceName, string verbName)
+        {
+            List<TypeInfo> verbsFound = new List<TypeInfo>();
+
+            verbsFound.AddRange(verbTypes.Where(x =>
+                x.Namespace == namespaceName
+                && String.Equals(x.Name, verbName, StringComparison.InvariantCultureIgnoreCase)
+            ));
+
+            return verbsFound;
+        }
+
+        public string ResolveFunctionName(string functionFullName)
+        {
+            Tuple<string, string> splitted = this.SplitByLastPeriod(functionFullName);
+            return this.ResolveFunctionName(new List<string>() { splitted.Item1 }, splitted.Item2);
+        }
+
+        public string ResolveFunctionName(List<string> referencedTypes, string functionName)
+        {
+            IList<MethodInfo> functionsFound = this.FindFunctionsByName(referencedTypes, functionName);
+
+            if (functionsFound.Count() == 1)
+            {
+                var function = functionsFound.First();
+                return function.DeclaringType + "." + function.Name;
+            }
+            else if (functionsFound.Count() == 0)
+            {
+                throw new Exception("Verb " + functionName + " not found by name");
+            }
+            else
+            {
+                throw new Exception("Found " + functionsFound.Count() + " verbs with name " + functionName);
+            }
+        }
+
+        private IList<MethodInfo> FindFunctionsByName(List<string> referencedTypes, string functionName)
+        {
+            List<MethodInfo> procedures = new List<MethodInfo>();
+
+            foreach (var assembly in assemblies)
+            {
+                foreach (var referencedeType in referencedTypes)
+                {
+                    Type type = assembly.GetType(referencedeType);
+
+                    if (type != null)
+                    {
+                        procedures.AddRange(type.GetMethods().Where(x => 
+                            x.IsStatic
+                            && String.Equals(x.Name, functionName, StringComparison.InvariantCultureIgnoreCase)
+                        ));
+                    }
+                }
+            }
+
+            return procedures;
+        }
+
+        private IList<MethodInfo> FindFunctionsByName(string referencedType, string functionName)
+        {
+            List<MethodInfo> procedures = new List<MethodInfo>();
+
+            foreach (var assembly in assemblies)
+            {
+                Type type = assembly.GetType(referencedType);
+
+                if (type != null)
+                {
+                    procedures.AddRange(type.GetMethods().Where(x =>
+                        x.IsStatic
+                        && String.Equals(x.Name, functionName, StringComparison.InvariantCultureIgnoreCase)
+                    ));
+                }
+            }
+
+            return procedures;
+        }
+
+
+
+        public TypeInfo GetVerbType(string verbFullName)
+        {
+            IEnumerable<TypeInfo> verbsFound = this.verbTypes.Where(x => x.FullName == verbFullName);
+
+            if (verbsFound.Count() == 1)
+            {
+                return verbsFound.First();
+            }
+            else if (verbsFound.Count() == 0)
+            {
+                throw new Exception("Verb " + verbFullName + " not found by FullName");
+            }
+            else
+            {
+                throw new Exception("Found " + verbsFound.Count() + " verbs with FullName " + verbFullName);
+            }
+        }
+
+        public MethodInfo GetFunctionMethod(string functionName)
+        {
+            Tuple<string, string> splitted = this.SplitByLastPeriod(functionName);
+
+            IEnumerable<MethodInfo> functions = this.FindFunctionsByName(splitted.Item1, splitted.Item2);
+
+            if (functions.Count() == 1)
+            {
+                return functions.First();
+            }
+            else if (functions.Count() == 0)
+            {
+                throw new Exception("Procedure " + functionName + " not found by name");
+            }
+            else
+            {
+                throw new Exception("Found " + functions.Count() + " procedures with name " + functionName);
+            }
+        }
+
+        private Tuple<string, string> SplitByLastPeriod(string source)
+        {
+            int lastPeriodIndex = source.LastIndexOf('.');
+            string firstPart = source.Substring(0, lastPeriodIndex);
+            string secondPart = source.Substring(lastPeriodIndex + 1);
+
+            return new Tuple<string, string>(firstPart, secondPart);
         }
     }
 }

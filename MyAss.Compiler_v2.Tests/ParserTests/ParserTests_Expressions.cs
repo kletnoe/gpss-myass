@@ -37,14 +37,14 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
         [Test]
         public void Expression_Id()
         {
-            string input = @"Generate GetSomething()";
+            string input = @"Generate Exponential()";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_ParExpression()
         {
-            string input = @"Generate (GetSomething())";
+            string input = @"Generate (Exponential())";
             Assert.Pass(this.Run(input).ToString());
         }
 
@@ -58,14 +58,14 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
         [Test]
         public void Expression_Complex1()
         {
-            string input = @"Generate ((GetSomething() + 3)/25)";
+            string input = @"Generate ((Exponential() + 3)/25)";
             Assert.Pass(this.Run(input).ToString());
         }
 
         [Test]
         public void Expression_Complex2()
         {
-            string input = @"Generate ((GetSomething() + 3)/25 + (1 + (id2 # (2 / 7))))";
+            string input = @"Generate ((Exponential() + 3)/25 + (1 + (id2 # (2 / 7))))";
             Assert.Pass(this.Run(input).ToString());
         }
 

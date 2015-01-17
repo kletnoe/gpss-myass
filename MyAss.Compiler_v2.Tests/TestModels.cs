@@ -8,6 +8,43 @@ namespace MyAss.Compiler_v2.Tests
 {
     public static class TestModels
     {
+        public static String MM3Model_Simple_FullQual
+        {
+            get
+            {
+                return @"
+@using MyAss.Framework_v2.BuiltIn.Blocks
+@using MyAss.Framework_v2.BuiltIn.Commands
+
+@usingp MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA
+@usingp MyAss.Framework_v2.BuiltIn.SNA.QueueSNA
+@usingp MyAss.Framework.Procedures.Distributions
+
+Server MyAss.Framework_v2.BuiltIn.Commands.STORAGE 3
+
+	MyAss.Framework_v2.BuiltIn.Commands.START 10000
+
+	MyAss.Framework_v2.BuiltIn.Blocks.GENERATE (Exponential(1,0,1/2))
+	SAVEVALUE GenerateCounter,(X$GenerateCounter+1)
+
+	TEST L MyAss.Framework_v2.BuiltIn.SNA.QueueSNA.Q$Tail,20,GoAway		;Jump if in Stack >20
+	QUEUE Tail
+	ENTER Server,1
+	DEPART Tail
+	ADVANCE (MyAss.Framework.Procedures.Distributions.Exponential(2,0,1/0.2))
+	LEAVE Server,1
+
+	SAVEVALUE RejetionProb,(X$RejectCounter/X$GenerateCounter)
+	TERMINATE 1
+
+
+GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
+	TERMINATE 		;Delete rejected.
+
+";
+            }
+        }
+
         public static String MM3Model_Simple
         {
             get
@@ -97,15 +134,15 @@ GoAway	SAVEVALUE RejectCounter,X$RejectCounter+1
 
 Server STORAGE 3
 
-;InSystem TABLE MP$InSystemTime,0,4,20
-;OnServer TABLE MP$OnServTime,0,2,20
+InSystem TABLE MP$InSystemTime,0,4,20
+OnServer TABLE MP$OnServTime,0,2,20
 OnQueue TABLE MP$OnQueueTime,0,4,20
 
 
 	START 10000
 
 	GENERATE (Exponential(1,0,1/2))
-;		MARK InSystemTime
+		MARK InSystemTime
 		MARK OnQueueTime
 	SAVEVALUE GenerateCounter,(X$GenerateCounter+1)
 
@@ -114,11 +151,11 @@ OnQueue TABLE MP$OnQueueTime,0,4,20
 	ENTER Server,1
 	DEPART Tail
 		TABULATE OnQueue
-;		MARK OnServTime
+		MARK OnServTime
 	ADVANCE (Exponential(2,0,1/0.2))
 	LEAVE Server,1
-;		TABULATE OnServer		
-;		TABULATE InSystem
+		TABULATE OnServer		
+		TABULATE InSystem
 
 	SAVEVALUE RejetionProb,(X$RejectCounter/X$GenerateCounter)
 	TERMINATE 1
