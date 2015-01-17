@@ -25,7 +25,7 @@ namespace MyAss.Compiler
         public string OutputExePath { get; private set; }
 
         public ASTModel ASTModel { get; private set; }
-        public MetadataRetriever_v3 MetadataRetriever { get; private set; }
+        public MetadataRetriever MetadataRetriever { get; private set; }
         public CodeCompileUnit CompileUnit { get; private set; }
         public Assembly Assembly { get; private set; }
 
@@ -98,7 +98,7 @@ namespace MyAss.Compiler
 
         public void Compile(bool inMemory)
         {
-            Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(this.ModelSources)), this.ReferencedDlls);
+            Parser parser = new Parser(new Scanner(new StringCharSource(this.ModelSources)), this.ReferencedDlls);
             this.ASTModel = parser.Model;
             this.MetadataRetriever = parser.MetadataRetriever;
 

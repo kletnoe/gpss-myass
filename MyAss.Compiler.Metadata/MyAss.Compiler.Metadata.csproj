@@ -39,9 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MetadataRetriever_v2.cs" />
     <Compile Include="MetadataRetriever.cs" />
-    <Compile Include="MetadataRetriever_v3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MethodMeta.cs" />
     <Compile Include="ClassMeta.cs" />

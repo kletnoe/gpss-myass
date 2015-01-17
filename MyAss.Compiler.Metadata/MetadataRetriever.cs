@@ -1,90 +1,249 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyAss.Framework_v2;
 
 namespace MyAss.Compiler.Metadata
 {
     public class MetadataRetriever
     {
-        public string AssemblyName { get { return "MyAss.Framework"; } }
-        public string AssemblyDllName { get { return this.AssemblyName + ".dll"; } }
+        private List<string> assemblyPaths;
+        private List<Assembly> assemblies;
+        private List<TypeInfo> verbTypes;
 
-        public IEnumerable<Type> GetMyAssFrameworkBlockTypes()
+        public IReadOnlyCollection<string> AsssemblyPaths
         {
-            return Assembly.LoadFrom(this.AssemblyDllName).GetTypes().Where(x => !x.IsInterface && !x.IsAbstract)
-                .Where(x => x.Namespace == this.AssemblyName + ".Blocks");
+            get
+            {
+                return this.assemblyPaths;
+            }
         }
 
-        public IEnumerable<Type> GetMyAssFrameworkCommandTypes()
+        public IReadOnlyCollection<Assembly> Asssemblies
         {
-            return Assembly.LoadFrom(this.AssemblyDllName).GetTypes().Where(x => !x.IsInterface && !x.IsAbstract)
-                .Where(x => x.Namespace == this.AssemblyName + ".Commands");
+            get
+            {
+                return this.assemblies;
+            }
         }
 
-        public Type GetMyAssFrameworkSNAType()
+        public IReadOnlyCollection<TypeInfo> VerbTypes
         {
-            return Assembly.LoadFrom(this.AssemblyDllName).GetType(this.AssemblyName + ".SNA.SNA");
+            get
+            {
+                return this.verbTypes;
+            }
         }
 
-        public IEnumerable<MethodInfo> GetMyAssFrameworkSNAMethods()
+        public MetadataRetriever(List<string> assemblyPaths)
         {
-            return this.GetMyAssFrameworkSNAType().GetMethods().Where(x => x.IsStatic);
+            List<string> assemblyPathsDistinct = assemblyPaths.Distinct().ToList();
+
+            this.assemblyPaths = assemblyPathsDistinct;
+            this.assemblies = new List<Assembly>();
+
+            foreach (var assemblyPath in assemblyPathsDistinct)
+            {
+                assemblies.Add(Assembly.LoadFrom(assemblyPath));
+            }
+
+            this.verbTypes = new List<TypeInfo>();
+            this.verbTypes.AddRange(assemblies.SelectMany(t => t.DefinedTypes
+                    .Where(x =>
+                            typeof(IVerb).IsAssignableFrom(x)
+                            && !x.IsInterface
+                            && !x.IsAbstract
+                    )
+                )
+            );
         }
 
-        public IEnumerable<string> GetAllDefinitions()
+        public bool IsVerbName(string verbFullName)
         {
-            return this.GetMyAssFrameworkBlockTypes().Select(x => x.Name)
-                .Concat(this.GetMyAssFrameworkCommandTypes().Select(x => x.Name))
-                .Concat(this.GetMyAssFrameworkSNAMethods().Select(x => x.Name))
-                ;
+            Tuple<string, string> splitted = this.SplitByLastPeriod(verbFullName);
+            return this.IsVerbName(new List<string>() { splitted.Item1 }, splitted.Item2);
+        }
+
+        public bool IsVerbName(List<string> namespaceNames, string verbName)
+        {
+            IList<TypeInfo> verbsFound = this.FindVerbsByName(namespaceNames, verbName);
+
+            if (verbsFound.Count() > 1)
+            {
+                throw new Exception("Found " + verbsFound.Count() + " verbs with name " + verbName);
+            }
+            else
+            {
+                return verbsFound.Any();
+            }
+        }
+
+        public string ResolveVerbName(string verbFullName)
+        {
+            Tuple<string, string> splitted = this.SplitByLastPeriod(verbFullName);
+            return this.ResolveVerbName(new List<string>() { splitted.Item1 }, splitted.Item2);
+        }
+
+        public string ResolveVerbName(List<string> namespaceNames, string verbName)
+        {
+            IList<TypeInfo> verbsFound = this.FindVerbsByName(namespaceNames, verbName);
+
+            if (verbsFound.Count() == 1)
+            {
+                return verbsFound.First().FullName;
+            }
+            else if (verbsFound.Count() == 0)
+            {
+                throw new Exception("Verb " + verbName + " not found by name");
+            }
+            else
+            {
+                throw new Exception("Found " + verbsFound.Count() + " verbs with name " + verbName);
+            }
+        }
+
+        private IList<TypeInfo> FindVerbsByName(List<string> namespaceNames, string verbName)
+        {
+            List<TypeInfo> verbsFound = new List<TypeInfo>();
+
+            foreach (var namespaceName in namespaceNames)
+            {
+                verbsFound.AddRange(this.FindVerbsByName(namespaceName, verbName));
+            }
+
+            return verbsFound;
+        }
+
+        private IList<TypeInfo> FindVerbsByName(string namespaceName, string verbName)
+        {
+            List<TypeInfo> verbsFound = new List<TypeInfo>();
+
+            verbsFound.AddRange(verbTypes.Where(x =>
+                x.Namespace == namespaceName
+                && String.Equals(x.Name, verbName, StringComparison.InvariantCultureIgnoreCase)
+            ));
+
+            return verbsFound;
+        }
+
+        public string ResolveFunctionName(string functionFullName)
+        {
+            Tuple<string, string> splitted = this.SplitByLastPeriod(functionFullName);
+            return this.ResolveFunctionName(new List<string>() { splitted.Item1 }, splitted.Item2);
+        }
+
+        public string ResolveFunctionName(List<string> referencedTypes, string functionName)
+        {
+            IList<MethodInfo> functionsFound = this.FindFunctionsByName(referencedTypes, functionName);
+
+            if (functionsFound.Count() == 1)
+            {
+                var function = functionsFound.First();
+                return function.DeclaringType + "." + function.Name;
+            }
+            else if (functionsFound.Count() == 0)
+            {
+                throw new Exception("Verb " + functionName + " not found by name");
+            }
+            else
+            {
+                throw new Exception("Found " + functionsFound.Count() + " verbs with name " + functionName);
+            }
+        }
+
+        private IList<MethodInfo> FindFunctionsByName(List<string> referencedTypes, string functionName)
+        {
+            List<MethodInfo> procedures = new List<MethodInfo>();
+
+            foreach (var assembly in assemblies)
+            {
+                foreach (var referencedeType in referencedTypes)
+                {
+                    Type type = assembly.GetType(referencedeType);
+
+                    if (type != null)
+                    {
+                        procedures.AddRange(type.GetMethods().Where(x => 
+                            x.IsStatic
+                            && String.Equals(x.Name, functionName, StringComparison.InvariantCultureIgnoreCase)
+                        ));
+                    }
+                }
+            }
+
+            return procedures;
+        }
+
+        private IList<MethodInfo> FindFunctionsByName(string referencedType, string functionName)
+        {
+            List<MethodInfo> procedures = new List<MethodInfo>();
+
+            foreach (var assembly in assemblies)
+            {
+                Type type = assembly.GetType(referencedType);
+
+                if (type != null)
+                {
+                    procedures.AddRange(type.GetMethods().Where(x =>
+                        x.IsStatic
+                        && String.Equals(x.Name, functionName, StringComparison.InvariantCultureIgnoreCase)
+                    ));
+                }
+            }
+
+            return procedures;
         }
 
 
-        /////
 
-        private const string builtinTypesAssemblyName = @"MyAss.Framework.dll";
-        private const string builtinProceduresAssemblyName = @"MyAss.Framework.Procedures.dll";
-
-        private const string builtinSnaTypeName = @"MyAss.Framework.SNA.SNA";
-        private const string builtinProceduresTypeName = @"MyAss.Framework.Procedures.Distributions";
-        private const string builtinBlocksNamespace = @"MyAss.Framework.Blocks";
-        private const string builtinCommandsNamespace = @"MyAss.Framework.Commands";
-
-
-
-        public static Type GetBuiltinSnaType()
+        public TypeInfo GetVerbType(string verbFullName)
         {
-            return Assembly.LoadFrom(builtinTypesAssemblyName).GetType(builtinSnaTypeName);
+            IEnumerable<TypeInfo> verbsFound = this.verbTypes.Where(x => x.FullName == verbFullName);
+
+            if (verbsFound.Count() == 1)
+            {
+                return verbsFound.First();
+            }
+            else if (verbsFound.Count() == 0)
+            {
+                throw new Exception("Verb " + verbFullName + " not found by FullName");
+            }
+            else
+            {
+                throw new Exception("Found " + verbsFound.Count() + " verbs with FullName " + verbFullName);
+            }
         }
 
-        public static Type GetBuiltinProceduresType()
+        public MethodInfo GetFunctionMethod(string functionName)
         {
-            return Assembly.LoadFrom(builtinProceduresAssemblyName).GetType(builtinProceduresTypeName);
+            Tuple<string, string> splitted = this.SplitByLastPeriod(functionName);
+
+            IEnumerable<MethodInfo> functions = this.FindFunctionsByName(splitted.Item1, splitted.Item2);
+
+            if (functions.Count() == 1)
+            {
+                return functions.First();
+            }
+            else if (functions.Count() == 0)
+            {
+                throw new Exception("Procedure " + functionName + " not found by name");
+            }
+            else
+            {
+                throw new Exception("Found " + functions.Count() + " procedures with name " + functionName);
+            }
         }
 
-        public static bool IsVerb(string name)
+        private Tuple<string, string> SplitByLastPeriod(string source)
         {
-            return IsBuiltinVerb(name);
-        }
+            int lastPeriodIndex = source.LastIndexOf('.');
+            string firstPart = source.Substring(0, lastPeriodIndex);
+            string secondPart = source.Substring(lastPeriodIndex + 1);
 
-        public static bool IsBuiltinVerb(string name)
-        {
-            return Assembly.LoadFrom(builtinTypesAssemblyName)
-                .GetTypes()
-                .Any(x => (x.Namespace == builtinBlocksNamespace || x.Namespace == builtinCommandsNamespace)
-                    && string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase));
-        }
-
-        public static Type GetBuiltinVerb(string name)
-        {
-            return Assembly.LoadFrom(builtinTypesAssemblyName)
-                .GetTypes()
-                .Where(x => (x.Namespace == builtinBlocksNamespace || x.Namespace == builtinCommandsNamespace)
-                    && string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase))
-                .First();
+            return new Tuple<string, string>(firstPart, secondPart);
         }
     }
 }

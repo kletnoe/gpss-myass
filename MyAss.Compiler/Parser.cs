@@ -7,29 +7,29 @@ using MyAss.Compiler_v2.AST;
 using MyAss.Compiler.Metadata;
 using MyAss.Compiler;
 
-namespace MyAss.Compiler_v2
+namespace MyAss.Compiler
 {
-    public class Parser_v2
+    public class Parser
     {
         public IScanner Scanner { get; private set; }
-        public MetadataRetriever_v3 MetadataRetriever { get; private set; }
+        public MetadataRetriever MetadataRetriever { get; private set; }
         public List<string> ReferencedAssemblies { get; private set; }
         public List<string> UsedNamespaces { get; private set; }
         public List<string> UsedTypes { get; private set; }
 
         public ASTModel Model { get; private set; }
 
-        public Parser_v2(IScanner scanner)
+        public Parser(IScanner scanner)
             : this(scanner, AssemblyCompiler.DefaultRefs.ToList())
         {
 
         }
 
-        public Parser_v2(IScanner scanner, List<string> referencedAssemblies)
+        public Parser(IScanner scanner, List<string> referencedAssemblies)
         {
             this.Scanner = scanner;
             this.ReferencedAssemblies = referencedAssemblies;
-            this.MetadataRetriever = new MetadataRetriever_v3(referencedAssemblies);
+            this.MetadataRetriever = new MetadataRetriever(referencedAssemblies);
             this.UsedNamespaces = new List<string>();
             this.UsedTypes = new List<string>();
 

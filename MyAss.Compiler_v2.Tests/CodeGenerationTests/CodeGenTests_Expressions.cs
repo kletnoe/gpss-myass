@@ -217,7 +217,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         {
             input = Defaults.DefUsing + input;
 
-            Parser_v2 parser = new Parser_v2(new Scanner(new StringCharSource(input)));
+            Parser parser = new Parser(new Scanner(new StringCharSource(input)));
             CodeDomGenerationVisitor vis = new CodeDomGenerationVisitor(parser.MetadataRetriever);
 
             CodeCompileUnit assembly = vis.VisitAll(parser.Model);

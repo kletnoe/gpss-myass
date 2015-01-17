@@ -15,7 +15,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
         public CodeCompileUnit CompileUnit { get; private set; }
 
-        public CompileUnitConstructor(ASTModel astModel, MetadataRetriever_v3 metadataRetriever)
+        public CompileUnitConstructor(ASTModel astModel, MetadataRetriever metadataRetriever)
         {
             CodeDomGenerationVisitor visitor = new CodeDomGenerationVisitor(metadataRetriever);
             CodeTypeDeclaration modelClass = visitor.VisitAll_(astModel);

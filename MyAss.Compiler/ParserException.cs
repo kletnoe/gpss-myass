@@ -9,7 +9,7 @@ namespace MyAss.Compiler
 {
     public class ParserException : ApplicationException
     {
-        public ParserException(Parser_v2 parser, string whatExpected)
+        public ParserException(Parser parser, string whatExpected)
             :base(String.Format("Expected {0} but got {1} at line {2} column {3}. Source line: {4}{5}",
                 whatExpected,
                 parser.Scanner.CurrentToken,

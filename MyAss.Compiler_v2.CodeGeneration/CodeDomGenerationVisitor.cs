@@ -20,7 +20,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
 
         //private ASTModel model;
-        private MetadataRetriever_v3 metadataRetriever;
+        private MetadataRetriever metadataRetriever;
         private Dictionary<string, int> namedVars = new Dictionary<string, int>();
         private HashSet<String> snaMethods = new HashSet<string>();
 
@@ -33,7 +33,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
         private int verbNo = 1;
         private int currentNamedVarNo = 10000;
 
-        public CodeDomGenerationVisitor(MetadataRetriever_v3 metadataRetriever)
+        public CodeDomGenerationVisitor(MetadataRetriever metadataRetriever)
         {
             this.metadataRetriever = metadataRetriever;
 
