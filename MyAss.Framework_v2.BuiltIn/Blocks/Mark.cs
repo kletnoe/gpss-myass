@@ -40,7 +40,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             }
 
             Console.WriteLine("Marked\tTime: " + simulation.Clock + transaction, ConsoleColor.Gray);
-            transaction.Owner = this.Id;
+            transaction.ChangeOwner(simulation, this);
             this.NextSequentialBlock.PassTransaction(transaction);
             simulation.CurrentEventChain.AddAhead(transaction);
         }

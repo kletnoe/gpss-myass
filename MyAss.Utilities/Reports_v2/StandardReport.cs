@@ -75,14 +75,6 @@ namespace MyAss.Utilities.Reports_v2
 
         private static String BlocksInfo(Simulation simulation)
         {
-            // TODO: Refactor this:
-            List<Transaction> allTransactions = new List<Transaction>();
-            allTransactions.AddRange(simulation.CurrentEventChain);
-            allTransactions.AddRange(simulation.FutureEventChain);
-            allTransactions.AddRange(simulation.Entities.Values.OfType<IDelayableEntity>().SelectMany(x => x.DelayChain));
-            allTransactions.AddRange(simulation.Entities.Values.OfType<IPendableEntity>().SelectMany(x => x.PendingChain));
-            //
-
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine().AppendLine();
@@ -95,7 +87,7 @@ namespace MyAss.Utilities.Reports_v2
                     block.Value.Id,
                     block.Value.GetType().Name,
                     block.Value.EntryCount,
-                    allTransactions.Count(x => x.Owner == block.Value.Id),
+                    block.Value.CurrentCount,
                     block.Value.RetryChain.Count));
             }
 

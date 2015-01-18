@@ -52,7 +52,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             transaction.TransactionParameters.Add(parameterId, value);
 
             Console.WriteLine("Assigned\tTime: " + simulation.Clock + transaction, ConsoleColor.Gray);
-            transaction.Owner = this.Id;
+            transaction.ChangeOwner(simulation, this);
             this.NextSequentialBlock.PassTransaction(transaction);
             simulation.CurrentEventChain.AddAhead(transaction);
         }

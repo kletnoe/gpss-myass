@@ -70,12 +70,12 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
             if (this.Compare(relationalOp, lValue, rValue))
             {
-                transaction.Owner = this.Id;
+                transaction.ChangeOwner(simulation, this);
                 this.NextSequentialBlock.PassTransaction(transaction);
             }
             else
             {
-                transaction.Owner = this.Id;
+                transaction.ChangeOwner(simulation, this);
                 consumerOnFalse.PassTransaction(transaction);
             }
 

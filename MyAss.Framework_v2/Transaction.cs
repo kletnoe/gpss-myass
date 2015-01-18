@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.Specialized;
+using MyAss.Framework_v2.Blocks;
 
 namespace MyAss.Framework_v2
 {
@@ -16,8 +17,8 @@ namespace MyAss.Framework_v2
             Terminated = 4
         }
 
-        public int Owner { get; set; }
-        public int NextOwner { get; set; }
+        public int Owner { get; private set; }
+        public int NextOwner { get; private set; }
 
         public double NextEventTime { get; set; }
 
@@ -78,6 +79,23 @@ namespace MyAss.Framework_v2
         {
             // return String.Format("Time: {0}, Prio: {1}, Clock: {2} ", CreationRealTime.ToString("HH:mm:ss.fff"), Priority, GenerationTime);
             return String.Format("\t| Xn: {0} NET: {1} Own: {2} Next: {3}|", this.Number, this.NextEventTime.ToString("F5"), this.Owner, this.NextOwner);
+        }
+
+        public void ChangeOwner(Simulation simulation, IBlock newOwner)
+        {
+            if (this.Owner != 0)
+            {
+                IBlock oldOwner = simulation.GetBlock(this.Owner);
+                oldOwner.DecrementOwnedCount();
+            }
+
+            newOwner.IncrementOwnedCount();
+            this.Owner = newOwner.Id;
+        }
+
+        public void SetNextOwner(IBlock newNextOwner)
+        {
+            this.NextOwner = newNextOwner.Id;
         }
 
         public void Dispose()

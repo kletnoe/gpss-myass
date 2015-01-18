@@ -57,6 +57,7 @@ namespace MyAss.Framework_v2
             catch (Exception ex)
             {
                 System.Console.WriteLine(ex.Message);
+                throw;
             }
         }
 
@@ -113,6 +114,15 @@ namespace MyAss.Framework_v2
         public bool ContainsEntity(int id)
         {
             return this.Entities.ContainsKey(id);
+        }
+
+        public IBlock GetBlock(int id)
+        {
+            return this.Blocks[id];
+        }
+        public bool ContainsBlock(int id)
+        {
+            return this.Blocks.ContainsKey(id);
         }
     }
 }

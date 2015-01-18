@@ -10,6 +10,7 @@ namespace MyAss.Framework_v2.Blocks
     {
         int Id { get; }
         int EntryCount { get; }
+        int CurrentCount { get; }
         IBlock NextSequentialBlock { get; set; }
         LinkedList<Transaction> RetryChain { get; }
 
@@ -18,5 +19,8 @@ namespace MyAss.Framework_v2.Blocks
         void Action(Simulation simulation);
 
         void PassTransaction(Transaction transaction);
+
+        void IncrementOwnedCount();
+        void DecrementOwnedCount();
     }
 }

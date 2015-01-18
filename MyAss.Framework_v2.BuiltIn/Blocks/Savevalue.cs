@@ -48,7 +48,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             savevalueEntity.SetValue(value);
 
             Console.WriteLine("Savevalued\tTime: " + simulation.Clock + transaction, ConsoleColor.White);
-            transaction.Owner = this.Id;
+            transaction.ChangeOwner(simulation, this);
             this.NextSequentialBlock.PassTransaction(transaction);
             simulation.CurrentEventChain.AddAhead(transaction);
         }

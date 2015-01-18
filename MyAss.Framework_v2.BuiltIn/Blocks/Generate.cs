@@ -61,11 +61,11 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
             Transaction transaction = new Transaction(simulation.NumbersManager.NextFreeTransactionNo, simulation.Clock)
             {
-                NextOwner = this.Id,
                 Priority = priority,
                 NextEventTime = transactGenerationTime,
                 MarkTime = transactGenerationTime
             };
+            transaction.SetNextOwner(this);
 
             return transaction;
         }
@@ -93,7 +93,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             this.EntryCount++;
 
             Console.WriteLine("Generated\tTime: " + simulation.Clock + transaction);
-            transaction.Owner = this.Id;
+            transaction.ChangeOwner(simulation, this);
             this.NextSequentialBlock.PassTransaction(transaction);
             simulation.CurrentEventChain.AddAhead(transaction);
 

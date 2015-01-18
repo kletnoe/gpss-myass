@@ -9,6 +9,7 @@ namespace MyAss.Framework_v2.Blocks
     {
         public int Id { get; protected set; }
         public int EntryCount { get; protected set; }
+        public int CurrentCount { get; protected set; }
         public IBlock NextSequentialBlock { get; set; }
         public LinkedList<Transaction> RetryChain { get; protected set; }
 
@@ -25,6 +26,7 @@ namespace MyAss.Framework_v2.Blocks
         protected AbstractBlock()
         {
             this.EntryCount = 0;
+            this.CurrentCount = 0;
             this.RetryChain = new LinkedList<Transaction>();
         }
 
@@ -38,11 +40,21 @@ namespace MyAss.Framework_v2.Blocks
             this.Id = id;
         }
 
+        public void IncrementOwnedCount()
+        {
+            this.CurrentCount++;
+        }
+
+        public void DecrementOwnedCount()
+        {
+            this.CurrentCount--;
+        }
+        
         public abstract void Action(Simulation simulation);
 
         public void PassTransaction(Transaction transaction)
         {
-            transaction.NextOwner = this.Id;
+            transaction.SetNextOwner(this);
         }
 
         public override string ToString()

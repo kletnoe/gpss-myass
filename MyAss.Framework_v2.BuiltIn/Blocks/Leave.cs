@@ -49,7 +49,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
             Console.WriteLine("Leaved  \tTime: " + simulation.Clock + transaction, ConsoleColor.Yellow);
             Console.WriteLine("\tStorageSize: " + storage.CurrentCount);
-            transaction.Owner = this.Id;
+            transaction.ChangeOwner(simulation, this);
             this.NextSequentialBlock.PassTransaction(transaction);
             simulation.CurrentEventChain.AddAhead(transaction);
         }

@@ -49,6 +49,7 @@
     <Compile Include="Examples\CodeGen\ExpectedClass\Model2.cs" />
     <Compile Include="Examples\CompiledTestModels\Model_Default.cs" />
     <Compile Include="Examples\CustomAttributes\VerbConstructorAttribute.cs" />
+    <Compile Include="Examples\NakedTestModels\Model_DefaultNoQueue.cs" />
     <Compile Include="Examples\NakedTestModels\Model_Lusin.cs" />
     <Compile Include="Examples\NakedTestModels\Model_Default.cs" />
     <Compile Include="Examples\NakedTestModels\Runner.cs" />

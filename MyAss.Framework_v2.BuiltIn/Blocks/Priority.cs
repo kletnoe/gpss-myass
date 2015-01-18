@@ -47,7 +47,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             this.EntryCount++;
 
             Console.WriteLine("Prioritized\tTime: " + simulation.Clock + transaction, ConsoleColor.Gray);
-            transaction.Owner = this.Id;
+            transaction.ChangeOwner(simulation, this);
             this.NextSequentialBlock.PassTransaction(transaction);
 
             if (placeBehind)

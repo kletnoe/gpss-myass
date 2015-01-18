@@ -11,7 +11,7 @@ namespace MyAss.Application.Examples.NakedTestModels
     {
         public static void Run()
         {
-            string input = Model_Lusin.Model;
+            string input = Model_DefaultNoQueue.Model;
 
             AssemblyCompiler compiler = new AssemblyCompiler(input, true);
             compiler.Compile(true);
