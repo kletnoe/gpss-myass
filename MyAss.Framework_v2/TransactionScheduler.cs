@@ -17,6 +17,8 @@ namespace MyAss.Framework_v2
 
         public void MainLoop()
         {
+            //int step = 1000;
+
             do
             {
                 if (this.simulation.CurrentEventChain.Count == 0)
@@ -35,6 +37,14 @@ namespace MyAss.Framework_v2
                 this.simulation.CurrentEventChain.RemoveFirst();
                 this.simulation.ActiveTransaction = transaction;
                 this.simulation.Blocks[transaction.NextOwner].Action(this.simulation);
+
+                //if(step < this.simulation.Clock)
+                //{
+                //    StandardReport.PrintReport(simulation);
+                //    System.Console.WriteLine(step);
+                //    step += 1000;
+                //}
+
 
             } while (this.simulation.TerminationsCount > 0
                 //|| this.simulation.CurrentEventChain.Count > 0 // temporary for compatibility test

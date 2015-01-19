@@ -27,9 +27,10 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             Console.WriteLine("Terminated\tTime: " + simulation.Clock + transaction + " " + this.Id, ConsoleColor.DarkGray);
             transaction.ChangeOwner(simulation, this);
             simulation.TerminationsCount -= decriment;
-            transaction.Dispose();
 
-            this.DecrementOwnedCount();
+            this.Disown(simulation, transaction);
+
+            transaction.Dispose();
         }
     }
 }

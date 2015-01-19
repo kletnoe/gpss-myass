@@ -38,7 +38,10 @@ namespace MyAss.Framework_v2
         public Simulation(AbstractModel model)
             : this()
         {
-            try {
+            TransactionScheduler scheduler;
+
+            try
+            {
 
                 model.SetSimulation(this);
 
@@ -46,7 +49,7 @@ namespace MyAss.Framework_v2
                 this.ProcessBlocks(model);
                 this.ProcessCommands(model);
 
-                TransactionScheduler scheduler = new TransactionScheduler(this);
+                scheduler = new TransactionScheduler(this);
                 scheduler.MainLoop();
 
                 if (this.IsReportNeeded)

@@ -40,16 +40,28 @@ namespace MyAss.Framework_v2.Blocks
             this.Id = id;
         }
 
-        public void IncrementOwnedCount()
+        public void Own(Simulation simulation, Transaction transaction)
         {
+            this.ActionOnOwn(simulation, transaction);
             this.CurrentCount++;
         }
 
-        public void DecrementOwnedCount()
+        public void Disown(Simulation simulation, Transaction transaction)
         {
+            this.ActionOnDisown(simulation, transaction);
             this.CurrentCount--;
         }
-        
+
+        public virtual void ActionOnOwn(Simulation simulation, Transaction transaction)
+        {
+
+        }
+
+        public virtual void ActionOnDisown(Simulation simulation, Transaction transaction)
+        {
+
+        }
+
         public abstract void Action(Simulation simulation);
 
         public void PassTransaction(Transaction transaction)

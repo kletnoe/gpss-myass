@@ -39,8 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blocks\Volatile.cs" />
     <Compile Include="Functions\Sequences.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyAss.Framework_v2\MyAss.Framework_v2.csproj">
+      <Project>{8a83f996-3614-4968-841e-2065eaff1a08}</Project>
+      <Name>MyAss.Framework_v2</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

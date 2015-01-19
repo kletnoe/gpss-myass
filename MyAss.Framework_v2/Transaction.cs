@@ -86,10 +86,10 @@ namespace MyAss.Framework_v2
             if (this.Owner != 0)
             {
                 IBlock oldOwner = simulation.GetBlock(this.Owner);
-                oldOwner.DecrementOwnedCount();
+                oldOwner.Disown(simulation, this);
             }
 
-            newOwner.IncrementOwnedCount();
+            newOwner.Own(simulation, this);
             this.Owner = newOwner.Id;
         }
 
@@ -101,6 +101,51 @@ namespace MyAss.Framework_v2
         public void Dispose()
         {
             GC.SuppressFinalize(this);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            Transaction other = obj as Transaction;
+            if ((System.Object)other == null)
+            {
+                return false;
+            }
+
+            // Return true if the fields match:
+            return this.Number == other.Number;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Number;
+        }
+
+        public Transaction Split(int transactionNo)
+        {
+            Transaction offspring = new Transaction(transactionNo, this.MarkTime);
+
+            offspring.AssemblySet = this.AssemblySet;
+            offspring.DelayIndicator = this.DelayIndicator;
+            offspring.IsPreempted = this.IsPreempted;
+            offspring.NextEventTime = this.NextEventTime;
+            offspring.NextOwner = this.NextOwner;
+            offspring.Owner = this.Owner;
+            offspring.Priority = this.Priority;
+            offspring.State = this.State;
+            offspring.TraceIndicator = this.TraceIndicator;
+
+            offspring.transactionParameters = new Dictionary<int, double>();
+            foreach (var parameter in this.transactionParameters)
+            {
+                offspring.transactionParameters.Add(parameter.Key, parameter.Value);
+            }
+
+            return offspring;
         }
     }
 }

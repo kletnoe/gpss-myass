@@ -10,7 +10,6 @@ namespace MyCustomLibrary.Functions
     {
         public static int Fibonacci(int number)
         {
-
             if (number <= 1)
             {
                 return number;
@@ -19,7 +18,6 @@ namespace MyCustomLibrary.Functions
             {
                 return Fibonacci(number - 2) + Fibonacci(number - 1);
             }
-
         }
     }
 }

@@ -20,7 +20,7 @@ namespace MyAss.Framework_v2.Blocks
 
         void PassTransaction(Transaction transaction);
 
-        void IncrementOwnedCount();
-        void DecrementOwnedCount();
+        void Own(Simulation simulation, Transaction transaction);
+        void Disown(Simulation simulation, Transaction transaction);
     }
 }

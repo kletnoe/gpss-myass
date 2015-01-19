@@ -39,6 +39,11 @@ namespace MyAss.Framework_v2.Chains
             }
         }
 
+        public void Remove(Transaction transaction)
+        {
+            this.baseList.Remove(transaction);
+        }
+
         public void RemoveFirst()
         {
             this.baseList.RemoveFirst();
