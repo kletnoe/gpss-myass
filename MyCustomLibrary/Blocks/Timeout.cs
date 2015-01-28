@@ -10,12 +10,12 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyCustomLibrary.Blocks
 {
-    public class Volatile : AbstractBlock
+    public class Timeout : AbstractBlock
     {
         public IDoubleOperand A_TimeToWait { get; private set; }
         public IDoubleOperand B_DestBlockNo { get; private set; }
 
-        public Volatile(IDoubleOperand timeToWait, IDoubleOperand destBlockNo)
+        public Timeout(IDoubleOperand timeToWait, IDoubleOperand destBlockNo)
         {
             this.A_TimeToWait = timeToWait;
             this.B_DestBlockNo = destBlockNo;

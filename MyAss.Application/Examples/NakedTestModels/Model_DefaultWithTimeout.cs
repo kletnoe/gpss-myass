@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyAss.Application.Examples.NakedTestModels
 {
-    public static class Model_DefaultWithVolatile
+    public static class Model_DefaultWithTimeout
     {
         public static string Model
         {
@@ -34,14 +34,14 @@ OnQueue TABLE MP$OnQueueTime,0,4,20
 
 	START 10000
 
-	GENERATE (Exponential(1,0,1/2))
+	GENERATE (Exponential(5,0,1/2))
 		MARK InSystemTime
 		MARK OnQueueTime
 	SAVEVALUE GenerateCounter,(X$GenerateCounter+1)
 
 	TEST L Q$Tail,20,GoAway		;Jump if in Stack >20
 	QUEUE Tail
-    VOLATILE 40,Exhausted
+    TIMEOUT 40,OnTimeout
 	ENTER Server,1
 	DEPART Tail
 		TABULATE OnQueue
@@ -52,14 +52,14 @@ OnQueue TABLE MP$OnQueueTime,0,4,20
 		TABULATE InSystem
 
 	SAVEVALUE RejetionProb,(X$RejectCounter/X$GenerateCounter)
-    SAVEVALUE ExhaustProb,(X$ExhaustedCounter/X$GenerateCounter)
+    SAVEVALUE ExhaustProb,(X$TimeoutCounter/X$GenerateCounter)
 	TERMINATE 1
 
 
 GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
 	TERMINATE 		;Delete rejected.
 
-Exhausted	SAVEVALUE ExhaustedCounter,(X$ExhaustedCounter+1)
+OnTimeout	SAVEVALUE TimeoutCounter,(X$TimeoutCounter+1)
     DEPART Tail
 	TERMINATE 		;Delete exhausted.
 

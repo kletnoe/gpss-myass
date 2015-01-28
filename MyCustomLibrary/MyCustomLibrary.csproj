@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blocks\Volatile.cs" />
+    <Compile Include="Blocks\Timeout.cs" />
     <Compile Include="Functions\Sequences.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

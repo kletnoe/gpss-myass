@@ -50,7 +50,7 @@
     <Compile Include="Examples\CompiledTestModels\Model_Default.cs" />
     <Compile Include="Examples\CustomAttributes\VerbConstructorAttribute.cs" />
     <Compile Include="Examples\NakedTestModels\Model_DefaultNoQueue.cs" />
-    <Compile Include="Examples\NakedTestModels\Model_DefaultWithVolatile.cs" />
+    <Compile Include="Examples\NakedTestModels\Model_DefaultWithTimeout.cs" />
     <Compile Include="Examples\NakedTestModels\Model_DefaultWithTable.cs" />
     <Compile Include="Examples\NakedTestModels\Model_Lusin.cs" />
     <Compile Include="Examples\NakedTestModels\Model_Default.cs" />
