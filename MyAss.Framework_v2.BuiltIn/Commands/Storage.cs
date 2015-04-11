@@ -9,7 +9,7 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyAss.Framework_v2.BuiltIn.Commands
 {
-    public class Storage : AbstractQueuedCommand
+    public class Storage : AnyQueuedCommand
     {
         public IDoubleOperand A_StorageCapacity { get; private set; }
 

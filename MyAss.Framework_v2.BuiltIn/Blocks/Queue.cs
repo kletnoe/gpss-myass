@@ -8,7 +8,7 @@ using MyAss.Framework_v2.BuiltIn.Entities;
 
 namespace MyAss.Framework_v2.BuiltIn.Blocks
 {
-    public class Queue : AbstractBlock, IEntityCretableBlock
+    public class Queue : AnyBlock, IEntityCretableBlock
     {
         public IDoubleOperand A_QueueEntityId { get; private set; }
         public IDoubleOperand B_NumberOfUnits { get; private set; }

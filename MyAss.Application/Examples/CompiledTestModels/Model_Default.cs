@@ -7,7 +7,7 @@ using MyAss.Framework_v2.Commands;
 using MyAss.Framework_v2.OperandTypes;
 using System;
 
-namespace Modeling
+namespace Modeling_
 {
     public class TheModel : AbstractModel
     {

@@ -106,7 +106,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
                 }
 
                 // verb is Block
-                if (typeof(IBlock).IsAssignableFrom(verbType))
+                if (typeof(AnyBlock).IsAssignableFrom(verbType))
                 {
                     this.ReplaceExistingNamedVar(verb.LabelId);
                 }
@@ -122,7 +122,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
             // Construct Set label Id for Commands
             if (verb.LabelId != null)
             {
-                if (typeof(ICommand).IsAssignableFrom(verbType))
+                if (typeof(AnyCommand).IsAssignableFrom(verbType))
                 {
                     result.TrueStatements.Add(GenerationUtils.ConstructCallCommandSetIdMethod("verb", verb.LabelId));
                 }
@@ -134,7 +134,7 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
 
             // This is needed for Block labels assignment!!!
-            if (typeof(IBlock).IsAssignableFrom(verbType))
+            if (typeof(AnyBlock).IsAssignableFrom(verbType))
             {
                 this.currentBlockNo++;
             }
@@ -183,16 +183,26 @@ namespace MyAss.Compiler_v2.CodeGeneration
 
                     if (ctorParam.ParameterType == typeof(IDoubleOperand))
                     {
-                        string parameterMethodName = String.Format("Verb{0}_Operand{1}", this.verbNo, ctorParam.Position + 1);
+                        //if (operand is ASTLiteral)
+                        //{
+                        //    // Operand is a constant
+                        //    constructorCall.Parameters.Add((operand as ASTLiteral).Value);
+                        //}
+                        //else
+                        //{
+                            // Operand is an expression
 
-                        // Visit expression
-                        CodeExpression operandExpression = (CodeExpression)operand.Accept(this);
+                            string parameterMethodName = String.Format("Verb{0}_Operand{1}", this.verbNo, ctorParam.Position + 1);
 
-                        // Construct method for operand
-                        this.CreateOperandMethod(parameterMethodName, operandExpression);
+                            // Visit expression
+                            CodeExpression operandExpression = (CodeExpression)operand.Accept(this);
 
-                        // Add method delegate as constructor parameter
-                        constructorCall.Parameters.Add(GenerationUtils.ConctructCtorDelegateParameter(parameterMethodName));
+                            // Construct method for operand
+                            this.CreateOperandMethod(parameterMethodName, operandExpression);
+
+                            // Add method delegate as constructor parameter
+                            constructorCall.Parameters.Add(GenerationUtils.ConctructCtorDelegateParameter(parameterMethodName));
+                        //}
                     }
                     else if (ctorParam.ParameterType == typeof(LiteralOperand))
                     {

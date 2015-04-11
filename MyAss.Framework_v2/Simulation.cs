@@ -12,12 +12,12 @@ namespace MyAss.Framework_v2
     {
         public SimulationNumbersManager NumbersManager { get; private set; }
         public PriorityTransactionChain CurrentEventChain { get; private set; }
-        public FutureTransactionChain FutureEventChain { get; private set; }
-        public Queue<ICommand> CommandQueue { get; private set; }
+        public OrderedTransactionChain FutureEventChain { get; private set; }
+        public Queue<AnyCommand> CommandQueue { get; private set; }
 
         public NamesAndVarsDictionary NamesAndVarsDictionary { get; private set; }
-        public Dictionary<int, IBlock> Blocks { get; private set; }
-        public Dictionary<int, IEntity> Entities { get; private set; }
+        public Dictionary<int, AnyBlock> Blocks { get; private set; }
+        public Dictionary<int, AnyEntity> Entities { get; private set; }
 
         public double Clock { get; set; }
         public int TerminationsCount { get; set; }
@@ -29,10 +29,10 @@ namespace MyAss.Framework_v2
         {
             this.NumbersManager = new SimulationNumbersManager();
             this.CurrentEventChain = new PriorityTransactionChain();
-            this.FutureEventChain = new FutureTransactionChain();
-            this.CommandQueue = new Queue<ICommand>();
-            this.Blocks = new Dictionary<int, IBlock>();
-            this.Entities = new Dictionary<int, IEntity>();
+            this.FutureEventChain = new OrderedTransactionChain();
+            this.CommandQueue = new Queue<AnyCommand>();
+            this.Blocks = new Dictionary<int, AnyBlock>();
+            this.Entities = new Dictionary<int, AnyEntity>();
         }
 
         public Simulation(AbstractModel model)
@@ -75,6 +75,8 @@ namespace MyAss.Framework_v2
             foreach (var block in model.Blocks)
             {
                 block.SetId(i);
+                block.SetSimulation(this);
+
                 this.Blocks.Add(i, block);
 
                 // Set NSB for previous
@@ -89,9 +91,9 @@ namespace MyAss.Framework_v2
 
         private void ProcessCommands(AbstractModel model)
         {
-            foreach (ICommand command in model.Commands)
+            foreach (AnyCommand command in model.Commands)
             {
-                if (command is AbstractQueuedCommand)
+                if (command is AnyQueuedCommand)
                 {
                     this.CommandQueue.Enqueue(command);
                 }
@@ -103,14 +105,14 @@ namespace MyAss.Framework_v2
 
             while (this.CommandQueue.Count > 0)
             {
-                ICommand command = this.CommandQueue.Dequeue();
+                AnyCommand command = this.CommandQueue.Dequeue();
                 command.Execute(this);
             }
         }
 
 
         // TODO: Try to remove this
-        public IEntity GetEntity(int id)
+        public AnyEntity GetEntity(int id)
         {
             return this.Entities[id];
         }
@@ -119,7 +121,7 @@ namespace MyAss.Framework_v2
             return this.Entities.ContainsKey(id);
         }
 
-        public IBlock GetBlock(int id)
+        public AnyBlock GetBlock(int id)
         {
             return this.Blocks[id];
         }

@@ -7,7 +7,7 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyAss.Framework_v2.BuiltIn.Blocks
 {
-    public class Generate : AbstractBlock, ITransactionGeneratableBlock
+    public class Generate : AnyBlock, ITransactionGeneratableBlock
     {
         // TODO: Implement special "function modifier" case.
 

@@ -9,7 +9,7 @@ using MyAss.Framework_v2.BuiltIn.Entities;
 
 namespace MyAss.Framework_v2.BuiltIn.Blocks
 {
-    public class Leave : AbstractBlock
+    public class Leave : AnyBlock
     {
         public IDoubleOperand A_StorageEntityId { get; private set; }
         public IDoubleOperand B_NumberOfUnits { get; private set; }

@@ -8,7 +8,7 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyAss.Framework_v2.BuiltIn.Blocks
 {
-    public class Depart : AbstractBlock
+    public class Depart : AnyBlock
     {
         public IDoubleOperand A_QueueEntityId { get; private set; }
         public IDoubleOperand B_NumberOfUnits { get; private set; }

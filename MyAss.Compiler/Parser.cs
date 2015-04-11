@@ -98,12 +98,12 @@ namespace MyAss.Compiler
         private void ExpectLeadingTrivia()
         {
             while (this.Scanner.CurrentToken == TokenType.WHITE
-                || this.Scanner.CurrentToken == TokenType.SEMICOL
+                || this.Scanner.CurrentToken == TokenType.COMMENT
                 || this.Scanner.CurrentToken == TokenType.LF)
             {
                 switch (this.Scanner.CurrentToken)
                 {
-                    case TokenType.SEMICOL:
+                    case TokenType.COMMENT:
                         this.ExpectComment();
                         break;
                     case TokenType.WHITE:
@@ -124,7 +124,7 @@ namespace MyAss.Compiler
                 this.Expect(TokenType.WHITE);
             }
 
-            if (this.Scanner.CurrentToken == TokenType.SEMICOL)
+            if (this.Scanner.CurrentToken == TokenType.COMMENT)
             {
                 this.ExpectComment();
             }
@@ -133,7 +133,7 @@ namespace MyAss.Compiler
         // <comment> ::= <SEMICOL> ( <any-char> )*
         private void ExpectComment()
         {
-            this.Expect(TokenType.SEMICOL);
+            this.Expect(TokenType.COMMENT);
 
             while (this.Scanner.CurrentToken != TokenType.LF
                 && this.Scanner.CurrentToken != TokenType.EOF)

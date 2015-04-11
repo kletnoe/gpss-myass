@@ -98,8 +98,8 @@ namespace MyAss.Utilities.Reports_v2
         {
             StringBuilder sb = new StringBuilder();
 
-            IList<IEntity> entities = simulation.Entities.Values.ToList();
-            Dictionary<Type, IList<IEntity>> entityTypeToEntitiesList = TypesDivider<IEntity>.DivideByType(entities);
+            IList<AnyEntity> entities = simulation.Entities.Values.ToList();
+            Dictionary<Type, IList<AnyEntity>> entityTypeToEntitiesList = TypesDivider<AnyEntity>.DivideByType(entities);
 
             foreach (var singleTypeEntities in entityTypeToEntitiesList)
             {

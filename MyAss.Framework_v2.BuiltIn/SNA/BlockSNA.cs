@@ -16,7 +16,7 @@ namespace MyAss.Framework_v2.BuiltIn.SNA
                 return 0;
             }
 
-            IBlock block = simulation.GetBlock(blockId);
+            AnyBlock block = simulation.GetBlock(blockId);
 
             return block.EntryCount;
         }
@@ -28,7 +28,7 @@ namespace MyAss.Framework_v2.BuiltIn.SNA
                 return 0;
             }
 
-            IBlock block = simulation.GetBlock(blockId);
+            AnyBlock block = simulation.GetBlock(blockId);
 
             return block.CurrentCount;
         }

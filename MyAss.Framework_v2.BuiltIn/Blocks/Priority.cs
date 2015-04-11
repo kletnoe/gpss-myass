@@ -8,7 +8,7 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyAss.Framework_v2.BuiltIn.Blocks
 {
-    public class Priority : AbstractBlock
+    public class Priority : AnyBlock
     {
         public IDoubleOperand A_PriorityValue { get; private set; }
         public LiteralOperand B_BufferOption { get; private set; }

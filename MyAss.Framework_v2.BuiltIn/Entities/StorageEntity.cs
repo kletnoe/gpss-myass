@@ -8,7 +8,7 @@ using MyAss.Framework_v2.Entities;
 
 namespace MyAss.Framework_v2.BuiltIn.Entities
 {
-    public class StorageEntity : AbstractEntity, IDelayableEntity
+    public class StorageEntity : AnyEntity, IDelayableEntity
     {
         private Simulation simulation;
 

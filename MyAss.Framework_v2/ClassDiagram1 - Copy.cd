@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="MyAss.Framework_v2.AbstractModel">
+    <Position X="5" Y="0.5" Width="3.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAEAlAAgAIQAAAAAAACAAAAAAAAAAAEQAAABAAABAA=</HashCode>
+      <FileName>AbstractModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Framework_v2.Entities.AbstractEntity">
+    <Position X="5.75" Y="12.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAAEAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAgAA=</HashCode>
+      <FileName>Entities\AbstractEntity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyAss.Framework_v2.TransactionScheduler">
+    <Position X="5" Y="4.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAgAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>TransactionScheduler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Framework_v2.Simulation">
+    <Position X="0.5" Y="0.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>IAAEBAFAAAIAAAABAAADAAAAAAIACQAEBEEAAAAAAgQ=</HashCode>
+      <FileName>Simulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="MyAss.Framework_v2.Entities.IEntity">
+    <Position X="5.75" Y="9.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAAEAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAgAA=</HashCode>
+      <FileName>Entities\IEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Framework_v2.Entities.IDelayableEntity">
+    <Position X="9.5" Y="9.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\IDelayableEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Framework_v2.Entities.IInterruptableEntity">
+    <Position X="9.5" Y="11" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\IInterruptableEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Framework_v2.Entities.IPendableEntity">
+    <Position X="9.5" Y="12.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\IPendableEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -108,6 +108,10 @@
       <Project>{8a83f996-3614-4968-841e-2065eaff1a08}</Project>
       <Name>MyAss.Framework_v2</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyCustomLibrary\MyCustomLibrary.csproj">
+      <Project>{0d631126-af01-407c-8a15-4876bbf8f49f}</Project>
+      <Name>MyCustomLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

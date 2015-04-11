@@ -48,7 +48,9 @@
   <ItemGroup>
     <Compile Include="Examples\CodeGen\ExpectedClass\Model2.cs" />
     <Compile Include="Examples\CompiledTestModels\Model_Default.cs" />
+    <Compile Include="Examples\CompiledTestModels\Model_TurnstaleDemo.cs" />
     <Compile Include="Examples\CustomAttributes\VerbConstructorAttribute.cs" />
+    <Compile Include="Examples\NakedTestModels\Model_TurnstaleDemo.cs" />
     <Compile Include="Examples\NakedTestModels\Model_DefaultNoQueue.cs" />
     <Compile Include="Examples\NakedTestModels\Model_DefaultWithTimeout.cs" />
     <Compile Include="Examples\NakedTestModels\Model_DefaultWithTable.cs" />

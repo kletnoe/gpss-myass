@@ -24,7 +24,7 @@ namespace MyAss.Compiler
         DOLLAR,     // '$'
         ASTERISK,   // '*'
         COMMA,      // ','
-        SEMICOL,    // ';'
+        //SEMICOL,    // ';'
         ATSIGN,     // '@'
         PERIOD,     // '.'
         UNDERSCORE, // '_'
@@ -34,6 +34,7 @@ namespace MyAss.Compiler
         LF,         // '\r' or '\n'
         WHITE,
 
+        COMMENT,
         ID,
         INTEGER,
     }

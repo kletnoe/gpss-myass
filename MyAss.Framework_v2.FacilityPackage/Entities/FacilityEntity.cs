@@ -7,7 +7,7 @@ using MyAss.Framework_v2.Entities;
 
 namespace MyAss.Framework_v2.FacilityPackage.Entities
 {
-    public class FacilityEntity : AbstractEntity, IPendableEntity, IInterruptableEntity, IDelayableEntity
+    public class FacilityEntity : AnyEntity, IPendableEntity, IInterruptableEntity, IDelayableEntity
     {
         private Simulation simulation;
 

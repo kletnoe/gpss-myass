@@ -11,10 +11,10 @@ namespace MyAss.Application.Examples.NakedTestModels
     {
         public static void Run()
         {
-            string input = Model_DefaultWithTimeout.Model;
+            string input = Model_TurnstaleDemo.Model;
 
             AssemblyCompiler compiler = new AssemblyCompiler(input, true);
-            compiler.Compile(true);
+            compiler.Compile(false);
             compiler.RunAssembly();
         }
     }

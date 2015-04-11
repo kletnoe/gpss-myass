@@ -5,12 +5,12 @@ using System.Text;
 
 namespace MyAss.Framework_v2.Entities
 {
-    public abstract class AbstractEntity : IEntity
+    public abstract class AnyEntity
     {
         public int Id { get; protected set; }
         public LinkedList<Transaction> RetryChain { get; protected set; }
 
-        protected AbstractEntity()
+        protected AnyEntity()
         {
             this.RetryChain = new LinkedList<Transaction>();
         }

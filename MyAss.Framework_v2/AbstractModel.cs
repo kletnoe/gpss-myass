@@ -13,8 +13,8 @@ namespace MyAss.Framework_v2
         protected Simulation simulation;
 
         private NamesAndVarsDictionary namesAndVarsDictionary;
-        private List<IBlock> blocks;
-        private List<ICommand> commands;
+        private List<AnyBlock> blocks;
+        private List<AnyCommand> commands;
 
         public NamesAndVarsDictionary NamesDictionary
         {
@@ -24,7 +24,7 @@ namespace MyAss.Framework_v2
             }
         }
 
-        public IReadOnlyList<IBlock> Blocks
+        public IReadOnlyList<AnyBlock> Blocks
         {
             get
             {
@@ -32,7 +32,7 @@ namespace MyAss.Framework_v2
             }
         }
 
-        public IReadOnlyList<ICommand> Commands
+        public IReadOnlyList<AnyCommand> Commands
         {
             get
             {
@@ -43,8 +43,8 @@ namespace MyAss.Framework_v2
         public AbstractModel()
         {
             this.namesAndVarsDictionary = new NamesAndVarsDictionary();
-            this.blocks = new List<IBlock>();
-            this.commands = new List<ICommand>();
+            this.blocks = new List<AnyBlock>();
+            this.commands = new List<AnyCommand>();
         }
 
         public void SetSimulation(Simulation simulation)
@@ -71,12 +71,12 @@ namespace MyAss.Framework_v2
             }
         }
 
-        public void AddVerb(IBlock block)
+        public void AddVerb(AnyBlock block)
         {
             this.blocks.Add(block);
         }
 
-        public void AddVerb(ICommand command)
+        public void AddVerb(AnyCommand command)
         {
             this.commands.Add(command);
         }

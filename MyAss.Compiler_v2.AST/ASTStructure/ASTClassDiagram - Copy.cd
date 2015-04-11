@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="MyAss.Compiler_v2.AST.ASTAnyCall">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ASTAnyCall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTAnyExpression">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ASTAnyExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTAnyNode">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ASTAnyNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTBinaryExpression">
+    <Position X="2.25" Y="5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyExpression" ManuallyRouted="true">
+      <Path>
+        <Point X="1.25" Y="3.747" />
+        <Point X="1.25" Y="4.792" />
+        <Point X="3.5" Y="4.792" />
+        <Point X="3.5" Y="5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACACAAAAAIgA=</HashCode>
+      <FileName>ASTBinaryExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTDirectSNACall">
+    <Position X="5.75" Y="7.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAgABAAAAAAAA=</HashCode>
+      <FileName>ASTDirectSNACall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTLiteral">
+    <Position X="5.5" Y="5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyExpression" ManuallyRouted="true">
+      <Path>
+        <Point X="1.25" Y="3.747" />
+        <Point X="1.25" Y="4.802" />
+        <Point X="6.5" Y="4.802" />
+        <Point X="6.5" Y="5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>ASTLiteral.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTLValue">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AIACAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ASTLValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTModel">
+    <Position X="2.25" Y="2.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyNode" ManuallyRouted="true">
+      <Path>
+        <Point X="1.25" Y="1.411" />
+        <Point X="1.25" Y="2.594" />
+        <Point X="3.25" Y="2.594" />
+        <Point X="3.25" Y="2.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>ASTModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTProcedureCall">
+    <Position X="2.5" Y="7.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BIAAAAAAAAAAAAAEAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ASTProcedureCall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Compiler_v2.AST.ASTVerb">
+    <Position X="4.75" Y="2.75" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyNode" ManuallyRouted="true">
+      <Path>
+        <Point X="1.25" Y="1.411" />
+        <Point X="1.25" Y="2.583" />
+        <Point X="6.125" Y="2.583" />
+        <Point X="6.125" Y="2.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAEAAAAEEAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ASTVerb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="MyAss.Compiler_v2.AST.IASTVisitableNode">
+    <Position X="2.25" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IASTVisitableNode.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="MyAss.Compiler_v2.AST.BinaryOperatorType">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAAQAAAAAAAAABAAAQAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>BinaryOperatorType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyAss.Compiler_v2.AST.LiteralType">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAACAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>LiteralType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

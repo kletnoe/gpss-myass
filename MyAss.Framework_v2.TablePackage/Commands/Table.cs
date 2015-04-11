@@ -9,7 +9,7 @@ using MyAss.Framework_v2.TablePackage.Entities;
 
 namespace MyAss.Framework_v2.TablePackage.Commands
 {
-    public class Table : AbstractQueuedCommand
+    public class Table : AnyQueuedCommand
     {
         public IDoubleOperand A_TableArgument { get; private set; }
         public IDoubleOperand B_UpperLimitOfFirstClass { get; private set; }

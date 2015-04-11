@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="MyAss.Compiler.Parser">
+    <Position X="4" Y="0.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AIEgIARCRCCAAQAIAEAAIAAFAEKlAUgADAgEgAACBAI=</HashCode>
+      <FileName>Parser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Compiler.Scanner">
+    <Position X="0.75" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAIAAAgABgAAASAAAAAEAAQAAAAgAgAACAoEAAA=</HashCode>
+      <FileName>Scanner.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="MyAss.Compiler.IScanner" Collapsed="true">
+    <Position X="2.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAgAACAoEAAA=</HashCode>
+      <FileName>IScanner.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -6,7 +6,7 @@ using MyAss.Framework_v2.Entities;
 
 namespace MyAss.Framework_v2.BuiltIn.Entities
 {
-    public class SavevalueEntity : AbstractEntity
+    public class SavevalueEntity : AnyEntity
     {
         private Simulation simulation;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyAss.Framework_v2.Commands
 {
-    public abstract class AbstractImmediateCommand : ICommand
+    public abstract class AnyCommand
     {
         public int Id { get; protected set; }
         public string Label { get; protected set; }

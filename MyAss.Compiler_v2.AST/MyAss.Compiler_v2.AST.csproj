@@ -60,6 +60,7 @@
     <Content Include="ASTStructure\Structure.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ASTStructure\ASTClassDiagram - Copy.cd" />
     <None Include="ASTStructure\ASTClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

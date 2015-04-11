@@ -10,7 +10,7 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyCustomLibrary.Blocks
 {
-    public class Timeout : AbstractBlock
+    public class Timeout : AnyBlock
     {
         public IDoubleOperand A_TimeToWait { get; private set; }
         public IDoubleOperand B_DestBlockNo { get; private set; }
@@ -54,7 +54,7 @@ namespace MyCustomLibrary.Blocks
 
             // Pass Clone to Label
             Transaction transactionClone = transaction.Split(simulation.NumbersManager.NextFreeTransactionNo);
-            IBlock consumerOnTimeEnd = simulation.Blocks[destBlockNo];
+            AnyBlock consumerOnTimeEnd = simulation.Blocks[destBlockNo];
             transactionClone.NextEventTime = simulation.Clock + timeToWait;
             transactionClone.SetNextOwner(consumerOnTimeEnd);
             simulation.FutureEventChain.Add(transactionClone);

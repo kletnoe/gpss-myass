@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyAss.Framework_v2;
+using MyAss.Framework_v2.Blocks;
+using MyAss.Framework_v2.Commands;
 
 namespace MyAss.Compiler.Metadata
 {
@@ -53,7 +55,8 @@ namespace MyAss.Compiler.Metadata
             this.verbTypes = new List<TypeInfo>();
             this.verbTypes.AddRange(assemblies.SelectMany(t => t.DefinedTypes
                     .Where(x =>
-                            typeof(IVerb).IsAssignableFrom(x)
+                            (typeof(AnyBlock).IsAssignableFrom(x)
+                                || typeof(AnyCommand).IsAssignableFrom(x))
                             && !x.IsInterface
                             && !x.IsAbstract
                     )

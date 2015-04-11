@@ -81,19 +81,19 @@ namespace MyAss.Framework_v2
             return String.Format("\t| Xn: {0} NET: {1} Own: {2} Next: {3}|", this.Number, this.NextEventTime.ToString("F5"), this.Owner, this.NextOwner);
         }
 
-        public void ChangeOwner(Simulation simulation, IBlock newOwner)
+        public void ChangeOwner(Simulation simulation, AnyBlock newOwner)
         {
             if (this.Owner != 0)
             {
-                IBlock oldOwner = simulation.GetBlock(this.Owner);
-                oldOwner.Disown(simulation, this);
+                AnyBlock oldOwner = simulation.GetBlock(this.Owner);
+                oldOwner.Release(simulation, this);
             }
 
             newOwner.Own(simulation, this);
             this.Owner = newOwner.Id;
         }
 
-        public void SetNextOwner(IBlock newNextOwner)
+        public void SetNextOwner(AnyBlock newNextOwner)
         {
             this.NextOwner = newNextOwner.Id;
         }

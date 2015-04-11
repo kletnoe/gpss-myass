@@ -6,11 +6,11 @@ using System.Collections;
 
 namespace MyAss.Framework_v2.Chains
 {
-    public class FutureTransactionChain : IEnumerable<Transaction>
+    public class OrderedTransactionChain : IEnumerable<Transaction>
     {
         private LinkedList<Transaction> baseList;
 
-        public FutureTransactionChain()
+        public OrderedTransactionChain()
         {
             this.baseList = new LinkedList<Transaction>();
         }

@@ -8,7 +8,7 @@ using MyAss.Framework_v2.Blocks;
 
 namespace MyAss.Framework_v2.BuiltIn.Blocks
 {
-    public class Test : AbstractBlock
+    public class Test : AnyBlock
     {
         public LiteralOperand O_RelationalOp { get; private set; }
 
@@ -66,7 +66,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             Console.WriteLine("Tested  \tTime: " + simulation.Clock + transaction, ConsoleColor.DarkGreen);
             Console.WriteLine("\ttrue");
 
-            IBlock consumerOnFalse = simulation.Blocks[consumerOnFalseBlockId];
+            AnyBlock consumerOnFalse = simulation.Blocks[consumerOnFalseBlockId];
 
             if (this.Compare(relationalOp, lValue, rValue))
             {

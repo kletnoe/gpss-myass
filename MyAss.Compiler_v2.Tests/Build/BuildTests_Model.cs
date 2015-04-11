@@ -22,6 +22,13 @@ namespace MyAss.Compiler_v2.Tests.Build
         }
 
         [Test]
+        public void Model_TurnstaleDemo()
+        {
+            string input = TestModels.Model_TurnstaleDemo;
+            CommonCode(input);
+        }
+
+        [Test]
         public void Model()
         {
             string input = TestModels.MM3Model_Simple;

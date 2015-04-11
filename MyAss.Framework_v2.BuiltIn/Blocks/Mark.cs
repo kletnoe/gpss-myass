@@ -8,7 +8,7 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyAss.Framework_v2.BuiltIn.Blocks
 {
-    public class Mark : AbstractBlock
+    public class Mark : AnyBlock
     {
         public IDoubleOperand A_ParameterId { get; private set; }
 

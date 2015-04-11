@@ -36,7 +36,7 @@ namespace MyAss.Compiler
             this.currentToken = token;
             this.currentTokenVal = value;
 
-            //Console.WriteLine(String.Format("{0, -10}",  token) + value);
+            Console.WriteLine(String.Format("{0, -10}",  token) + value);
         }
 
         private void Ret(TokenType token)
@@ -97,9 +97,6 @@ namespace MyAss.Compiler
                 case ',':
                     this.Ret(TokenType.COMMA);
                     break;
-                case ';':
-                    this.Ret(TokenType.SEMICOL);
-                    break;
                 case '@':
                     this.Ret(TokenType.ATSIGN);
                     break;
@@ -113,6 +110,10 @@ namespace MyAss.Compiler
                 case '\r':
                 case '\n':
                     this.Ret(TokenType.LF);
+                    break;
+
+                case ';':
+                    this.RetComment();
                     break;
 
                 default:
@@ -136,17 +137,17 @@ namespace MyAss.Compiler
             }
         }
 
-        //private void RetComment()
-        //{
-        //    string buffer = "";
-        //    do
-        //    {
-        //        buffer += this.CharSource.CurrentChar;
-        //        this.CharSource.Next();
-        //    } while (this.CharSource.CurrentChar != '\n' && this.CharSource.CurrentChar != '\0');
+        private void RetComment()
+        {
+            string buffer = "";
+            do
+            {
+                buffer += this.CharSource.CurrentChar;
+                this.CharSource.Next();
+            } while (this.CharSource.CurrentChar != '\n' && this.CharSource.CurrentChar != '\0');
 
-        //    this.Ret(TokenType.COMMENT, buffer);
-        //}
+            this.Ret(TokenType.COMMENT, buffer);
+        }
 
         // <id> ::= <letter> | <UNDERSCORE> | <id> <letter> | <id> <digit> | <id> <UNDERSCORE>
         private void RetIdOrKwd()

@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyAss.Framework_v2.Commands
 {
-    public interface ICommand : IVerb
+    public abstract class AnyQueuedCommand : AnyCommand
     {
-        int Id { get; }
-        string Label { get; }
 
-        void Execute(Simulation simulation);
-        void SetId(int id);
     }
 }

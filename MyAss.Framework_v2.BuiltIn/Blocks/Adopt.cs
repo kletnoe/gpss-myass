@@ -8,7 +8,7 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyAss.Framework_v2.BuiltIn.Blocks
 {
-    public class Adopt : AbstractBlock
+    public class Adopt : AnyBlock
     {
         public IDoubleOperand A_AssemblySet { get; private set; }
 

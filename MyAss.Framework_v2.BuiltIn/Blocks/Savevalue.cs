@@ -9,7 +9,7 @@ using MyAss.Framework_v2.BuiltIn.Entities;
 
 namespace MyAss.Framework_v2.BuiltIn.Blocks
 {
-    public class Savevalue : AbstractBlock, IEntityCretableBlock
+    public class Savevalue : AnyBlock, IEntityCretableBlock
     {
         public IDoubleOperand A_SavevalueEntityId { get; private set; }
         public IDoubleOperand B_Value { get; private set; }

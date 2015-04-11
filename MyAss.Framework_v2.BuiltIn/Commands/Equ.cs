@@ -8,7 +8,7 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyAss.Framework_v2.BuiltIn.Commands
 {
-    public class Equ : AbstractQueuedCommand
+    public class Equ : AnyQueuedCommand
     {
         public IDoubleOperand X_Expression { get; private set; }
 

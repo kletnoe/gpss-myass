@@ -5,25 +5,18 @@ using System.Text;
 
 namespace MyAss.Framework_v2.Blocks
 {
-    public abstract class AbstractBlock : IBlock
+    public abstract class AnyBlock
     {
         public int Id { get; protected set; }
+        public string Label { get; protected set; }
+        public Simulation Simulation { get; protected set; }
+
         public int EntryCount { get; protected set; }
         public int CurrentCount { get; protected set; }
-        public IBlock NextSequentialBlock { get; set; }
+        public AnyBlock NextSequentialBlock { get; set; }
         public LinkedList<Transaction> RetryChain { get; protected set; }
 
-        private string label;
-
-        public string Label
-        {
-            get
-            {
-                return this.label;
-            }
-        }
-
-        protected AbstractBlock()
+        protected AnyBlock()
         {
             this.EntryCount = 0;
             this.CurrentCount = 0;
@@ -32,12 +25,17 @@ namespace MyAss.Framework_v2.Blocks
 
         public void SetLabel(string label)
         {
-            this.label = label;
+            this.Label = label;
         }
 
         public void SetId(int id)
         {
             this.Id = id;
+        }
+
+        public void SetSimulation(Simulation simulation)
+        {
+            this.Simulation = simulation;
         }
 
         public void Own(Simulation simulation, Transaction transaction)
@@ -46,7 +44,7 @@ namespace MyAss.Framework_v2.Blocks
             this.CurrentCount++;
         }
 
-        public void Disown(Simulation simulation, Transaction transaction)
+        public void Release(Simulation simulation, Transaction transaction)
         {
             this.ActionOnDisown(simulation, transaction);
             this.CurrentCount--;

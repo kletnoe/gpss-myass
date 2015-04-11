@@ -8,7 +8,7 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyAss.Framework_v2.BuiltIn.Commands
 {
-    public class Start : AbstractQueuedCommand
+    public class Start : AnyQueuedCommand
     {
         public IDoubleOperand A_TerminationCount { get; private set; }
         public LiteralOperand B_PrintoutOperand { get; private set; }

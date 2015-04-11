@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyAss.Framework_v2
+namespace MyAss.Framework_v2.Commands
 {
-    public interface IVerb
+    public abstract class AnyImmediateCommand : AnyCommand
     {
+
     }
 }

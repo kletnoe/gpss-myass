@@ -8,7 +8,7 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyAss.Framework_v2.TablePackage.Entities
 {
-    public class TableEntity : AbstractEntity
+    public class TableEntity : AnyEntity
     {
         private Simulation simulation;
 

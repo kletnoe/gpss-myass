@@ -63,42 +63,75 @@ Starters:
 
 
 Productions:
+// 1, 2, 3
 <model> --> <leadingtrivia> <directives> <verbs> <EOF>
-<leadingtrivia> --> <WHITE> <leadingtrivia> | <comment> <leadingtrivia> | <LF> <leadingtrivia> | ε
-<comment> --> <SEMICOL> <commentbody>
+// 1, 2, 3( first(X) & follow(X) =  {<WHITE>, <SEMICOL>, <LF>} & {<ATSIGN>, <ID>, <EOF>} = 0 )
+<leadingtrivia> --> <WHITE> <leadingtrivia> | <SEMICOL> <commentbody> <leadingtrivia> | <LF> <leadingtrivia> | ε
+// 1, 2, 3(Ambiguous grammar)
 <commentbody> --> <any-token> <commentbody> | ε
-<any-token> --> any token except <LF> and <EOF>														///////
-<directives> --> <ATSIGN> <directive> <trailingtrivia> <LF> <leadingtrivia> <directives> | ε
-<directive> --> <USING> <WHITE> <spaces> <qualid> | <USINGP> <WHITE> <spaces> <qualid>
-<spaces> --> <WHITE> <spaces> | ε
-<qualid> --> <id> <idqualifier> 
-<idqualifier> --> <PERIOD> <id> | ε
-<id> --> <ID>
-<trailingtrivia> --> <WHITE> | <comment> | ε
-<verbs> --> <verb> <trailingtrivia> <LF> <leadingtrivia> <verbs> | ε
-<verb> --> <maybeid> <qual-id> <maybeoperands>
-<maybeid> --> <id> <WHITE> <spaces> | ε
-<maybeoperands> --> <WHITE> <spaces> <operands> | ε
-<operands> --> <operand> <maybeotheroperands>
-<maybeotheroperands> --> <COMMA> <operand> <maybeotheroperands> | <WHITE> <operand> <maybeotheroperands> | ε
-<operand> --> <expression> | <parexpression> | ε
-<parexpression> --> <LPAR> <expression> <RPAR>
-<expression> --> <term> <maybeotherterms>
-<maybeotherterms> --> <addop> <term> <maybeotherterms> | ε
-<term> --> <signedfactor> <maybeotherfactors>
-<maybeotherfactors> --> <mulop> <factor> <maybeotherfactors> | ε
-<factor> --> <literal> | <call> | <LPAR> <expression> <RPAR>
-<call> --> <lval> | <procedurecall> | <snacall>
-<lval> --> <id>
-<snacall> --> <qual-id> <DOLLAR> <id>
-<procedurecall> --> <qual-id> <LPAR> <actuals> <RPAR>
-<actuals> --> <expression> <maybeotheractuals> | ε
-<maybeotheractuals> --> <COMMA> <expression> <maybeotheractuals> | ε
-<literal> --> <number>
-<number> --> <INTEGER> <maybenumberfraction>
-<maybenumberfraction> --> <PERIOD> <INTEGER> | ε
+		<any-token> --> any token except <LF> and <EOF>														// переписать
+	<directives> --> <ATSIGN> <directive> <trailingtrivia> <LF> <leadingtrivia> <directives> | ε
+	<directive> --> <USING> <WHITE> <spaces> <qualid> | <USINGP> <WHITE> <spaces> <qualid>
+	<spaces> --> <WHITE> <spaces> | ε
+	<qualid> --> <ID> <idqualifier> 
+	<idqualifier> --> <PERIOD> <ID> | ε
+	<trailingtrivia> --> <WHITE> | <comment> | ε
+	<verbs> --> <verb> <trailingtrivia> <LF> <leadingtrivia> <verbs> | ε
+		<verb> --> <maybeid> <qualid> <maybeoperands>														// Неоднозначаная грамматика
+	<maybeid> --> <ID> <WHITE> <spaces> | ε
+	<maybeoperands> --> <WHITE> <spaces> <operands> | ε
+	<operands> --> <operand> <maybeotheroperands>
+		<operand> --> <expression> | <parexpression> | ε													// Неоднозначаная грамматика
+	<maybeotheroperands> --> <COMMA> <operand> <maybeotheroperands> | <WHITE> <operand> <maybeotheroperands> | ε
+	<parexpression> --> <LPAR> <expression> <RPAR>
+	<expression> --> <term> <maybeotherterms>
+	<maybeotherterms> --> <addop> <term> <maybeotherterms> | ε
+	<addop> --> <PLUS> | <MINUS>
+	<term> --> <signedfactor> <maybeotherfactors>
+	<signedfactor> --> <addop> <factor> | <factor>
+	<maybeotherfactors> --> <mulop> <factor> <maybeotherfactors> | ε
+	<mulop> --> <OCTOTHORPE> | <FWDSLASH> | <BCKSLASH> | <CARRET>
+	<factor> --> <number> | <call> | <LPAR> <expression> <RPAR>
+	<call> --> <qualid> <maybeacessor>
+	<maybeacessor> --> <snacall> | <procedurecall> | ε
+	<snacall> --> <DOLLAR> <id>
+	<procedurecall> --> <LPAR> <actuals> <RPAR>
+	<actuals> --> <expression> <maybeotheractuals> | ε
+	<maybeotheractuals> --> <COMMA> <expression> <maybeotheractuals> | ε
+	<number> --> <INTEGER> <maybenumberfraction>
+	<maybenumberfraction> --> <PERIOD> <INTEGER> | ε
 
 
+
+
+Productions v:
+<leadingtrivia> ::= ( <WHITE> | <comment> | <LF> )*
+<trailingtrivia> ::= [ <WHITE> ] [ <comment>]
+<comment> ::= <SEMICOL> ( <any-token> )*
+  <any-token> ::= any token except <LF> and <EOF>
+<id> ::= <ID>
+<qual-id> ::= (<id> <PERIOD> )* <id>
+<number> ::= <INTEGER> [ <PERIOD> <INTEGER> ]
+<model> ::= <leadingtrivia> <directives> <verbs> <EOF>
+  <directives> ::= ( <ATSIGN> <directive> <trailingtrivia> <LF> <leadingtrivia> )* 
+    <directive> ::= <USING> | <USINGP> ( <WHITE> )+ <qual-id>
+  <verbs> ::= ( <verb> <trailingtrivia> <LF> <leadingtrivia> )*
+    <verb> ::= [ <id> ( <WHITE> )+ ] <qual-id> [ ( <WHITE> )+ <operands> ]
+      <operands> ::= <operand> ( ( <COMMA> | <WHITE> ) <operand> )*
+        <operand> ::= [ <expression> | <parexpression> ]
+          <parexpression> ::= <LPAR> <expression> <RPAR>
+          <expression> ::= <term> ( <addop> <term> )*
+            <addop> ::= <PLUS> | <MINUS>
+            <term> ::= <signedfactor> ( <mulop> <factor> )*
+              <mulop> ::= <OCTOTHORPE> | <FWDSLASH> | <BCKSLASH> | <CARRET>
+              <signedfactor> ::= [ <addop> ] <factor>
+                <factor> ::= <literal> | <call> | <LPAR> <expression> <RPAR>
+                  <call> ::= <lval> | <procedurecall> | <snacall>
+                    <lval> ::= <id>
+                    <snacall> ::= <qual-id> <DOLLAR> <id>
+                    <procedurecall> ::= <qual-id> <LPAR> <actuals> <RPAR>
+                      <actuals> ::= [ <expression> ( <COMMA> <expression> )* ]
+                  <literal> ::= <number>
 
 
 BNF syntax description:

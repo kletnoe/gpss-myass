@@ -9,7 +9,7 @@ using MyAss.Framework_v2.TablePackage.Entities;
 
 namespace MyAss.Framework_v2.TablePackage.Blocks
 {
-    public class Tabulate : AbstractBlock
+    public class Tabulate : AnyBlock
     {
         public IDoubleOperand A_TableEntityId { get; private set; }
         public IDoubleOperand B_WeightingFactor { get; private set; }

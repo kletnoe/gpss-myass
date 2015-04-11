@@ -8,6 +8,29 @@ namespace MyAss.Compiler_v2.Tests
 {
     public static class TestModels
     {
+        public static String Model_TurnstaleDemo
+        {
+            get
+            {
+                return @"
+@using MyAss.Framework_v2.BuiltIn.Blocks
+@using MyAss.Framework_v2.BuiltIn.Commands
+
+Server STORAGE 1	; ?9ds Инициализация турникета
+START 10000
+
+GENERATE 7,5	;Люди прибывают
+QUEUE Turn		;Вхождение в очередь
+ENTER Server	;Начало использования турникета
+DEPART Turn		;Отбывание из очереди
+ADVANCE 5,3		;Задержка использования турникета
+LEAVE Server	;Конец использования турникета
+TERMINATE 1		;Один человек проходит
+
+";
+            }
+        }
+
         public static String MM3Model_Simple_FullQual
         {
             get

@@ -7,7 +7,7 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyAss.Framework_v2.BuiltIn.Blocks
 {
-    public class Advance : AbstractBlock
+    public class Advance : AnyBlock
     {
         // TODO: Implement special "function modifier" case.
 

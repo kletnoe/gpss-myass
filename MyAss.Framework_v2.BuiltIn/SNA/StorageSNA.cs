@@ -17,7 +17,7 @@ namespace MyAss.Framework_v2.BuiltIn.SNA
                 return 0;
             }
 
-            IEntity entity = simulation.GetEntity(entityId);
+            AnyEntity entity = simulation.GetEntity(entityId);
 
             if (entity is StorageEntity)
             {

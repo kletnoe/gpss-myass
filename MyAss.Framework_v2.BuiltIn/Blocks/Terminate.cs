@@ -7,7 +7,7 @@ using MyAss.Framework_v2.OperandTypes;
 
 namespace MyAss.Framework_v2.BuiltIn.Blocks
 {
-    public class Terminate : AbstractBlock
+    public class Terminate : AnyBlock
     {
         public IDoubleOperand A_TerminationCountDecriment { get; private set; }
 
@@ -28,7 +28,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             transaction.ChangeOwner(simulation, this);
             simulation.TerminationsCount -= decriment;
 
-            this.Disown(simulation, transaction);
+            this.Release(simulation, transaction);
 
             transaction.Dispose();
         }

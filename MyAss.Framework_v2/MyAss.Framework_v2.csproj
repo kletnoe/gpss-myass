@@ -40,21 +40,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BiDictionary[TFirst_TSecond].cs" />
-    <Compile Include="IVerb.cs" />
     <Compile Include="ReferencedNumber.cs" />
     <Compile Include="NamesAndVarsDictionary.cs" />
-    <Compile Include="Blocks\AbstractBlock.cs" />
-    <Compile Include="Blocks\IBlock.cs" />
+    <Compile Include="Blocks\AnyBlock.cs" />
     <Compile Include="Blocks\IEntityCretableBlock.cs" />
     <Compile Include="Blocks\ITransactionGeneratableBlock.cs" />
-    <Compile Include="Chains\FutureTransactionChain.cs" />
+    <Compile Include="Chains\OrderedTransactionChain.cs" />
     <Compile Include="Chains\PriorityTransactionChain.cs" />
-    <Compile Include="Commands\AbstractImmediateCommand.cs" />
-    <Compile Include="Commands\AbstractQueuedCommand.cs" />
-    <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Entities\AbstractEntity.cs" />
+    <Compile Include="Commands\AnyImmediateCommand.cs" />
+    <Compile Include="Commands\AnyQueuedCommand.cs" />
+    <Compile Include="Commands\AnyCommand.cs" />
+    <Compile Include="Entities\AnyEntity.cs" />
     <Compile Include="Entities\IDelayableEntity.cs" />
-    <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\IInterruptableEntity.cs" />
     <Compile Include="Entities\IPendableEntity.cs" />
     <Compile Include="Misc.cs" />
@@ -85,6 +82,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1 - Copy.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
