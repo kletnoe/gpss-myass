@@ -47,18 +47,11 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             StorageEntity storage = (StorageEntity)this.Simulation.GetEntity(entityId);
             storage.Leave(units);
 
-            // Temp
-            //this.file.WriteLine(this.Simulation.Clock - transaction.TransactionParameters[10002]);
-            //this.file.Flush();
-            //
-
             Console.WriteLine("Leaved  \tTime: " + this.Simulation.Clock + transaction, ConsoleColor.Yellow);
             Console.WriteLine("\tStorageSize: " + storage.CurrentCount, ConsoleColor.White);
             transaction.ChangeOwner(this);
             this.NextSequentialBlock.PassTransaction(transaction);
             this.Simulation.CurrentEventChain.AddAhead(transaction);
         }
-
-        System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\temp\MM5_s.txt");
     }
 }

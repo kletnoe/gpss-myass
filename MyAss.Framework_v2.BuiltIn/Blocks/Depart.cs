@@ -46,18 +46,11 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             QueueEntity queue = (QueueEntity)this.Simulation.GetEntity(entityId);
             queue.Depart(units);
 
-            // Temp
-            //this.file.WriteLine(this.Simulation.Clock - transaction.TransactionParameters[10006]);
-            //this.file.Flush();
-            //
-
             Console.WriteLine("Departed  \tTime: " + this.Simulation.Clock + transaction, ConsoleColor.DarkYellow);
             Console.WriteLine("\tQueueSize: " + queue.CurrentContent);
             transaction.ChangeOwner(this);
             this.NextSequentialBlock.PassTransaction(transaction);
             this.Simulation.CurrentEventChain.AddAhead(transaction);
         }
-
-        System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\temp\MM5_q.txt");
     }
 }
