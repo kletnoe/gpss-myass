@@ -99,7 +99,7 @@ namespace MyAss.Compiler
 
         public void Compile(bool inMemory)
         {
-            Parser parser = new Parser(new Scanner(new StringCharSource(this.ModelSources)), this.ReferencedDlls);
+            Parser parser = new Parser(new Scanner(new CharSourceTokenizer(this.ModelSources)), this.ReferencedDlls);
             this.ASTModel = parser.Model;
             this.MetadataRetriever = parser.MetadataRetriever;
 

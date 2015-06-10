@@ -7,7 +7,7 @@ namespace MyAss.Compiler
 {
     public class Scanner : IScanner
     {
-        public ICharSource CharSource { get; private set; }
+        public ICharSourceTokenizer CharSource { get; private set; }
 
         private TokenType currentToken;
         private object currentTokenVal;
@@ -25,7 +25,7 @@ namespace MyAss.Compiler
         public bool IgnoreWhitespace { get { return this.ignoreWhitespace; } set { this.ignoreWhitespace = value; } }
 
 
-        public Scanner(ICharSource charSource)
+        public Scanner(ICharSourceTokenizer charSource)
         {
             this.CharSource = charSource;
             this.Next();
@@ -36,7 +36,7 @@ namespace MyAss.Compiler
             this.currentToken = token;
             this.currentTokenVal = value;
 
-            Console.WriteLine(String.Format("{0, -10}",  token) + value);
+//            Console.WriteLine(String.Format("{0, -10}", token) + value);
         }
 
         private void Ret(TokenType token)
@@ -109,7 +109,7 @@ namespace MyAss.Compiler
 
                 case '\r':
                 case '\n':
-                    this.Ret(TokenType.LF);
+                    this.RetLinefeed();
                     break;
 
                 case ';':
@@ -135,6 +135,16 @@ namespace MyAss.Compiler
                     }
                     break;
             }
+        }
+
+        private void RetLinefeed()
+        {
+            do
+            {
+                this.CharSource.Next();
+            } while (this.CharSource.CurrentChar == '\n' || this.CharSource.CurrentChar == '\r');
+
+            this.Ret(TokenType.LF, null);
         }
 
         private void RetComment()
@@ -186,45 +196,5 @@ namespace MyAss.Compiler
 
             this.Ret(TokenType.INTEGER, buffer);
         }
-
-        //// <NUMBER> ::= ( <digit> )+ [ "." ( <digit> )+ ]
-        //private void RetNumber()
-        //{
-        //    string buffer = "";
-        //    do
-        //    {
-        //        buffer += this.CharSource.CurrentChar;
-        //        this.CharSource.Next();
-        //    } while (Char.IsDigit(this.CharSource.CurrentChar));
-
-        //    if (this.CharSource.CurrentChar == '.')
-        //    {
-        //        buffer += this.CharSource.CurrentChar;
-        //        this.CharSource.Next();
-
-        //        do
-        //        {
-        //            buffer += this.CharSource.CurrentChar;
-        //            this.CharSource.Next();
-        //        } while (Char.IsDigit(this.CharSource.CurrentChar));
-        //    }
-
-        //    try
-        //    {
-        //        if (buffer.Contains("."))
-        //        {
-        //            this.Ret(TokenType.NUMERIC, Double.Parse(buffer));
-        //        }
-        //        else
-        //        {
-        //            this.Ret(TokenType.NUMERIC, Int32.Parse(buffer));
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(string.Format("Tokenizing error occurred @ line {0} column {1}. Error message: {2}",
-        //            this.CharSource.Line, this.CharSource.Column, e.Message));
-        //    }
-        //}
     }
 }
