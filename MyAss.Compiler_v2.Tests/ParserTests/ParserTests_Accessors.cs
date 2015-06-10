@@ -59,7 +59,7 @@ namespace MyAss.Compiler_v2.Tests.ParserTests
         {
             input = Defaults.DefUsing + input;
 
-            Parser parser = new Parser(new Scanner(new StringCharSource(input)));
+            Parser parser = new Parser(new Scanner(new CharSourceTokenizer(input)));
             ASTModel model = parser.Model;
             return model;
         }

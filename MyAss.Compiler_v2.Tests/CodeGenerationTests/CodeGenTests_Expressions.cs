@@ -15,6 +15,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
     public class CodeGenTests_Expressions
     {
         [Test]
+        [Ignore]
         public void IntLiteral()
         {
             string input = @"Generate 1";
@@ -217,7 +218,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         {
             input = Defaults.DefUsing + input;
 
-            Parser parser = new Parser(new Scanner(new StringCharSource(input)));
+            Parser parser = new Parser(new Scanner(new CharSourceTokenizer(input)));
             CodeDomGenerationVisitor vis = new CodeDomGenerationVisitor(parser.MetadataRetriever);
 
             CodeCompileUnit assembly = vis.VisitAll(parser.Model);

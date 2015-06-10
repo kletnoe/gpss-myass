@@ -26,7 +26,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
 
         public static void CommonCode(string input, string expected)
         {
-            Parser parser = new Parser(new Scanner(new StringCharSource(input)));
+            Parser parser = new Parser(new Scanner(new CharSourceTokenizer(input)));
             CodeDomGenerationVisitor vis = new CodeDomGenerationVisitor(parser.MetadataRetriever);
 
             CodeCompileUnit assembly = vis.VisitAll(parser.Model);
