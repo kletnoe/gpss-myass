@@ -13,7 +13,7 @@ namespace MyAss.Application
             string source = TestSources.Source1();
 
 
-            Scanner sc = new Scanner(new StringCharSource(source));
+            Scanner sc = new Scanner(new CharSourceTokenizer(source));
 
             while (sc.CurrentToken != TokenType.EOF)
             {

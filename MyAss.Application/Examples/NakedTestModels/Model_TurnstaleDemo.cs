@@ -16,17 +16,16 @@ namespace MyAss.Application.Examples.NakedTestModels
 @using MyAss.Framework_v2.BuiltIn.Blocks
 @using MyAss.Framework_v2.BuiltIn.Commands
 
-Server STORAGE 1	;Инициализация турникета
-START 10000		;Параметры  запуска модели
+Server STORAGE 1
+START 10000
 
-GENERATE 7,5	;Люди прибывают
-QUEUE Turn		;Вхождение в очередь
-ENTER Server	;Начало использования турникета
-DEPART Turn		;Отбывание из очереди
-ADVANCE 5,3		;Задержка использования турникета
-LEAVE Server	;Конец использования турникета
-TERMINATE 1		;Один человек проходит
-
+GENERATE 7,5
+QUEUE Turn
+ENTER Server
+DEPART Turn
+ADVANCE 5,3
+LEAVE Server
+TERMINATE 1
 ";
             }
         }
