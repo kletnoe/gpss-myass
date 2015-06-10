@@ -8,6 +8,6 @@ namespace MyAss.Framework_v2.Blocks
 {
     public interface IEntityCretableBlock
     {
-        void CreateEntity(Simulation simulation, int entityId);
+        void CreateEntity(int entityId);
     }
 }

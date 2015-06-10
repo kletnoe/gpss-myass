@@ -19,7 +19,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             this.B_NumberOfUnits = numberOfUnits;
         }
 
-        public override void Action(Simulation simulation)
+        public override void Action()
         {
             // A: Required. The operand must be PosInteger.
             if (this.A_QueueEntityId == null)
@@ -39,27 +39,27 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
                 throw new ModelingException("QUEUE: Operand B must be PosInteger!");
             }
 
-            this.CreateEntity(simulation, entityId);
+            this.CreateEntity(entityId);
 
-            Transaction transaction = simulation.ActiveTransaction;
+            Transaction transaction = this.Simulation.ActiveTransaction;
             this.EntryCount++;
 
-            QueueEntity queue = (QueueEntity)simulation.GetEntity(entityId);
+            QueueEntity queue = (QueueEntity)this.Simulation.GetEntity(entityId);
             queue.Queue(units);
 
-            Console.WriteLine("Queued  \tTime: " + simulation.Clock + transaction, ConsoleColor.DarkYellow);
+            Console.WriteLine("Queued  \tTime: " + this.Simulation.Clock + transaction, ConsoleColor.DarkYellow);
             Console.WriteLine("\tQueueSize: " + queue.CurrentContent);
-            transaction.ChangeOwner(simulation, this);
+            transaction.ChangeOwner(this);
             this.NextSequentialBlock.PassTransaction(transaction);
-            simulation.CurrentEventChain.AddAhead(transaction);
+            this.Simulation.CurrentEventChain.AddAhead(transaction);
         }
 
-        public void CreateEntity(Simulation simulation, int entityId)
+        public void CreateEntity(int entityId)
         {
-            if (!simulation.Entities.ContainsKey(entityId))
+            if (!this.Simulation.Entities.ContainsKey(entityId))
             {
-                QueueEntity queueEntity = new QueueEntity(simulation, entityId);
-                simulation.Entities.Add(entityId, queueEntity);
+                QueueEntity queueEntity = new QueueEntity(this.Simulation, entityId);
+                this.Simulation.Entities.Add(entityId, queueEntity);
             }
         }
     }

@@ -37,9 +37,9 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
                 storage.Enter(units);
                 Console.WriteLine("Entered  \tTime: " + simulation.Clock + transaction, ConsoleColor.Yellow);
                 Console.WriteLine("\tStorageSize: " + storage.CurrentCount);
-                transaction.ChangeOwner(simulation, this);
+                transaction.ChangeOwner(this);
                 this.NextSequentialBlock.PassTransaction(transaction);
-                simulation.CurrentEventChain.AddAhead(transaction);
+                simulation.CurrentEventChain.AddBehind(transaction);
             }
             else
             {
@@ -50,7 +50,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             
         }
 
-        public override void Action(Simulation simulation)
+        public override void Action()
         {
             // A: Required. The operand must be PosInteger.
             if (this.A_StorageEntityId == null)
@@ -71,24 +71,24 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             }
 
 
-            Transaction transaction = simulation.ActiveTransaction;
+            Transaction transaction = this.Simulation.ActiveTransaction;
 
-            StorageEntity storage = (StorageEntity)simulation.GetEntity(entityId);
+            StorageEntity storage = (StorageEntity)this.Simulation.GetEntity(entityId);
 
             if (storage.IsAvaliable && storage.RemainingCapacity >= units)
             {
                 this.EntryCount++;
 
                 storage.Enter(units);
-                Console.WriteLine("Entered  \tTime: " + simulation.Clock + transaction, ConsoleColor.Yellow);
+                Console.WriteLine("Entered  \tTime: " + this.Simulation.Clock + transaction, ConsoleColor.Yellow);
                 Console.WriteLine("\tStorageSize: " + storage.CurrentCount);
-                transaction.ChangeOwner(simulation, this);
+                transaction.ChangeOwner(this);
                 this.NextSequentialBlock.PassTransaction(transaction);
-                simulation.CurrentEventChain.AddAhead(transaction);
+                this.Simulation.CurrentEventChain.AddAhead(transaction);
             }
             else
             {
-                Console.WriteLine("preEntered  \tTime: " + simulation.Clock + transaction, ConsoleColor.Yellow);
+                Console.WriteLine("DelayEntered  \tTime: " + this.Simulation.Clock + transaction, ConsoleColor.Yellow);
                 transaction.NextEventTime = -1; //temp for tests
                 storage.DelayChain.AddLast(transaction);
             }

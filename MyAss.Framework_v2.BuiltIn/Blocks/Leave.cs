@@ -20,7 +20,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             this.B_NumberOfUnits = numberOfUnits;
         }
 
-        public override void Action(Simulation simulation)
+        public override void Action()
         {
             // A: Required. The operand must be PosInteger.
             if (this.A_StorageEntityId == null)
@@ -41,17 +41,24 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             }
 
 
-            Transaction transaction = simulation.ActiveTransaction;
+            Transaction transaction = this.Simulation.ActiveTransaction;
             this.EntryCount++;
 
-            StorageEntity storage = (StorageEntity)simulation.GetEntity(entityId);
+            StorageEntity storage = (StorageEntity)this.Simulation.GetEntity(entityId);
             storage.Leave(units);
 
-            Console.WriteLine("Leaved  \tTime: " + simulation.Clock + transaction, ConsoleColor.Yellow);
-            Console.WriteLine("\tStorageSize: " + storage.CurrentCount);
-            transaction.ChangeOwner(simulation, this);
+            // Temp
+            //this.file.WriteLine(this.Simulation.Clock - transaction.TransactionParameters[10002]);
+            //this.file.Flush();
+            //
+
+            Console.WriteLine("Leaved  \tTime: " + this.Simulation.Clock + transaction, ConsoleColor.Yellow);
+            Console.WriteLine("\tStorageSize: " + storage.CurrentCount, ConsoleColor.White);
+            transaction.ChangeOwner(this);
             this.NextSequentialBlock.PassTransaction(transaction);
-            simulation.CurrentEventChain.AddAhead(transaction);
+            this.Simulation.CurrentEventChain.AddAhead(transaction);
         }
+
+        System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\temp\MM5_s.txt");
     }
 }

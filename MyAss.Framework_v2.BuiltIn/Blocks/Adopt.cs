@@ -17,7 +17,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             this.A_AssemblySet = assemblySet;
         }
 
-        public override void Action(Simulation simulation)
+        public override void Action()
         {
             // A: Required. The operand must be PosInteger.
             if (this.A_AssemblySet == null)
@@ -31,15 +31,15 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             }
 
 
-            Transaction transaction = simulation.ActiveTransaction;
+            Transaction transaction = this.Simulation.ActiveTransaction;
             this.EntryCount++;
 
             transaction.AssemblySet = assemblySet;
 
-            Console.WriteLine("Adopted\tTime: " + simulation.Clock + transaction, ConsoleColor.Gray);
-            transaction.ChangeOwner(simulation, this);
+            Console.WriteLine("Adopted\tTime: " + this.Simulation.Clock + transaction, ConsoleColor.Gray);
+            transaction.ChangeOwner(this);
             this.NextSequentialBlock.PassTransaction(transaction);
-            simulation.CurrentEventChain.AddAhead(transaction);
+            this.Simulation.CurrentEventChain.AddAhead(transaction);
         }
     }
 }

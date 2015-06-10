@@ -31,7 +31,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
         // When Operand B is an FN class SNA, it is a special case called a "function modifier". 
         // In this case, the time increment is calculated by multiplying the result of the function by the evaluated A Operand.
-        private Transaction GenerateNext(Simulation simulation)
+        private Transaction GenerateNext()
         {
             // A: The default is 0. Either Operand A or Operand D must be used.
             double meanValue = this.A_MeanValue == null ? 0 : this.A_MeanValue.GetValue();
@@ -52,14 +52,14 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             double transactGenerationTime;
             if (this.EntryCount == 0)
             {
-                transactGenerationTime = simulation.Clock + this.GetTimeIncrement(meanValue, halfRange, startDelay);
+                transactGenerationTime = this.Simulation.Clock + this.GetTimeIncrement(meanValue, halfRange, startDelay);
             }
             else
             {
-                transactGenerationTime = simulation.Clock + this.GetTimeIncrement(meanValue, halfRange);
+                transactGenerationTime = this.Simulation.Clock + this.GetTimeIncrement(meanValue, halfRange);
             }
 
-            Transaction transaction = new Transaction(simulation.NumbersManager.NextFreeTransactionNo, simulation.Clock)
+            Transaction transaction = new Transaction(this.Simulation.NumbersManager.NextFreeTransactionNo, this.Simulation.Clock)
             {
                 Priority = priority,
                 NextEventTime = transactGenerationTime,
@@ -87,27 +87,27 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             return this.GetTimeIncrement(meanValue, halfRange, 0);
         }
 
-        public override void Action(Simulation simulation)
+        public override void Action()
         {
-            Transaction transaction = simulation.ActiveTransaction;
+            Transaction transaction = this.Simulation.ActiveTransaction;
             this.EntryCount++;
 
-            Console.WriteLine("Generated\tTime: " + simulation.Clock + transaction);
-            transaction.ChangeOwner(simulation, this);
+            Console.WriteLine("Generated\tTime: " + this.Simulation.Clock + transaction);
+            transaction.ChangeOwner(this);
             this.NextSequentialBlock.PassTransaction(transaction);
-            simulation.CurrentEventChain.AddAhead(transaction);
+            this.Simulation.CurrentEventChain.AddAhead(transaction);
 
             if (this.D_CreationLimit == null || this.EntryCount < this.D_CreationLimit.GetValue())
             {
-                Transaction nextTransaction = this.GenerateNext(simulation);
-                simulation.FutureEventChain.Add(nextTransaction);
+                Transaction nextTransaction = this.GenerateNext();
+                this.Simulation.FutureEventChain.Add(nextTransaction);
             }
         }
 
-        public void GenerateFirst(Simulation simulation)
+        public void GenerateFirst()
         {
-            Transaction transaction = this.GenerateNext(simulation);
-            simulation.FutureEventChain.Add(transaction);
+            Transaction transaction = this.GenerateNext();
+            this.Simulation.FutureEventChain.Add(transaction);
         }
     }
 }

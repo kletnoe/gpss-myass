@@ -18,6 +18,7 @@ namespace MyAss.Framework_v2.Blocks
 
         protected AnyBlock()
         {
+            this.Id = -1;
             this.EntryCount = 0;
             this.CurrentCount = 0;
             this.RetryChain = new LinkedList<Transaction>();
@@ -38,29 +39,29 @@ namespace MyAss.Framework_v2.Blocks
             this.Simulation = simulation;
         }
 
-        public void Own(Simulation simulation, Transaction transaction)
+        public void Own(Transaction transaction)
         {
-            this.ActionOnOwn(simulation, transaction);
+            this.ActionOnOwn(transaction);
             this.CurrentCount++;
         }
 
-        public void Release(Simulation simulation, Transaction transaction)
+        public void Release(Transaction transaction)
         {
-            this.ActionOnDisown(simulation, transaction);
+            this.ActionOnRelease(transaction);
             this.CurrentCount--;
         }
 
-        public virtual void ActionOnOwn(Simulation simulation, Transaction transaction)
+        public virtual void ActionOnOwn(Transaction transaction)
         {
 
         }
 
-        public virtual void ActionOnDisown(Simulation simulation, Transaction transaction)
+        public virtual void ActionOnRelease(Transaction transaction)
         {
 
         }
 
-        public abstract void Action(Simulation simulation);
+        public abstract void Action();
 
         public void PassTransaction(Transaction transaction)
         {

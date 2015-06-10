@@ -20,7 +20,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             this.B_Value = value;
         }
 
-        public override void Action(Simulation simulation)
+        public override void Action()
         {
             // A: Required.
             if (this.A_SavevalueEntityId == null)
@@ -38,27 +38,27 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             }
 
 
-            this.CreateEntity(simulation, entityId);
+            this.CreateEntity(entityId);
 
-            Transaction transaction = simulation.ActiveTransaction;
+            Transaction transaction = this.Simulation.ActiveTransaction;
             this.EntryCount++;
 
-            SavevalueEntity savevalueEntity = (SavevalueEntity)simulation.GetEntity(entityId);
+            SavevalueEntity savevalueEntity = (SavevalueEntity)this.Simulation.GetEntity(entityId);
 
             savevalueEntity.SetValue(value);
 
-            Console.WriteLine("Savevalued\tTime: " + simulation.Clock + transaction, ConsoleColor.White);
-            transaction.ChangeOwner(simulation, this);
+            Console.WriteLine("Savevalued\tTime: " + this.Simulation.Clock + transaction, ConsoleColor.White);
+            transaction.ChangeOwner(this);
             this.NextSequentialBlock.PassTransaction(transaction);
-            simulation.CurrentEventChain.AddAhead(transaction);
+            this.Simulation.CurrentEventChain.AddAhead(transaction);
         }
 
-        public void CreateEntity(Simulation simulation, int entityId)
+        public void CreateEntity(int entityId)
         {
-            if (!simulation.Entities.ContainsKey(entityId))
+            if (!this.Simulation.Entities.ContainsKey(entityId))
             {
-                SavevalueEntity savevalueEntity = new SavevalueEntity(simulation, entityId);
-                simulation.Entities.Add(entityId, savevalueEntity);
+                SavevalueEntity savevalueEntity = new SavevalueEntity(this.Simulation, entityId);
+                this.Simulation.Entities.Add(entityId, savevalueEntity);
             }
         }
     }

@@ -60,6 +60,7 @@ namespace MyAss.Framework_v2
             catch (Exception ex)
             {
                 System.Console.WriteLine(ex.Message);
+                System.Console.WriteLine(ex.StackTrace);
                 throw;
             }
         }
@@ -101,12 +102,6 @@ namespace MyAss.Framework_v2
                 {
                     command.Execute(this);
                 }
-            }
-
-            while (this.CommandQueue.Count > 0)
-            {
-                AnyCommand command = this.CommandQueue.Dequeue();
-                command.Execute(this);
             }
         }
 

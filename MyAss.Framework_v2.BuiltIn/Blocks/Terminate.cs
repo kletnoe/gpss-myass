@@ -16,19 +16,19 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             this.A_TerminationCountDecriment = terminationCountDecriment;
         }
 
-        public override void Action(Simulation simulation)
+        public override void Action()
         {
             // A: The default is 0.
             int decriment = this.A_TerminationCountDecriment == null ? 0 : (int)this.A_TerminationCountDecriment.GetValue();
 
-            Transaction transaction = simulation.ActiveTransaction;
+            Transaction transaction = this.Simulation.ActiveTransaction;
             this.EntryCount++;
 
-            Console.WriteLine("Terminated\tTime: " + simulation.Clock + transaction + " " + this.Id, ConsoleColor.DarkGray);
-            transaction.ChangeOwner(simulation, this);
-            simulation.TerminationsCount -= decriment;
+            Console.WriteLine("Terminated\tTime: " + this.Simulation.Clock + transaction + " " + this.Id, ConsoleColor.DarkGray);
+            transaction.ChangeOwner(this);
+            this.Simulation.TerminationsCount -= decriment;
 
-            this.Release(simulation, transaction);
+            this.Release(transaction);
 
             transaction.Dispose();
         }

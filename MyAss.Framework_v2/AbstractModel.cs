@@ -57,12 +57,12 @@ namespace MyAss.Framework_v2
             return this.simulation;
         }
 
-        public void AddName(string name, ReferencedNumber nameId)
+        protected void AddName(string name, ReferencedNumber nameId)
         {
             this.namesAndVarsDictionary.AddName(name, nameId);
         }
 
-        public void ReplaceNameId(string name, ReferencedNumber nameId)
+        protected void ReplaceNameId(string name, ReferencedNumber nameId)
         {
             if (this.namesAndVarsDictionary.ContainsKey(name))
             {
@@ -71,12 +71,12 @@ namespace MyAss.Framework_v2
             }
         }
 
-        public void AddVerb(AnyBlock block)
+        protected void AddVerb(AnyBlock block)
         {
             this.blocks.Add(block);
         }
 
-        public void AddVerb(AnyCommand command)
+        protected void AddVerb(AnyCommand command)
         {
             this.commands.Add(command);
         }

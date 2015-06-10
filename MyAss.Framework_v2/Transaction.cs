@@ -17,8 +17,8 @@ namespace MyAss.Framework_v2
             Terminated = 4
         }
 
-        public int Owner { get; private set; }
-        public int NextOwner { get; private set; }
+        public AnyBlock Owner { get; private set; }
+        public AnyBlock NextOwner { get; private set; }
 
         public double NextEventTime { get; set; }
 
@@ -69,7 +69,7 @@ namespace MyAss.Framework_v2
             this.IsPreempted = false;
         }
 
-        public Transaction(int transactionNo, double creationTime, int priority, int ownerId) : this(transactionNo, creationTime)
+        public Transaction(int transactionNo, double creationTime, int priority, AnyBlock ownerId) : this(transactionNo, creationTime)
         {
             this.Priority = priority;
             this.Owner = ownerId;
@@ -81,21 +81,20 @@ namespace MyAss.Framework_v2
             return String.Format("\t| Xn: {0} NET: {1} Own: {2} Next: {3}|", this.Number, this.NextEventTime.ToString("F5"), this.Owner, this.NextOwner);
         }
 
-        public void ChangeOwner(Simulation simulation, AnyBlock newOwner)
+        public void ChangeOwner(AnyBlock newOwner)
         {
-            if (this.Owner != 0)
+            if (this.Owner != null)
             {
-                AnyBlock oldOwner = simulation.GetBlock(this.Owner);
-                oldOwner.Release(simulation, this);
+                this.Owner.Release(this);
             }
 
-            newOwner.Own(simulation, this);
-            this.Owner = newOwner.Id;
+            newOwner.Own(this);
+            this.Owner = newOwner;
         }
 
         public void SetNextOwner(AnyBlock newNextOwner)
         {
-            this.NextOwner = newNextOwner.Id;
+            this.NextOwner = newNextOwner;
         }
 
         public void Dispose()
@@ -139,10 +138,13 @@ namespace MyAss.Framework_v2
             offspring.State = this.State;
             offspring.TraceIndicator = this.TraceIndicator;
 
-            offspring.transactionParameters = new Dictionary<int, double>();
-            foreach (var parameter in this.transactionParameters)
+            if (this.transactionParameters != null)
             {
-                offspring.transactionParameters.Add(parameter.Key, parameter.Value);
+                offspring.transactionParameters = new Dictionary<int, double>();
+                foreach (var parameter in this.transactionParameters)
+                {
+                    offspring.transactionParameters.Add(parameter.Key, parameter.Value);
+                }
             }
 
             return offspring;

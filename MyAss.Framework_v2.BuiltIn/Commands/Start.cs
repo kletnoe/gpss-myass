@@ -53,7 +53,7 @@ namespace MyAss.Framework_v2.BuiltIn.Commands
             {
                 if (block.Value is ITransactionGeneratableBlock)
                 {
-                    (block.Value as ITransactionGeneratableBlock).GenerateFirst(simulation);
+                    (block.Value as ITransactionGeneratableBlock).GenerateFirst();
                 }
             }
         }

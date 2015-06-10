@@ -19,7 +19,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             this.B_NumberOfUnits = numberOfUnits;
         }
 
-        public override void Action(Simulation simulation)
+        public override void Action()
         {
             // A: Required. The operand must be PosInteger.
             if (this.A_QueueEntityId == null)
@@ -40,17 +40,24 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             }
 
 
-            Transaction transaction = simulation.ActiveTransaction;
+            Transaction transaction = this.Simulation.ActiveTransaction;
             this.EntryCount++;
 
-            QueueEntity queue = (QueueEntity)simulation.GetEntity(entityId);
+            QueueEntity queue = (QueueEntity)this.Simulation.GetEntity(entityId);
             queue.Depart(units);
 
-            Console.WriteLine("Departed  \tTime: " + simulation.Clock + transaction, ConsoleColor.DarkYellow);
+            // Temp
+            //this.file.WriteLine(this.Simulation.Clock - transaction.TransactionParameters[10006]);
+            //this.file.Flush();
+            //
+
+            Console.WriteLine("Departed  \tTime: " + this.Simulation.Clock + transaction, ConsoleColor.DarkYellow);
             Console.WriteLine("\tQueueSize: " + queue.CurrentContent);
-            transaction.ChangeOwner(simulation, this);
+            transaction.ChangeOwner(this);
             this.NextSequentialBlock.PassTransaction(transaction);
-            simulation.CurrentEventChain.AddAhead(transaction);
+            this.Simulation.CurrentEventChain.AddAhead(transaction);
         }
+
+        System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\temp\MM5_q.txt");
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyAss.Framework_v2.Commands;
 
 namespace MyAss.Framework_v2
 {
@@ -21,6 +22,8 @@ namespace MyAss.Framework_v2
 
             do
             {
+                this.ExecuteCommands();
+
                 if (this.simulation.CurrentEventChain.Count == 0)
                 {
                     if (this.simulation.FutureEventChain.Count == 0)
@@ -36,7 +39,7 @@ namespace MyAss.Framework_v2
                 Transaction transaction = this.simulation.CurrentEventChain.First;
                 this.simulation.CurrentEventChain.RemoveFirst();
                 this.simulation.ActiveTransaction = transaction;
-                this.simulation.Blocks[transaction.NextOwner].Action(this.simulation);
+                transaction.NextOwner.Action();
 
                 //if(step < this.simulation.Clock)
                 //{
@@ -47,7 +50,7 @@ namespace MyAss.Framework_v2
 
 
             } while (this.simulation.TerminationsCount > 0
-                //|| this.simulation.CurrentEventChain.Count > 0 // temporary for compatibility test
+                || this.simulation.CurrentEventChain.Count > 0 // temporary for compatibility test
                 );
 
             foreach (var entity in this.simulation.Entities)
@@ -58,7 +61,16 @@ namespace MyAss.Framework_v2
             System.Console.WriteLine("End");
         }
 
-        public void UpdateTime()
+        private void ExecuteCommands()
+        {
+            while (this.simulation.CommandQueue.Count > 0)
+            {
+                AnyCommand command = this.simulation.CommandQueue.Dequeue();
+                command.Execute(this.simulation);
+            }
+        }
+
+        private void UpdateTime()
         {
             double nextTime = this.simulation.FutureEventChain.First.NextEventTime;
 

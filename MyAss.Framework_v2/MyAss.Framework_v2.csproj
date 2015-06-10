@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BiDictionary[TFirst_TSecond].cs" />
+    <Compile Include="Chains\GenericTransactionChain.cs" />
     <Compile Include="ReferencedNumber.cs" />
     <Compile Include="NamesAndVarsDictionary.cs" />
     <Compile Include="Blocks\AnyBlock.cs" />
@@ -61,7 +62,7 @@
     <Compile Include="OperandTypes\IDoubleOperand.cs" />
     <Compile Include="OperandTypes\IOperand.cs" />
     <Compile Include="OperandTypes\LiteralOperand.cs" />
-    <Compile Include="OperandTypes\Number.cs" />
+    <Compile Include="OperandTypes\NumberOperand.cs" />
     <Compile Include="OperandTypes\ParExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ExceptionMessages.Designer.cs">

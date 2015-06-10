@@ -46,6 +46,7 @@
     <Compile Include="Blocks\Enter.cs" />
     <Compile Include="Blocks\Generate.cs" />
     <Compile Include="Blocks\Leave.cs" />
+    <Compile Include="Blocks\Mark_Demo.cs" />
     <Compile Include="Blocks\Mark.cs" />
     <Compile Include="Blocks\Priority.cs" />
     <Compile Include="Blocks\Queue.cs" />

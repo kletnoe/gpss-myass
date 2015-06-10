@@ -25,7 +25,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
         }
 
         // TODO: Implement Refuse Mode
-        public override void Action(Simulation simulation)
+        public override void Action()
         {
             // O: Required
             if (this.O_RelationalOp == null || this.O_RelationalOp.Value == null)
@@ -60,26 +60,26 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             }
 
 
-            Transaction transaction = simulation.ActiveTransaction;
+            Transaction transaction = this.Simulation.ActiveTransaction;
             this.EntryCount++;
 
-            Console.WriteLine("Tested  \tTime: " + simulation.Clock + transaction, ConsoleColor.DarkGreen);
+            Console.WriteLine("Tested  \tTime: " + this.Simulation.Clock + transaction, ConsoleColor.DarkGreen);
             Console.WriteLine("\ttrue");
 
-            AnyBlock consumerOnFalse = simulation.Blocks[consumerOnFalseBlockId];
+            AnyBlock consumerOnFalse = this.Simulation.Blocks[consumerOnFalseBlockId];
 
             if (this.Compare(relationalOp, lValue, rValue))
             {
-                transaction.ChangeOwner(simulation, this);
+                transaction.ChangeOwner(this);
                 this.NextSequentialBlock.PassTransaction(transaction);
             }
             else
             {
-                transaction.ChangeOwner(simulation, this);
+                transaction.ChangeOwner(this);
                 consumerOnFalse.PassTransaction(transaction);
             }
 
-            simulation.CurrentEventChain.AddAhead(transaction);
+            this.Simulation.CurrentEventChain.AddAhead(transaction);
         }
 
         private bool Compare(string relationalOp, double lValue, double rValue)

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyAss.Framework_v2.Blocks;
+﻿using MyAss.Framework_v2.Blocks;
 using MyAss.Framework_v2.OperandTypes;
 
-namespace MyAss.Framework_v2.BuiltIn.Blocks
+namespace MyAss.Framework_v2.BuiltIn.Blocks_
 {
     public class Mark : AnyBlock
     {
@@ -19,8 +14,6 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
 
         public override void Action()
         {
-            // A: Optional. The operand must be PosInteger.
-
             Transaction transaction = this.Simulation.ActiveTransaction;
             this.EntryCount++;
 
@@ -39,7 +32,6 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
                 transaction.TransactionParameters.Add(parameterId, this.Simulation.Clock);
             }
 
-            Console.WriteLine("Marked\tTime: " + this.Simulation.Clock + transaction, ConsoleColor.Gray);
             transaction.ChangeOwner(this);
             this.NextSequentialBlock.PassTransaction(transaction);
             this.Simulation.CurrentEventChain.AddAhead(transaction);

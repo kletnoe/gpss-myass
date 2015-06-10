@@ -36,7 +36,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             return increment;
         }
 
-        public override void Action(Simulation simulation)
+        public override void Action()
         {
             // A: The default is 0.
             double meanValue = this.A_MeanValue == null ? 0 : this.A_MeanValue.GetValue();
@@ -45,25 +45,25 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             double halfRange = this.B_HalfRange == null ? 0 : this.B_HalfRange.GetValue();
 
 
-            Transaction transaction = simulation.ActiveTransaction;
+            Transaction transaction = this.Simulation.ActiveTransaction;
             this.EntryCount++;
 
-            Console.WriteLine("Advanced  \tTime: " + simulation.Clock + transaction, ConsoleColor.DarkGreen);
+            Console.WriteLine("Advanced  \tTime: " + this.Simulation.Clock + transaction, ConsoleColor.DarkGreen);
 
-            double nextTime = simulation.Clock + this.GetTimeIncrement(meanValue, halfRange);
+            double nextTime = this.Simulation.Clock + this.GetTimeIncrement(meanValue, halfRange);
 
             if (transaction.NextEventTime == nextTime)
             {
-                transaction.ChangeOwner(simulation, this);
+                transaction.ChangeOwner(this);
                 NextSequentialBlock.PassTransaction(transaction);
-                simulation.CurrentEventChain.AddAhead(transaction);
+                this.Simulation.CurrentEventChain.AddAhead(transaction);
             }
             else
             {
-                transaction.ChangeOwner(simulation, this);
+                transaction.ChangeOwner(this);
                 transaction.NextEventTime = nextTime;
                 NextSequentialBlock.PassTransaction(transaction);
-                simulation.FutureEventChain.Add(transaction);
+                this.Simulation.FutureEventChain.Add(transaction);
             }
         }
     }

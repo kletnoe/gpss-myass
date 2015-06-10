@@ -19,7 +19,7 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
             this.B_BufferOption = bufferOption;
         }
 
-        public override void Action(Simulation simulation)
+        public override void Action()
         {
             // A: Required.
             if (A_PriorityValue == null)
@@ -43,20 +43,20 @@ namespace MyAss.Framework_v2.BuiltIn.Blocks
                 throw new ModelingException("ASSIGN: Operand B invalid LiteralOperand!");
             }
 
-            Transaction transaction = simulation.ActiveTransaction;
+            Transaction transaction = this.Simulation.ActiveTransaction;
             this.EntryCount++;
 
-            Console.WriteLine("Prioritized\tTime: " + simulation.Clock + transaction, ConsoleColor.Gray);
-            transaction.ChangeOwner(simulation, this);
+            Console.WriteLine("Prioritized\tTime: " + this.Simulation.Clock + transaction, ConsoleColor.Gray);
+            transaction.ChangeOwner(this);
             this.NextSequentialBlock.PassTransaction(transaction);
 
             if (placeBehind)
             {
-                simulation.CurrentEventChain.AddBehind(transaction);
+                this.Simulation.CurrentEventChain.AddBehind(transaction);
             }
             else
             {
-                simulation.CurrentEventChain.AddAhead(transaction);
+                this.Simulation.CurrentEventChain.AddAhead(transaction);
             }
         }
 

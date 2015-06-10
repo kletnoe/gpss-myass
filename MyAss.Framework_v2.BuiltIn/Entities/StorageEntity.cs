@@ -88,7 +88,7 @@ namespace MyAss.Framework_v2.BuiltIn.Entities
                 Transaction transaction = this.DelayChain.First();
                 this.DelayChain.RemoveFirst();
                 transaction.NextEventTime = this.simulation.Clock;
-                ((Enter)this.simulation.Blocks[transaction.NextOwner]).PreEnter(this.simulation, transaction); // anti "line-bucking"
+                ((Enter)transaction.NextOwner).PreEnter(this.simulation, transaction); // anti "line-bucking"
             }
         }
 

@@ -9,9 +9,9 @@ namespace MyAss.Framework_v2
     {
         public static void WriteLine(object o, ConsoleColor color)
         {
-            //System.Console.ForegroundColor = color;
-            //Console.WriteLine(o);
-            //System.Console.ResetColor();
+            System.Console.ForegroundColor = color;
+            //System.Console.WriteLine(o);
+            System.Console.ResetColor();
         }
 
         public static void WriteLine(object o)

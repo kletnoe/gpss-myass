@@ -8,6 +8,6 @@ namespace MyAss.Framework_v2.Blocks
 {
     public interface ITransactionGeneratableBlock
     {
-        void GenerateFirst(Simulation simulation);
+        void GenerateFirst();
     }
 }
