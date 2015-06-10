@@ -1,21 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="MyAss.Compiler_v2.AST.ASTAnyCall">
-    <Position X="0.5" Y="5" Width="1.5" />
+    <Position X="2.5" Y="5.25" Width="1.5" />
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyExpression" FixedToPoint="true">
+      <Path>
+        <Point X="3.25" Y="3.997" />
+        <Point X="3.25" Y="5.25" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ASTAnyCall.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MyAss.Compiler_v2.AST.ASTAnyExpression">
-    <Position X="0.5" Y="2.75" Width="1.5" />
+    <Position X="2.5" Y="3" Width="1.5" />
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyNode" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="2.812" />
+        <Point X="3.25" Y="2.812" />
+        <Point X="3.25" Y="3" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ASTAnyExpression.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MyAss.Compiler_v2.AST.ASTAnyNode">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="2.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -26,16 +39,16 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="MyAss.Compiler_v2.AST.ASTBinaryExpression">
-    <Position X="2.25" Y="5" Width="2.5" />
+    <Position X="7" Y="5.25" Width="2.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyExpression" ManuallyRouted="true">
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyExpression" ManuallyRouted="true" FixedToPoint="true">
       <Path>
-        <Point X="1.25" Y="3.747" />
-        <Point X="1.25" Y="4.792" />
-        <Point X="3.5" Y="4.792" />
-        <Point X="3.5" Y="5" />
+        <Point X="3.25" Y="3.997" />
+        <Point X="3.25" Y="5.042" />
+        <Point X="8.25" Y="5.042" />
+        <Point X="8.25" Y="5.25" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -44,26 +57,34 @@
     </TypeIdentifier>
   </Class>
   <Class Name="MyAss.Compiler_v2.AST.ASTDirectSNACall">
-    <Position X="5.75" Y="7.5" Width="1.5" />
+    <Position X="4.25" Y="7.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyCall" ManuallyRouted="true">
+      <Path>
+        <Point X="3.25" Y="6.247" />
+        <Point X="3.25" Y="7.377" />
+        <Point X="5" Y="7.377" />
+        <Point X="5" Y="7.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAgABAAAAAAAA=</HashCode>
       <FileName>ASTDirectSNACall.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MyAss.Compiler_v2.AST.ASTLiteral">
-    <Position X="5.5" Y="5" Width="2" />
+    <Position X="4.25" Y="5.25" Width="2" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyExpression" ManuallyRouted="true">
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyExpression" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.25" Y="3.747" />
-        <Point X="1.25" Y="4.802" />
-        <Point X="6.5" Y="4.802" />
-        <Point X="6.5" Y="5" />
+        <Point X="3.25" Y="3.997" />
+        <Point X="3.25" Y="5.042" />
+        <Point X="5.25" Y="5.042" />
+        <Point X="5.25" Y="5.25" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -72,7 +93,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="MyAss.Compiler_v2.AST.ASTLValue">
-    <Position X="0.5" Y="7.5" Width="1.5" />
+    <Position X="2.5" Y="7.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -82,16 +103,15 @@
     </TypeIdentifier>
   </Class>
   <Class Name="MyAss.Compiler_v2.AST.ASTModel">
-    <Position X="2.25" Y="2.75" Width="2" />
+    <Position X="4.25" Y="3" Width="2" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyNode" ManuallyRouted="true">
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyNode" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.25" Y="1.411" />
-        <Point X="1.25" Y="2.594" />
-        <Point X="3.25" Y="2.594" />
-        <Point X="3.25" Y="2.75" />
+        <Point X="2" Y="2.812" />
+        <Point X="5.25" Y="2.812" />
+        <Point X="5.25" Y="3" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -100,26 +120,33 @@
     </TypeIdentifier>
   </Class>
   <Class Name="MyAss.Compiler_v2.AST.ASTProcedureCall">
-    <Position X="2.5" Y="7.5" Width="2.5" />
+    <Position X="7" Y="7.5" Width="2.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyCall" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.25" Y="6.247" />
+        <Point X="3.25" Y="7.367" />
+        <Point X="8.25" Y="7.367" />
+        <Point X="8.25" Y="7.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>BIAAAAAAAAAAAAAEAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ASTProcedureCall.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MyAss.Compiler_v2.AST.ASTVerb">
-    <Position X="4.75" Y="2.75" Width="2.75" />
+    <Position X="7" Y="3" Width="2.75" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyNode" ManuallyRouted="true">
+    <InheritanceLine Type="MyAss.Compiler_v2.AST.ASTAnyNode" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.25" Y="1.411" />
-        <Point X="1.25" Y="2.583" />
-        <Point X="6.125" Y="2.583" />
-        <Point X="6.125" Y="2.75" />
+        <Point X="2" Y="2.812" />
+        <Point X="8.438" Y="2.812" />
+        <Point X="8.438" Y="3" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -128,24 +155,21 @@
     </TypeIdentifier>
   </Class>
   <Interface Name="MyAss.Compiler_v2.AST.IASTVisitableNode">
-    <Position X="2.25" Y="0.5" Width="1.75" />
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
+    <Position X="0.5" Y="3.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IASTVisitableNode.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="MyAss.Compiler_v2.AST.BinaryOperatorType">
-    <Position X="6" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="7.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>gAIAAAAAAQAAAAAAAAABAAAQAAAAAAAAEAAAAAAAAAA=</HashCode>
       <FileName>BinaryOperatorType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="MyAss.Compiler_v2.AST.LiteralType">
-    <Position X="4.25" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAACAAAAEAAAAAAAAAA=</HashCode>
       <FileName>LiteralType.cs</FileName>

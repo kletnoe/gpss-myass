@@ -29,11 +29,8 @@ namespace MyAss.Framework.Procedures
         public static double Exponential(double stream, double locate, double scale)
         {
             int istream = (int)stream;
-
-            // TODO: Locate is not supported
-
             double randValue = RandomGenerators.GetRandom(istream).NextDouble();
-            return -scale * System.Math.Log(1 - randValue);
+            return locate + (-scale * System.Math.Log(1 - randValue));
         }
 
         // 5. Extreme Value A

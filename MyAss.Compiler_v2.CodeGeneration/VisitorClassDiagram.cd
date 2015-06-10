@@ -3,7 +3,7 @@
   <Class Name="MyAss.Compiler_v2.CodeGeneration.CodeDomGenerationVisitor" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="3.25" Width="7.25" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAEQAAAQIAAAAgYIAAIBgAgAAgAIACABIAAE=</HashCode>
+      <HashCode>IAAAAAAAAEQAAAQIAAAAgYIAAIBgAgAAAAIACABAAAE=</HashCode>
       <FileName>CodeDomGenerationVisitor.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

@@ -129,6 +129,14 @@ namespace MyAss.Compiler_v2.CodeGeneration
             );
         }
 
+        public static CodeObjectCreateExpression ConctructCtorNumberParameter(double value)
+        {
+            return new CodeObjectCreateExpression(
+                typeof(MyAss.Framework_v2.OperandTypes.NumberOperand),
+                new CodePrimitiveExpression(value)
+            );
+        }
+
         public static CodeObjectCreateExpression ConstructCtorLiteralParameter(string literal)
         {
             return new CodeObjectCreateExpression(

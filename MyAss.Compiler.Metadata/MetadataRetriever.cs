@@ -42,10 +42,11 @@ namespace MyAss.Compiler.Metadata
 
         public MetadataRetriever(List<string> assemblyPaths)
         {
-            List<string> assemblyPathsDistinct = assemblyPaths.Distinct().ToList();
-
-            this.assemblyPaths = assemblyPathsDistinct;
             this.assemblies = new List<Assembly>();
+            //this.assemblies.Add(GetMscorlib());
+
+            List<string> assemblyPathsDistinct = assemblyPaths.Distinct().ToList();
+            this.assemblyPaths = assemblyPathsDistinct;
 
             foreach (var assemblyPath in assemblyPathsDistinct)
             {
@@ -62,6 +63,11 @@ namespace MyAss.Compiler.Metadata
                     )
                 )
             );
+        }
+
+        private static Assembly GetMscorlib()
+        {
+            return typeof(string).Assembly;
         }
 
         public bool IsVerbName(string verbFullName)
@@ -149,11 +155,17 @@ namespace MyAss.Compiler.Metadata
             }
             else if (functionsFound.Count() == 0)
             {
-                throw new Exception("Verb " + functionName + " not found by name");
+                throw new Exception("Function " + functionName + " not found by name");
             }
             else
             {
-                throw new Exception("Found " + functionsFound.Count() + " verbs with name " + functionName);
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine();
+                foreach (var func in functionsFound)
+                {
+                    sb.AppendLine(func.DeclaringType.FullName);
+                }
+                throw new Exception("Found " + functionsFound.Count() + " functions with name " + functionName + sb.ToString());
             }
         }
 
@@ -161,7 +173,7 @@ namespace MyAss.Compiler.Metadata
         {
             List<MethodInfo> procedures = new List<MethodInfo>();
 
-            foreach (var assembly in assemblies)
+            foreach (var assembly in this.assemblies)
             {
                 foreach (var referencedeType in referencedTypes)
                 {
@@ -171,6 +183,8 @@ namespace MyAss.Compiler.Metadata
                     {
                         procedures.AddRange(type.GetMethods().Where(x => 
                             x.IsStatic
+                            && !x.IsGenericMethod
+                            //&& x.GetParameters().ToList().All(p => p.ParameterType == typeof(double))
                             && String.Equals(x.Name, functionName, StringComparison.InvariantCultureIgnoreCase)
                         ));
                     }
@@ -199,8 +213,6 @@ namespace MyAss.Compiler.Metadata
 
             return procedures;
         }
-
-
 
         public TypeInfo GetVerbType(string verbFullName)
         {
