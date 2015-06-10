@@ -133,8 +133,8 @@ namespace MyAss.Utilities.Reports_v2
                     tr.Priority,
                     tr.MarkTime.ToString("F3"),
                     tr.AssemblySet,
-                    tr.Owner,
-                    tr.NextOwner));
+                    tr.Owner != null ? tr.Owner.Id : 0,
+                    tr.NextOwner.Id));
 
                 foreach (var parameter in tr.TransactionParameters)
                 {
@@ -163,8 +163,8 @@ namespace MyAss.Utilities.Reports_v2
                     tr.Priority,
                     tr.NextEventTime.ToString("F3"),
                     tr.AssemblySet,
-                    tr.Owner,
-                    tr.NextOwner));
+                    tr.Owner != null ? tr.Owner.Id : 0,
+                    tr.NextOwner.Id));
 
                 foreach (var parameter in tr.TransactionParameters)
                 {
