@@ -45,9 +45,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyAss.Framework_v2\MyAss.Framework_v2.csproj">
-      <Project>{8a83f996-3614-4968-841e-2065eaff1a08}</Project>
-      <Name>MyAss.Framework_v2</Name>
+    <ProjectReference Include="..\MyAss\MyAss.csproj">
+      <Project>{fd17c951-b361-4197-8e28-948d3e036d21}</Project>
+      <Name>MyAss</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FD17C951-B361-4197-8E28-948D3E036D21}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyAss</RootNamespace>
+    <AssemblyName>MyAss</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Compiler\CharSourceTokenizer.cs" />
+    <Compile Include="Compiler\Compiler.cs" />
+    <Compile Include="Compiler\ICharSourceTokenizer.cs" />
+    <Compile Include="Compiler\IScanner.cs" />
+    <Compile Include="Compiler\Metadata\ClassMeta.cs" />
+    <Compile Include="Compiler\Metadata\MetadataRetriever.cs" />
+    <Compile Include="Compiler\Metadata\MethodMeta.cs" />
+    <Compile Include="Compiler\Parser.cs" />
+    <Compile Include="Compiler\ParserException.cs" />
+    <Compile Include="Compiler\Scanner.cs" />
+    <Compile Include="Compiler\TokenType.cs" />
+    <Compile Include="Compiler_v2\AST\ASTAnyCall.cs" />
+    <Compile Include="Compiler_v2\AST\ASTAnyExpression.cs" />
+    <Compile Include="Compiler_v2\AST\ASTAnyNode.cs" />
+    <Compile Include="Compiler_v2\AST\ASTBinaryExpression.cs" />
+    <Compile Include="Compiler_v2\AST\ASTDirectSNACall.cs" />
+    <Compile Include="Compiler_v2\AST\ASTLiteral.cs" />
+    <Compile Include="Compiler_v2\AST\ASTLValue.cs" />
+    <Compile Include="Compiler_v2\AST\ASTModel.cs" />
+    <Compile Include="Compiler_v2\AST\ASTProcedureCall.cs" />
+    <Compile Include="Compiler_v2\AST\ASTVerb.cs" />
+    <Compile Include="Compiler_v2\AST\BinaryOperatorType.cs" />
+    <Compile Include="Compiler_v2\AST\IASTVisitableNode.cs" />
+    <Compile Include="Compiler_v2\AST\IASTVisitor[T].cs" />
+    <Compile Include="Compiler_v2\AST\LiteralType.cs" />
+    <Compile Include="Compiler_v2\CodeGeneration\CodeDomGenerationVisitor.cs" />
+    <Compile Include="Compiler_v2\CodeGeneration\CompilerException.cs" />
+    <Compile Include="Compiler_v2\CodeGeneration\CompileUnitConstructor.cs" />
+    <Compile Include="Compiler_v2\CodeGeneration\GenerationUtils.cs" />
+    <Compile Include="Compiler_v2\CodeGeneration\RunnableClassGenerator.cs" />
+    <Compile Include="Framework_v2\AbstractModel.cs" />
+    <Compile Include="Framework_v2\BiDictionary[TFirst_TSecond].cs" />
+    <Compile Include="Framework_v2\Blocks\AnyBlock.cs" />
+    <Compile Include="Framework_v2\Blocks\IEntityCretableBlock.cs" />
+    <Compile Include="Framework_v2\Blocks\ITransactionGeneratableBlock.cs" />
+    <Compile Include="Framework_v2\Chains\GenericTransactionChain.cs" />
+    <Compile Include="Framework_v2\Chains\OrderedTransactionChain.cs" />
+    <Compile Include="Framework_v2\Chains\PriorityTransactionChain.cs" />
+    <Compile Include="Framework_v2\Commands\AnyCommand.cs" />
+    <Compile Include="Framework_v2\Commands\AnyImmediateCommand.cs" />
+    <Compile Include="Framework_v2\Commands\AnyQueuedCommand.cs" />
+    <Compile Include="Framework_v2\Entities\AnyEntity.cs" />
+    <Compile Include="Framework_v2\Entities\IDelayableEntity.cs" />
+    <Compile Include="Framework_v2\Entities\IInterruptableEntity.cs" />
+    <Compile Include="Framework_v2\Entities\IPendableEntity.cs" />
+    <Compile Include="Framework_v2\Misc.cs" />
+    <Compile Include="Framework_v2\ModelingException.cs" />
+    <Compile Include="Framework_v2\NamesAndVarsDictionary.cs" />
+    <Compile Include="Framework_v2\OperandTypes\ExpressionDelegate.cs" />
+    <Compile Include="Framework_v2\OperandTypes\IDoubleOperand.cs" />
+    <Compile Include="Framework_v2\OperandTypes\IOperand.cs" />
+    <Compile Include="Framework_v2\OperandTypes\LiteralOperand.cs" />
+    <Compile Include="Framework_v2\OperandTypes\NumberOperand.cs" />
+    <Compile Include="Framework_v2\OperandTypes\ParExpression.cs" />
+    <Compile Include="Framework_v2\ReferencedNumber.cs" />
+    <Compile Include="Framework_v2\Resources\ExceptionMessages.Designer.cs">
+      <DependentUpon>ExceptionMessages.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Framework_v2\SavevalueType.cs" />
+    <Compile Include="Framework_v2\Simulation.cs" />
+    <Compile Include="Framework_v2\SimulationNumbersManager.cs" />
+    <Compile Include="Framework_v2\SNA\SystemSna.cs" />
+    <Compile Include="Framework_v2\Transaction.cs" />
+    <Compile Include="Framework_v2\TransactionScheduler.cs" />
+    <Compile Include="Framework_v2\TypesDivider[T].cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Reports_v2\StandardReport.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Compiler\Grammar\ScannerParserDiagram.cd" />
+    <None Include="Compiler_v2\AST\ASTStructure\ASTClassDiagram - Copy.cd" />
+    <None Include="Compiler_v2\AST\ASTStructure\ASTClassDiagram.cd" />
+    <None Include="Compiler_v2\CodeGeneration\VisitorClassDiagram.cd" />
+    <None Include="Framework_v2\ClassDiagram1 - Copy.cd" />
+    <None Include="Framework_v2\ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Compiler\Grammar\BNFGrammar.txt" />
+    <Content Include="Compiler\Grammar\BNFGrammar_PrettyPrint.txt" />
+    <Content Include="Compiler\Grammar\BNFGrammar_PrettyPrint_v2.txt" />
+    <Content Include="Compiler\Grammar\Errors.txt" />
+    <Content Include="Compiler_v2\AST\ASTStructure\Structure.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Framework_v2\Resources\ExceptionMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
