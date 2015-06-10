@@ -92,10 +92,6 @@
       <Project>{bffed46e-1470-4af5-b28b-87463b458cd0}</Project>
       <Name>MyAss.Framework.Procedures</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyAss.Framework\MyAss.Framework.csproj">
-      <Project>{511c1ef6-f99a-42d5-8d3a-4f8e93a11c3e}</Project>
-      <Name>MyAss.Framework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyAss.Framework_v2.BuiltIn\MyAss.Framework_v2.BuiltIn.csproj">
       <Project>{fa47fa51-a313-4f76-a539-41a33fe7100d}</Project>
       <Name>MyAss.Framework_v2.BuiltIn</Name>

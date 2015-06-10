@@ -14,6 +14,7 @@ namespace MyAss.Compiler.CLI
             if (args.Length == 0)
             {
                 Console.WriteLine("You should pass at least one parameter!");
+                return;
             }
 
             string sourceModelPath = args[0];
