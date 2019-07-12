@@ -15,7 +15,7 @@ namespace MyAss.Compiler.Tests.CodeGenerationTests
     public class CodeGenTests_Expressions
     {
         [Test]
-        [Ignore("")]
+        [Ignore("CommonCode.GetResultExpression fails")]
         public void IntLiteral()
         {
             string input = @"Generate 1";

@@ -17,6 +17,8 @@ namespace MyAss.Framework.Tests
         [Test]
         public void SomeTest()
         {
+            Console.WriteLine("Hello test!");
+            Assert.True(true);
         }
     }
 }

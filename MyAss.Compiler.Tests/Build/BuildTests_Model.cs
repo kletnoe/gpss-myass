@@ -14,7 +14,6 @@ namespace MyAss.Compiler.Tests.Build
     public class BuildTests_Model
     {
         [Test]
-        [Ignore("")]
         public void Model_Dynamic()
         {
             string input = TestModels.MM3Model_Dynamic;

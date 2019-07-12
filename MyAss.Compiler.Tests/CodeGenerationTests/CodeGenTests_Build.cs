@@ -16,15 +16,13 @@ namespace MyAss.Compiler.Tests.CodeGenerationTests
     public class CodeGenTests_Build
     {
         [Test]
-        [Ignore("")]
         public void DirectSna()
         {
-            string input = @"Some Q$Tail";
+            string input = @"Generate Q$Tail";
             CommonCode(input);
         }
 
         [Test]
-        [Ignore("")]
         public void SingleVerb()
         {
             string input = @"Generate 10, 15, 13+1/2+1-1";

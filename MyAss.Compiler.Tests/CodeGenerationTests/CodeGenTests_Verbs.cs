@@ -15,7 +15,7 @@ namespace MyAss.Compiler.Tests.CodeGenerationTests
     class CodeGenTests_Verbs
     {
         [Test]
-        [Ignore("")]
+        [Ignore("This test is not supposed to work...")]
         public void DirectSna()
         {
             string input = @"Mark X$ololo";

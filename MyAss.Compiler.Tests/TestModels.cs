@@ -113,6 +113,8 @@ GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
 @using MyAss.Framework.BuiltIn.Blocks
 @using MyAss.Framework.BuiltIn.Commands
 
+@usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
+@usingp MyAss.Framework.BuiltIn.SNA.QueueSNA
 @usingp MyAss.Framework.Procedures.Distributions
 
 Server STORAGE 3
