@@ -15,7 +15,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
     public class CodeGenTests_Expressions
     {
         [Test]
-        [Ignore]
+        [Ignore("")]
         public void IntLiteral()
         {
             string input = @"Generate 1";

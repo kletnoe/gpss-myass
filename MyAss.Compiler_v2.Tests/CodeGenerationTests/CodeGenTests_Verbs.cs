@@ -15,7 +15,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
     class CodeGenTests_Verbs
     {
         [Test]
-        [Ignore]
+        [Ignore("")]
         public void DirectSna()
         {
             string input = @"Mark X$ololo";

@@ -16,7 +16,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
     public class CodeGenTests_Build
     {
         [Test]
-        [Ignore]
+        [Ignore("")]
         public void DirectSna()
         {
             string input = @"Some Q$Tail";
@@ -24,7 +24,7 @@ namespace MyAss.Compiler_v2.Tests.CodeGenerationTests
         }
 
         [Test]
-        [Ignore]
+        [Ignore("")]
         public void SingleVerb()
         {
             string input = @"Generate 10, 15, 13+1/2+1-1";
