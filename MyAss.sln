@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B6536402-9024-4165-959F-8E8E163F6B54}"
 	ProjectSection(SolutionItems) = preProject
 		Model.txt = Model.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler", "MyAss.Compiler\MyAss.Compiler.csproj", "{71DCFDA0-DDF5-4494-A055-AFD90AA09241}"

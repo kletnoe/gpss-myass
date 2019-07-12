@@ -68,9 +68,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Grammar\BNFGrammar.txt" />
-    <Content Include="Grammar\BNFGrammar_PrettyPrint.txt" />
-    <Content Include="Grammar\BNFGrammar_PrettyPrint.txt" />
+    <Content Include="Grammar\BNFGrammar_Rules.txt" />
+    <Content Include="Grammar\BNFGrammar_Syntax.txt" />
     <Content Include="Grammar\Errors.txt" />
   </ItemGroup>
   <ItemGroup>
