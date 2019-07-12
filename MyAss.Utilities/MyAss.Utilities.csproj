@@ -44,12 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reports_v2\StandardReport.cs" />
+    <Compile Include="Reports\StandardReport.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyAss.Framework_v2\MyAss.Framework_v2.csproj">
+    <ProjectReference Include="..\MyAss.Framework\MyAss.Framework.csproj">
       <Project>{8a83f996-3614-4968-841e-2065eaff1a08}</Project>
-      <Name>MyAss.Framework_v2</Name>
+      <Name>MyAss.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

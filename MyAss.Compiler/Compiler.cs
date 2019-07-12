@@ -9,15 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CSharp;
 using MyAss.Compiler.Metadata;
-using MyAss.Compiler_v2;
-using MyAss.Compiler_v2.AST;
-using MyAss.Compiler_v2.CodeGeneration;
+using MyAss.Compiler;
+using MyAss.Compiler.AST;
+using MyAss.Compiler.CodeGeneration;
 
 namespace MyAss.Compiler
 {
     public class AssemblyCompiler
     {
-        private const string DefaultOutputDir = @"c:\temp\";
+        private const string DefaultOutputDir = @"e:\temp\";
         private const string DefaultOutputExePath = DefaultOutputDir + "TheModel.exe";
 
         public string ModelSources { get; private set; }
@@ -36,10 +36,10 @@ namespace MyAss.Compiler
                 return new List<string>()
                 {
                     "MyAss.Utilities.dll",
-                    "MyAss.Framework_v2.dll",
-                    "MyAss.Framework_v2.BuiltIn.dll",
+                    "MyAss.Framework.dll",
+                    "MyAss.Framework.BuiltIn.dll",
                     "MyAss.Framework.Procedures.dll",
-                    "MyAss.Framework_v2.TablePackage.dll",
+                    "MyAss.Framework.TablePackage.dll",
                     "MyCustomLibrary.dll",
                 };
             }
@@ -51,8 +51,8 @@ namespace MyAss.Compiler
             {
                 return new List<string>()
                 {
-                    "MyAss.Framework_v2.BuiltIn.Blocks",
-                    "MyAss.Framework_v2.BuiltIn.Commands"
+                    "MyAss.Framework.BuiltIn.Blocks",
+                    "MyAss.Framework.BuiltIn.Commands"
                 };
             }
         }
@@ -63,8 +63,8 @@ namespace MyAss.Compiler
             {
                 return new List<string>()
                 {
-                    "MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA",
-                    "MyAss.Framework_v2.BuiltIn.SNA.QueueSNA",
+                    "MyAss.Framework.BuiltIn.SNA.SavevalueSNA",
+                    "MyAss.Framework.BuiltIn.SNA.QueueSNA",
                     "MyAss.Framework.Procedures.Distributions"
                 };
             }

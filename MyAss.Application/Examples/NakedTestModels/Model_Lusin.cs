@@ -13,10 +13,10 @@ namespace MyAss.Application.Examples.NakedTestModels
             get
             {
                 return @"
-@using MyAss.Framework_v2.BuiltIn.Blocks
-@using MyAss.Framework_v2.BuiltIn.Commands
+@using MyAss.Framework.BuiltIn.Blocks
+@using MyAss.Framework.BuiltIn.Commands
 
-@usingp MyAss.Framework_v2.BuiltIn.SNA.StorageSNA
+@usingp MyAss.Framework.BuiltIn.SNA.StorageSNA
 
 STO STORAGE 4 ;места под автостоянку
 COL STORAGE 2 ;бензоколонки

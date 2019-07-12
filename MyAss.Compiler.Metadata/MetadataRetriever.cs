@@ -4,9 +4,9 @@ using System.Reflection;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyAss.Framework_v2;
-using MyAss.Framework_v2.Blocks;
-using MyAss.Framework_v2.Commands;
+using MyAss.Framework;
+using MyAss.Framework.Blocks;
+using MyAss.Framework.Commands;
 
 namespace MyAss.Compiler.Metadata
 {

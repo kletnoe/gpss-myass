@@ -79,17 +79,17 @@
       <Project>{bffed46e-1470-4af5-b28b-87463b458cd0}</Project>
       <Name>MyAss.Framework.Procedures</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyAss.Framework_v2.BuiltIn\MyAss.Framework_v2.BuiltIn.csproj">
+    <ProjectReference Include="..\MyAss.Framework.BuiltIn\MyAss.Framework.BuiltIn.csproj">
       <Project>{fa47fa51-a313-4f76-a539-41a33fe7100d}</Project>
-      <Name>MyAss.Framework_v2.BuiltIn</Name>
+      <Name>MyAss.Framework.BuiltIn</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyAss.Framework_v2.TablePackage\MyAss.Framework_v2.TablePackage.csproj">
+    <ProjectReference Include="..\MyAss.Framework.TablePackage\MyAss.Framework.TablePackage.csproj">
       <Project>{ed4ea16d-dff2-4656-ac80-5f82c16c1f14}</Project>
-      <Name>MyAss.Framework_v2.TablePackage</Name>
+      <Name>MyAss.Framework.TablePackage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyAss.Framework_v2\MyAss.Framework_v2.csproj">
+    <ProjectReference Include="..\MyAss.Framework\MyAss.Framework.csproj">
       <Project>{8a83f996-3614-4968-841e-2065eaff1a08}</Project>
-      <Name>MyAss.Framework_v2</Name>
+      <Name>MyAss.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyAss.Utilities\MyAss.Utilities.csproj">
       <Project>{EE26563E-13CA-4A02-84BC-F9E6AEC8314A}</Project>

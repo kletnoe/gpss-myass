@@ -1,11 +1,11 @@
 ﻿using MyAss.Framework.Procedures;
-using MyAss.Framework_v2;
-using MyAss.Framework_v2.Blocks;
-using MyAss.Framework_v2.BuiltIn.Blocks;
-using MyAss.Framework_v2.BuiltIn.Commands;
-using MyAss.Framework_v2.BuiltIn.SNA;
-using MyAss.Framework_v2.Commands;
-using MyAss.Framework_v2.OperandTypes;
+using MyAss.Framework;
+using MyAss.Framework.Blocks;
+using MyAss.Framework.BuiltIn.Blocks;
+using MyAss.Framework.BuiltIn.Commands;
+using MyAss.Framework.BuiltIn.SNA;
+using MyAss.Framework.Commands;
+using MyAss.Framework.OperandTypes;
 
 namespace CompiledTestModels
 {

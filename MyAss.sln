@@ -18,23 +18,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.Metadata", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework.Procedures", "MyAss.Framework.Procedures\MyAss.Framework.Procedures.csproj", "{BFFED46E-1470-4AF5-B28B-87463B458CD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler_v2.AST", "MyAss.Compiler_v2.AST\MyAss.Compiler_v2.AST.csproj", "{65EDCEEC-6974-4ED0-ACA6-115A0812628F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.AST", "MyAss.Compiler.AST\MyAss.Compiler.AST.csproj", "{65EDCEEC-6974-4ED0-ACA6-115A0812628F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler_v2.Tests", "MyAss.Compiler_v2.Tests\MyAss.Compiler_v2.Tests.csproj", "{4699F6D5-0A82-4F34-BB75-3D853191273F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.Tests", "MyAss.Compiler.Tests\MyAss.Compiler.Tests.csproj", "{4699F6D5-0A82-4F34-BB75-3D853191273F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler_v2.CodeGeneration", "MyAss.Compiler_v2.CodeGeneration\MyAss.Compiler_v2.CodeGeneration.csproj", "{2A319CAC-280A-4685-ABCB-D4875F49FDA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.CodeGeneration", "MyAss.Compiler.CodeGeneration\MyAss.Compiler.CodeGeneration.csproj", "{2A319CAC-280A-4685-ABCB-D4875F49FDA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework_v2", "MyAss.Framework_v2\MyAss.Framework_v2.csproj", "{8A83F996-3614-4968-841E-2065EAFF1A08}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework", "MyAss.Framework\MyAss.Framework.csproj", "{8A83F996-3614-4968-841E-2065EAFF1A08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework_v2.Tests", "MyAss.Framework_v2.Tests\MyAss.Framework_v2.Tests.csproj", "{F85FCD9A-AC38-4883-AD77-BE2E78E0A845}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework.Tests", "MyAss.Framework.Tests\MyAss.Framework.Tests.csproj", "{F85FCD9A-AC38-4883-AD77-BE2E78E0A845}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework_v2.BuiltIn", "MyAss.Framework_v2.BuiltIn\MyAss.Framework_v2.BuiltIn.csproj", "{FA47FA51-A313-4F76-A539-41A33FE7100D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework.BuiltIn", "MyAss.Framework.BuiltIn\MyAss.Framework.BuiltIn.csproj", "{FA47FA51-A313-4F76-A539-41A33FE7100D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Compiler.CLI", "MyAss.Compiler.CLI\MyAss.Compiler.CLI.csproj", "{1C6CDF5E-66CA-453B-B683-38CE6088F481}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework_v2.FacilityPackage", "MyAss.Framework_v2.FacilityPackage\MyAss.Framework_v2.FacilityPackage.csproj", "{38CC4FE3-31BD-4BF0-BC73-213933F690C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework.FacilityPackage", "MyAss.Framework.FacilityPackage\MyAss.Framework.FacilityPackage.csproj", "{38CC4FE3-31BD-4BF0-BC73-213933F690C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework_v2.TablePackage", "MyAss.Framework_v2.TablePackage\MyAss.Framework_v2.TablePackage.csproj", "{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAss.Framework.TablePackage", "MyAss.Framework.TablePackage\MyAss.Framework.TablePackage.csproj", "{ED4EA16D-DFF2-4656-AC80-5F82C16C1F14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCustomLibrary", "MyCustomLibrary\MyCustomLibrary.csproj", "{0D631126-AF01-407C-8A15-4876BBF8F49F}"
 EndProject

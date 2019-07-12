@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="MyAss.Framework.AbstractModel">
+    <Position X="13.75" Y="3.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEAlAAgAIQAAAAAAACAAAAAAAAAAAEQAAABAAABAA=</HashCode>
+      <FileName>AbstractModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Framework.Commands.AbstractImmediateCommand">
+    <Position X="0.5" Y="4.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAEAAAIAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\AbstractImmediateCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyAss.Framework.Commands.AbstractQueuedCommand">
+    <Position X="0.5" Y="6.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAEAAAIAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\AbstractQueuedCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyAss.Framework.Entities.AbstractEntity">
+    <Position X="5.75" Y="12.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAAEAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAgAA=</HashCode>
+      <FileName>Entities\AbstractEntity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyAss.Framework.TransactionScheduler">
+    <Position X="13.75" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAgAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>TransactionScheduler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Framework.Transaction">
+    <Position X="8.25" Y="0.5" Width="5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="MyAss.Framework.Transaction.TransactionState">
+        <TypeIdentifier>
+          <NewMemberFileName>Transaction.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAKAACAAACAEiEEAAAAAAAIAAoAQAAQABAAgCIA=</HashCode>
+      <FileName>Transaction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyAss.Framework.Simulation">
+    <Position X="18.25" Y="3.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>IAAEBAFAAAIAAAABAAADAAAAAAIACQAEBEEAAAAAAgQ=</HashCode>
+      <FileName>Simulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="MyAss.Framework.IVerb">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IVerb.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Framework.Commands.ICommand">
+    <Position X="0.5" Y="1.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAEAAAIAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Framework.Entities.IEntity">
+    <Position X="5.75" Y="9.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAAEAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAgAA=</HashCode>
+      <FileName>Entities\IEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Framework.Entities.IDelayableEntity">
+    <Position X="9.5" Y="9.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\IDelayableEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Framework.Entities.IInterruptableEntity">
+    <Position X="9.5" Y="11" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\IInterruptableEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Framework.Entities.IPendableEntity">
+    <Position X="9.5" Y="12.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\IPendableEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Framework.Blocks.IEntityCretableBlock">
+    <Position X="3.5" Y="4" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Blocks\IEntityCretableBlock.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyAss.Framework.Blocks.ITransactionGeneratableBlock">
+    <Position X="3.75" Y="5.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Blocks\ITransactionGeneratableBlock.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

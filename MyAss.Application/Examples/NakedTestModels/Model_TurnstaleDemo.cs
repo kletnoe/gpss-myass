@@ -13,8 +13,8 @@ namespace MyAss.Application.Examples.NakedTestModels
             get
             {
                 return @"
-@using MyAss.Framework_v2.BuiltIn.Blocks
-@using MyAss.Framework_v2.BuiltIn.Commands
+@using MyAss.Framework.BuiltIn.Blocks
+@using MyAss.Framework.BuiltIn.Commands
 
 Server STORAGE 1
 START 10000

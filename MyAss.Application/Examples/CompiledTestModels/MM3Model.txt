@@ -1,8 +1,8 @@
-﻿@using MyAss.Framework_v2.BuiltIn.Blocks;
-@using MyAss.Framework_v2.BuiltIn.Commands;
+﻿@using MyAss.Framework.BuiltIn.Blocks;
+@using MyAss.Framework.BuiltIn.Commands;
 
-@usingP MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA;
-@usingP MyAss.Framework_v2.BuiltIn.SNA.QueueSNA;
+@usingP MyAss.Framework.BuiltIn.SNA.SavevalueSNA;
+@usingP MyAss.Framework.BuiltIn.SNA.QueueSNA;
 @usingP MyAss.Framework.Procedures.Distributions;
 
 Server STORAGE 3

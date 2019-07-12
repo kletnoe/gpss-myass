@@ -13,11 +13,11 @@ namespace MyAss.Application.Examples.NakedTestModels
             get
             {
                 return @"
-@using MyAss.Framework_v2.BuiltIn.Blocks
-@using MyAss.Framework_v2.BuiltIn.Commands
+@using MyAss.Framework.BuiltIn.Blocks
+@using MyAss.Framework.BuiltIn.Commands
 
-@usingp MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA
-@usingp MyAss.Framework_v2.BuiltIn.SNA.QueueSNA
+@usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
+@usingp MyAss.Framework.BuiltIn.SNA.QueueSNA
 @usingp MyAss.Framework.Procedures.Distributions
 
 Server STORAGE 3

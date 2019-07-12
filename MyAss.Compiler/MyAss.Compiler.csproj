@@ -58,18 +58,18 @@
       <Project>{c7d9fd2e-57e5-43cb-96d9-61218837e1c1}</Project>
       <Name>MyAss.Compiler.Metadata</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyAss.Compiler_v2.AST\MyAss.Compiler_v2.AST.csproj">
+    <ProjectReference Include="..\MyAss.Compiler.AST\MyAss.Compiler.AST.csproj">
       <Project>{65edceec-6974-4ed0-aca6-115a0812628f}</Project>
-      <Name>MyAss.Compiler_v2.AST</Name>
+      <Name>MyAss.Compiler.AST</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyAss.Compiler_v2.CodeGeneration\MyAss.Compiler_v2.CodeGeneration.csproj">
+    <ProjectReference Include="..\MyAss.Compiler.CodeGeneration\MyAss.Compiler.CodeGeneration.csproj">
       <Project>{2a319cac-280a-4685-abcb-d4875f49fda8}</Project>
-      <Name>MyAss.Compiler_v2.CodeGeneration</Name>
+      <Name>MyAss.Compiler.CodeGeneration</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Grammar\BNFGrammar.txt" />
-    <Content Include="Grammar\BNFGrammar_PrettyPrint_v2.txt" />
+    <Content Include="Grammar\BNFGrammar_PrettyPrint.txt" />
     <Content Include="Grammar\BNFGrammar_PrettyPrint.txt" />
     <Content Include="Grammar\Errors.txt" />
   </ItemGroup>

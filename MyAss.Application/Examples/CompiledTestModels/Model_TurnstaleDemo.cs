@@ -1,10 +1,10 @@
-﻿using MyAss.Framework_v2;
-using MyAss.Framework_v2.BuiltIn.Blocks;
-using MyAss.Framework_v2.BuiltIn.Commands;
-using MyAss.Framework_v2.Commands;
-using MyAss.Framework_v2.OperandTypes;
+﻿using MyAss.Framework;
+using MyAss.Framework.BuiltIn.Blocks;
+using MyAss.Framework.BuiltIn.Commands;
+using MyAss.Framework.Commands;
+using MyAss.Framework.OperandTypes;
 using System;
-using MyAss.Utilities.Reports_v2;
+using MyAss.Utilities.Reports;
 
 namespace Modeling
 {

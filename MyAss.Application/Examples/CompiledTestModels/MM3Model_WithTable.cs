@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyAss.Framework_v2;
+using MyAss.Framework;
 
 namespace CompiledTestModels
 {
-    public class MM3Model_WithTable : MyAss.Framework_v2.AbstractModel
+    public class MM3Model_WithTable : MyAss.Framework.AbstractModel
     {
         private ReferencedNumber Server;
 
@@ -33,7 +33,7 @@ namespace CompiledTestModels
             this.AddName("Server", this.Server);
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Commands.Storage verb = new MyAss.Framework_v2.BuiltIn.Commands.Storage(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb1_Operand1)));
+                MyAss.Framework.BuiltIn.Commands.Storage verb = new MyAss.Framework.BuiltIn.Commands.Storage(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb1_Operand1)));
                 verb.SetId(this.Server);
                 this.AddVerb(verb);
             }
@@ -45,7 +45,7 @@ namespace CompiledTestModels
             this.AddName("OnQueueTime", this.OnQueueTime);
             if (true)
             {
-                MyAss.Framework_v2.TablePackage.Commands.Table verb = new MyAss.Framework_v2.TablePackage.Commands.Table(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb2_Operand1)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb2_Operand2)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb2_Operand3)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb2_Operand4)));
+                MyAss.Framework.TablePackage.Commands.Table verb = new MyAss.Framework.TablePackage.Commands.Table(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb2_Operand1)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb2_Operand2)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb2_Operand3)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb2_Operand4)));
                 verb.SetId(this.OnQueue);
                 this.AddVerb(verb);
             }
@@ -53,21 +53,21 @@ namespace CompiledTestModels
             // START 10000
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Commands.Start verb = new MyAss.Framework_v2.BuiltIn.Commands.Start(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb3_Operand1)), null, null, null);
+                MyAss.Framework.BuiltIn.Commands.Start verb = new MyAss.Framework.BuiltIn.Commands.Start(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb3_Operand1)), null, null, null);
                 this.AddVerb(verb);
             }
             // 
             // GENERATE Exponential(1, 0, (1 / 2))
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Generate verb = new MyAss.Framework_v2.BuiltIn.Blocks.Generate(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb4_Operand1)), null, null, null, null);
+                MyAss.Framework.BuiltIn.Blocks.Generate verb = new MyAss.Framework.BuiltIn.Blocks.Generate(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb4_Operand1)), null, null, null, null);
                 this.AddVerb(verb);
             }
             // 
             // MARK OnQueueTime
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Mark verb = new MyAss.Framework_v2.BuiltIn.Blocks.Mark(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb5_Operand1)));
+                MyAss.Framework.BuiltIn.Blocks.Mark verb = new MyAss.Framework.BuiltIn.Blocks.Mark(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb5_Operand1)));
                 this.AddVerb(verb);
             }
             // 
@@ -76,7 +76,7 @@ namespace CompiledTestModels
             this.AddName("GenerateCounter", this.GenerateCounter);
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Savevalue verb = new MyAss.Framework_v2.BuiltIn.Blocks.Savevalue(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb6_Operand1)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb6_Operand2)));
+                MyAss.Framework.BuiltIn.Blocks.Savevalue verb = new MyAss.Framework.BuiltIn.Blocks.Savevalue(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb6_Operand1)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb6_Operand2)));
                 this.AddVerb(verb);
             }
             // 
@@ -87,49 +87,49 @@ namespace CompiledTestModels
             this.AddName("GoAway", this.GoAway);
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Test verb = new MyAss.Framework_v2.BuiltIn.Blocks.Test(new MyAss.Framework_v2.OperandTypes.LiteralOperand("L"), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb7_Operand2)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb7_Operand3)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb7_Operand4)));
+                MyAss.Framework.BuiltIn.Blocks.Test verb = new MyAss.Framework.BuiltIn.Blocks.Test(new MyAss.Framework.OperandTypes.LiteralOperand("L"), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb7_Operand2)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb7_Operand3)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb7_Operand4)));
                 this.AddVerb(verb);
             }
             // 
             // QUEUE Tail
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Queue verb = new MyAss.Framework_v2.BuiltIn.Blocks.Queue(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb8_Operand1)), null);
+                MyAss.Framework.BuiltIn.Blocks.Queue verb = new MyAss.Framework.BuiltIn.Blocks.Queue(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb8_Operand1)), null);
                 this.AddVerb(verb);
             }
             // 
             // ENTER Server,1
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Enter verb = new MyAss.Framework_v2.BuiltIn.Blocks.Enter(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb9_Operand1)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb9_Operand2)));
+                MyAss.Framework.BuiltIn.Blocks.Enter verb = new MyAss.Framework.BuiltIn.Blocks.Enter(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb9_Operand1)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb9_Operand2)));
                 this.AddVerb(verb);
             }
             // 
             // DEPART Tail
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Depart verb = new MyAss.Framework_v2.BuiltIn.Blocks.Depart(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb10_Operand1)), null);
+                MyAss.Framework.BuiltIn.Blocks.Depart verb = new MyAss.Framework.BuiltIn.Blocks.Depart(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb10_Operand1)), null);
                 this.AddVerb(verb);
             }
             // 
             // TABULATE OnQueue
             if (true)
             {
-                MyAss.Framework_v2.TablePackage.Blocks.Tabulate verb = new MyAss.Framework_v2.TablePackage.Blocks.Tabulate(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb11_Operand1)), null);
+                MyAss.Framework.TablePackage.Blocks.Tabulate verb = new MyAss.Framework.TablePackage.Blocks.Tabulate(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb11_Operand1)), null);
                 this.AddVerb(verb);
             }
             // 
             // ADVANCE Exponential(2, 0, (1 / 0.2))
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Advance verb = new MyAss.Framework_v2.BuiltIn.Blocks.Advance(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb12_Operand1)), null);
+                MyAss.Framework.BuiltIn.Blocks.Advance verb = new MyAss.Framework.BuiltIn.Blocks.Advance(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb12_Operand1)), null);
                 this.AddVerb(verb);
             }
             // 
             // LEAVE Server,1
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Leave verb = new MyAss.Framework_v2.BuiltIn.Blocks.Leave(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb13_Operand1)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb13_Operand2)));
+                MyAss.Framework.BuiltIn.Blocks.Leave verb = new MyAss.Framework.BuiltIn.Blocks.Leave(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb13_Operand1)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb13_Operand2)));
                 this.AddVerb(verb);
             }
             // 
@@ -140,14 +140,14 @@ namespace CompiledTestModels
             this.AddName("RejectCounter", this.RejectCounter);
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Savevalue verb = new MyAss.Framework_v2.BuiltIn.Blocks.Savevalue(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb14_Operand1)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb14_Operand2)));
+                MyAss.Framework.BuiltIn.Blocks.Savevalue verb = new MyAss.Framework.BuiltIn.Blocks.Savevalue(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb14_Operand1)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb14_Operand2)));
                 this.AddVerb(verb);
             }
             // 
             // TERMINATE 1
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Terminate verb = new MyAss.Framework_v2.BuiltIn.Blocks.Terminate(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb15_Operand1)));
+                MyAss.Framework.BuiltIn.Blocks.Terminate verb = new MyAss.Framework.BuiltIn.Blocks.Terminate(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb15_Operand1)));
                 this.AddVerb(verb);
             }
             // 
@@ -156,14 +156,14 @@ namespace CompiledTestModels
             this.ReplaceNameId("GoAway", this.GoAway);
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Savevalue verb = new MyAss.Framework_v2.BuiltIn.Blocks.Savevalue(new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb16_Operand1)), new MyAss.Framework_v2.OperandTypes.ParExpression(new MyAss.Framework_v2.OperandTypes.ExpressionDelegate(this.Verb16_Operand2)));
+                MyAss.Framework.BuiltIn.Blocks.Savevalue verb = new MyAss.Framework.BuiltIn.Blocks.Savevalue(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb16_Operand1)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb16_Operand2)));
                 this.AddVerb(verb);
             }
             // 
             // TERMINATE 
             if (true)
             {
-                MyAss.Framework_v2.BuiltIn.Blocks.Terminate verb = new MyAss.Framework_v2.BuiltIn.Blocks.Terminate(null);
+                MyAss.Framework.BuiltIn.Blocks.Terminate verb = new MyAss.Framework.BuiltIn.Blocks.Terminate(null);
                 this.AddVerb(verb);
             }
         }
@@ -178,7 +178,7 @@ namespace CompiledTestModels
         public virtual double Verb2_Operand1()
         {
             double result;
-            result = MyAss.Framework_v2.SNA.SystemSna.MP(this.simulation, this.OnQueueTime);
+            result = MyAss.Framework.SNA.SystemSna.MP(this.simulation, this.OnQueueTime);
             return result;
         }
 
@@ -234,14 +234,14 @@ namespace CompiledTestModels
         public virtual double Verb6_Operand2()
         {
             double result;
-            result = (MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA.X(this.simulation, this.GenerateCounter) + 1D);
+            result = (MyAss.Framework.BuiltIn.SNA.SavevalueSNA.X(this.simulation, this.GenerateCounter) + 1D);
             return result;
         }
 
         public virtual double Verb7_Operand2()
         {
             double result;
-            result = MyAss.Framework_v2.BuiltIn.SNA.QueueSNA.Q(this.simulation, this.Tail);
+            result = MyAss.Framework.BuiltIn.SNA.QueueSNA.Q(this.simulation, this.Tail);
             return result;
         }
 
@@ -325,7 +325,7 @@ namespace CompiledTestModels
         public virtual double Verb14_Operand2()
         {
             double result;
-            result = (MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA.X(this.simulation, this.RejectCounter) / MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA.X(this.simulation, this.GenerateCounter));
+            result = (MyAss.Framework.BuiltIn.SNA.SavevalueSNA.X(this.simulation, this.RejectCounter) / MyAss.Framework.BuiltIn.SNA.SavevalueSNA.X(this.simulation, this.GenerateCounter));
             return result;
         }
 
@@ -346,7 +346,7 @@ namespace CompiledTestModels
         public virtual double Verb16_Operand2()
         {
             double result;
-            result = (MyAss.Framework_v2.BuiltIn.SNA.SavevalueSNA.X(this.simulation, this.RejectCounter) + 1D);
+            result = (MyAss.Framework.BuiltIn.SNA.SavevalueSNA.X(this.simulation, this.RejectCounter) + 1D);
             return result;
         }
     }
