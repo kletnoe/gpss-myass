@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Examples\CompiledTestModels\Model_Default.cs" />
     <Compile Include="Examples\CompiledTestModels\Model_TurnstaleDemo.cs" />
-    <Compile Include="Examples\CustomAttributes\VerbConstructorAttribute.cs" />
     <Compile Include="Examples\NakedTestModels\Model_MM5_Compare.cs" />
     <Compile Include="Examples\NakedTestModels\Model_TurnstaleDemo.cs" />
     <Compile Include="Examples\NakedTestModels\Model_DefaultNoQueue.cs" />
@@ -58,17 +57,12 @@
     <Compile Include="Examples\NakedTestModels\Model_Default.cs" />
     <Compile Include="Examples\NakedTestModels\Runner.cs" />
     <Compile Include="Examples\NakedTestModels\Model_WithEQU.cs" />
-    <Compile Include="Examples\PropertyInheritance.cs" />
     <Compile Include="Examples\CompiledTestModels\MM3Model_Dynamic.cs" />
     <Compile Include="Examples\CompiledTestModels\MM3Model_WithTable.cs" />
     <Compile Include="Examples\CompiledTestModels\ModelRunner.cs" />
-    <Compile Include="Examples\Visitors\ExampleVisitor.cs" />
-    <Compile Include="Examples\Visitors\ExampleVisitor[T].cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Examples\CompiledTestModels\MM3Model.cs" />
-    <Compile Include="TestScanner.cs" />
-    <Compile Include="TestSources.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyAss.Compiler\MyAss.Compiler.csproj">
@@ -103,16 +97,11 @@
   <ItemGroup>
     <Content Include="Examples\CompiledTestModels\MM3Model.txt" />
     <Content Include="Examples\CompiledTestModels\MM3Model_WithTable.txt" />
-    <Content Include="Source.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Examples\CodeGen\ExpectedClass\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
