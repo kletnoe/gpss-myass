@@ -15,6 +15,7 @@ namespace MyAss.Application
         {
             Runner.Run();
             Console.WriteLine("Done");
+            Console.ReadLine();
         }
     }
 }

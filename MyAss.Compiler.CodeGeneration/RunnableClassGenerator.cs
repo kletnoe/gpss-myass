@@ -57,7 +57,7 @@ namespace MyAss.Compiler.CodeGeneration
             mainMethod.Statements.Add(ConstructPrintReportMethodCall());
 
             mainMethod.Statements.Add(new CodeSnippetStatement(@"System.Console.WriteLine();"));
-            mainMethod.Statements.Add(new CodeSnippetStatement(@"System.Console.ReadLine();"));
+            //mainMethod.Statements.Add(new CodeSnippetStatement(@"System.Console.ReadLine();")); //This breaks tests!
 
             return mainMethod;
         }
