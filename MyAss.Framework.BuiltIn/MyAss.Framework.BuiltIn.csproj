@@ -65,6 +65,7 @@
     <Compile Include="SNA\QueueSNA.cs" />
     <Compile Include="SNA\SavevalueSNA.cs" />
     <Compile Include="SNA\StorageSNA.cs" />
+    <Compile Include="SNA\SystemSNA.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyAss.Framework\MyAss.Framework.csproj">

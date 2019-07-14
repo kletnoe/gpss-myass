@@ -19,7 +19,7 @@ namespace MyAss.Application.Examples.NakedTestModels
 @using MyAss.Framework.TablePackage.Commands
 @using MyCustomLibrary.Blocks
 
-@usingp MyAss.Framework.SNA.SystemSna
+@usingp MyAss.Framework.BuiltIn.SNA.SystemSNA
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
 @usingp MyAss.Framework.BuiltIn.SNA.QueueSNA
 @usingp MyAss.Framework.Procedures.Distributions

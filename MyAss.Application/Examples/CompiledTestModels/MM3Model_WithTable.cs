@@ -178,7 +178,7 @@ namespace CompiledTestModels
         public virtual double Verb2_Operand1()
         {
             double result;
-            result = MyAss.Framework.SNA.SystemSna.MP(this.simulation, this.OnQueueTime);
+            result = MyAss.Framework.BuiltIn.SNA.SystemSNA.MP(this.simulation, this.OnQueueTime);
             return result;
         }
 

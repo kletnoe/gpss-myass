@@ -152,7 +152,7 @@ GoAway	SAVEVALUE RejectCounter,X$RejectCounter+1
 @using MyAss.Framework.TablePackage.Blocks
 @using MyAss.Framework.TablePackage.Commands
 
-@usingp MyAss.Framework.SNA.SystemSna
+@usingp MyAss.Framework.BuiltIn.SNA.SystemSNA
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
 @usingp MyAss.Framework.BuiltIn.SNA.QueueSNA
 @usingp MyAss.Framework.Procedures.Distributions
@@ -204,7 +204,7 @@ GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
 @using MyAss.Framework.TablePackage.Blocks
 @using MyAss.Framework.TablePackage.Commands
 
-@usingp MyAss.Framework.SNA.SystemSna
+@usingp MyAss.Framework.BuiltIn.SNA.SystemSNA
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
 @usingp MyAss.Framework.BuiltIn.SNA.QueueSNA
 @usingp MyAss.Framework.Procedures.Distributions
