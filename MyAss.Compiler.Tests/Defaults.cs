@@ -17,7 +17,7 @@ namespace MyAss.Compiler.Tests
 @usingp MyAss.Framework.BuiltIn.SNA.SystemSNA
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
 @usingp MyAss.Framework.BuiltIn.SNA.QueueSNA
-@usingp MyAss.Framework.Procedures.Distributions
+@usingp MyAss.Framework.BuiltIn.Procedures.Distributions
 ";
     }
 }

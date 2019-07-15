@@ -213,7 +213,7 @@ namespace MyAss.Application.Examples.CompiledTestModels
         public virtual double Verb4_Operand1()
         {
             double result;
-            result = MyAss.Framework.Procedures.Distributions.Exponential(1D, 0D, (1D / 2D));
+            result = MyAss.Framework.BuiltIn.Procedures.Distributions.Exponential(1D, 0D, (1D / 2D));
             return result;
         }
 
@@ -297,7 +297,7 @@ namespace MyAss.Application.Examples.CompiledTestModels
         public virtual double Verb12_Operand1()
         {
             double result;
-            result = MyAss.Framework.Procedures.Distributions.Exponential(2D, 0D, (1D / 0.2D));
+            result = MyAss.Framework.BuiltIn.Procedures.Distributions.Exponential(2D, 0D, (1D / 0.2D));
             return result;
         }
 

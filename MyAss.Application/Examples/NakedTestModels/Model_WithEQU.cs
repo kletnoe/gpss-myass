@@ -21,7 +21,7 @@ namespace MyAss.Application.Examples.NakedTestModels
 @usingp MyAss.Framework.BuiltIn.SNA.SystemSNA
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
 @usingp MyAss.Framework.BuiltIn.SNA.QueueSNA
-@usingp MyAss.Framework.Procedures.Distributions
+@usingp MyAss.Framework.BuiltIn.Procedures.Distributions
 
 In_use EQU 5 ;Mean time
 Range EQU 3 ;Half range

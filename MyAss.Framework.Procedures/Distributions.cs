@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyAss.Framework.Procedures
+namespace MyAss.Framework.BuiltIn.Procedures
 {
     public static class Distributions
     {

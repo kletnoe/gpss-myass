@@ -41,7 +41,7 @@ TERMINATE 1		;Один человек проходит
 
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
 @usingp MyAss.Framework.BuiltIn.SNA.QueueSNA
-@usingp MyAss.Framework.Procedures.Distributions
+@usingp MyAss.Framework.BuiltIn.Procedures.Distributions
 
 Server MyAss.Framework.BuiltIn.Commands.STORAGE 3
 
@@ -78,7 +78,7 @@ GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
 
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
 @usingp MyAss.Framework.BuiltIn.SNA.QueueSNA
-@usingp MyAss.Framework.Procedures.Distributions
+@usingp MyAss.Framework.BuiltIn.Procedures.Distributions
 
 Server STORAGE 3
 
@@ -115,7 +115,7 @@ GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
 
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
 @usingp MyAss.Framework.BuiltIn.SNA.QueueSNA
-@usingp MyAss.Framework.Procedures.Distributions
+@usingp MyAss.Framework.BuiltIn.Procedures.Distributions
 
 Server STORAGE 3
 
@@ -155,7 +155,7 @@ GoAway	SAVEVALUE RejectCounter,X$RejectCounter+1
 @usingp MyAss.Framework.BuiltIn.SNA.SystemSNA
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
 @usingp MyAss.Framework.BuiltIn.SNA.QueueSNA
-@usingp MyAss.Framework.Procedures.Distributions
+@usingp MyAss.Framework.BuiltIn.Procedures.Distributions
 
 Server STORAGE 3
 
@@ -207,7 +207,7 @@ GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
 @usingp MyAss.Framework.BuiltIn.SNA.SystemSNA
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
 @usingp MyAss.Framework.BuiltIn.SNA.QueueSNA
-@usingp MyAss.Framework.Procedures.Distributions
+@usingp MyAss.Framework.BuiltIn.Procedures.Distributions
 
 TheTable TABLE P$const,0,1,20
 START 1

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyAss.Framework.Procedures
+namespace MyAss.Framework.BuiltIn.Procedures
 {
     public static class Math
     {
