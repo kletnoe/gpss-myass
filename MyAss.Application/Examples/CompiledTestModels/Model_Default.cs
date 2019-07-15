@@ -7,7 +7,7 @@ using MyAss.Framework.Commands;
 using MyAss.Framework.OperandTypes;
 using System;
 
-namespace Modeling_
+namespace MyAss.Application.Examples.CompiledTestModels.Default
 {
     public class TheModel : AbstractModel
     {

@@ -7,7 +7,7 @@ using MyAss.Framework.BuiltIn.SNA;
 using MyAss.Framework.Commands;
 using MyAss.Framework.OperandTypes;
 
-namespace CompiledTestModels
+namespace MyAss.Application.Examples.CompiledTestModels
 {
     class MM3Model : AbstractModel
     {

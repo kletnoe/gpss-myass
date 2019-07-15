@@ -1,14 +1,15 @@
-﻿
-namespace CompiledTestModels
+﻿using MyAss.Framework;
+
+namespace MyAss.Application.Examples.CompiledTestModels
 {
-    public static class ModelRunner
+    public static class CompiledModelRunner
     {
-        public static void RunMM3()
+        public static void Run(AbstractModel compileModel)
         {
             var sw = new System.Diagnostics.Stopwatch();
             sw.Restart();
 
-            var sim = new MyAss.Framework.Simulation(new MM3Model_WithTable());
+            var sim = new MyAss.Framework.Simulation(compileModel);
 
             sw.Stop();
             System.Console.WriteLine("Time elapsed: " + sw.Elapsed);

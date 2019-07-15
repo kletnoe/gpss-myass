@@ -9,12 +9,13 @@ namespace MyAss.Application.Examples.NakedTestModels
 {
     public static class Runner
     {
-        public static void Run()
+        public static void Run(string input)
         {
-            string input = Model_TurnstaleDemo.Model;
-
             AssemblyCompiler compiler = new AssemblyCompiler(input, true);
-            compiler.Compile(false);
+
+            //Set this to false to generate exe in default folder
+            compiler.Compile(true);
+
             compiler.RunAssembly();
         }
     }

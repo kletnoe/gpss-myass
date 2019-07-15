@@ -6,7 +6,7 @@ using MyAss.Framework.OperandTypes;
 using System;
 using MyAss.Utilities.Reports;
 
-namespace Modeling
+namespace MyAss.Application.Examples.CompiledTestModels.Turnstale
 {
     public class TheModel : AbstractModel
     {

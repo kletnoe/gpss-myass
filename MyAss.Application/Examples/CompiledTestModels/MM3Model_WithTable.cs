@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MyAss.Framework;
 
-namespace CompiledTestModels
+namespace MyAss.Application.Examples.CompiledTestModels
 {
     public class MM3Model_WithTable : MyAss.Framework.AbstractModel
     {

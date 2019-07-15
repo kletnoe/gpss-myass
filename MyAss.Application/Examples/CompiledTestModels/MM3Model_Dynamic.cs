@@ -11,7 +11,7 @@ using MyAss.Framework.Commands;
 using MyAss.Framework.Entities;
 using MyAss.Framework.OperandTypes;
 
-namespace CompiledTestModels
+namespace MyAss.Application.Examples.CompiledTestModels
 {
     class MM3Model_Dynamic : AbstractModel
     {

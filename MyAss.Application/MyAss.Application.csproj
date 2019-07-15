@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Examples\CompiledTestModels\CompiledModelRunner.cs" />
     <Compile Include="Examples\CompiledTestModels\Model_Default.cs" />
     <Compile Include="Examples\CompiledTestModels\Model_TurnstaleDemo.cs" />
     <Compile Include="Examples\NakedTestModels\Model_MM5_Compare.cs" />
@@ -59,7 +60,6 @@
     <Compile Include="Examples\NakedTestModels\Model_WithEQU.cs" />
     <Compile Include="Examples\CompiledTestModels\MM3Model_Dynamic.cs" />
     <Compile Include="Examples\CompiledTestModels\MM3Model_WithTable.cs" />
-    <Compile Include="Examples\CompiledTestModels\ModelRunner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Examples\CompiledTestModels\MM3Model.cs" />
