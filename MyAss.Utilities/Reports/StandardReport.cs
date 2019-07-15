@@ -98,17 +98,16 @@ namespace MyAss.Utilities.Reports
         {
             StringBuilder sb = new StringBuilder();
 
-            IList<AnyEntity> entities = simulation.Entities.Values.ToList();
-            Dictionary<Type, IList<AnyEntity>> entityTypeToEntitiesList = TypesDivider<AnyEntity>.DivideByType(entities);
+            var entityTypeGroups = simulation.Entities.Values.GroupBy(x => x.GetType());
 
-            foreach (var singleTypeEntities in entityTypeToEntitiesList)
+            foreach (var entityTypeGroup in entityTypeGroups)
             {
-                if (singleTypeEntities.Value.Any())
+                if (entityTypeGroup.Any())
                 {
                     sb.AppendLine().AppendLine();
-                    sb.AppendLine(singleTypeEntities.Value.First().GetStandardReportHeader());
+                    sb.AppendLine(entityTypeGroup.First().GetStandardReportHeader());
 
-                    foreach (var entity in singleTypeEntities.Value)
+                    foreach (var entity in entityTypeGroup)
                     {
                         sb.AppendLine(entity.GetStandardReportLine());
                     }
