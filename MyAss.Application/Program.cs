@@ -15,9 +15,9 @@ namespace MyAss.Application
             //CompiledModelRunner.Run(new Examples.CompiledTestModels.Turnstale.TheModel());
 
 
-            Runner.Run(Examples.NakedTestModels.Model_Default.Model);
+            //Runner.Run(Examples.NakedTestModels.Model_Default.Model);
             //Runner.Run(Examples.NakedTestModels.Model_DefaultNoQueue.Model);
-            //Runner.Run(Examples.NakedTestModels.Model_DefaultWithTable.Model);
+            Runner.Run(Examples.NakedTestModels.Model_DefaultWithTable.Model);
             //Runner.Run(Examples.NakedTestModels.Model_DefaultWithTimeout.Model);
             //Runner.Run(Examples.NakedTestModels.Model_Lusin.Model);
             //Runner.Run(Examples.NakedTestModels.Model_MM5_Compare.Model);
