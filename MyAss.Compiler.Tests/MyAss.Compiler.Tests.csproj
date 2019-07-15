@@ -90,17 +90,9 @@
       <Project>{2a319cac-280a-4685-abcb-d4875f49fda8}</Project>
       <Name>MyAss.Compiler.CodeGeneration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyAss.Framework.Procedures\MyAss.Framework.Procedures.csproj">
-      <Project>{bffed46e-1470-4af5-b28b-87463b458cd0}</Project>
-      <Name>MyAss.Framework.Procedures</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyAss.Framework.BuiltIn\MyAss.Framework.BuiltIn.csproj">
       <Project>{fa47fa51-a313-4f76-a539-41a33fe7100d}</Project>
       <Name>MyAss.Framework.BuiltIn</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyAss.Framework.TablePackage\MyAss.Framework.TablePackage.csproj">
-      <Project>{ed4ea16d-dff2-4656-ac80-5f82c16c1f14}</Project>
-      <Name>MyAss.Framework.TablePackage</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyAss.Framework\MyAss.Framework.csproj">
       <Project>{8a83f996-3614-4968-841e-2065eaff1a08}</Project>

@@ -38,8 +38,6 @@ namespace MyAss.Compiler
                     "MyAss.Utilities.dll",
                     "MyAss.Framework.dll",
                     "MyAss.Framework.BuiltIn.dll",
-                    "MyAss.Framework.Procedures.dll",
-                    "MyAss.Framework.TablePackage.dll",
                     "MyCustomLibrary.dll",
                 };
             }
@@ -65,7 +63,7 @@ namespace MyAss.Compiler
                 {
                     "MyAss.Framework.BuiltIn.SNA.SavevalueSNA",
                     "MyAss.Framework.BuiltIn.SNA.QueueSNA",
-                    "MyAss.Framework.Procedures.Distributions"
+                    "MyAss.Framework.BuiltIn.Procedures.Distributions"
                 };
             }
         }
