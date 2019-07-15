@@ -54,7 +54,7 @@ Server MyAss.Framework.BuiltIn.Commands.STORAGE 3
 	QUEUE Tail
 	ENTER Server,1
 	DEPART Tail
-	ADVANCE (MyAss.Framework.Procedures.Distributions.Exponential(2,0,1/0.2))
+	ADVANCE (MyAss.Framework.BuiltIn.Procedures.Distributions.Exponential(2,0,1/0.2))
 	LEAVE Server,1
 
 	SAVEVALUE RejetionProb,(X$RejectCounter/X$GenerateCounter)
@@ -149,8 +149,6 @@ GoAway	SAVEVALUE RejectCounter,X$RejectCounter+1
                 return @"
 @using MyAss.Framework.BuiltIn.Blocks
 @using MyAss.Framework.BuiltIn.Commands
-@using MyAss.Framework.TablePackage.Blocks
-@using MyAss.Framework.TablePackage.Commands
 
 @usingp MyAss.Framework.BuiltIn.SNA.SystemSNA
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA
@@ -201,8 +199,6 @@ GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
                 return @"
 @using MyAss.Framework.BuiltIn.Blocks
 @using MyAss.Framework.BuiltIn.Commands
-@using MyAss.Framework.TablePackage.Blocks
-@using MyAss.Framework.TablePackage.Commands
 
 @usingp MyAss.Framework.BuiltIn.SNA.SystemSNA
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA

@@ -3,7 +3,7 @@
 
 @usingP MyAss.Framework.BuiltIn.SNA.SavevalueSNA;
 @usingP MyAss.Framework.BuiltIn.SNA.QueueSNA;
-@usingP MyAss.Framework.Procedures.Distributions;
+@usingP MyAss.Framework.BuiltIn.Procedures.Distributions;
 
 Server STORAGE 3
 

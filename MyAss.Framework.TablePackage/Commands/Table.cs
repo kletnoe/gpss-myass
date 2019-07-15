@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MyAss.Framework.BuiltIn.Entities;
 using MyAss.Framework.Commands;
 using MyAss.Framework.OperandTypes;
-using MyAss.Framework.TablePackage.Entities;
 
-namespace MyAss.Framework.TablePackage.Commands
+namespace MyAss.Framework.BuiltIn.Commands
 {
     public class Table : AnyQueuedCommand
     {

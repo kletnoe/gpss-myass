@@ -15,8 +15,6 @@ namespace MyAss.Application.Examples.NakedTestModels
                 return @"
 @using MyAss.Framework.BuiltIn.Blocks
 @using MyAss.Framework.BuiltIn.Commands
-@using MyAss.Framework.TablePackage.Blocks
-@using MyAss.Framework.TablePackage.Commands
 @using MyCustomLibrary.Blocks
 
 @usingp MyAss.Framework.BuiltIn.SNA.SystemSNA

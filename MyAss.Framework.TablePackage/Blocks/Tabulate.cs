@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyAss.Framework.Blocks;
+﻿using MyAss.Framework.Blocks;
+using MyAss.Framework.BuiltIn.Entities;
 using MyAss.Framework.OperandTypes;
-using MyAss.Framework.TablePackage.Entities;
 
-namespace MyAss.Framework.TablePackage.Blocks
+namespace MyAss.Framework.BuiltIn.Blocks
 {
     public class Tabulate : AnyBlock
     {

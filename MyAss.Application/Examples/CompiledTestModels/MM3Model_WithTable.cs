@@ -45,7 +45,7 @@ namespace MyAss.Application.Examples.CompiledTestModels
             this.AddName("OnQueueTime", this.OnQueueTime);
             if (true)
             {
-                MyAss.Framework.TablePackage.Commands.Table verb = new MyAss.Framework.TablePackage.Commands.Table(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb2_Operand1)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb2_Operand2)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb2_Operand3)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb2_Operand4)));
+                MyAss.Framework.BuiltIn.Commands.Table verb = new MyAss.Framework.BuiltIn.Commands.Table(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb2_Operand1)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb2_Operand2)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb2_Operand3)), new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb2_Operand4)));
                 verb.SetId(this.OnQueue);
                 this.AddVerb(verb);
             }
@@ -115,7 +115,7 @@ namespace MyAss.Application.Examples.CompiledTestModels
             // TABULATE OnQueue
             if (true)
             {
-                MyAss.Framework.TablePackage.Blocks.Tabulate verb = new MyAss.Framework.TablePackage.Blocks.Tabulate(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb11_Operand1)), null);
+                MyAss.Framework.BuiltIn.Blocks.Tabulate verb = new MyAss.Framework.BuiltIn.Blocks.Tabulate(new MyAss.Framework.OperandTypes.ParExpression(new MyAss.Framework.OperandTypes.ExpressionDelegate(this.Verb11_Operand1)), null);
                 this.AddVerb(verb);
             }
             // 

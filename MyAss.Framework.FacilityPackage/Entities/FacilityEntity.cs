@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MyAss.Framework.Entities;
 
-namespace MyAss.Framework.FacilityPackage.Entities
+namespace MyAss.Framework.BuiltIn.Entities
 {
     public class FacilityEntity : AnyEntity, IPendableEntity, IInterruptableEntity, IDelayableEntity
     {

@@ -11,8 +11,6 @@ namespace MyAss.Compiler.Tests
         public const string DefUsing = @"
 @using MyAss.Framework.BuiltIn.Blocks
 @using MyAss.Framework.BuiltIn.Commands
-@using MyAss.Framework.TablePackage.Blocks
-@using MyAss.Framework.TablePackage.Commands
 
 @usingp MyAss.Framework.BuiltIn.SNA.SystemSNA
 @usingp MyAss.Framework.BuiltIn.SNA.SavevalueSNA

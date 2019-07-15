@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MyAss.Framework.Entities;
 using MyAss.Framework.OperandTypes;
 
-namespace MyAss.Framework.TablePackage.Entities
+namespace MyAss.Framework.BuiltIn.Entities
 {
     public class TableEntity : AnyEntity
     {
