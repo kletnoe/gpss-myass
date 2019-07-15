@@ -45,7 +45,7 @@ TERMINATE 1		;Один человек проходит
 
 Server MyAss.Framework.BuiltIn.Commands.STORAGE 3
 
-	MyAss.Framework.BuiltIn.Commands.START 10000
+	MyAss.Framework.BuiltIn.Commands.START 1000
 
 	MyAss.Framework.BuiltIn.Blocks.GENERATE (Exponential(1,0,1/2))
 	SAVEVALUE GenerateCounter,(X$GenerateCounter+1)
@@ -82,7 +82,7 @@ GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
 
 Server STORAGE 3
 
-	START 10000
+	START 1000
 
 	GENERATE (Exponential(1,0,1/2))
 	SAVEVALUE GenerateCounter,(X$GenerateCounter+1)
@@ -119,7 +119,7 @@ GoAway	SAVEVALUE RejectCounter,(X$RejectCounter+1)
 
 Server STORAGE 3
 
-	START 10000
+	START 1000
 
 	GENERATE (Exponential(1,0,1/2))
 	SAVEVALUE GenerateCounter,X$GenerateCounter+1
@@ -164,7 +164,7 @@ OnServer TABLE MP$OnServTime,0,2,20
 OnQueue TABLE MP$OnQueueTime,0,4,20
 
 
-	START 10000
+	START 1000
 
 	GENERATE (Exponential(1,0,1/2))
 		MARK InSystemTime
