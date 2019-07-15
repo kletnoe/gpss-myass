@@ -126,5 +126,42 @@ namespace MyAss.Framework.TablePackage.Entities
         public double TD { get { return this.SampleStandardDeviation; } }
 
         #endregion
+
+        public class TableInterval
+        {
+            public double IntervalStart { get; private set; }
+            public double IntervalEnd { get; private set; }
+            public int ObservedFrequency { get; set; }
+
+            public TableInterval(double intervalStart, double intervalEnd)
+            {
+                this.IntervalStart = intervalStart;
+                this.IntervalEnd = intervalEnd;
+                this.ObservedFrequency = 0;
+            }
+        }
+
+        public class TableIntervals
+        {
+            public List<TableInterval> Intervals { get; private set; }
+
+            public TableIntervals(double firstIntervalEndPoint, double intervalWidth, int intervalsCount)
+            {
+                this.Intervals = new List<TableInterval>(intervalsCount);
+
+                this.Intervals.Add(new TableInterval(Double.NegativeInfinity, firstIntervalEndPoint));
+
+                // Iterate through second to last-1;
+                for (int i = 1; i < intervalsCount - 1; i++)
+                {
+                    double intervalStart = ((i - 1) * intervalWidth) + firstIntervalEndPoint;
+                    double intervalEnd = (i * intervalWidth) + firstIntervalEndPoint;
+                    this.Intervals.Add(new TableInterval(intervalStart, intervalEnd));
+                }
+
+                double lastIntervalStart = ((intervalsCount - 2) * intervalWidth) + firstIntervalEndPoint;
+                this.Intervals.Add(new TableInterval(lastIntervalStart, Double.PositiveInfinity));
+            }
+        }
     }
 }

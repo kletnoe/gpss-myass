@@ -42,8 +42,6 @@
     <Compile Include="Blocks\Tabulate.cs" />
     <Compile Include="Commands\Table.cs" />
     <Compile Include="Entities\TableEntity.cs" />
-    <Compile Include="Entities\TableInterval.cs" />
-    <Compile Include="Entities\TableIntervals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
