@@ -38,7 +38,7 @@ namespace MyAss.Compiler
                     "MyAss.Utilities.dll",
                     "MyAss.Framework.dll",
                     "MyAss.Framework.BuiltIn.dll",
-                    "MyCustomLibrary.dll",
+                    //"MyCustomLibrary.dll",
                 };
             }
         }
@@ -49,8 +49,8 @@ namespace MyAss.Compiler
             {
                 return new List<string>()
                 {
-                    "MyAss.Framework.BuiltIn.Blocks",
-                    "MyAss.Framework.BuiltIn.Commands"
+                    nameof(MyAss.Framework.BuiltIn.Blocks),
+                    nameof(MyAss.Framework.BuiltIn.Commands)
                 };
             }
         }
@@ -61,9 +61,9 @@ namespace MyAss.Compiler
             {
                 return new List<string>()
                 {
-                    "MyAss.Framework.BuiltIn.SNA.SavevalueSNA",
-                    "MyAss.Framework.BuiltIn.SNA.QueueSNA",
-                    "MyAss.Framework.BuiltIn.Procedures.Distributions"
+                    nameof(MyAss.Framework.BuiltIn.SNA.SavevalueSNA),
+                    nameof(MyAss.Framework.BuiltIn.SNA.QueueSNA),
+                    nameof(MyAss.Framework.BuiltIn.Procedures.Distributions)
                 };
             }
         }

@@ -66,6 +66,10 @@
       <Project>{2a319cac-280a-4685-abcb-d4875f49fda8}</Project>
       <Name>MyAss.Compiler.CodeGeneration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyAss.Framework.BuiltIn\MyAss.Framework.BuiltIn.csproj">
+      <Project>{fa47fa51-a313-4f76-a539-41a33fe7100d}</Project>
+      <Name>MyAss.Framework.BuiltIn</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Grammar\BNFGrammar_Rules.txt" />
